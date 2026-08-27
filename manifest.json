@@ -1,0 +1,18 @@
+{
+  "id": "/ziel-app-v2",
+  "name": "ZIEL AI Execution",
+  "short_name": "ZIEL",
+  "start_url": "./index.html?v=2",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#131B2F",
+  "theme_color": "#131B2F",
+  "icons": [
+    {
+      "src": "https://api.iconify.design/lucide:sparkles.svg?color=%232dd4bf",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
