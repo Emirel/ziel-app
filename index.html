@@ -3473,27 +3473,26 @@ function renderTasks() {
         const goalContextHtml = parentGoal ? `<div class="text-[10px] font-semibold mt-1" style="color: var(--accent-indigo);"><i data-lucide="corner-down-right" class="w-3 h-3 inline"></i> Goal: ${parentGoal.title}</div>` : '';
 
         card.innerHTML = `
-            <div class="flex items-start justify-between">
-                <div class="flex items-start space-x-3">
-                    <button onclick="toggleTaskStatus('${task.id}')" class="mt-0.5 w-5 h-5 rounded-lg border ${isDone ? 'bg-teal-500 border-teal-400 text-slate-950 font-black' : 'border-[var(--border-card)] hover:border-teal-400'} flex items-center justify-center transition">
-                        ${isDone ? '<i data-lucide="check" class="w-3.5 h-3.5"></i>' : ''}
-                    </button>
-                    <div>
-                        <h4 class="text-xs sm:text-sm font-bold ${isDone ? 'line-through opacity-50' : ''}" style="color: var(--text-main);">${task.title}</h4>
-                        ${goalContextHtml}
-                        <div class="flex items-center space-x-2 mt-1.5 text-[10px] flex-wrap gap-y-1" style="color: var(--text-muted);">
-                            <span class="px-2 py-0.5 rounded-full ${priorityColors[task.priority]}">${task.priority.toUpperCase()}</span>
-                            <span>⏱️ ${task.estimatedMinutes}m</span>
-                            <span>${energyIcons[task.energyRequired] || '😐 L3'}</span>
-                            <span class="px-2 py-0.5 rounded-full tag-teal font-bold">${catLabel}</span>
-                        </div>
+            <div class="flex items-center space-x-1.5">
+                                ${!isDone ? `
+                                    <button onclick="startQuickWin('${task.id}')" class="btn-secondary text-xs px-2.5 py-1.5 rounded-xl font-bold flex items-center space-x-1 text-amber-400 hover:bg-amber-500/10 transition" title="2-Minute Quick Win">
+                                        <i data-lucide="zap" class="w-3.5 h-3.5 fill-current"></i>
+                                    </button>
+                                    <button onclick="scheduleTaskToGoogleCalendar('${task.id}')" class="btn-secondary text-xs px-2.5 py-1.5 rounded-xl font-semibold flex items-center space-x-1" title="GCal">
+                                        <i data-lucide="calendar-plus" class="w-3.5 h-3.5 text-teal-400"></i>
+                                    </button>
+                                    <button onclick="openFocusModeFromTask('${task.id}')" class="primary-btn-gradient text-xs px-2.5 py-1.5 rounded-xl font-bold flex items-center space-x-1" title="Focus">
+                                        <i data-lucide="play" class="w-3 h-3 fill-current"></i>
+                                    </button>
+                                ` : ''}
+                                <button onclick="deleteTask('${task.id}')" class="btn-secondary text-xs p-1.5 rounded-xl text-rose-400 hover:bg-rose-500/10 transition" title="Hapus Tugas">
+                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                </button>
+                            </div>
                     </div>
                 </div>
                 <div class="flex items-center space-x-1.5">
                     ${!isDone ? `
-                        <button onclick="startQuickWin('${task.id}')" class="btn-secondary text-xs px-2.5 py-1.5 rounded-xl font-bold flex items-center space-x-1 text-amber-400 hover:bg-amber-500/10 transition" title="2-Minute Quick Win">
-                            <i data-lucide="zap" class="w-3.5 h-3.5 fill-current"></i>
-                        </button>
                         <button onclick="scheduleTaskToGoogleCalendar('${task.id}')" class="btn-secondary text-xs px-2.5 py-1.5 rounded-xl font-semibold flex items-center space-x-1" title="GCal">
                             <i data-lucide="calendar-plus" class="w-3.5 h-3.5 text-teal-400"></i>
                         </button>
@@ -3751,77 +3750,88 @@ function toggleMilestoneStatus(goalId, milestoneId) {
                     .catch((err) => console.log('SW registration failed:', err));
             });
         }
-   // ================= 2-MINUTE QUICK WIN LOGIC =================
+    // ================= 2-MINUTE QUICK WIN LOGIC =================
     let qwInterval;
     let currentQwTaskId = null;
     
-    // ... (semua fungsi start, stop, dan completeQuickWin) ...
+    function startQuickWin(taskId) {
+        const task = state.tasks.find(t => t.id === taskId);
+        if (!task) return;
+    
+        currentQwTaskId = taskId;
+        document.getElementById('qwTaskTitle').innerText = task.title;
+        document.getElementById('qwTimerDisplay').innerText = '02:00';
+        document.getElementById('qwTimerDisplay').className = 'text-6xl font-black tabular-nums tracking-tight mb-8 text-amber-400 drop-shadow-md';
+        document.getElementById('qwDoneBtn').classList.add('hidden');
+        
+        const modal = document.getElementById('quickWinModal');
+        modal.classList.remove('hidden');
+        lucide.createIcons({ root: modal });
+        
+        setTimeout(() => modal.querySelector('.theme-card').classList.remove('scale-95'), 10);
+    
+        let timeLeft = 120; // 120 detik = 2 Menit
+        clearInterval(qwInterval);
+        
+        qwInterval = setInterval(() => {
+            timeLeft--;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('qwTimerDisplay').innerText = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 0) {
+                clearInterval(qwInterval);
+                document.getElementById('qwTimerDisplay').innerText = '00:00';
+                document.getElementById('qwTimerDisplay').className = 'text-6xl font-black tabular-nums tracking-tight mb-8 text-teal-400 drop-shadow-md';
+                document.getElementById('qwDoneBtn').classList.remove('hidden');
+                if (typeof playChime === 'function') playChime('click'); // Bunyi saat selesai
+            }
+        }, 1000);
+    }
+    
+    function stopQuickWin() {
+        clearInterval(qwInterval);
+        const modal = document.getElementById('quickWinModal');
+        modal.querySelector('.theme-card').classList.add('scale-95');
+        setTimeout(() => modal.classList.add('hidden'), 200);
+    }
     
     function completeQuickWin() {
         if (currentQwTaskId) {
+            // Otomatis mencentang tugas tersebut jika diinginkan (opsional)
             // toggleTaskStatus(currentQwTaskId); 
         }
         stopQuickWin();
         showToast({ type: 'success', title: 'Momentum Terbentuk!', message: 'Anda telah berhasil memulai. Silakan lanjutkan jika masih ingin fokus.' });
     }
-// ================= 2-MINUTE QUICK WIN LOGIC =================
-        let qwInterval;
-        let currentQwTaskId = null;
-
-        function startQuickWin(taskId) {
-            const task = state.tasks.find(t => t.id === taskId);
-            if (!task) return;
-            currentQwTaskId = taskId;
-            document.getElementById('qwTaskTitle').innerText = task.title;
-            document.getElementById('qwTimerDisplay').innerText = '02:00';
-            document.getElementById('qwDoneBtn').classList.add('hidden');
-            
-            const modal = document.getElementById('quickWinModal');
-            modal.classList.remove('hidden');
-
-            let timeLeft = 120;
-            clearInterval(qwInterval);
-            qwInterval = setInterval(() => {
-                timeLeft--;
-                const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-                const s = (timeLeft % 60).toString().padStart(2, '0');
-                document.getElementById('qwTimerDisplay').innerText = `${m}:${s}`;
-                if (timeLeft <= 0) {
-                    clearInterval(qwInterval);
-                    document.getElementById('qwDoneBtn').classList.remove('hidden');
-                }
-            }, 1000);
-        }
-
-        function stopQuickWin() {
-            clearInterval(qwInterval);
-            closeModal('quickWinModal');
-        }
-
-        function completeQuickWin() {
-            stopQuickWin();
-            showToast({ type: 'success', title: 'Momentum Terbentuk!', message: 'Anda telah berhasil memulai.' });
-        }
-
-        function deleteTask(taskId) {
-            state.tasks = state.tasks.filter(t => t.id !== taskId);
-            saveState();
-        }
-
-        window.addEventListener('DOMContentLoaded', () => { renderAll(); });
+        
     </script>
-
     <!-- 2-MINUTE QUICK WIN MODAL -->
-    <div id="quickWinModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/80 backdrop-blur-sm">
-        <div class="theme-card w-full max-w-sm p-8 rounded-3xl shadow-2xl text-center">
-            <h3 class="text-lg font-extrabold mb-1" id="qwTaskTitle">Mulai Melangkah</h3>
-            <p class="text-xs mb-6" style="color: var(--text-muted);">Hanya 2 menit pertama.</p>
-            <div class="text-6xl font-black tabular-nums tracking-tight mb-8 text-amber-400" id="qwTimerDisplay">02:00</div>
+    <div id="quickWinModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/80 backdrop-blur-sm transition-opacity">
+        <div class="theme-card w-full max-w-sm p-8 rounded-3xl shadow-2xl text-center transform scale-95 transition-transform duration-300">
+            <div class="mx-auto flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 mb-4">
+                <i data-lucide="zap" class="w-6 h-6 fill-current"></i>
+            </div>
+            <h3 class="text-lg font-extrabold mb-1" style="color: var(--text-main);" id="qwTaskTitle">Mulai Melangkah</h3>
+            <p class="text-xs mb-6" style="color: var(--text-muted);">Hanya 2 menit. Buka dokumen atau eksekusi satu aksi terkecil sekarang.</p>
+            
+            <div class="text-6xl font-black tabular-nums tracking-tight mb-8 text-amber-400 drop-shadow-md" id="qwTimerDisplay">02:00</div>
+            
             <div class="flex space-x-3">
-                <button onclick="stopQuickWin()" class="flex-1 py-3 rounded-xl font-bold text-xs btn-secondary">Batal</button>
-                <button onclick="completeQuickWin()" id="qwDoneBtn" class="flex-1 py-3 rounded-xl font-bold text-xs primary-btn-gradient hidden">Selesai!</button>
+                <button onclick="stopQuickWin()" class="flex-1 py-3 rounded-xl font-bold text-xs border border-[var(--border-card)] hover:bg-slate-500/10 transition" style="color: var(--text-main);">Batal</button>
+                <button onclick="completeQuickWin()" id="qwDoneBtn" class="flex-1 py-3 rounded-xl font-bold text-xs bg-gradient-to-r from-amber-500 to-orange-400 text-slate-950 shadow-lg shadow-amber-500/20 hidden transition">Selesai!</button>
             </div>
         </div>
     </div>
 </body>
 </html>
+"""
+
+with open('index_part4.tmp', 'w') as f:
+    f.write(part4)
+
+print("Part 4 written")
+EOF
+python3 make_app_part4.py
+}}
