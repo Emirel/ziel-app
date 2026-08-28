@@ -2070,10 +2070,6 @@
         }
 
         function loginSpotify() {
-            if (SPOTIFY_CONFIG.clientId === "ea206d9b1af541ab89c50fdacb90eb87") {
-                showToast({ type: 'warning', title: 'Spotify Client ID', message: 'Masukkan Client ID Spotify Anda di SPOTIFY_CONFIG terlebih dahulu.' });
-                return;
-            }
             const authEndpoint = "https://accounts.spotify.com/authorize";
             const authUrl = `${authEndpoint}?client_id=${encodeURIComponent(SPOTIFY_CONFIG.clientId)}&response_type=token&redirect_uri=${encodeURIComponent(SPOTIFY_CONFIG.redirectUri)}&scope=${encodeURIComponent(SPOTIFY_CONFIG.scopes)}&show_dialog=true`;
             window.location.href = authUrl;
