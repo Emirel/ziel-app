@@ -2406,6 +2406,15 @@ function toggleAgendaView(mode) {
 }
 
 function saveNewAgenda(openGCal = false) {
+let currentAgendaView = 'today';
+
+function toggleAgendaView(mode) {
+    currentAgendaView = mode;
+    playChime('click');
+    renderAgendaList();
+}
+
+function saveNewAgenda(openGCal = false) {
     const title = document.getElementById('newAgendaTitle').value.trim();
     let agendaDate = document.getElementById('newAgendaDate').value;
     const startTime = document.getElementById('newAgendaStartTime').value;
