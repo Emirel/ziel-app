@@ -3491,6 +3491,9 @@ function renderTasks() {
                 </div>
                 <div class="flex items-center space-x-1.5">
                     ${!isDone ? `
+                        <button onclick="startQuickWin('${task.id}')" class="btn-secondary text-xs px-2.5 py-1.5 rounded-xl font-bold flex items-center space-x-1 text-amber-400 hover:bg-amber-500/10 transition" title="2-Minute Quick Win">
+                            <i data-lucide="zap" class="w-3.5 h-3.5 fill-current"></i>
+                        </button>
                         <button onclick="scheduleTaskToGoogleCalendar('${task.id}')" class="btn-secondary text-xs px-2.5 py-1.5 rounded-xl font-semibold flex items-center space-x-1" title="GCal">
                             <i data-lucide="calendar-plus" class="w-3.5 h-3.5 text-teal-400"></i>
                         </button>
@@ -3748,6 +3751,22 @@ function toggleMilestoneStatus(goalId, milestoneId) {
                     .catch((err) => console.log('SW registration failed:', err));
             });
         }
+   // ================= 2-MINUTE QUICK WIN LOGIC =================
+    let qwInterval;
+    let currentQwTaskId = null;
+    
+    // ... (semua fungsi start, stop, dan completeQuickWin) ...
+    
+    function completeQuickWin() {
+        if (currentQwTaskId) {
+            // toggleTaskStatus(currentQwTaskId); 
+        }
+        stopQuickWin();
+        showToast({ type: 'success', title: 'Momentum Terbentuk!', message: 'Anda telah berhasil memulai. Silakan lanjutkan jika masih ingin fokus.' });
+    }
+</script>
+</body>
+</html>
     </script>
 </body>
 </html>
