@@ -506,17 +506,25 @@
                                 <i data-lucide="calendar-check-2" class="w-4 h-4 text-teal-400"></i>
                                 <h3 class="text-xs font-bold uppercase tracking-wider" style="color: var(--text-main);">Agenda Hari Ini</h3>
                             </div>
-                            <div class="flex items-center space-x-1">
-                                <button onclick="openGoogleCalendarWeb()" class="btn-secondary text-[10px] px-2 py-1 rounded-lg font-bold flex items-center space-x-1" title="Buka GCal">
-                                    <i data-lucide="external-link" class="w-3 h-3"></i>
-                                    <span>GCal</span>
-                                </button>
-                                <button onclick="openModal('newAgendaModal')" class="primary-btn-gradient text-[10px] px-2.5 py-1 rounded-lg font-bold flex items-center space-x-1" title="Tambah Agenda">
-                                    <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                                    <span>+ Agenda</span>
-                                </button>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-1.5">
+                                    <i data-lucide="calendar-check-2" class="w-4 h-4 text-teal-400"></i>
+                                    <select id="agendaViewSelector" onchange="toggleAgendaView(this.value)" class="bg-transparent text-xs font-bold uppercase tracking-wider focus:outline-none cursor-pointer" style="color: var(--text-main);">
+                                        <option value="today">Agenda Hari Ini</option>
+                                        <option value="all">Semua Jadwal (Ke Depan)</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <button onclick="openGoogleCalendarWeb()" class="btn-secondary text-[10px] px-2 py-1 rounded-lg font-bold flex items-center space-x-1" title="Buka GCal">
+                                        <i data-lucide="external-link" class="w-3 h-3"></i>
+                                        <span class="hidden sm:inline">GCal</span>
+                                    </button>
+                                    <button onclick="openModal('newAgendaModal')" class="primary-btn-gradient text-[10px] px-2.5 py-1 rounded-lg font-bold flex items-center space-x-1" title="Tambah Agenda">
+                                        <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                                        <span>+ Agenda</span>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
 
                         <!-- Schedule Items Container -->
                         <div class="space-y-2 text-xs" id="calendarAgendaContainer"></div>
@@ -1203,6 +1211,10 @@
                 <div>
                     <label class="block font-semibold mb-1" style="color: var(--text-sub);">Nama Acara / Jadwal</label>
                     <input type="text" id="newAgendaTitle" class="w-full theme-input rounded-xl p-2.5" placeholder="Contoh: Bimbingan Skripsi via Google Meet">
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Tanggal Agenda</label>
+                    <input type="date" id="newAgendaDate" class="w-full theme-input rounded-xl p-2.5">
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
@@ -2385,36 +2397,90 @@
         }
 
         function renderAgendaList() {
-            const container = document.getElementById('calendarAgendaContainer');
-            if (!container) return;
-            container.innerHTML = '';
-            const agenda = getAgenda();
+let currentAgendaView = 'today';
 
-            if (agenda.length === 0) {
-                container.innerHTML = `<div class="p-3 rounded-xl border border-dashed border-[var(--border-card)] text-center text-xs" style="color: var(--text-muted);">✨ Tidak ada jadwal agenda hari ini.</div>`;
-                return;
-            }
+function toggleAgendaView(mode) {
+    currentAgendaView = mode;
+    playChime('click');
+    renderAgendaList();
+}
 
-            agenda.forEach(item => {
-                const row = document.createElement('div');
-                row.className = 'theme-card flex items-center justify-between p-2.5 rounded-xl transition';
-                row.innerHTML = `
-                    <div class="space-y-0.5 overflow-hidden pr-2">
-                        <p class="font-bold text-xs truncate" style="color: var(--text-main);">${item.title}</p>
-                        <p class="text-[10px]" style="color: var(--text-muted);">${item.location || 'Agenda Harian'}</p>
-                    </div>
-                    <div class="flex items-center space-x-2 shrink-0">
-                        <span class="text-[11px] font-mono font-bold text-indigo-400">${item.startTime} - ${item.endTime}</span>
-                        <button onclick="deleteAgendaItem('${item.id}')" class="text-rose-400 opacity-60 hover:opacity-100 p-0.5" title="Hapus Agenda">
-                            <i data-lucide="x" class="w-3.5 h-3.5"></i>
-                        </button>
-                    </div>
-                `;
-                container.appendChild(row);
-            });
-            lucide.createIcons({ root: container });
-        }
+function saveNewAgenda(openGCal = false) {
+    const title = document.getElementById('newAgendaTitle').value.trim();
+    let agendaDate = document.getElementById('newAgendaDate').value;
+    const startTime = document.getElementById('newAgendaStartTime').value;
+    const endTime = document.getElementById('newAgendaEndTime').value;
+    const location = document.getElementById('newAgendaLocation').value.trim() || 'Agenda Harian';
 
+    if (!title) {
+        showToast({ type: 'warning', title: 'Judul Agenda Kosong', message: 'Masukkan nama agenda.' });
+        return;
+    }
+
+    if (!agendaDate) {
+        const today = new Date();
+        agendaDate = today.toISOString().split('T')[0]; 
+    }
+
+    const agenda = getAgenda();
+    agenda.push({ id: 'ag-' + Date.now(), title, date: agendaDate, startTime, endTime, location });
+    saveAgenda(agenda);
+    closeModal('newAgendaModal');
+
+    document.getElementById('newAgendaTitle').value = '';
+    document.getElementById('newAgendaDate').value = '';
+    showToast({ type: 'success', title: 'Agenda Disimpan', message: `Jadwal telah ditambahkan untuk tanggal ${agendaDate}.` });
+}
+
+function renderAgendaList() {
+    const container = document.getElementById('calendarAgendaContainer');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    const todayStr = new Date().toISOString().split('T')[0];
+    let agenda = getAgenda();
+
+    if (currentAgendaView === 'today') {
+        agenda = agenda.filter(item => item.date === todayStr || !item.date);
+    } else {
+        agenda.sort((a, b) => {
+            const dateA = a.date || todayStr;
+            const dateB = b.date || todayStr;
+            if (dateA !== dateB) return dateA.localeCompare(dateB);
+            return a.startTime.localeCompare(b.startTime);
+        });
+    }
+
+    if (agenda.length === 0) {
+        container.innerHTML = `<div class="p-3 rounded-xl border border-dashed border-[var(--border-card)] text-center text-xs" style="color: var(--text-muted);">✨ Tidak ada jadwal agenda.</div>`;
+        return;
+    }
+
+    if (currentAgendaView === 'today') {
+        agenda.sort((a, b) => a.startTime.localeCompare(b.startTime));
+    }
+
+    agenda.forEach(item => {
+        const dateLabel = currentAgendaView === 'all' && item.date ? `<span class="px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-400 font-bold ml-1">${item.date.split('-').reverse().join('/')}</span>` : '';
+
+        const row = document.createElement('div');
+        row.className = 'theme-card flex items-center justify-between p-2.5 rounded-xl transition';
+        row.innerHTML = `
+            <div class="space-y-0.5 overflow-hidden pr-2">
+                <p class="font-bold text-xs truncate" style="color: var(--text-main);">${item.title} ${dateLabel}</p>
+                <p class="text-[10px]" style="color: var(--text-muted);">${item.location || 'Agenda Harian'}</p>
+            </div>
+            <div class="flex items-center space-x-3 shrink-0">
+                <span class="text-[11px] font-mono font-bold text-indigo-400">${item.startTime} - ${item.endTime}</span>
+                <button onclick="deleteAgendaItem('${item.id}')" class="bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 p-1.5 rounded-lg transition" title="Hapus Agenda">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+            </div>
+        `;
+        container.appendChild(row);
+    });
+    lucide.createIcons({ root: container });
+}
         function saveNewAgenda(openGCal = false) {
             const title = document.getElementById('newAgendaTitle').value.trim();
             const startTime = document.getElementById('newAgendaStartTime').value;
