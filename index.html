@@ -323,9 +323,18 @@
             .app-max-width { max-width: 84rem; }
         }
     </style>
+    <meta name="theme-color" content="#607D8B">
+    <link rel="manifest" href="manifest.json">
+    <style>
+      #splash-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #607D8B; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 1s ease-out; }
+      .logo-text { color: white; font-size: 4rem; margin: 0; font-family: sans-serif; animation: pulse 1.5s infinite; }
+      @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
-
+<div id="splash-screen">
+  <h1 class="logo-text">Ziel</h1>
+</div>
     <!-- FLOATING TOAST NOTIFICATION CONTAINER (TOKOPEDIA / TRAVELOKA STYLE) -->
     <div id="toastContainer"></div>
 
@@ -3766,6 +3775,17 @@ function toggleMilestoneStatus(goalId, milestoneId) {
             </div>
         </div>
     </div>
+<script>
+  window.addEventListener('load', () => {
+    const splash = document.getElementById('splash-screen');
+    if (splash) {
+      setTimeout(() => {
+        splash.style.opacity = '0';
+        setTimeout(() => splash.remove(), 1000);
+      }, 2000);
+    }
+  });
+</script>
 </body>
 </html>
 """
