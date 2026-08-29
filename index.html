@@ -2531,9 +2531,8 @@
 
         // ================= LOCAL AGENDA MANAGEMENT =================
         const DEFAULT_AGENDA = [
-            { id: 'ag-1', title: 'Bimbingan Skripsi Bab 3', startTime: '09:00', endTime: '10:00', location: 'Online Google Meet' },
-            { id: 'ag-2', title: 'Review Modul AWS IAM & Security', startTime: '13:30', endTime: '14:30', location: 'Lab Studi' },
-            { id: 'ag-3', title: 'Latihan Soal Query SQL', startTime: '16:00', endTime: '17:00', location: 'Workspace Mandiri' }
+            { id: 'ag-1', title: 'Meeting bersama client', startTime: '09:00', endTime: '10:00', location: 'Online Google Meet' },
+            { id: 'ag-3', title: 'Lari Pagi', startTime: '06:00', endTime: '08:00', location: 'Lapangan Gasibu Bandung' }
         ];
 
         function getAgenda() {
@@ -3023,31 +3022,18 @@ Gemini:`;
         const DEFAULT_STATE = {
             currentEnergy: 3,
             filterCategory: 'all',
-            stats: { completedToday: 3, totalFocusMinutes: 75, streakDays: 4 },
+            stats: { completedToday: 0, totalFocusMinutes: 0, streakDays: 1 },
             goals: [
                 {
                     id: 'goal-1',
-                    title: 'Skripsi Selesai (NSGA-II Bandung-Padalarang)',
-                    category: 'thesis',
-                    deadline: '2026-09-15',
+                    title: 'Proyek Pribadi Utama (Contoh Goal)',
+                    category: 'work',
+                    deadline: '2026-12-31',
                     status: 'in_progress',
                     milestones: [
-                        { id: 'm-1', title: 'Bab 1 - Pendahuluan', status: 'completed' },
-                        { id: 'm-2', title: 'Bab 2 - Kajian Pustaka', status: 'completed' },
-                        { id: 'm-3', title: 'Bab 3 - Metodologi & Algoritma NSGA-II', status: 'in_progress' },
-                        { id: 'm-4', title: 'Implementasi & Pengujian Kode', status: 'pending' }
-                    ]
-                },
-                {
-                    id: 'goal-2',
-                    title: 'Sertifikasi Cloud AWS re/Start',
-                    category: 'aws_training',
-                    deadline: '2026-09-30',
-                    status: 'in_progress',
-                    milestones: [
-                        { id: 'm-5', title: 'Modul VPC & Cloud Networking', status: 'completed' },
-                        { id: 'm-6', title: 'Review IAM & Security Best Practices', status: 'in_progress' },
-                        { id: 'm-7', title: 'Latihan Soal Practice Exam', status: 'pending' }
+                        { id: 'm-1', title: 'Langkah persiapan pertama', status: 'completed' },
+                        { id: 'm-2', title: 'Tahap pengerjaan inti', status: 'in_progress' },
+                        { id: 'm-3', title: 'Penyelesaian dan evaluasi akhir', status: 'pending' }
                     ]
                 }
             ],
@@ -3055,32 +3041,32 @@ Gemini:`;
                 {
                     id: 'task-1',
                     goalId: 'goal-1',
-                    milestoneId: 'm-3',
-                    title: 'Revisi Bab 3: Paragraf 1–3 (Metodologi)',
-                    category: 'thesis',
+                    milestoneId: 'm-2',
+                    title: 'Selesaikan 1 Langkah Penting Hari Ini',
+                    category: 'work',
                     priority: 'high',
-                    energyRequired: 3,
-                    estimatedMinutes: 25,
+                    energyRequired: 4,
+                    estimatedMinutes: 45,
                     status: 'pending',
-                    deadline: '2026-08-28',
+                    deadline: '2026-09-05',
                     atomicActions: [
-                        { id: 'a-1', title: 'Buka draft dokumen skripsi di laptop', isCompleted: true },
-                        { id: 'a-2', title: 'Tulis ulang penjelasan seleksi kromosom', isCompleted: false }
+                        { id: 'a-1', title: 'Buka aplikasi dan siapkan alat kerja', isCompleted: true },
+                        { id: 'a-2', title: 'Fokus penuh selama 15 menit pertama', isCompleted: false }
                     ]
                 },
                 {
                     id: 'task-2',
-                    goalId: 'goal-2',
-                    milestoneId: 'm-6',
-                    title: 'Review Modul AWS IAM Policy Structure',
-                    category: 'aws_training',
+                    goalId: null,
+                    milestoneId: null,
+                    title: 'Tugas Rutin / Administratif Ringan',
+                    category: 'personal',
                     priority: 'medium',
                     energyRequired: 2,
-                    estimatedMinutes: 20,
+                    estimatedMinutes: 15,
                     status: 'pending',
-                    deadline: '2026-08-29',
+                    deadline: '2026-08-31',
                     atomicActions: [
-                        { id: 'a-3', title: 'Buka LMS AWS dan baca ringkasan JSON Policy', isCompleted: false }
+                        { id: 'a-3', title: 'Lakukan tindakan kecil 2 menit sekarang', isCompleted: false }
                     ]
                 }
             ]
