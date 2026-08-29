@@ -422,19 +422,19 @@
             </div>
 
             <!-- Right Controls: Notification Hub, Copilot, Brain Dump, Goals, Theme & Settings -->
-            <div class="flex items-center space-x-0.5 sm:space-x-2 shrink-0">
+            <div class="flex items-center space-x-1.5 sm:space-x-2.5 shrink-0">
                 
                 <!-- NOTIFICATION CENTER BELL (APP STORE STYLE) -->
                 <button onclick="openModal('notificationCenterModal')" class="btn-secondary p-1.5 sm:p-2 rounded-xl relative" title="Kotak Masuk Notifikasi">
                     <i data-lucide="bell" class="w-4 h-4 text-indigo-400"></i>
-                    <span id="notifBadgeCount" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-rose-500 text-white rounded-full text-[10px] font-black flex items-center justify-center px-1 border-2 border-[var(--bg-main)] shadow-sm animate-pulse">
+                    <span id="notifBadgeCount" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-rose-500 text-white rounded-full text-[10px] font-black flex items-center justify-center leading-none px-1 border-2 border-[var(--bg-main)] shadow-sm animate-pulse">
                         2
                     </span>
                 </button>
 
-                <button onclick="openModal('aiCopilotModal')" class="hidden md:flex btn-secondary items-center space-x-1.5 text-xs px-3 py-2 rounded-xl font-bold" title="Tanya AI Copilot">
-                    <i data-lucide="bot" class="w-3.5 h-3.5 text-indigo-400"></i>
-                    <span>AI Copilot</span>
+                <!-- AI COPILOT (Icon Only) -->
+                <button onclick="openModal('aiCopilotModal')" class="hidden md:flex btn-secondary p-1.5 sm:p-2 rounded-xl items-center justify-center" title="Tanya AI Copilot">
+                    <i data-lucide="bot" class="w-4 h-4 text-indigo-400"></i>
                 </button>
 
                 <!-- INSIGHTS HUB: Analytics, Achievements & Daily Reflection -->
@@ -443,21 +443,24 @@
                     <span id="insightsNewBadgeDot" class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-[var(--bg-main)]"></span>
                 </button>
 
-                <button onclick="openModal('brainDumpModal')" class="hidden sm:flex btn-secondary items-center space-x-1.5 text-xs px-3 py-2 rounded-xl font-bold" title="Quick Brain Dump">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i>
-                    <span>Brain Dump</span>
+                <!-- AI BRAIN DUMP (Icon Only) -->
+                <button onclick="openModal('brainDumpModal')" class="hidden sm:flex btn-secondary p-1.5 sm:p-2 rounded-xl items-center justify-center" title="Quick Brain Dump">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-indigo-400"></i>
                 </button>
 
-                <button onclick="openModal('newGoalModal')" class="hidden sm:flex primary-btn-gradient items-center space-x-1.5 text-xs px-3.5 py-2 rounded-xl font-extrabold" title="Goal Baru">
-                    <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+                <!-- GOAL BARU (Primary CTA) -->
+                <button onclick="openModal('newGoalModal')" class="hidden sm:flex primary-btn-gradient items-center space-x-1.5 text-xs px-4 py-2 rounded-xl font-extrabold shadow-md" title="Goal Baru">
+                    <i data-lucide="plus-circle" class="w-4 h-4"></i>
                     <span>Goal Baru</span>
                 </button>
 
+                <!-- THEME TOGGLE -->
                 <button onclick="toggleTheme()" class="btn-secondary p-1.5 sm:p-2 rounded-xl" title="Ganti Tema">
                     <i data-lucide="sun" class="w-4 h-4 text-amber-400 hidden" id="iconSun"></i>
                     <i data-lucide="moon" class="w-4 h-4 text-indigo-400 block" id="iconMoon"></i>
                 </button>
 
+                <!-- SETTINGS -->
                 <button onclick="openModal('settingsModal')" class="btn-secondary p-1.5 sm:p-2 rounded-xl" title="Pengaturan AI & Spotify">
                     <i data-lucide="settings" class="w-4 h-4 opacity-75"></i>
                 </button>
