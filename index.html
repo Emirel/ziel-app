@@ -2834,8 +2834,6 @@ Gemini:`;
         // ================= DYNAMIC CATEGORIES =================
         const DEFAULT_CATEGORIES = [
             { id: 'thesis', name: 'Thesis', icon: '🎓', color: 'indigo' },
-            { id: 'aws_training', name: 'AWS Training', icon: '☁️', color: 'teal' },
-            { id: 'komdigi_training', name: 'Komdigi', icon: '🇮🇩', color: 'amber' },
             { id: 'work', name: 'Work', icon: '💼', color: 'purple' },
             { id: 'personal', name: 'Personal', icon: '👤', color: 'emerald' }
         ];
@@ -2859,7 +2857,7 @@ Gemini:`;
 
             const allBtn = document.createElement('button');
             const isAllActive = state.filterCategory === 'all';
-            allBtn.className = `cat-pill px-3.5 py-1.5 rounded-2xl text-xs font-bold transition whitespace-nowrap ${isAllActive ? 'primary-btn-gradient' : 'btn-secondary'}`;
+            allBtn.className = `cat-pill shrink-0 px-3.5 py-1.5 rounded-2xl text-xs font-bold transition whitespace-nowrap ${isAllActive ? 'primary-btn-gradient' : 'btn-secondary'}`;
             allBtn.textContent = '🌟 Semua';
             allBtn.onclick = () => filterCategory('all');
             container.appendChild(allBtn);
@@ -2867,7 +2865,7 @@ Gemini:`;
             cats.forEach(cat => {
                 const btn = document.createElement('button');
                 const isActive = state.filterCategory === cat.id;
-                btn.className = `cat-pill px-3.5 py-1.5 rounded-2xl text-xs font-bold transition whitespace-nowrap ${isActive ? 'primary-btn-gradient' : 'btn-secondary'}`;
+                btn.className = `cat-pill shrink-0 px-3.5 py-1.5 rounded-2xl text-xs font-bold transition whitespace-nowrap ${isActive ? 'primary-btn-gradient' : 'btn-secondary'}`;
                 btn.textContent = `${cat.icon} ${cat.name}`;
                 btn.onclick = () => filterCategory(cat.id);
                 container.appendChild(btn);
