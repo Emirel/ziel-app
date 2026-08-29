@@ -459,8 +459,6 @@
                     <span>Adaptive Gemini Execution Engine</span>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight" style="color: var(--text-main);">
-                <!-- Spacer Header -->
-                <div class="h-28 w-full flex-shrink-0"></div> 
                     Bingung mau mulai dari mana?
                 </h2>
                 <p class="text-xs sm:text-sm leading-relaxed" style="color: var(--text-sub);">
@@ -472,8 +470,9 @@
                         <i data-lucide="zap" class="w-5 h-5 fill-current" id="ctaZapIcon"></i>
                         <span id="ctaBtnText">WHAT SHOULD I DO NOW?</span>
                     </button>
-                   <button onclick="openModal('brainDumpModal')" class="sm:hidden w-full flex items-center justify-center gap-2 py-3 mt-3 rounded-2xl bg-[#607D8B]/15 text-[#455A64] font-bold hover:bg-[#607D8B]/30 transition-all">
-                      ✨ AI Brain Dump
+                    <button onclick="openModal('brainDumpModal')" class="sm:hidden w-full btn-secondary py-3 rounded-2xl font-bold text-xs flex items-center justify-center space-x-2">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-indigo-400"></i>
+                        <span>AI Brain Dump</span>
                     </button>
                 </div>
             </div>
@@ -532,7 +531,7 @@
         <!-- CATEGORIES & TABS -->
         <section class="space-y-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3 overflow-x-auto pb-1.5 custom-scrollbar flex-1 mr-2" id="categoryTabsList"></div>
+                <div class="flex items-center space-x-2 overflow-x-auto pb-1.5 custom-scrollbar flex-1 mr-2" id="categoryTabsList"></div>
                 <button onclick="openModal('manageCategoriesModal')" class="btn-secondary shrink-0 p-2 rounded-2xl text-xs font-bold flex items-center space-x-1.5" title="Kelola Kategori">
                     <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-indigo-400"></i>
                     <span class="hidden sm:inline">Kategori</span>
@@ -601,7 +600,7 @@
 
             </div>
         </section>
-        <div class="h-36 w-full flex-shrink-0"></div>
+
     </main>
 
     <!-- MOBILE BOTTOM NAVIGATION BAR -->
