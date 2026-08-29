@@ -326,14 +326,46 @@
     <meta name="theme-color" content="#607D8B">
     <link rel="manifest" href="manifest.json">
     <style>
-      #splash-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #607D8B; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 1s ease-out; }
-      .logo-text { color: white; font-size: 4rem; margin: 0; font-family: sans-serif; animation: pulse 1.5s infinite; }
-      @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+      #splash-screen { 
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+        /* Latar belakang gradien Blue Gray ke Dark Corporate Blue */
+        background: linear-gradient(135deg, #607D8B 0%, #263238 100%); 
+        display: flex; justify-content: center; align-items: center; 
+        z-index: 9999; 
+        transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
+      }
+      
+      .logo-container {
+        text-align: center;
+        /* Animasi muncul dari bawah dengan perlahan (Gojek/Ruangguru style) */
+        animation: slideFadeIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      }
+    
+      .logo-text { 
+        color: #ffffff; 
+        font-size: 4.5rem; 
+        font-weight: 800;
+        margin: 0; 
+        font-family: system-ui, -apple-system, sans-serif; 
+        letter-spacing: -1px;
+      }
+    
+      /* Aksen titik warna terang untuk kesan modern tech */
+      .logo-dot {
+        color: #81D4FA; 
+      }
+    
+      @keyframes slideFadeIn { 
+        0% { opacity: 0; transform: translateY(30px) scale(0.95); } 
+        100% { opacity: 1; transform: translateY(0) scale(1); } 
+      }
     </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
 <div id="splash-screen">
-  <h1 class="logo-text">Ziel</h1>
+  <div class="logo-container">
+    <h1 class="logo-text">Ziel<span class="logo-dot">.</span></h1>
+  </div>
 </div>
     <!-- FLOATING TOAST NOTIFICATION CONTAINER (TOKOPEDIA / TRAVELOKA STYLE) -->
     <div id="toastContainer"></div>
@@ -3781,8 +3813,9 @@ function toggleMilestoneStatus(goalId, milestoneId) {
     if (splash) {
       setTimeout(() => {
         splash.style.opacity = '0';
-        setTimeout(() => splash.remove(), 1000);
-      }, 2000);
+        splash.style.pointerEvents = 'none'; // Mencegah klik saat memudar
+        setTimeout(() => splash.remove(), 800);
+      }, 2500); 
     }
   });
 </script>
