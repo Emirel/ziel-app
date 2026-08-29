@@ -409,18 +409,6 @@
                 </button>
             </div>
 
-            <!-- Center: Energy Level Selector -->
-            <div class="flex items-center space-x-1 px-2 sm:px-3 py-1.5 rounded-full btn-secondary shrink-0 shadow-sm border border-[var(--border-card)]">
-                <span class="text-xs font-bold mr-1.5 hidden sm:inline" style="color: var(--text-sub);">Energy:</span>
-                <div class="flex items-center space-x-1" id="energySelectorGroup">
-                    <button onclick="setEnergy(1)" class="energy-btn px-2.5 sm:px-3 py-1 rounded-full text-xs font-bold transition" data-level="1" title="Level 1: Quick Wins">😴 <span class="hidden sm:inline ml-0.5">1</span></button>
-                    <button onclick="setEnergy(2)" class="energy-btn px-2.5 sm:px-3 py-1 rounded-full text-xs font-bold transition" data-level="2" title="Level 2: Ringan">🥱 <span class="hidden sm:inline ml-0.5">2</span></button>
-                    <button onclick="setEnergy(3)" class="energy-btn px-2.5 sm:px-3 py-1 rounded-full text-xs font-bold transition" data-level="3" title="Level 3: Sedang">😐 <span class="hidden sm:inline ml-0.5">3</span></button>
-                    <button onclick="setEnergy(4)" class="energy-btn px-2.5 sm:px-3 py-1 rounded-full text-xs font-bold transition" data-level="4" title="Level 4: Fokus">⚡ <span class="hidden sm:inline ml-0.5">4</span></button>
-                    <button onclick="setEnergy(5)" class="energy-btn px-2.5 sm:px-3 py-1 rounded-full text-xs font-bold transition" data-level="5" title="Level 5: Deep Work">🔥 <span class="hidden sm:inline ml-0.5">5</span></button>
-                </div>
-            </div>
-
             <!-- Right Controls: Notification Hub, Copilot, Brain Dump, Goals, Theme & Settings -->
             <div class="flex items-center space-x-1.5 sm:space-x-2.5 shrink-0">
                 
@@ -476,7 +464,20 @@
             <div class="absolute -right-20 -top-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
             <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-            <div class="max-w-xl mx-auto space-y-4 relative z-10">
+            <div class="max-w-xl mx-auto space-y-5 relative z-10">
+                
+                <!-- ENERGY SELECTOR BARU DI HERO SECTION -->
+                <div class="flex flex-col items-center justify-center space-y-2.5 pb-2">
+                    <span class="text-[10px] font-extrabold uppercase tracking-widest" style="color: var(--text-muted);">Set Level Energimu Saat Ini:</span>
+                    <div class="inline-flex items-center space-x-1 sm:space-x-2 p-1.5 rounded-full border border-[var(--border-card)] shadow-sm" style="background-color: var(--bg-main);" id="energySelectorGroup">
+                        <button onclick="setEnergy(1)" class="energy-btn px-4 py-2 rounded-full text-xs font-bold transition" data-level="1" title="Level 1: Quick Wins">😴 1</button>
+                        <button onclick="setEnergy(2)" class="energy-btn px-4 py-2 rounded-full text-xs font-bold transition" data-level="2" title="Level 2: Ringan">🥱 2</button>
+                        <button onclick="setEnergy(3)" class="energy-btn px-4 py-2 rounded-full text-xs font-bold transition" data-level="3" title="Level 3: Sedang">😐 3</button>
+                        <button onclick="setEnergy(4)" class="energy-btn px-4 py-2 rounded-full text-xs font-bold transition" data-level="4" title="Level 4: Fokus">⚡ 4</button>
+                        <button onclick="setEnergy(5)" class="energy-btn px-4 py-2 rounded-full text-xs font-bold transition" data-level="5" title="Level 5: Deep Work">🔥 5</button>
+                    </div>
+                </div>
+
                 <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full tag-indigo text-xs font-semibold">
                     <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i>
                     <span>Adaptive Gemini Execution Engine</span>
@@ -3192,9 +3193,9 @@ Gemini:`;
             document.querySelectorAll('.energy-btn').forEach(btn => {
                 const lvl = parseInt(btn.dataset.level);
                 if (lvl === state.currentEnergy) {
-                    btn.className = 'energy-btn primary-btn-gradient px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-bold scale-105 transition-all';
+                    btn.className = 'energy-btn primary-btn-gradient px-4 py-2 rounded-full text-xs font-bold shadow-md scale-105 transition-all';
                 } else {
-                    btn.className = 'energy-btn px-1.5 sm:px-2 py-0.5 rounded-full text-xs font-semibold opacity-70 hover:opacity-100 transition-all';
+                    btn.className = 'energy-btn px-4 py-2 rounded-full text-xs font-bold opacity-50 hover:opacity-100 transition-all';
                 }
             });
             const energyLabels = {
