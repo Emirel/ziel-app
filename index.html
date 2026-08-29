@@ -2156,22 +2156,24 @@
         }
 
         function applyCustomSpotifyPlaylist() {
-            let input = document.getElementById('customSpotifyInput').value.trim();
-            if (!input) {
-                showToast({ type: 'warning', title: 'Playlist Kosong', message: 'Masukkan Playlist ID atau link Spotify.' });
-                return;
-            }
-
-            if (input.includes('spotify.com/playlist/')) {
-                const match = input.match(/playlist\/([a-zA-Z0-9]+)/);
-                if (match && match) input = match;
-            }
-            localStorage.setItem('ZIEL_CUSTOM_SPOTIFY_PLAYLIST', input);
-            loadSpotifyPlaylist(input);
-            switchMusicSource('spotify');
-            closeModal('settingsModal');
-            showToast({ type: 'success', title: 'Playlist Ditautkan!', message: 'Playlist Spotify berhasil dimuat ke Zen Focus Player.' });
-        }
+                    let input = document.getElementById('customSpotifyInput').value.trim();
+                    if (!input) {
+                        showToast({ type: 'warning', title: 'Playlist Kosong', message: 'Masukkan Playlist ID atau link Spotify.' });
+                        return;
+                    }
+        
+                    // PERBAIKAN: Gunakan match[1] untuk mengekstrak ID secara benar
+                    if (input.includes('spotify.com/playlist/')) {
+                        const match = input.match(/playlist\/([a-zA-Z0-9]+)/);
+                        if (match && match[1]) input = match[1];
+                    }
+                    
+                    localStorage.setItem('ZIEL_CUSTOM_SPOTIFY_PLAYLIST', input);
+                    loadSpotifyPlaylist(input);
+                    switchMusicSource('spotify');
+                    closeModal('settingsModal');
+                    showToast({ type: 'success', title: 'Playlist Ditautkan!', message: 'Playlist Spotify berhasil dimuat ke Zen Focus Player.' });
+                }
 
         function loadCustomSavedSpotifyPlaylist() {
             const saved = localStorage.getItem('ZIEL_CUSTOM_SPOTIFY_PLAYLIST') || '37i9dQZF1DXdLEN7aqioXM';
@@ -3818,15 +3820,45 @@ function toggleMilestoneStatus(goalId, milestoneId) {
       }, 2500); 
     }
   });
+    // ================= QUICK WIN (2-MINUTE) SYSTEM =================
+        let quickWinInterval = null;
+        let quickWinSeconds = 120; // 120 detik = 2 menit
+
+        // Panggil fungsi ini jika Anda ingin menampilkan modal Quick Win dari suatu tombol
+        function triggerQuickWin(title = "Mulai Melangkah") {
+            document.getElementById('qwTaskTitle').textContent = title;
+            document.getElementById('qwTimerDisplay').textContent = "02:00";
+            document.getElementById('qwDoneBtn').classList.add('hidden');
+            document.getElementById('quickWinModal').classList.remove('hidden');
+            
+            quickWinSeconds = 120;
+            clearInterval(quickWinInterval);
+            
+            quickWinInterval = setInterval(() => {
+                if (quickWinSeconds > 0) {
+                    quickWinSeconds--;
+                    const mins = Math.floor(quickWinSeconds / 60);
+                    const secs = quickWinSeconds % 60;
+                    document.getElementById('qwTimerDisplay').textContent = 
+                        `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                } else {
+                    clearInterval(quickWinInterval);
+                    document.getElementById('qwDoneBtn').classList.remove('hidden');
+                    playChime('notif'); 
+                }
+            }, 1000);
+        }
+
+        function stopQuickWin() {
+            clearInterval(quickWinInterval);
+            document.getElementById('quickWinModal').classList.add('hidden');
+        }
+
+        function completeQuickWin() {
+            stopQuickWin();
+            showToast({ type: 'success', title: 'Quick Win Berhasil!', message: 'Langkah terkecil telah diselesaikan. Pertahankan momentum!' });
+            triggerConfetti();
+        }
 </script>
 </body>
 </html>
-"""
-
-with open('index_part4.tmp', 'w') as f:
-    f.write(part4)
-
-print("Part 4 written")
-EOF
-python3 make_app_part4.py
-}}
