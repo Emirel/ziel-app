@@ -198,8 +198,9 @@
             40% { opacity: 1; transform: scale(1.2); }
         }
 
-        .custom-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .custom-scrollbar::-webkit-scrollbar { display: none; }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--text-muted); opacity: 0.3; border-radius: 4px; }
 
         .modal-backdrop-blur > div {
             animation: modal-pop-in 0.22s cubic-bezier(0.22, 1, 0.36, 1);
@@ -412,7 +413,7 @@
                 <!-- NOTIFICATION CENTER BELL (APP STORE STYLE) -->
                 <button onclick="openModal('notificationCenterModal')" class="btn-secondary p-2 rounded-xl relative" title="Kotak Masuk Notifikasi">
                     <i data-lucide="bell" class="w-4 h-4 text-indigo-400"></i>
-                    <span id="notifBadgeCount" class="absolute -top-1.5 -right-1.5 min-w-[22px] h-[22px] bg-rose-500 text-white rounded-full text-xs font-black flex items-center justify-center px-1.5 border-2 border-[var(--bg-main)] shadow-sm animate-pulse">
+                    <span id="notifBadgeCount" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-rose-500 text-white rounded-full text-[10px] font-black flex items-center justify-center px-1 border-2 border-[var(--bg-main)] shadow-sm animate-pulse">
                         2
                     </span>
                 </button>
@@ -445,7 +446,8 @@
     </header>
 
     <!-- Main Container -->
-    <main class="flex-1 max-w-6xl app-max-width w-full mx-auto px-4 sm:px-6 py-6 md:py-8 space-y-6">
+    <main class="flex-1 max-w-6xl app-max-width w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+
         <!-- HERO SECTION: SMART AI DECISION ENGINE -->
         <section class="relative overflow-hidden rounded-3xl theme-card p-6 sm:p-8 text-center">
             <div class="absolute -right-20 -top-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -458,9 +460,10 @@
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight" style="color: var(--text-main);">
                 <!-- Spacer Header -->
+                <div class="h-28 w-full flex-shrink-0"></div> 
                     Bingung mau mulai dari mana?
                 </h2>
-                <p class="text-xs sm:text-sm leading-relaxed mx-auto max-w-lg" style="color: var(--text-sub);">
+                <p class="text-xs sm:text-sm leading-relaxed" style="color: var(--text-sub);">
                     ZIEL menyelaraskan energi kognitif (<span id="currentEnergyLabel" class="font-bold text-teal-400">Level 3</span>), deadline terdekat, dan prioritas hidup untuk memilihkan <strong style="color: var(--text-main);">1 tindakan mikro terbaik</strong> sekarang.
                 </p>
 
@@ -611,8 +614,8 @@
             <i data-lucide="calendar" class="w-5 h-5"></i>
             <span class="text-[10px] font-bold">Agenda</span>
         </button>
-        <button onclick="triggerWhatShouldIDoNow()" class="flex flex-col items-center justify-center -mt-7 w-14 h-14 rounded-full primary-btn-gradient shadow-[0_8px_30px_rgb(99,102,241,0.5)] hover:scale-105 active:scale-95 transition-all">
-            <i data-lucide="zap" class="w-6 h-6 fill-current text-white animate-[pulse_3s_ease-in-out_infinite]"></i>
+        <button onclick="triggerWhatShouldIDoNow()" class="flex flex-col items-center justify-center -mt-5 w-12 h-12 rounded-full primary-btn-gradient shadow-lg shadow-indigo-500/40">
+            <i data-lucide="zap" class="w-6 h-6 fill-current text-white"></i>
         </button>
         <button onclick="openModal('aiCopilotModal')" class="flex flex-col items-center space-y-0.5 text-slate-400 hover:text-indigo-400">
             <i data-lucide="bot" class="w-5 h-5"></i>
@@ -2991,11 +2994,12 @@ Gemini:`;
         function updateEnergyUI() {
             document.querySelectorAll('.energy-btn').forEach(btn => {
                 const lvl = parseInt(btn.dataset.level);
-            if (lvl === state.currentEnergy) {
-                btn.className = 'energy-btn primary-btn-gradient px-3 sm:px-4 py-1 rounded-full text-sm font-bold scale-105 transition-all';
-            } else {
-                btn.className = 'energy-btn px-2 sm:px-3 py-1 rounded-full text-sm font-semibold opacity-70 hover:opacity-100 transition-all';
-            }
+                if (lvl === state.currentEnergy) {
+                    btn.className = 'energy-btn primary-btn-gradient px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-bold scale-105 transition-all';
+                } else {
+                    btn.className = 'energy-btn px-1.5 sm:px-2 py-0.5 rounded-full text-xs font-semibold opacity-70 hover:opacity-100 transition-all';
+                }
+            });
             const energyLabels = {
                 1: 'Level 1 (Sangat Rendah / Quick Wins)',
                 2: 'Level 2 (Rendah)',
