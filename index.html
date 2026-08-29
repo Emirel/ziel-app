@@ -423,6 +423,12 @@
                     <span>AI Copilot</span>
                 </button>
 
+                <!-- INSIGHTS HUB: Analytics, Achievements & Daily Reflection -->
+                <button onclick="openInsightsModal('analytics')" class="btn-secondary p-2 rounded-xl relative" title="Insights: Analitik, Lencana & Refleksi">
+                    <i data-lucide="line-chart" class="w-4 h-4 text-teal-400"></i>
+                    <span id="insightsNewBadgeDot" class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-[var(--bg-main)]"></span>
+                </button>
+
                 <button onclick="openModal('brainDumpModal')" class="hidden sm:flex btn-secondary items-center space-x-1.5 text-xs px-3 py-2 rounded-xl font-bold" title="Quick Brain Dump">
                     <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i>
                     <span>Brain Dump</span>
@@ -678,6 +684,86 @@
                 <button onclick="triggerSampleNotification()" class="text-teal-400 hover:underline text-[11px] font-semibold">
                     + Notif Uji Coba
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- INSIGHTS HUB MODAL: Progress Analytics, Achievements & Daily Reflection -->
+    <div id="insightsModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
+        <div class="glass-modal rounded-3xl max-w-lg w-full p-5 sm:p-6 space-y-4 relative flex flex-col max-h-[85vh]">
+            <div class="flex items-center justify-between border-b border-[var(--border-card)] pb-3.5">
+                <div class="flex items-center space-x-2.5 text-teal-400">
+                    <div class="w-9 h-9 rounded-2xl bg-teal-500/15 flex items-center justify-center border border-teal-500/20">
+                        <i data-lucide="line-chart" class="w-4.5 h-4.5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-extrabold" style="color: var(--text-main);">Insights & Growth</h3>
+                        <p class="text-[10px]" style="color: var(--text-muted);">Progres, pencapaian & refleksi harianmu</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('insightsModal')" class="opacity-60 hover:opacity-100 p-1">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="flex items-center space-x-1.5 text-[11px]">
+                <button id="insightsTabBtn_analytics" onclick="switchInsightsTab('analytics')" class="flex-1 py-2 rounded-xl font-bold primary-btn-gradient whitespace-nowrap">Analitik</button>
+                <button id="insightsTabBtn_achievements" onclick="switchInsightsTab('achievements')" class="flex-1 py-2 rounded-xl font-medium btn-secondary whitespace-nowrap">Lencana</button>
+                <button id="insightsTabBtn_reflection" onclick="switchInsightsTab('reflection')" class="flex-1 py-2 rounded-xl font-medium btn-secondary whitespace-nowrap">Refleksi</button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 space-y-4">
+                <!-- ANALYTICS PANEL -->
+                <div id="insightsPanel_analytics" class="space-y-4">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="theme-card rounded-2xl p-3 text-center">
+                            <div class="text-xl font-extrabold" style="color: var(--text-main);" id="insightsWeekCompleted">0</div>
+                            <div class="text-[9px] font-semibold uppercase tracking-wide" style="color: var(--text-muted);">Tugas / 7 Hari</div>
+                        </div>
+                        <div class="theme-card rounded-2xl p-3 text-center">
+                            <div class="text-xl font-extrabold" style="color: var(--text-main);" id="insightsWeekFocus">0</div>
+                            <div class="text-[9px] font-semibold uppercase tracking-wide" style="color: var(--text-muted);">Menit Fokus / 7 Hari</div>
+                        </div>
+                    </div>
+                    <div class="theme-card rounded-2xl p-4">
+                        <h4 class="text-[11px] font-bold mb-3" style="color: var(--text-main);">Aktivitas 7 Hari Terakhir</h4>
+                        <div id="insightsWeeklyChart"></div>
+                    </div>
+                    <div class="theme-card rounded-2xl p-4 space-y-3">
+                        <h4 class="text-[11px] font-bold" style="color: var(--text-main);">Distribusi Kategori (Tugas Selesai)</h4>
+                        <div id="insightsCategoryBreakdown" class="space-y-2.5"></div>
+                    </div>
+                </div>
+
+                <!-- ACHIEVEMENTS PANEL -->
+                <div id="insightsPanel_achievements" class="space-y-3 hidden">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-[11px] font-bold" style="color: var(--text-main);">Koleksi Lencana</h4>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full tag-teal" id="insightsBadgeCount">0/10</span>
+                    </div>
+                    <div id="insightsBadgeGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5"></div>
+                </div>
+
+                <!-- REFLECTION PANEL -->
+                <div id="insightsPanel_reflection" class="space-y-4 hidden">
+                    <div class="theme-card rounded-2xl p-4 space-y-3">
+                        <h4 class="text-[11px] font-bold" style="color: var(--text-main);">Bagaimana harimu hari ini?</h4>
+                        <div class="flex items-center justify-between">
+                            <button class="mood-btn btn-secondary rounded-2xl p-2.5 text-xl transition-transform" data-mood="😞" onclick="selectReflectionMood('😞', this)">😞</button>
+                            <button class="mood-btn btn-secondary rounded-2xl p-2.5 text-xl transition-transform" data-mood="😕" onclick="selectReflectionMood('😕', this)">😕</button>
+                            <button class="mood-btn btn-secondary rounded-2xl p-2.5 text-xl transition-transform" data-mood="😐" onclick="selectReflectionMood('😐', this)">😐</button>
+                            <button class="mood-btn btn-secondary rounded-2xl p-2.5 text-xl transition-transform" data-mood="🙂" onclick="selectReflectionMood('🙂', this)">🙂</button>
+                            <button class="mood-btn btn-secondary rounded-2xl p-2.5 text-xl transition-transform" data-mood="🤩" onclick="selectReflectionMood('🤩', this)">🤩</button>
+                        </div>
+                        <textarea id="reflectionNoteInput" rows="3" class="w-full theme-input rounded-2xl p-3 text-xs" placeholder="Apa yang berjalan baik hari ini? Apa yang ingin diperbaiki besok? (opsional)"></textarea>
+                        <button onclick="saveReflection()" class="w-full primary-btn-gradient py-2.5 rounded-xl font-bold text-xs">Simpan Refleksi</button>
+                    </div>
+                    <div class="space-y-2.5">
+                        <h4 class="text-[11px] font-bold" style="color: var(--text-main);">Riwayat Refleksi</h4>
+                        <div id="insightsReflectionHistory" class="space-y-2"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1388,6 +1474,21 @@
 
     <!-- ==================== CORE JAVASCRIPT LOGIC ==================== -->
     <script>
+        // ================= LUCIDE ICON SAFETY WRAPPER =================
+        // Beberapa lingkungan (preview offline, pemblokir iklan, CSP ketat) dapat memblokir
+        // CDN unpkg.com/lucide sehingga variabel global `lucide` tidak pernah terdefinisi.
+        // Wrapper ini mencegah ReferenceError menghentikan seluruh skrip aplikasi;
+        // ikon cukup tidak dirender (fallback senyap) jika library gagal dimuat.
+        function safeLucideCreateIcons(opts) {
+            if (typeof window.lucide !== 'undefined' && typeof window.lucide.createIcons === 'function') {
+                try {
+                    window.lucide.createIcons(opts);
+                } catch (err) {
+                    console.warn('ZIEL: Lucide icon render dilewati.', err);
+                }
+            }
+        }
+
         // =========================================================================
         // 1. FIREBASE CLOUD CONFIGURATION
         // =========================================================================
@@ -1505,7 +1606,7 @@
             `;
 
             container.appendChild(toast);
-            lucide.createIcons({ root: toast });
+            safeLucideCreateIcons({ root: toast });
 
             requestAnimationFrame(() => {
                 toast.classList.add('toast-show');
@@ -1641,7 +1742,7 @@
                         <p class="text-[11px]" style="color: var(--text-muted);">Semua pesan sudah Anda baca atau belum ada update baru.</p>
                     </div>
                 `;
-                lucide.createIcons({ root: container });
+                safeLucideCreateIcons({ root: container });
                 return;
             }
 
@@ -1679,7 +1780,7 @@
                 container.appendChild(item);
             });
 
-            lucide.createIcons({ root: container });
+            safeLucideCreateIcons({ root: container });
         }
 
         function filterNotificationTab(tab) {
@@ -1778,7 +1879,7 @@
                 input.type = 'password';
                 icon.setAttribute('data-lucide', 'eye');
             }
-            lucide.createIcons();
+            safeLucideCreateIcons();
         }
 
         function checkPasswordStrength(password) {
@@ -2010,7 +2111,7 @@
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<span>Masuk ke ZIEL</span><i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>';
-                lucide.createIcons({ root: btn });
+                safeLucideCreateIcons({ root: btn });
             }
         }
 
@@ -2053,7 +2154,7 @@
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<span>Buat Akun ZIEL Baru</span><i data-lucide="user-plus" class="w-4 h-4 ml-1"></i>';
-                lucide.createIcons({ root: btn });
+                safeLucideCreateIcons({ root: btn });
             }
         }
 
@@ -2198,7 +2299,7 @@
                 input.type = 'password';
                 eyeIcon.setAttribute('data-lucide', 'eye');
             }
-            lucide.createIcons();
+            safeLucideCreateIcons();
         }
 
         // ================= PROCEDURAL NATURE SOUNDSCAPE SYNTHESIZER =================
@@ -2459,7 +2560,7 @@
                 `;
                 container.appendChild(row);
             });
-            lucide.createIcons({ root: container });
+            safeLucideCreateIcons({ root: container });
         }
 
         function saveNewAgenda(openGCal = false) {
@@ -2788,7 +2889,7 @@ Gemini:`;
                 `;
                 list.appendChild(row);
             });
-            lucide.createIcons({ root: list });
+            safeLucideCreateIcons({ root: list });
         }
 
         function addNewCategoryFromModal() {
@@ -2974,6 +3075,84 @@ Gemini:`;
         };
 
         let state = JSON.parse(localStorage.getItem('ZIEL_APP_STATE')) || DEFAULT_STATE;
+
+        // Migrasi state lama agar field baru (history, badges, reflections, flags) selalu tersedia
+        function ensureStateShape() {
+            if (!state.stats) state.stats = { completedToday: 0, totalFocusMinutes: 0, streakDays: 0 };
+            if (state.stats.totalCompletedAllTime === undefined) state.stats.totalCompletedAllTime = state.stats.completedToday || 0;
+            if (state.stats.brainDumpImports === undefined) state.stats.brainDumpImports = 0;
+            if (state.stats.lastActiveDate === undefined) state.stats.lastActiveDate = null;
+            if (!state.history) state.history = {};
+            if (!state.badges) state.badges = [];
+            if (!state.reflections) state.reflections = {};
+            if (!state.flags) state.flags = { hasEarlyCompletion: false, hasDeepFocusSession: false };
+        }
+        ensureStateShape();
+
+        function todayKey() {
+            return new Date().toISOString().slice(0, 10);
+        }
+
+        // Mencatat penyelesaian tugas/sesi fokus ke riwayat harian & memperbarui streak
+        function recordCompletion(focusMinutes = 0) {
+            ensureStateShape();
+            const key = todayKey();
+            if (!state.history[key]) state.history[key] = { completed: 0, focusMinutes: 0 };
+            state.history[key].completed += 1;
+            state.history[key].focusMinutes += focusMinutes;
+            state.stats.completedToday += 1;
+            state.stats.totalCompletedAllTime += 1;
+            if (focusMinutes) state.stats.totalFocusMinutes += focusMinutes;
+            if (new Date().getHours() < 8) state.flags.hasEarlyCompletion = true;
+            updateStreak();
+        }
+
+        function updateStreak() {
+            const key = todayKey();
+            const last = state.stats.lastActiveDate;
+            if (last === key) return; // sudah dihitung hari ini
+            const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+            state.stats.streakDays = (last === yesterday) ? (state.stats.streakDays || 0) + 1 : 1;
+            state.stats.lastActiveDate = key;
+        }
+
+        // ================= ACHIEVEMENTS / GAMIFICATION =================
+        const BADGE_DEFINITIONS = [
+            { id: 'first_step', icon: '👣', title: 'Langkah Pertama', desc: 'Selesaikan tugas pertamamu', check: s => (s.stats.totalCompletedAllTime || 0) >= 1 },
+            { id: 'getting_started', icon: '🔥', title: 'Mulai Berjalan', desc: 'Selesaikan 5 tugas total', check: s => (s.stats.totalCompletedAllTime || 0) >= 5 },
+            { id: 'task_master', icon: '🏆', title: 'Task Master', desc: 'Selesaikan 25 tugas total', check: s => (s.stats.totalCompletedAllTime || 0) >= 25 },
+            { id: 'goal_getter', icon: '🎯', title: 'Goal Getter', desc: 'Tuntaskan 1 goal sepenuhnya', check: s => (s.goals || []).some(g => g.status === 'completed') },
+            { id: 'streak_3', icon: '⚡', title: 'Konsisten 3 Hari', desc: 'Aktif 3 hari beruntun', check: s => (s.stats.streakDays || 0) >= 3 },
+            { id: 'streak_7', icon: '🌟', title: 'Konsisten 7 Hari', desc: 'Aktif 7 hari beruntun', check: s => (s.stats.streakDays || 0) >= 7 },
+            { id: 'deep_focus', icon: '🧘', title: 'Deep Work', desc: 'Selesaikan sesi fokus 45+ menit', check: s => !!(s.flags && s.flags.hasDeepFocusSession) },
+            { id: 'brain_dumper', icon: '🧠', title: 'Brain Dump Pro', desc: 'Impor Brain Dump 3 kali', check: s => (s.stats.brainDumpImports || 0) >= 3 },
+            { id: 'early_bird', icon: '🌅', title: 'Early Bird', desc: 'Selesaikan tugas sebelum jam 8 pagi', check: s => !!(s.flags && s.flags.hasEarlyCompletion) },
+            { id: 'reflective_mind', icon: '📝', title: 'Reflective Mind', desc: 'Isi 5 refleksi harian', check: s => Object.keys(s.reflections || {}).length >= 5 }
+        ];
+
+        function checkAchievements() {
+            ensureStateShape();
+            const newlyUnlocked = [];
+            BADGE_DEFINITIONS.forEach(badge => {
+                if (!state.badges.includes(badge.id) && badge.check(state)) {
+                    state.badges.push(badge.id);
+                    newlyUnlocked.push(badge);
+                }
+            });
+            if (newlyUnlocked.length > 0) {
+                newlyUnlocked.forEach(badge => {
+                    addAppNotification({ category: 'system', title: `Lencana Baru: ${badge.title}`, message: badge.desc });
+                });
+                const dot = document.getElementById('insightsNewBadgeDot');
+                if (dot) dot.classList.remove('hidden');
+                setTimeout(() => {
+                    showToast({ type: 'success', title: `${newlyUnlocked[0].icon} Lencana Terbuka!`, message: `"${newlyUnlocked[0].title}" — ${newlyUnlocked[0].desc}` });
+                    triggerConfetti();
+                    playChime('success');
+                }, 350);
+            }
+            renderInsightsAchievements();
+        }
 
         function saveState() {
             localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state));
@@ -3182,7 +3361,7 @@ Gemini:`;
             playChime('click');
             document.getElementById('toggleTimerBtn').classList.replace('primary-btn-gradient', 'bg-amber-600');
             document.getElementById('timerIcon').setAttribute('data-lucide', 'pause');
-            lucide.createIcons();
+            safeLucideCreateIcons();
             startAmbienceSound();
 
             timerInterval = setInterval(() => {
@@ -3203,7 +3382,7 @@ Gemini:`;
             clearInterval(timerInterval);
             document.getElementById('toggleTimerBtn').classList.replace('bg-amber-600', 'primary-btn-gradient');
             document.getElementById('timerIcon').setAttribute('data-lucide', 'play');
-            lucide.createIcons();
+            safeLucideCreateIcons();
             stopAmbienceSound();
         }
 
@@ -3211,9 +3390,11 @@ Gemini:`;
             pauseTimer();
             if (focusTask) {
                 focusTask.status = 'completed';
-                state.stats.completedToday += 1;
-                state.stats.totalFocusMinutes += Math.round((timerTotalSeconds - timerSeconds) / 60) || 15;
+                const minutesFocused = Math.round((timerTotalSeconds - timerSeconds) / 60) || 15;
+                recordCompletion(minutesFocused);
+                if (minutesFocused >= 45) state.flags.hasDeepFocusSession = true;
                 saveState();
+                checkAchievements();
                 showToast({ type: 'success', title: 'Tugas Tuntas!', message: `"${focusTask.title}" berhasil dicatat ke pencapaian harian.` });
             }
             playChime('success');
@@ -3340,7 +3521,7 @@ ${text}`;
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i data-lucide="cpu" class="w-4 h-4 mr-1"></i> Selesai Diproses';
-                lucide.createIcons();
+                safeLucideCreateIcons();
             }
         }
 
@@ -3376,7 +3557,9 @@ ${text}`;
         function importBrainDumpTasks() {
             if (parsedBrainDumpTasks.length > 0) {
                 state.tasks = [...parsedBrainDumpTasks, ...state.tasks];
+                state.stats.brainDumpImports = (state.stats.brainDumpImports || 0) + 1;
                 saveState();
+                checkAchievements();
                 closeModal('brainDumpModal');
                 document.getElementById('brainDumpInput').value = '';
                 document.getElementById('brainDumpResults').classList.add('hidden');
@@ -3549,7 +3732,7 @@ function renderTasks() {
         `;
         container.appendChild(card);
     });
-    lucide.createIcons({ root: container });
+    safeLucideCreateIcons({ root: container });
 }
 
 function renderGoals() {
@@ -3607,7 +3790,7 @@ function renderGoals() {
         `;
         container.appendChild(card);
     });
-    lucide.createIcons({ root: container });
+    safeLucideCreateIcons({ root: container });
 }
 
 function renderAgendaList() {
@@ -3638,10 +3821,33 @@ function renderAgendaList() {
         `;
         container.appendChild(row);
     });
-    lucide.createIcons({ root: container });
+    safeLucideCreateIcons({ root: container });
 }
 
 // LOGIKA HAPUS & KLIK (Letakkan di bawah fungsi render)
+function toggleTaskStatus(taskId) {
+    const task = state.tasks.find(t => t.id === taskId);
+    if (!task) return;
+    const wasDone = task.status === 'completed';
+    task.status = wasDone ? 'pending' : 'completed';
+    if (!wasDone) {
+        recordCompletion(0);
+        playChime('success');
+        triggerConfetti();
+        saveState();
+        checkAchievements();
+        showToast({ type: 'success', title: 'Tugas Selesai!', message: `"${task.title}" ditandai tuntas.` });
+    } else {
+        // Batalkan penghitungan hari ini jika dicentang ulang (uncheck)
+        state.stats.completedToday = Math.max(0, state.stats.completedToday - 1);
+        state.stats.totalCompletedAllTime = Math.max(0, state.stats.totalCompletedAllTime - 1);
+        const key = todayKey();
+        if (state.history[key]) state.history[key].completed = Math.max(0, state.history[key].completed - 1);
+        playChime('click');
+        saveState();
+    }
+}
+
 function deleteTask(taskId) {
     if(confirm('Yakin ingin menghapus tugas ini?')) {
         state.tasks = state.tasks.filter(t => t.id !== taskId);
@@ -3667,9 +3873,19 @@ function toggleMilestoneStatus(goalId, milestoneId) {
             if(ms.status === 'pending') ms.status = 'in_progress';
             else if(ms.status === 'in_progress') ms.status = 'completed';
             else ms.status = 'pending';
-            
+
+            const allMilestonesDone = goal.milestones.every(m => m.status === 'completed');
+            const wasAlreadyCompleted = goal.status === 'completed';
+            goal.status = allMilestonesDone ? 'completed' : 'in_progress';
+
             playChime('click');
             saveState();
+
+            if (allMilestonesDone && !wasAlreadyCompleted) {
+                triggerConfetti();
+                showToast({ type: 'success', title: 'Goal Tercapai! 🎉', message: `"${goal.title}" berhasil dituntaskan sepenuhnya.` });
+                checkAchievements();
+            }
         }
     }
 }
@@ -3682,6 +3898,183 @@ function toggleMilestoneStatus(goalId, milestoneId) {
             document.getElementById('statCompletedToday').textContent = state.stats.completedToday;
             document.getElementById('statFocusTime').textContent = state.stats.totalFocusMinutes;
             document.getElementById('statStreakDays').textContent = state.stats.streakDays || 4;
+        }
+
+        // ================= INSIGHTS HUB (ANALYTICS / ACHIEVEMENTS / REFLECTION) =================
+        function openInsightsModal(tab = 'analytics') {
+            const dot = document.getElementById('insightsNewBadgeDot');
+            if (dot) dot.classList.add('hidden');
+            openModal('insightsModal');
+            switchInsightsTab(tab);
+        }
+
+        function switchInsightsTab(tab) {
+            ['analytics', 'achievements', 'reflection'].forEach(t => {
+                const panel = document.getElementById(`insightsPanel_${t}`);
+                const btn = document.getElementById(`insightsTabBtn_${t}`);
+                if (!panel || !btn) return;
+                if (t === tab) {
+                    panel.classList.remove('hidden');
+                    btn.className = 'flex-1 py-2 rounded-xl text-[11px] font-bold primary-btn-gradient whitespace-nowrap';
+                } else {
+                    panel.classList.add('hidden');
+                    btn.className = 'flex-1 py-2 rounded-xl text-[11px] font-medium btn-secondary whitespace-nowrap';
+                }
+            });
+            if (tab === 'analytics') renderInsightsAnalytics();
+            if (tab === 'achievements') renderInsightsAchievements();
+            if (tab === 'reflection') renderInsightsReflection();
+            playChime('click');
+            safeLucideCreateIcons();
+        }
+
+        function getLast7DayKeys() {
+            const days = [];
+            for (let i = 6; i >= 0; i--) {
+                days.push(new Date(Date.now() - i * 86400000).toISOString().slice(0, 10));
+            }
+            return days;
+        }
+
+        function renderInsightsAnalytics() {
+            const chartEl = document.getElementById('insightsWeeklyChart');
+            if (!chartEl) return;
+            ensureStateShape();
+            const days = getLast7DayKeys();
+            const dayLabels = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+            const values = days.map(d => (state.history[d] && state.history[d].completed) || 0);
+            const maxVal = Math.max(1, ...values);
+            const totalWeekCompleted = values.reduce((a, b) => a + b, 0);
+            const totalWeekFocus = days.reduce((sum, d) => sum + ((state.history[d] && state.history[d].focusMinutes) || 0), 0);
+            const key = todayKey();
+
+            chartEl.innerHTML = `<div class="flex items-end h-28 gap-1.5 sm:gap-2">${days.map((d, idx) => {
+                const val = values[idx];
+                const heightPct = Math.max(6, Math.round((val / maxVal) * 100));
+                const dow = new Date(d + 'T00:00:00').getDay();
+                const isToday = d === key;
+                return `
+                    <div class="flex flex-col items-center flex-1 gap-1 h-full justify-end">
+                        <span class="text-[9px] font-bold" style="color: var(--text-muted);">${val || ''}</span>
+                        <div class="w-full rounded-t-lg transition-all ${isToday ? 'primary-btn-gradient' : ''}" style="height:${heightPct}%; min-height: 4px; ${isToday ? '' : 'background: var(--btn-sec-bg);'}"></div>
+                        <span class="text-[9px] font-bold" style="color: ${isToday ? 'var(--accent-teal)' : 'var(--text-muted)'};">${dayLabels[dow]}</span>
+                    </div>`;
+            }).join('')}</div>`;
+
+            const weekCompletedEl = document.getElementById('insightsWeekCompleted');
+            const weekFocusEl = document.getElementById('insightsWeekFocus');
+            if (weekCompletedEl) weekCompletedEl.textContent = totalWeekCompleted;
+            if (weekFocusEl) weekFocusEl.textContent = totalWeekFocus;
+
+            const cats = getCategories();
+            const catCounts = {};
+            state.tasks.filter(t => t.status === 'completed').forEach(t => {
+                catCounts[t.category] = (catCounts[t.category] || 0) + 1;
+            });
+            const totalCatTasks = Object.values(catCounts).reduce((a, b) => a + b, 0);
+            const catListEl = document.getElementById('insightsCategoryBreakdown');
+            if (catListEl) {
+                if (totalCatTasks === 0) {
+                    catListEl.innerHTML = `<p class="text-[11px] text-center py-4" style="color: var(--text-muted);">Belum ada tugas selesai untuk dianalisis.</p>`;
+                } else {
+                    catListEl.innerHTML = Object.entries(catCounts).sort((a, b) => b[1] - a[1]).map(([catId, count]) => {
+                        const cat = cats.find(c => c.id === catId);
+                        const pct = Math.round((count / totalCatTasks) * 100);
+                        return `
+                            <div class="space-y-1">
+                                <div class="flex items-center justify-between text-[10px] font-semibold">
+                                    <span style="color: var(--text-main);">${cat ? `${cat.icon} ${cat.name}` : catId}</span>
+                                    <span style="color: var(--text-muted);">${count} tugas · ${pct}%</span>
+                                </div>
+                                <div class="w-full h-1.5 rounded-full" style="background: var(--btn-sec-bg);">
+                                    <div class="h-1.5 rounded-full primary-btn-gradient" style="width:${pct}%;"></div>
+                                </div>
+                            </div>`;
+                    }).join('');
+                }
+            }
+        }
+
+        function renderInsightsAchievements() {
+            const container = document.getElementById('insightsBadgeGrid');
+            if (!container) return;
+            ensureStateShape();
+            const unlocked = state.badges || [];
+            const countEl = document.getElementById('insightsBadgeCount');
+            if (countEl) countEl.textContent = `${unlocked.length}/${BADGE_DEFINITIONS.length}`;
+            container.innerHTML = BADGE_DEFINITIONS.map(badge => {
+                const isUnlocked = unlocked.includes(badge.id);
+                return `
+                    <div class="theme-card rounded-2xl p-3 text-center space-y-1.5 ${isUnlocked ? '' : 'opacity-40 grayscale'}">
+                        <div class="text-2xl">${badge.icon}</div>
+                        <h4 class="text-[11px] font-extrabold" style="color: var(--text-main);">${badge.title}</h4>
+                        <p class="text-[9px] leading-snug" style="color: var(--text-muted);">${badge.desc}</p>
+                        ${isUnlocked
+                            ? '<span class="inline-block text-[9px] font-bold tag-emerald px-2 py-0.5 rounded-full">Terbuka</span>'
+                            : `<span class="inline-block text-[9px] font-bold px-2 py-0.5 rounded-full" style="background: var(--btn-sec-bg); color: var(--text-muted);">Terkunci</span>`}
+                    </div>`;
+            }).join('');
+        }
+
+        function selectReflectionMood(mood, el) {
+            window.selectedReflectionMood = mood;
+            document.querySelectorAll('.mood-btn').forEach(btn => {
+                btn.classList.remove('scale-125', 'primary-btn-gradient');
+                btn.classList.add('btn-secondary');
+            });
+            el.classList.add('scale-125', 'primary-btn-gradient');
+            el.classList.remove('btn-secondary');
+            playChime('click');
+        }
+
+        function saveReflection() {
+            const mood = window.selectedReflectionMood;
+            const note = document.getElementById('reflectionNoteInput').value.trim();
+            if (!mood) {
+                showToast({ type: 'error', title: 'Pilih Mood Dulu', message: 'Tap salah satu emoji untuk menandai suasana hatimu hari ini.' });
+                return;
+            }
+            ensureStateShape();
+            state.reflections[todayKey()] = { mood, note, savedAt: new Date().toISOString() };
+            playChime('success');
+            saveState();
+            checkAchievements();
+            showToast({ type: 'success', title: 'Refleksi Tersimpan', message: 'Terima kasih sudah meluangkan waktu untuk merefleksikan harimu.' });
+            renderInsightsReflection();
+        }
+
+        function renderInsightsReflection() {
+            const listEl = document.getElementById('insightsReflectionHistory');
+            if (!listEl) return;
+            ensureStateShape();
+            const reflections = state.reflections;
+            const key = todayKey();
+            window.selectedReflectionMood = (reflections[key] && reflections[key].mood) || null;
+            const noteInput = document.getElementById('reflectionNoteInput');
+            if (noteInput) noteInput.value = (reflections[key] && reflections[key].note) || '';
+            document.querySelectorAll('.mood-btn').forEach(btn => {
+                if (btn.dataset.mood === window.selectedReflectionMood) {
+                    btn.classList.add('scale-125', 'primary-btn-gradient');
+                    btn.classList.remove('btn-secondary');
+                } else {
+                    btn.classList.remove('scale-125', 'primary-btn-gradient');
+                    btn.classList.add('btn-secondary');
+                }
+            });
+
+            const entries = Object.entries(reflections).sort((a, b) => b[0].localeCompare(a[0])).slice(0, 6);
+            if (entries.length === 0) {
+                listEl.innerHTML = `<p class="text-[11px] text-center py-4" style="color: var(--text-muted);">Belum ada refleksi tersimpan. Mulai hari ini!</p>`;
+                return;
+            }
+            listEl.innerHTML = entries.map(([date, r]) => `
+                <div class="theme-card rounded-2xl p-3 flex items-start space-x-3">
+                    <div class="text-xl shrink-0">${r.mood}</div>
+                    <div class="flex-1 min-w-0">
+                        <span class="text-[10px] font-bold" style="color: var(--text-main);">${new Date(date + 'T00:00:00').toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' })}</span>
+                        ${r.note ? `<p class="text-[10px] mt-0.5" style="color: var(--text-sub);">${r.note}</p>` : ''}
+                    </div>
+                </div>`).join('');
         }
 
         function renderAll() {
@@ -3698,12 +4091,12 @@ function toggleMilestoneStatus(goalId, milestoneId) {
             renderAgendaList();
             renderNotificationCenter();
             updateNotificationBadge();
-            lucide.createIcons();
+            safeLucideCreateIcons();
         }
 
         function openModal(id) {
             document.getElementById(id).classList.remove('hidden');
-            lucide.createIcons();
+            safeLucideCreateIcons();
         }
 
         function closeModal(id) {
@@ -3856,6 +4249,9 @@ function toggleMilestoneStatus(goalId, milestoneId) {
 
         function completeQuickWin() {
             stopQuickWin();
+            recordCompletion(2);
+            saveState();
+            checkAchievements();
             showToast({ type: 'success', title: 'Quick Win Berhasil!', message: 'Langkah terkecil telah diselesaikan. Pertahankan momentum!' });
             triggerConfetti();
         }
