@@ -1484,6 +1484,22 @@
     </div>
 
     <!-- CANVAS CONFETTI -->
+    <!-- CONFIRM DELETE MODAL -->
+    <div id="confirmDeleteModal" class="fixed inset-0 z-[100] modal-backdrop-blur flex items-center justify-center p-4 hidden">
+        <div class="glass-modal rounded-3xl max-w-sm w-full p-6 space-y-4 text-center relative transform scale-95 transition-transform duration-300">
+            <div class="mx-auto flex items-center justify-center w-12 h-12 rounded-2xl bg-rose-500/15 text-rose-400 mb-2 border border-rose-500/20">
+                <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h3 class="text-lg font-extrabold" style="color: var(--text-main);" id="confirmDeleteTitle">Hapus Tugas?</h3>
+                <p class="text-xs mt-1.5 leading-relaxed" style="color: var(--text-sub);" id="confirmDeleteMessage">Yakin ingin menghapus ini? Data yang dihapus tidak bisa dikembalikan.</p>
+            </div>
+            <div class="flex space-x-3 pt-3">
+                <button onclick="closeModal('confirmDeleteModal')" class="flex-1 py-3 rounded-xl font-bold text-xs btn-secondary transition">Batal</button>
+                <button id="btnConfirmAction" class="flex-1 py-3 rounded-xl font-bold text-xs bg-rose-600 hover:bg-rose-500 text-white shadow-lg shadow-rose-500/30 transition">Ya, Hapus</button>
+            </div>
+        </div>
+    </div>
     <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
 
     <!-- ==================== CORE JAVASCRIPT LOGIC ==================== -->
@@ -3846,21 +3862,49 @@ function toggleTaskStatus(taskId) {
     }
 }
 
-function deleteTask(taskId) {
-    if(confirm('Yakin ingin menghapus tugas ini?')) {
-        state.tasks = state.tasks.filter(t => t.id !== taskId);
-        saveState();
-        showToast({ type: 'info', title: 'Tugas Dihapus', message: 'Tugas telah dihapus dari antrean.' });
-    }
-}
+// Variabel global penyimpan aksi penghapusan
+        let pendingDeleteAction = null;
 
-function deleteGoal(goalId) {
-    if(confirm('Yakin ingin menghapus Goal ini? (Tugas yang terkait tidak akan terhapus)')) {
-        state.goals = state.goals.filter(g => g.id !== goalId);
-        saveState();
-        showToast({ type: 'info', title: 'Goal Dihapus', message: 'Goal telah dihapus dari daftar.' });
-    }
-}
+        // Fungsi pemanggil custom modal
+        function openConfirmModal(title, message, onConfirmCallback) {
+            document.getElementById('confirmDeleteTitle').textContent = title;
+            document.getElementById('confirmDeleteMessage').textContent = message;
+            pendingDeleteAction = onConfirmCallback;
+            
+            document.getElementById('btnConfirmAction').onclick = () => {
+                if (pendingDeleteAction) pendingDeleteAction();
+                closeModal('confirmDeleteModal');
+                pendingDeleteAction = null;
+            };
+            
+            openModal('confirmDeleteModal');
+        }
+
+        // UPDATE Fungsi Delete Task
+        function deleteTask(taskId) {
+            openConfirmModal(
+                "Hapus Tugas?",
+                "Yakin ingin menghapus tugas ini dari antrean? Data tidak bisa dikembalikan.",
+                () => {
+                    state.tasks = state.tasks.filter(t => t.id !== taskId);
+                    saveState();
+                    showToast({ type: 'info', title: 'Tugas Dihapus', message: 'Tugas telah dihapus dari antrean.' });
+                }
+            );
+        }
+
+        // UPDATE Fungsi Delete Goal
+        function deleteGoal(goalId) {
+            openConfirmModal(
+                "Hapus Goal?",
+                "Yakin ingin menghapus Goal ini? (Tugas yang terkait di antrean tidak akan ikut terhapus)",
+                () => {
+                    state.goals = state.goals.filter(g => g.id !== goalId);
+                    saveState();
+                    showToast({ type: 'info', title: 'Goal Dihapus', message: 'Goal telah dihapus dari daftar.' });
+                }
+            );
+        }
 
 function toggleMilestoneStatus(goalId, milestoneId) {
     const goal = state.goals.find(g => g.id === goalId);
