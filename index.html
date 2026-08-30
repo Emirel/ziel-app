@@ -160,6 +160,26 @@
         }
         .primary-btn-gradient:hover { filter: brightness(1.08); transform: translateY(-1px); }
         .primary-btn-gradient:active { transform: scale(0.97); }
+        .add-cta {
+            min-height: 2.75rem;
+            padding: .42rem .75rem .42rem .45rem !important;
+            border-radius: .85rem !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .55rem;
+            font-weight: 750;
+        }
+        .add-cta-icon {
+            width: 1.9rem;
+            height: 1.9rem;
+            border-radius: .6rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,.16);
+        }
+        .add-cta-icon svg { width: 1rem; height: 1rem; stroke-width: 2.5; }
 
         .theme-card {
             background-color: var(--bg-card);
@@ -196,6 +216,66 @@
             outline: none;
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
         }
+        input, textarea, select {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: max(16px, .82rem);
+            font-weight: 550;
+            line-height: 1.45;
+        }
+        input::placeholder, textarea::placeholder { color: var(--text-muted); font-weight: 450; opacity: .78; }
+        input[type="date"], input[type="time"] { color-scheme: dark; min-height: 3rem; }
+        body.light-mode input[type="date"], body.light-mode input[type="time"] { color-scheme: light; }
+        input[type="date"]::-webkit-calendar-picker-indicator,
+        input[type="time"]::-webkit-calendar-picker-indicator { opacity: .65; cursor: pointer; padding: .35rem; border-radius: .5rem; background-color: rgba(129,140,248,.12); }
+        select.select-enhanced { position: absolute !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important; }
+        .smart-select-trigger {
+            width: 100%;
+            min-height: 3rem;
+            padding: .7rem .8rem;
+            border-radius: .8rem;
+            border: 1px solid var(--border-card);
+            background: var(--input-bg);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .75rem;
+            text-align: left;
+            font-size: .78rem;
+            font-weight: 650;
+        }
+        .smart-select-trigger:hover { border-color: var(--border-card-hover); background: var(--bg-card-hover); }
+        .smart-select-trigger > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .smart-select-trigger svg { width: 1rem; height: 1rem; color: var(--text-muted); flex: 0 0 auto; }
+        .smart-select-portal { position: fixed; inset: 0; z-index: 140; background: rgba(5,10,20,.38); backdrop-filter: blur(2px); }
+        .smart-select-menu {
+            position: fixed;
+            max-height: min(22rem, 62vh);
+            overflow-y: auto;
+            padding: .4rem;
+            border-radius: .9rem;
+            border: 1px solid var(--border-card);
+            background: var(--modal-bg);
+            box-shadow: 0 24px 64px rgba(0,0,0,.38);
+        }
+        .smart-select-menu > p { padding: .5rem .55rem; color: var(--text-muted); font-size: .62rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+        .smart-select-option {
+            width: 100%;
+            min-height: 2.85rem;
+            padding: .62rem .7rem;
+            border-radius: .7rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .75rem;
+            color: var(--text-sub);
+            text-align: left;
+            font-size: .75rem;
+            font-weight: 650;
+        }
+        .smart-select-option:hover { background: var(--btn-sec-bg); color: var(--text-main); }
+        .smart-select-option.selected { color: #A5B4FC; background: rgba(91,95,239,.13); }
+        .smart-select-option svg { width: .95rem; height: .95rem; }
 
         .tag-emerald { background-color: rgba(16, 185, 129, 0.16); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.22); }
         .tag-indigo  { background-color: rgba(99, 102, 241, 0.16); color: #818CF8; border: 1px solid rgba(99, 102, 241, 0.22); }
@@ -530,6 +610,8 @@
                 radial-gradient(circle at 100% 0%, rgba(91,95,239,.13), transparent 34%),
                 var(--bg-card);
         }
+        .energy-picker-wrap { display: grid; gap: .4rem; }
+        .energy-picker-label { color: var(--text-muted); font-size: .65rem; font-weight: 700; text-align: right; }
         .energy-control {
             padding: .3rem;
             display: inline-flex;
@@ -539,21 +621,25 @@
             background: var(--bg-main);
         }
         .energy-control .energy-btn {
-            width: 2.25rem;
-            height: 2.25rem;
-            padding: 0 !important;
+            min-width: 3.35rem;
+            min-height: 3.25rem;
+            padding: .35rem .4rem !important;
             border-radius: .65rem !important;
-            font-size: 1rem !important;
             display: inline-flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: .15rem;
             color: var(--text-sub);
         }
-        .energy-control .energy-btn.primary-btn-gradient {
+        .energy-control .energy-btn span { font-size: 1rem; line-height: 1; }
+        .energy-control .energy-btn small { color: var(--text-muted); font-size: .55rem; font-weight: 700; }
+        .energy-control .energy-btn.active {
             background: rgba(91, 95, 239, .2) !important;
             outline: 1px solid rgba(129, 140, 248, .5);
             transform: none !important;
         }
+        .energy-control .energy-btn.active small { color: #A5B4FC; }
         .action-suggestion {
             border: 1px solid rgba(129, 140, 248, .2);
             background: rgba(91, 95, 239, .07);
@@ -643,19 +729,21 @@
         .icon-box svg { width: 1.1rem; height: 1.1rem; }
         .action-sheet { border-radius: 1.25rem !important; }
         .quick-action-tile {
-            min-height: 7.2rem;
-            padding: 1rem;
+            min-height: 6.3rem;
+            padding: .9rem;
             border-radius: .9rem;
             border: 1px solid var(--border-card);
             background: var(--bg-main);
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: .75rem;
             text-align: left;
         }
-        .quick-action-tile:hover { border-color: var(--border-card-hover); background: var(--bg-card-hover); }
-        .quick-action-tile strong { margin-top: .65rem; color: var(--text-main); font-size: .85rem; }
-        .quick-action-tile small { margin-top: .15rem; color: var(--text-muted); font-size: .68rem; }
+        .quick-action-tile:hover { border-color: var(--border-card-hover); background: var(--bg-card-hover); transform: translateY(-1px); }
+        .quick-action-tile strong { display: block; color: var(--text-main); font-size: .82rem; }
+        .quick-action-tile small { display: block; margin-top: .16rem; color: var(--text-muted); font-size: .66rem; line-height: 1.4; }
+        .quick-action-tile > svg { width: .95rem; color: var(--text-muted); }
         .goal-stepper {
             padding: .25rem .1rem .5rem;
             display: flex;
@@ -872,6 +960,62 @@
         .soundscape-choice > span { font-size: 1.25rem; }
         .soundscape-choice strong { font-size: .75rem; }
         .soundscape-choice small { font-size: .62rem; opacity: .68; }
+        .spotify-connect-card { padding: .9rem; border: 1px solid rgba(29,185,84,.24); border-radius: 1rem; background: rgba(29,185,84,.07); display: flex; align-items: center; justify-content: space-between; gap: .8rem; }
+        .spotify-brand { display: flex; align-items: center; gap: .7rem; min-width: 0; }
+        .spotify-brand > span { width: 2.5rem; height: 2.5rem; border-radius: .8rem; background: #1DB954; color: #07130b; display: grid; place-items: center; flex: 0 0 auto; }
+        .spotify-brand svg { width: 1.1rem; }
+        .spotify-brand strong, .spotify-brand small { display: block; }
+        .spotify-brand strong { color: var(--text-main); font-size: .78rem; }
+        .spotify-brand small { color: var(--text-muted); font-size: .64rem; margin-top: .12rem; }
+        .spotify-status-pill { padding: .35rem .55rem; border-radius: 99px; background: var(--btn-sec-bg); color: var(--text-muted); font-size: .6rem; font-weight: 800; white-space: nowrap; }
+        .spotify-now-playing { padding: .85rem; border: 1px solid var(--border-card); border-radius: 1rem; background: linear-gradient(120deg, rgba(29,185,84,.10), var(--input-bg)); display: flex; align-items: center; gap: .8rem; }
+        .spotify-now-playing > img { width: 4.25rem; height: 4.25rem; border-radius: .8rem; object-fit: cover; background: var(--btn-sec-bg); box-shadow: 0 10px 24px rgba(0,0,0,.22); }
+        .spotify-now-playing small { color: #4ADE80; font-size: .56rem; font-weight: 850; letter-spacing: .08em; }
+        .spotify-now-playing strong, .spotify-now-playing p { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .spotify-now-playing strong { color: var(--text-main); font-size: .82rem; margin-top: .2rem; }
+        .spotify-now-playing p { color: var(--text-muted); font-size: .64rem; margin-top: .1rem; }
+        .now-playing-bars { height: .75rem; display: inline-flex; align-items: flex-end; gap: 2px; }
+        .now-playing-bars span { width: 2px; height: 30%; border-radius: 2px; background: #22C55E; }
+        .now-playing-bars.is-playing span { animation: ziel-equalizer .8s ease-in-out infinite alternate; }
+        .now-playing-bars.is-playing span:nth-child(2) { animation-delay: -.25s; }
+        .now-playing-bars.is-playing span:nth-child(3) { animation-delay: -.5s; }
+        .now-playing-bars.is-playing span:nth-child(4) { animation-delay: -.15s; }
+        @keyframes ziel-equalizer { from { height: 24%; } to { height: 100%; } }
+        .spotify-progress { height: 3px; margin-top: .55rem; border-radius: 99px; overflow: hidden; background: var(--btn-sec-bg); }
+        .spotify-progress i { display: block; width: 0; height: 100%; border-radius: inherit; background: #22C55E; transition: width .4s ease; }
+        .spotify-empty { min-height: 9rem; padding: 1rem; border: 1px dashed var(--border-card); border-radius: 1rem; display: grid; place-items: center; align-content: center; text-align: center; gap: .3rem; }
+        .spotify-empty svg { width: 1.4rem; color: var(--text-muted); }
+        .spotify-empty strong { color: var(--text-main); font-size: .76rem; }
+        .spotify-empty small { color: var(--text-muted); font-size: .64rem; max-width: 20rem; }
+        .spotify-connect-button { min-height: 2.8rem; padding: .7rem 1rem; border-radius: .8rem; background: #1DB954; color: #06130a; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; font-size: .72rem; font-weight: 850; }
+        .spotify-connect-button svg { width: 1rem; }
+        .today-focus-strip {
+            padding: 1rem;
+            border: 1px solid rgba(129,140,248,.22);
+            border-radius: 1rem;
+            background: linear-gradient(115deg, rgba(91,95,239,.12), rgba(45,212,191,.05));
+            display: flex;
+            align-items: center;
+            gap: .85rem;
+        }
+        .today-focus-icon, .next-step-icon { width: 2.5rem; height: 2.5rem; border-radius: .8rem; display: grid; place-items: center; color: #A5B4FC; background: rgba(91,95,239,.16); flex: 0 0 auto; }
+        .today-focus-icon svg, .next-step-icon svg { width: 1.05rem; height: 1.05rem; }
+        .today-focus-strip strong, .today-focus-strip small { display: block; }
+        .today-focus-strip strong { color: var(--text-main); font-size: .82rem; }
+        .today-focus-strip small { color: var(--text-muted); font-size: .68rem; margin-top: .18rem; }
+        .recommendation-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: .5rem; }
+        .recommendation-metrics > div { padding: .75rem; border: 1px solid var(--border-card); border-radius: .9rem; background: var(--input-bg); display: flex; align-items: center; gap: .5rem; min-width: 0; }
+        .recommendation-metrics svg { width: 1rem; height: 1rem; color: #818CF8; flex: 0 0 auto; }
+        .recommendation-metrics span, .recommendation-metrics small, .recommendation-metrics strong { display: block; min-width: 0; }
+        .recommendation-metrics small { color: var(--text-muted); font-size: .58rem; }
+        .recommendation-metrics strong { color: var(--text-main); font-size: .68rem; margin-top: .1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .next-step-card { padding: .9rem; border-radius: 1rem; background: rgba(91,95,239,.09); display: flex; align-items: center; gap: .75rem; }
+        .next-step-card span { color: #A5B4FC; font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+        .next-step-card p { color: var(--text-main); font-size: .78rem; font-weight: 650; margin-top: .12rem; }
+        #settingsModal { padding: 0; align-items: stretch; background: var(--bg-main); }
+        #settingsModal > .glass-modal { width: 100%; max-width: none; height: 100dvh; max-height: none; border-radius: 0 !important; }
+        #settingsModal .settings-shell { min-height: 0; height: calc(100dvh - 5.1rem); }
+        #settingsModal .settings-content { max-height: none; }
         .settings-shell { display: grid; grid-template-columns: 14rem minmax(0, 1fr); min-height: 36rem; }
         .settings-nav {
             padding: 1rem;
@@ -938,6 +1082,34 @@
         .menu-list .danger-menu-item strong,
         .menu-list .danger-menu-item > svg { color: #FB7185; }
         .menu-list .danger-menu-item .icon-box { color: #FB7185; background: rgba(244,63,94,.1); }
+        .profile-menu-popover {
+            position: fixed;
+            z-index: 80;
+            top: 4.5rem;
+            right: 1rem;
+            width: min(22rem, calc(100vw - 2rem));
+            padding: .75rem;
+            border: 1px solid var(--border-card);
+            border-radius: 1.15rem;
+            background: var(--bg-card);
+            box-shadow: 0 24px 70px rgba(2,6,23,.32);
+            backdrop-filter: blur(20px);
+        }
+        .profile-menu-head { padding: .4rem .35rem .8rem; display: flex; align-items: center; gap: .7rem; border-bottom: 1px solid var(--border-card); }
+        .profile-menu-head > div:nth-child(2) { flex: 1; }
+        .profile-menu-head strong, .profile-menu-head small { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .profile-menu-head strong { color: var(--text-main); font-size: .82rem; }
+        .profile-menu-head small { color: var(--text-muted); font-size: .66rem; margin-top: .12rem; }
+        .profile-menu-list { display: grid; gap: .2rem; padding: .55rem 0; }
+        .profile-menu-list > button { width: 100%; padding: .55rem; border-radius: .8rem; display: flex; align-items: center; gap: .65rem; text-align: left; }
+        .profile-menu-list > button:hover { background: var(--btn-sec-bg); }
+        .profile-menu-list > button > span:nth-child(2) { flex: 1; min-width: 0; }
+        .profile-menu-list strong, .profile-menu-list small { display: block; }
+        .profile-menu-list strong { color: var(--text-main); font-size: .74rem; }
+        .profile-menu-list small { color: var(--text-muted); font-size: .62rem; margin-top: .1rem; }
+        .profile-menu-list > button > svg { width: .9rem; color: var(--text-muted); }
+        .profile-logout { width: 100%; padding: .7rem; border-top: 1px solid var(--border-card); display: flex; align-items: center; gap: .55rem; color: #FB7185; font-size: .72rem; font-weight: 750; }
+        .profile-logout svg { width: 1rem; }
         .task-row {
             border-radius: .9rem;
             border: 1px solid var(--border-card);
@@ -991,21 +1163,26 @@
             body { padding-bottom: 0; }
         }
         @media (max-width: 639px) {
+            .profile-menu-popover { top: auto; left: 0; right: 0; bottom: 0; width: 100%; border-radius: 1.35rem 1.35rem 0 0; padding: .9rem .9rem calc(.9rem + env(safe-area-inset-bottom, 0px)); }
             .ziel-main { padding-top: 1.15rem; }
             .page-heading { min-height: 0; }
             .page-heading h2 { font-size: 1.55rem; }
             .page-heading > button { font-size: 0; padding: .7rem; }
             .page-heading > button svg { width: 1.15rem; height: 1.15rem; }
             .command-card { padding: 1.15rem !important; }
-            .energy-control { width: 100%; justify-content: space-between; }
-            .energy-control .energy-btn { width: 2.5rem; height: 2.5rem; }
+            .energy-picker-wrap { width: 100%; }
+            .energy-picker-label { text-align: left; }
+            .energy-control { width: 100%; justify-content: space-between; overflow-x: auto; }
+            .energy-control .energy-btn { min-width: 3rem; min-height: 3rem; }
             .action-sheet { border-radius: 1.25rem 1.25rem 0 0 !important; }
             .task-focus-btn span { display: none; }
             .task-focus-btn { padding: .6rem !important; }
-            .timeline-view-btn[data-view="quarter"],
-            .timeline-view-btn[data-view="half"],
-            .timeline-view-btn[data-view="year"] { display: none; }
-            .mobile-timeline-more { display: block; min-width: 6.5rem; }
+            .mobile-timeline-more { display: none !important; }
+            .today-focus-strip { align-items: flex-start; flex-wrap: wrap; }
+            .today-focus-strip .add-cta { width: 100%; justify-content: center; }
+            .recommendation-sheet { border-radius: 1.25rem 1.25rem 0 0 !important; }
+            #recommendationModal { align-items: flex-end; padding: 0; }
+            .recommendation-metrics { grid-template-columns: 1fr; }
             .app-view { animation: none; }
             #newGoalModal { align-items: stretch; padding: 0; }
             #newGoalModal .goal-creator-shell {
@@ -1031,6 +1208,13 @@
             .settings-content { flex: 1; max-height: none; padding: 1rem; }
             .setting-row { align-items: flex-start; flex-direction: column; gap: .6rem; padding: .55rem 0; }
             .setting-control, .setting-control select, .setting-control input { width: 100%; max-width: none; }
+            .smart-select-portal { display: flex; align-items: flex-end; }
+            .smart-select-menu { position: static !important; width: 100% !important; max-height: 72vh; border-radius: 1.25rem 1.25rem 0 0; padding: .7rem .7rem calc(.7rem + env(safe-area-inset-bottom, 0px)); }
+            #quickAddModal .grid { grid-template-columns: 1fr; }
+            .quick-action-tile { min-height: 4.9rem; }
+            #newTaskModal, #newAgendaModal, #goalPlanItemModal { align-items: flex-end; padding: 0; }
+            #newTaskModal > .glass-modal, #newAgendaModal > .glass-modal { max-height: 94dvh; overflow-y: auto; border-radius: 1.35rem 1.35rem 0 0 !important; padding-bottom: calc(1.2rem + env(safe-area-inset-bottom, 0px)); }
+            .goal-review-actions { position: sticky; bottom: -.1rem; padding: .7rem 0 calc(.2rem + env(safe-area-inset-bottom, 0px)); background: var(--bg-card); }
         }
     </style>
     <meta name="theme-color" content="#607D8B">
@@ -1091,8 +1275,8 @@
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                <button onclick="openQuickAdd()" class="primary-btn-gradient hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold">
-                    <i data-lucide="plus" class="w-4 h-4"></i><span>Tambah</span>
+                <button onclick="openQuickAdd()" class="primary-btn-gradient add-cta hidden sm:flex text-xs">
+                    <span class="add-cta-icon"><i data-lucide="plus"></i></span><span>Buat baru</span>
                 </button>
                 <button onclick="openModal('notificationCenterModal')" class="clean-icon-btn relative notification-trigger" title="Notifikasi">
                     <i data-lucide="bell" class="w-4 h-4"></i>
@@ -1103,19 +1287,33 @@
                     <i data-lucide="moon" id="themeHeaderMoon" class="w-4 h-4"></i>
                 </button>
                 <button onclick="openModal('moreMenuModal')" class="clean-icon-btn desktop-more-menu" title="Menu lainnya"><i data-lucide="ellipsis" class="w-5 h-5"></i></button>
-                <button onclick="openAuthModal()" class="relative" title="Akun">
+                <button onclick="toggleProfileMenu(event)" class="relative" title="Profil dan pengaturan" aria-label="Buka menu profil">
                     <div id="navAvatarDisplay" class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-extrabold">Z</div>
                     <span id="navStatusDot" class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-[var(--bg-main)] rounded-full"></span>
                 </button>
                 <span id="navProfileName" class="hidden">ZIEL Space</span>
                 <span id="navAccountStatus" class="hidden">Akun Tertaut</span>
                 <span id="geminiStatusBadge" class="hidden">Local AI</span>
-                <i data-lucide="sun" class="hidden" id="iconSun"></i>
-                <i data-lucide="moon" class="hidden" id="iconMoon"></i>
                 <span id="insightsNewBadgeDot" class="hidden"></span>
             </div>
         </div>
     </header>
+
+    <!-- PROFILE MENU: single account/settings entry point on every device -->
+    <div id="profileMenu" class="profile-menu-popover hidden" role="menu" aria-label="Menu profil">
+        <div class="profile-menu-head">
+            <div id="profileMenuAvatar" class="w-11 h-11 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-extrabold">Z</div>
+            <div class="min-w-0"><strong id="profileMenuName">ZIEL User</strong><small id="profileMenuEmail">Akun dan workspace</small></div>
+            <button onclick="closeProfileMenu()" class="clean-icon-btn sm:hidden"><i data-lucide="x"></i></button>
+        </div>
+        <div class="profile-menu-list">
+            <button onclick="closeProfileMenu();openAuthModal()"><span class="icon-box"><i data-lucide="user-round"></i></span><span><strong>Profil & akun</strong><small>Identitas, email, dan login</small></span><i data-lucide="chevron-right"></i></button>
+            <button onclick="closeProfileMenu();openSettingsSection('account')"><span class="icon-box"><i data-lucide="settings-2"></i></span><span><strong>Pengaturan</strong><small>Workflow, notifikasi, integrasi, dan data</small></span><i data-lucide="chevron-right"></i></button>
+            <button onclick="closeProfileMenu();openSettingsSection('appearance')"><span class="icon-box"><i data-lucide="palette"></i></span><span><strong>Tampilan</strong><small>Tema, warna aksen, dan kerapatan</small></span><i data-lucide="chevron-right"></i></button>
+            <button onclick="toggleTheme();closeProfileMenu()"><span class="icon-box"><i data-lucide="sun-moon"></i></span><span><strong>Ganti tema cepat</strong><small>Terang atau gelap</small></span><i data-lucide="sparkles"></i></button>
+        </div>
+        <button onclick="closeProfileMenu();logoutUser()" class="profile-logout"><i data-lucide="log-out"></i><span>Keluar dari akun</span></button>
+    </div>
 
     <!-- DESKTOP SIDEBAR -->
     <aside class="ziel-sidebar hidden lg:flex">
@@ -1151,12 +1349,15 @@
                             <h3 class="text-xl sm:text-2xl font-extrabold mt-1" style="color:var(--text-main)">Apa yang bisa kamu lakukan sekarang?</h3>
                             <p class="text-sm mt-2 max-w-xl leading-relaxed" style="color:var(--text-sub)">ZIEL memilih satu tindakan yang sesuai dengan energi, deadline, dan prioritasmu.</p>
                         </div>
-                        <div id="energySelectorGroup" class="energy-control shrink-0">
-                            <button onclick="setEnergy(1)" class="energy-btn" data-level="1" title="Sangat rendah">😴</button>
-                            <button onclick="setEnergy(2)" class="energy-btn" data-level="2" title="Rendah">🥱</button>
-                            <button onclick="setEnergy(3)" class="energy-btn" data-level="3" title="Sedang">😐</button>
-                            <button onclick="setEnergy(4)" class="energy-btn" data-level="4" title="Fokus">⚡</button>
-                            <button onclick="setEnergy(5)" class="energy-btn" data-level="5" title="Deep work">🔥</button>
+                        <div class="energy-picker-wrap shrink-0">
+                            <span class="energy-picker-label">Kapasitasmu sekarang</span>
+                            <div id="energySelectorGroup" class="energy-control">
+                                <button onclick="setEnergy(1)" class="energy-btn" data-level="1" title="Sangat rendah"><span>😴</span><small>Istirahat</small></button>
+                                <button onclick="setEnergy(2)" class="energy-btn" data-level="2" title="Rendah"><span>🥱</span><small>Ringan</small></button>
+                                <button onclick="setEnergy(3)" class="energy-btn" data-level="3" title="Seimbang"><span>🙂</span><small>Seimbang</small></button>
+                                <button onclick="setEnergy(4)" class="energy-btn" data-level="4" title="Fokus"><span>⚡</span><small>Fokus</small></button>
+                                <button onclick="setEnergy(5)" class="energy-btn" data-level="5" title="Puncak"><span>🔥</span><small>Puncak</small></button>
+                            </div>
                         </div>
                     </div>
                     <div class="mt-5 p-4 rounded-2xl action-suggestion">
@@ -1198,13 +1399,18 @@
 
         <!-- TODAY / TIMELINE -->
         <section id="timelineView" class="app-view hidden space-y-5">
-            <div class="page-heading"><div><p class="eyebrow">Eksekusi</p><h2>Today & Timeline</h2><p>Lihat detail hari ini atau zoom out untuk merencanakan.</p></div><button onclick="prepareAgendaModal()" class="primary-btn-gradient px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2"><i data-lucide="plus"></i>Agenda</button></div>
+            <div class="page-heading"><div><p class="eyebrow">Eksekusi hari ini</p><h2>Today</h2><p>Pilih satu tindakan, atur kapasitas, lalu kerjakan dengan tenang.</p></div><button onclick="prepareAgendaModal()" class="primary-btn-gradient add-cta text-sm"><span class="add-cta-icon"><i data-lucide="plus"></i></span><span>Agenda</span></button></div>
+            <div class="today-focus-strip">
+                <div class="today-focus-icon"><i data-lucide="sparkles"></i></div>
+                <div class="min-w-0 flex-1"><strong>Mulai dari satu tindakan terbaik</strong><small>ZIEL mencocokkan prioritas, deadline, dan kapasitas energimu.</small></div>
+                <button onclick="triggerWhatShouldIDoNow()" class="primary-btn-gradient add-cta"><span class="add-cta-icon"><i data-lucide="play"></i></span><span>Pilih tindakan</span></button>
+            </div>
             <div class="theme-card rounded-2xl p-4 sm:p-5 space-y-4 overflow-hidden">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
                         <div class="flex items-center gap-2">
                             <i data-lucide="calendar-range" class="w-4 h-4 text-teal-400"></i>
-                            <h3 class="section-title">Execution Timeline</h3>
+                            <h3 class="section-title">Timeline</h3>
                         </div>
                         <p id="timelinePeriodLabel" class="text-xs mt-1" style="color: var(--text-muted);"></p>
                     </div>
@@ -1223,7 +1429,7 @@
                     <button data-view="quarter" onclick="setTimelineView('quarter')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">3 Bulan</button>
                     <button data-view="half" onclick="setTimelineView('half')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">6 Bulan</button>
                     <button data-view="year" onclick="setTimelineView('year')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">Tahun</button>
-                    <select id="timelineMoreSelect" onchange="if(this.value){setTimelineView(this.value)}" class="mobile-timeline-more theme-input rounded-xl px-3 py-1.5 text-xs font-bold">
+                    <select id="timelineMoreSelect" data-native-select="true" onchange="if(this.value){setTimelineView(this.value)}" class="hidden">
                         <option value="">Lainnya</option><option value="quarter">3 Bulan</option><option value="half">6 Bulan</option><option value="year">Tahun</option>
                     </select>
                 </div>
@@ -1240,14 +1446,14 @@
 
         <!-- GOALS -->
         <section id="goalsView" class="app-view hidden space-y-5">
-            <div class="page-heading"><div><p class="eyebrow">Arah jangka panjang</p><h2>Goals</h2><p>Zoom out untuk memahami. Zoom in untuk mengeksekusi.</p></div><button onclick="openModal('newGoalModal')" class="primary-btn-gradient px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2"><i data-lucide="plus"></i>Buat Goal</button></div>
+            <div class="page-heading"><div><p class="eyebrow">Arah jangka panjang</p><h2>Goals</h2><p>Zoom out untuk memahami. Zoom in untuk mengeksekusi.</p></div><button onclick="openModal('newGoalModal')" class="primary-btn-gradient add-cta text-sm"><span class="add-cta-icon"><i data-lucide="plus"></i></span><span>Buat Goal</span></button></div>
             <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar" id="goalCategoryTabsMirror"></div>
             <div class="theme-card p-4 sm:p-5 rounded-2xl"><div id="goalsContainer" class="grid grid-cols-1 xl:grid-cols-2 gap-4"></div></div>
         </section>
 
         <!-- TASKS -->
         <section id="tasksView" class="app-view hidden space-y-5">
-            <div class="page-heading"><div><p class="eyebrow">Tindakan berikutnya</p><h2>Tasks</h2><p>Antrean yang sederhana, terhubung ke Goal dan Agenda.</p></div><button onclick="openModal('newTaskModal')" class="primary-btn-gradient px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2"><i data-lucide="plus"></i>Tambah Task</button></div>
+            <div class="page-heading"><div><p class="eyebrow">Tindakan berikutnya</p><h2>Tasks</h2><p>Antrean yang sederhana, terhubung ke Goal dan Agenda.</p></div><button onclick="openModal('newTaskModal')" class="primary-btn-gradient add-cta text-sm"><span class="add-cta-icon"><i data-lucide="plus"></i></span><span>Task baru</span></button></div>
             <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar" id="taskCategoryTabsMirror"></div>
             <div id="tasksContainer" class="space-y-2"></div>
         </section>
@@ -1282,12 +1488,12 @@
     <!-- GLOBAL QUICK ADD -->
     <div id="quickAddModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
         <div class="glass-modal action-sheet w-full sm:max-w-md p-5 sm:p-6 space-y-4">
-            <div class="flex items-center justify-between"><div><p class="eyebrow">Quick add</p><h3 class="text-lg font-extrabold">Apa yang ingin ditambahkan?</h3></div><button onclick="closeModal('quickAddModal')" class="clean-icon-btn"><i data-lucide="x"></i></button></div>
+            <div class="flex items-center justify-between"><div><p class="eyebrow">Buat baru</p><h3 class="text-lg font-extrabold">Tambahkan ke ZIEL</h3><p class="text-xs mt-1" style="color:var(--text-muted)">Pilih jenis item—detailnya bisa dilengkapi setelah ini.</p></div><button onclick="closeModal('quickAddModal')" class="clean-icon-btn"><i data-lucide="x"></i></button></div>
             <div class="grid grid-cols-2 gap-3">
-                <button onclick="closeModal('quickAddModal');openModal('newTaskModal')" class="quick-action-tile"><span class="icon-box"><i data-lucide="circle-check-big"></i></span><strong>Task</strong><small>Tindakan konkret</small></button>
-                <button onclick="closeModal('quickAddModal');openModal('newGoalModal')" class="quick-action-tile"><span class="icon-box"><i data-lucide="target"></i></span><strong>Goal</strong><small>Arah jangka panjang</small></button>
-                <button onclick="closeModal('quickAddModal');prepareAgendaModal()" class="quick-action-tile"><span class="icon-box"><i data-lucide="calendar-plus"></i></span><strong>Agenda</strong><small>Waktu untuk eksekusi</small></button>
-                <button onclick="closeModal('quickAddModal');openModal('brainDumpModal')" class="quick-action-tile"><span class="icon-box"><i data-lucide="sparkles"></i></span><strong>Brain Dump</strong><small>Ubah pikiran jadi aksi</small></button>
+                <button onclick="closeModal('quickAddModal');openModal('newTaskModal')" class="quick-action-tile"><span class="icon-box"><i data-lucide="circle-check-big"></i></span><span><strong>Task</strong><small>Satu tindakan yang bisa diselesaikan.</small></span><i data-lucide="chevron-right"></i></button>
+                <button onclick="closeModal('quickAddModal');openModal('newGoalModal')" class="quick-action-tile"><span class="icon-box"><i data-lucide="target"></i></span><span><strong>Goal</strong><small>Hasil besar dengan rentang waktu.</small></span><i data-lucide="chevron-right"></i></button>
+                <button onclick="closeModal('quickAddModal');prepareAgendaModal()" class="quick-action-tile"><span class="icon-box"><i data-lucide="calendar-plus"></i></span><span><strong>Agenda</strong><small>Blok waktu untuk eksekusi.</small></span><i data-lucide="chevron-right"></i></button>
+                <button onclick="closeModal('quickAddModal');openModal('brainDumpModal')" class="quick-action-tile"><span class="icon-box"><i data-lucide="brain"></i></span><span><strong>Brain Dump</strong><small>Urai banyak pikiran sekaligus.</small></span><i data-lucide="chevron-right"></i></button>
             </div>
         </div>
     </div>
@@ -1679,46 +1885,42 @@
         </div>
     </div>
 
-    <!-- 2. AI RECOMMENDATION MODAL -->
+    <!-- 2. RECOMMENDATION MODAL -->
     <div id="recommendationModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
-        <div class="glass-modal rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-5 relative">
+        <div class="glass-modal recommendation-sheet rounded-3xl max-w-lg w-full p-5 sm:p-7 space-y-5 relative">
             <button onclick="closeModal('recommendationModal')" class="absolute top-5 right-5 opacity-60 hover:opacity-100 p-1">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
 
-            <div class="space-y-2 text-center">
-                <div class="w-12 h-12 rounded-2xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center mx-auto mb-1 border border-indigo-500/25">
-                    <i data-lucide="compass" class="w-6 h-6 animate-pulse"></i>
+            <div class="flex items-start gap-4 pr-8">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/25">
+                    <i data-lucide="compass" class="w-6 h-6"></i>
                 </div>
-                <span class="text-[10px] font-bold uppercase tracking-widest text-teal-400">Rekomendasi AI Terbaik Sekarang</span>
-                <h3 class="text-2xl font-black" style="color: var(--text-main);" id="recTaskTitle">Revisi Bab 3</h3>
-                <p class="text-xs font-medium" style="color: var(--text-sub);" id="recContext">Goal: Skripsi Selesai</p>
+                <div class="min-w-0"><span class="eyebrow">Rekomendasi berdasarkan energimu</span><h3 class="text-xl sm:text-2xl font-black mt-1" style="color: var(--text-main);" id="recTaskTitle">Revisi Bab 3</h3><p class="text-xs font-medium mt-1" style="color: var(--text-sub);" id="recContext">Goal: Skripsi Selesai</p></div>
             </div>
 
-            <div class="grid grid-cols-3 gap-2 p-3 rounded-2xl border border-[var(--border-card)] text-center text-xs" style="background-color: var(--bg-main);">
-                <div><span class="text-[10px] uppercase block font-semibold" style="color: var(--text-muted);">Estimasi</span><span class="font-bold" style="color: var(--text-main);" id="recDuration">25 Menit</span></div>
-                <div><span class="text-[10px] uppercase block font-semibold" style="color: var(--text-muted);">Priority</span><span class="font-bold text-rose-500" id="recPriority">High</span></div>
-                <div><span class="text-[10px] uppercase block font-semibold" style="color: var(--text-muted);">Energy Match</span><span class="font-bold text-teal-400" id="recEnergyMatch">Cocok</span></div>
+            <div class="recommendation-metrics">
+                <div><i data-lucide="timer"></i><span><small>Estimasi</small><strong id="recDuration">25 menit</strong></span></div>
+                <div><i data-lucide="flag"></i><span><small>Prioritas</small><strong id="recPriority">Tinggi</strong></span></div>
+                <div><i data-lucide="battery-charging"></i><span><small>Kecocokan</small><strong id="recEnergyMatch">Cocok</strong></span></div>
             </div>
 
-            <div class="p-4 rounded-2xl space-y-1 tag-indigo">
-                <span class="text-xs font-bold uppercase">Langkah Pertama (Micro-Action):</span>
-                <p class="text-sm font-medium opacity-90" id="recMicroAction">&bull; Buka file dan mulai paragraf 1.</p>
+            <div class="next-step-card">
+                <div class="next-step-icon"><i data-lucide="footprints"></i></div><div><span>Langkah pertama</span><p id="recMicroAction">Buka file dan mulai paragraf pertama.</p></div>
             </div>
 
             <div class="space-y-2 pt-1">
-                <button onclick="startFocusFromRec()" class="hero-action-btn w-full py-3.5 rounded-2xl font-extrabold text-sm flex items-center justify-center space-x-2 uppercase">
-                    <i data-lucide="flame" class="w-4 h-4 fill-current"></i>
-                    <span>Mulai Focus Mode Sekarang</span>
+                <button onclick="startFocusFromRec()" class="primary-btn-gradient add-cta w-full justify-center py-3.5 text-sm">
+                    <span class="add-cta-icon"><i data-lucide="play"></i></span><span>Mulai fokus</span>
                 </button>
                 <div class="grid grid-cols-2 gap-2">
                     <button onclick="addCurrentRecommendationToCalendar()" class="btn-secondary py-2.5 px-3 rounded-xl font-bold text-xs flex items-center justify-center space-x-1.5">
                         <i data-lucide="calendar-plus" class="w-3.5 h-3.5 text-teal-400"></i>
-                        <span>Ke Google Cal</span>
+                        <span>Jadwalkan</span>
                     </button>
                     <button onclick="skipAndNextRecommendation()" class="btn-secondary py-2.5 px-3 rounded-xl font-bold text-xs flex items-center justify-center space-x-1">
                         <i data-lucide="skip-forward" class="w-3.5 h-3.5"></i>
-                        <span>Alternatif Lain</span>
+                        <span>Pilihan lain</span>
                     </button>
                 </div>
             </div>
@@ -1795,15 +1997,7 @@
 
                 <!-- 2. Spotify Player Tab -->
                 <div id="spotifySoundsPanel" class="hidden space-y-2">
-                    <div class="flex items-center space-x-1 overflow-x-auto pb-1 text-[10px]">
-                        <button onclick="loadSpotifyPlaylist('37i9dQZF1DXdLEN7aqioXM')" class="btn-secondary px-2 py-1 rounded-lg font-bold whitespace-nowrap">🎧 Lo-Fi Beats</button>
-                        <button onclick="loadSpotifyPlaylist('37i9dQZF1DWZeKCadgRdKQ')" class="btn-secondary px-2 py-1 rounded-lg font-bold whitespace-nowrap">🧠 Deep Focus</button>
-                        <button onclick="loadSpotifyPlaylist('37i9dQZF1DX4sWSpwq3LiO')" class="btn-secondary px-2 py-1 rounded-lg font-bold whitespace-nowrap">🎹 Peaceful Piano</button>
-                        <button onclick="loadCustomSavedSpotifyPlaylist()" class="btn-secondary px-2 py-1 rounded-lg font-bold whitespace-nowrap text-teal-400">🎵 Playlist Kustom</button>
-                    </div>
-                    <div class="rounded-xl overflow-hidden border border-[var(--border-card)]">
-                        <iframe id="spotifyIframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdLEN7aqioXM?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                    </div>
+                    <div class="p-3 rounded-xl border border-[var(--border-card)] flex items-center gap-3"><span class="w-9 h-9 rounded-xl bg-[#1DB954] text-slate-950 grid place-items-center"><i data-lucide="music-2" class="w-4 h-4"></i></span><span class="flex-1"><strong class="block text-xs">Ikuti Spotify-mu</strong><small class="block mt-0.5" style="color:var(--text-muted)">Pilihan lagu dikelola langsung dari Spotify.</small></span><button onclick="exitFocusMode();openSoundscapeModal();switchSoundscapeSource('spotify')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Now Playing</button></div>
                 </div>
             </div>
 
@@ -1854,16 +2048,17 @@
                 <div class="flex gap-2"><button onclick="previewAmbience()" id="soundscapePlayButton" class="primary-btn-gradient flex-1 py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2"><i data-lucide="play" class="w-4 h-4"></i><span>Putar preview</span></button><button onclick="stopSoundscapePreview()" class="btn-secondary px-4 py-3 rounded-xl text-xs font-bold">Stop</button></div>
             </div>
             <div id="soundscapeSpotifyPanel" class="hidden space-y-3">
-                <div class="p-3 rounded-2xl tag-emerald text-xs leading-relaxed flex items-start justify-between gap-3"><span><strong>Spotify Embed</strong><br>Playlist dapat diputar tanpa Gemini API. Login Spotify hanya diperlukan untuk kontrol akun lanjutan.</span><span id="soundscapeSpotifyStatus" class="shrink-0 font-bold">Belum login</span></div>
-                <div class="flex gap-2 overflow-x-auto custom-scrollbar pb-1">
-                    <button onclick="loadSpotifyPlaylist('37i9dQZF1DXdLEN7aqioXM')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap">Lo-Fi Beats</button>
-                    <button onclick="loadSpotifyPlaylist('37i9dQZF1DWZeKCadgRdKQ')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap">Deep Focus</button>
-                    <button onclick="loadSpotifyPlaylist('37i9dQZF1DX4sWSpwq3LiO')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap">Peaceful Piano</button>
-                    <button onclick="loadSpotifyPlaylist('37i9dQZF1DWZqd5JICZI0u')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap">Focus Flow</button>
+                <div class="spotify-connect-card">
+                    <div class="spotify-brand"><span><i data-lucide="music-2"></i></span><div><strong>Spotify Connect</strong><small>Soundscape mengikuti lagu yang sedang diputar di akunmu.</small></div></div>
+                    <span id="soundscapeSpotifyStatus" class="spotify-status-pill">Belum terhubung</span>
                 </div>
-                <iframe id="soundscapeSpotifyIframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdLEN7aqioXM?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="flex gap-2"><input id="soundscapeSpotifyInput" class="theme-input flex-1 rounded-xl p-3 text-xs" placeholder="Tempel link atau ID playlist"><button onclick="applySoundscapeSpotifyPlaylist()" class="primary-btn-gradient px-4 rounded-xl text-xs font-bold">Muat</button></div>
-                <button onclick="loginSpotify()" class="w-full py-3 rounded-xl bg-[#1DB954] text-slate-950 font-extrabold text-xs">Hubungkan akun Spotify</button>
+                <div id="spotifyNowPlayingCard" class="spotify-now-playing hidden">
+                    <img id="spotifyNowPlayingArt" alt="Sampul lagu Spotify" src="" />
+                    <div class="min-w-0 flex-1"><div class="flex items-center gap-2"><div id="spotifyNowPlayingBars" class="now-playing-bars"><span></span><span></span><span></span><span></span></div><small>NOW PLAYING</small></div><strong id="spotifyNowPlayingTitle">Belum ada lagu</strong><p id="spotifyNowPlayingArtist">Putar lagu dari aplikasi Spotify</p><div class="spotify-progress"><i id="spotifyNowPlayingProgress"></i></div></div>
+                    <a id="spotifyNowPlayingLink" href="https://open.spotify.com" target="_blank" rel="noopener" class="clean-icon-btn" title="Buka di Spotify"><i data-lucide="external-link"></i></a>
+                </div>
+                <div id="spotifyNowPlayingEmpty" class="spotify-empty"><i data-lucide="radio"></i><strong>Tidak ada lagu yang aktif</strong><small>Putar lagu dari Spotify, lalu statusnya akan muncul otomatis di sini.</small></div>
+                <div class="flex gap-2"><button id="soundscapeSpotifyConnectBtn" onclick="loginSpotify()" class="spotify-connect-button flex-1"><i data-lucide="link-2"></i><span>Hubungkan Spotify</span></button><button id="soundscapeSpotifyDisconnectBtn" onclick="disconnectSpotify()" class="btn-secondary hidden px-4 rounded-xl text-xs font-bold text-rose-400">Putuskan</button></div>
             </div>
         </div>
     </div>
@@ -1943,7 +2138,7 @@
             <div id="brainDumpResults" class="hidden space-y-2 pt-2">
                 <span class="text-[11px] font-bold uppercase" style="color: var(--text-muted);">Hasil Ekstraksi Tugas:</span>
                 <div id="brainDumpItemsList" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar"></div>
-                <button onclick="importBrainDumpTasks()" class="w-full py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs transition shadow-sm">+ Simpan Semua ke Antrean Tugas</button>
+                <button onclick="importBrainDumpTasks()" class="primary-btn-gradient add-cta w-full justify-center py-3"><span class="add-cta-icon"><i data-lucide="check"></i></span><span>Simpan semua task</span></button>
             </div>
         </div>
     </div>
@@ -1967,7 +2162,7 @@
             <div><p class="eyebrow">Langkah 1</p><h4 class="form-step-title">Apa yang ingin kamu capai?</h4><p class="form-step-copy">Mulai dari hasil yang berarti, bukan daftar aktivitas.</p></div>
             <div>
                 <label class="block font-semibold mb-1.5" style="color:var(--text-sub)">Judul Goal</label>
-                <input type="text" id="newGoalTitle" class="w-full theme-input rounded-xl p-3" placeholder="Contoh: Membangun portfolio Data Analyst">
+                <input type="text" id="newGoalTitle" name="ziel_goal_title" autocomplete="off" autocapitalize="sentences" spellcheck="true" data-lpignore="true" data-1p-ignore class="w-full theme-input rounded-xl p-3" placeholder="Contoh: Membangun portfolio Data Analyst">
             </div>
             <div>
                 <label class="block font-semibold mb-1.5" style="color:var(--text-sub)">Mengapa ini penting? <span class="font-normal opacity-60">(opsional)</span></label>
@@ -2077,11 +2272,23 @@
             </div>
             <div class="p-3 rounded-2xl tag-indigo text-[11px] leading-relaxed">Zoom out untuk memahami arah. Zoom in untuk memilih tindakan berikutnya. Nonaktifkan level yang tidak Anda perlukan.</div>
             <div id="goalPlanReviewList" class="space-y-2"></div>
-            <div class="flex flex-col sm:flex-row gap-2 pt-1">
-                <button onclick="addGoalPlanItem()" class="btn-secondary px-3 py-2.5 rounded-xl text-xs font-bold">+ Tambah target</button>
+            <div class="goal-review-actions flex flex-col sm:flex-row gap-2 pt-1">
+                <button onclick="returnToGoalPlanEditor()" class="btn-secondary px-3 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5"><i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>Kembali edit</button>
+                <button onclick="addGoalPlanItem()" class="btn-secondary px-3 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5"><span class="add-cta-icon"><i data-lucide="plus"></i></span>Tambah target</button>
                 <button onclick="regenerateGoalPlan()" class="btn-secondary px-3 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1"><i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Susun ulang</button>
-                <button onclick="approveGoalPlan()" class="primary-btn-gradient flex-1 px-4 py-2.5 rounded-xl text-xs font-bold">Simpan Goal</button>
+                <button onclick="approveGoalPlan()" class="primary-btn-gradient add-cta flex-1 justify-center text-xs"><span class="add-cta-icon"><i data-lucide="check"></i></span>Simpan Goal</button>
             </div>
+        </div>
+    </div>
+
+    <!-- MODERN TARGET EDITOR -->
+    <div id="goalPlanItemModal" class="fixed inset-0 z-[70] modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+        <div class="glass-modal action-sheet rounded-3xl max-w-md w-full p-5 sm:p-6 space-y-4">
+            <div class="flex items-start justify-between gap-3"><div><p class="eyebrow">Struktur rencana</p><h3 id="goalPlanItemHeading" class="text-lg font-bold mt-1">Tambah target</h3><p class="text-xs mt-1" style="color:var(--text-muted)">Tentukan level dan induk agar rencana tetap mudah dipindai.</p></div><button onclick="closeModal('goalPlanItemModal')" class="clean-icon-btn"><i data-lucide="x"></i></button></div>
+            <input id="goalPlanItemId" type="hidden">
+            <div><label class="block font-semibold mb-1.5 text-xs" style="color:var(--text-sub)">Nama target</label><input id="goalPlanItemTitle" type="text" autocomplete="off" autocapitalize="sentences" class="theme-input w-full rounded-xl p-3" placeholder="Contoh: Validasi ide dengan 10 pengguna"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3"><div><label class="block font-semibold mb-1.5 text-xs" style="color:var(--text-sub)">Level rencana</label><select id="goalPlanItemType" class="theme-input w-full rounded-xl p-3"><option value="year">Tahunan</option><option value="half_year">6 bulanan</option><option value="month">Bulanan</option><option value="week">Mingguan</option><option value="milestone" selected>Milestone</option></select></div><div><label class="block font-semibold mb-1.5 text-xs" style="color:var(--text-sub)">Di bawah target</label><select id="goalPlanItemParent" class="theme-input w-full rounded-xl p-3"><option value="">Tanpa induk</option></select></div></div>
+            <div class="flex gap-2 pt-1"><button onclick="closeModal('goalPlanItemModal')" class="btn-secondary flex-1 py-3 rounded-xl text-xs font-bold">Batal</button><button onclick="saveGoalPlanItemEditor()" class="primary-btn-gradient add-cta flex-1 justify-center"><span class="add-cta-icon"><i data-lucide="check"></i></span><span>Simpan target</span></button></div>
         </div>
     </div>
 
@@ -2104,18 +2311,28 @@
         </div>
     </div>
 
+    <!-- EDIT GOAL -->
+    <div id="editGoalModal" class="fixed inset-0 z-[70] modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+        <div class="glass-modal action-sheet rounded-3xl max-w-md w-full p-5 sm:p-6 space-y-4">
+            <div class="flex items-start justify-between"><div><p class="eyebrow">Detail goal</p><h3 class="text-lg font-bold mt-1">Edit goal</h3><p class="text-xs mt-1" style="color:var(--text-muted)">Rencana yang sudah ada tetap dipertahankan.</p></div><button onclick="closeModal('editGoalModal')" class="clean-icon-btn"><i data-lucide="x"></i></button></div>
+            <div><label class="block font-semibold mb-1.5 text-xs" style="color:var(--text-sub)">Judul goal</label><input id="editGoalTitle" type="text" autocomplete="off" autocapitalize="sentences" class="theme-input w-full rounded-xl p-3"></div>
+            <div><label class="block font-semibold mb-1.5 text-xs" style="color:var(--text-sub)">Tanggal selesai</label><input id="editGoalEndDate" type="date" class="theme-input w-full rounded-xl p-3"></div>
+            <div class="flex gap-2"><button onclick="closeModal('editGoalModal')" class="btn-secondary flex-1 py-3 rounded-xl text-xs font-bold">Batal</button><button onclick="saveCurrentGoalEdit()" class="primary-btn-gradient add-cta flex-1 justify-center"><span class="add-cta-icon"><i data-lucide="check"></i></span><span>Simpan</span></button></div>
+        </div>
+    </div>
+
     <!-- 7. NEW TASK MODAL -->
     <div id="newTaskModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
         <div class="glass-modal rounded-3xl max-w-md w-full p-6 space-y-4 relative">
-            <div class="flex items-center justify-between">
-                <h3 class="text-lg font-bold" style="color: var(--text-main);">Tambah Tugas Baru</h3>
-                <button onclick="closeModal('newTaskModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <div class="flex items-start justify-between gap-3">
+                <div><p class="eyebrow">Tindakan berikutnya</p><h3 class="text-lg font-bold mt-1" style="color: var(--text-main);">Task baru</h3><p class="text-xs mt-1" style="color:var(--text-muted)">Simpan satu hasil konkret yang dapat dikerjakan.</p></div>
+                <button onclick="closeModal('newTaskModal')" class="clean-icon-btn"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
 
             <div class="space-y-3 text-xs">
                 <div>
                     <label class="block font-semibold mb-1" style="color: var(--text-sub);">Judul Tugas</label>
-                    <input type="text" id="newTaskTitle" class="w-full theme-input rounded-xl p-2.5" placeholder="Contoh: Baca panduan VPC & Subnetting">
+                    <input type="text" id="newTaskTitle" autocomplete="off" autocapitalize="sentences" class="w-full theme-input rounded-xl p-3" placeholder="Contoh: Baca panduan VPC & Subnetting">
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div>
@@ -2129,7 +2346,7 @@
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <label class="block font-semibold mb-1" style="color: var(--text-sub);">Kategori</label>
+                        <label class="block font-semibold mb-1" style="color: var(--text-sub);">Area hidup</label>
                         <select id="newTaskCategory" class="w-full theme-input rounded-xl p-2.5"></select>
                     </div>
                     <div>
@@ -2168,8 +2385,8 @@
                 </div>
             </div>
 
-            <button onclick="saveNewTask()" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md">
-                Simpan Tugas
+            <button onclick="saveNewTask()" class="primary-btn-gradient add-cta w-full justify-center py-3">
+                <span class="add-cta-icon"><i data-lucide="check"></i></span><span>Simpan task</span>
             </button>
         </div>
     </div>
@@ -2177,9 +2394,9 @@
     <!-- 8. NEW AGENDA MODAL -->
     <div id="newAgendaModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
         <div class="glass-modal rounded-3xl max-w-md w-full p-6 space-y-4 relative">
-            <div class="flex items-center justify-between">
-                <h3 class="text-lg font-bold" style="color: var(--text-main);">Tambah Agenda</h3>
-                <button onclick="closeModal('newAgendaModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <div class="flex items-start justify-between gap-3">
+                <div><p class="eyebrow">Blok waktu</p><h3 class="text-lg font-bold mt-1" style="color: var(--text-main);">Agenda baru</h3><p class="text-xs mt-1" style="color:var(--text-muted)">Tentukan kapan dan di mana pekerjaan berlangsung.</p></div>
+                <button onclick="closeModal('newAgendaModal')" class="clean-icon-btn"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
 
             <div class="space-y-3 text-xs">
@@ -2189,7 +2406,7 @@
                 </div>
                 <div>
                     <label class="block font-semibold mb-1" style="color: var(--text-sub);">Nama Acara / Jadwal</label>
-                    <input type="text" id="newAgendaTitle" class="w-full theme-input rounded-xl p-2.5" placeholder="Contoh: Bimbingan Skripsi via Google Meet">
+                    <input type="text" id="newAgendaTitle" autocomplete="off" autocapitalize="sentences" class="w-full theme-input rounded-xl p-3" placeholder="Contoh: Bimbingan Skripsi via Google Meet">
                 </div>
                 <div>
                     <label class="block font-semibold mb-1" style="color: var(--text-sub);">Tanggal</label>
@@ -2212,12 +2429,12 @@
             </div>
 
             <div class="flex space-x-2 pt-1">
-                <button onclick="saveNewAgenda(false)" class="flex-1 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md">
-                    Simpan di ZIEL
+                <button onclick="saveNewAgenda(false)" class="primary-btn-gradient add-cta flex-1 justify-center py-3">
+                    <span class="add-cta-icon"><i data-lucide="check"></i></span><span>Simpan agenda</span>
                 </button>
                 <button onclick="saveNewAgenda(true)" class="btn-secondary py-3 px-3.5 rounded-xl font-bold text-xs flex items-center space-x-1.5">
                     <i data-lucide="calendar-plus" class="w-3.5 h-3.5 text-teal-400"></i>
-                    <span>+ GCal</span>
+                    <span>Simpan & buka GCal</span>
                 </button>
             </div>
         </div>
@@ -2235,7 +2452,7 @@
             </div>
 
             <div class="p-3.5 rounded-2xl border border-[var(--border-card)] space-y-2.5" style="background-color: var(--bg-main);">
-                <span class="text-[11px] font-bold uppercase" style="color: var(--text-sub);">+ Tambah Area Baru</span>
+                <span class="eyebrow">Area baru</span>
                 <div class="grid grid-cols-12 gap-2">
                     <div class="col-span-3">
                         <input type="text" id="newCatIcon" maxlength="4" placeholder="🎓 Icon" class="w-full theme-input rounded-xl p-2 text-xs text-center">
@@ -2381,6 +2598,31 @@
             }
         }
 
+        function toggleProfileMenu(event) {
+            if (event) event.stopPropagation();
+            const menu = document.getElementById('profileMenu');
+            if (!menu) return;
+            const willOpen = menu.classList.contains('hidden');
+            closeProfileMenu();
+            if (!willOpen) return;
+            let profile = {};
+            try { profile = JSON.parse(localStorage.getItem('ZIEL_USER_PROFILE') || '{}'); } catch (e) {}
+            const name = profile.name || document.getElementById('navProfileName')?.textContent || 'ZIEL User';
+            const email = profile.email || 'Akun dan workspace';
+            document.getElementById('profileMenuName').textContent = name;
+            document.getElementById('profileMenuEmail').textContent = email;
+            document.getElementById('profileMenuAvatar').textContent = (profile.avatar || name.charAt(0) || 'Z').slice(0, 2).toUpperCase();
+            menu.classList.remove('hidden');
+            safeLucideCreateIcons({ root: menu });
+        }
+
+        function closeProfileMenu() { document.getElementById('profileMenu')?.classList.add('hidden'); }
+
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('profileMenu');
+            if (menu && !menu.classList.contains('hidden') && !menu.contains(event.target)) closeProfileMenu();
+        });
+
         // =========================================================================
         // 1. FIREBASE CLOUD CONFIGURATION
         // =========================================================================
@@ -2404,7 +2646,8 @@
                 "user-read-private",
                 "user-read-email",
                 "playlist-read-private",
-                "user-read-playback-state"
+                "user-read-playback-state",
+                "user-read-currently-playing"
             ].join(" ")
         };
 
@@ -2611,6 +2854,74 @@
                 }
             }
         }
+
+        // ================= MODERN SELECT SYSTEM =================
+        function smartEscape(value) {
+            return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
+        function enhanceAllSelects(root) {
+            (root || document).querySelectorAll('select').forEach(function (select, index) {
+                if (select.id === 'timelineMoreSelect' || select.dataset.nativeSelect === 'true') return;
+                if (select.closest('.hidden')) return;
+                if (!select.id) select.id = 'zielSelect' + Date.now() + index;
+                select.classList.add('select-enhanced');
+                let trigger = document.querySelector('[data-smart-select-for="' + select.id + '"]');
+                if (!trigger) {
+                    trigger = document.createElement('button');
+                    trigger.type = 'button';
+                    trigger.className = 'smart-select-trigger';
+                    trigger.dataset.smartSelectFor = select.id;
+                    trigger.onclick = function () { openSmartSelect(select.id, trigger); };
+                    select.insertAdjacentElement('afterend', trigger);
+                }
+                refreshSmartSelectButton(select);
+            });
+            safeLucideCreateIcons({ root: root || document });
+        }
+
+        function refreshSmartSelectButton(select) {
+            if (!select) return;
+            const trigger = document.querySelector('[data-smart-select-for="' + select.id + '"]');
+            if (!trigger) return;
+            const option = select.options[select.selectedIndex] || select.options[0];
+            trigger.innerHTML = '<span>' + smartEscape(option ? option.textContent : 'Pilih opsi') + '</span><i data-lucide="chevron-down"></i>';
+            trigger.disabled = select.disabled;
+        }
+
+        function refreshAllSmartSelects() {
+            document.querySelectorAll('select.select-enhanced').forEach(refreshSmartSelectButton);
+            safeLucideCreateIcons();
+        }
+
+        function openSmartSelect(selectId, trigger) {
+            closeSmartSelect();
+            const select = document.getElementById(selectId);
+            if (!select) return;
+            const portal = document.createElement('div');
+            portal.id = 'smartSelectPortal'; portal.className = 'smart-select-portal'; portal.onclick = closeSmartSelect;
+            const menu = document.createElement('div'); menu.className = 'smart-select-menu custom-scrollbar'; menu.onclick = function (event) { event.stopPropagation(); };
+            const label = select.closest('div')?.querySelector('label')?.textContent?.trim() || 'Pilih opsi';
+            menu.innerHTML = '<p>' + smartEscape(label) + '</p>' + Array.from(select.options).map(function (option) {
+                return '<button type="button" onclick="chooseSmartSelect(\'' + selectId + '\',\'' + smartEscape(option.value).replace(/&#039;/g, "\\'") + '\')" class="smart-select-option ' + (option.value === select.value ? 'selected' : '') + '"><span>' + smartEscape(option.textContent) + '</span>' + (option.value === select.value ? '<i data-lucide="check"></i>' : '') + '</button>';
+            }).join('');
+            portal.appendChild(menu); document.body.appendChild(portal);
+            if (window.innerWidth >= 640) {
+                const rect = trigger.getBoundingClientRect();
+                const width = Math.max(rect.width, 220); const roomBelow = innerHeight - rect.bottom;
+                menu.style.width = width + 'px'; menu.style.left = Math.min(rect.left, innerWidth - width - 12) + 'px';
+                menu.style.top = roomBelow > 260 ? (rect.bottom + 6) + 'px' : 'auto';
+                menu.style.bottom = roomBelow > 260 ? 'auto' : (innerHeight - rect.top + 6) + 'px';
+            }
+            safeLucideCreateIcons({ root: portal });
+        }
+
+        function chooseSmartSelect(selectId, value) {
+            const select = document.getElementById(selectId); if (!select) return;
+            select.value = value; select.dispatchEvent(new Event('change', { bubbles: true })); refreshSmartSelectButton(select); closeSmartSelect(); playChime('click');
+        }
+
+        function closeSmartSelect() { document.getElementById('smartSelectPortal')?.remove(); }
 
         function updateNotificationBadge() {
             const notifs = getNotifications();
@@ -3146,6 +3457,7 @@
             localStorage.removeItem('ZIEL_SPOTIFY_TOKEN');
             localStorage.removeItem('ZIEL_SPOTIFY_EXPIRES_AT');
             localStorage.removeItem('ZIEL_SPOTIFY_REFRESH_TOKEN');
+            stopSpotifyNowPlayingPolling();
             updateSpotifyUI();
             showToast({ type: 'info', title: 'Spotify Terputus', message: 'Koneksi akun Spotify telah direset.' });
         }
@@ -3160,10 +3472,15 @@
             const disconnectBtn = document.getElementById('btnSpotifyDisconnect');
             const customInput = document.getElementById('customSpotifyInput');
             const soundscapeStatus = document.getElementById('soundscapeSpotifyStatus');
+            const soundscapeConnect = document.getElementById('soundscapeSpotifyConnectBtn');
+            const soundscapeDisconnect = document.getElementById('soundscapeSpotifyDisconnectBtn');
             const savedPlaylist = localStorage.getItem('ZIEL_CUSTOM_SPOTIFY_PLAYLIST') || '37i9dQZF1DXdLEN7aqioXM';
 
             if (customInput) customInput.value = savedPlaylist;
-            if (soundscapeStatus) soundscapeStatus.textContent = isConnected ? 'Terhubung' : 'Belum login';
+            if (soundscapeStatus) soundscapeStatus.textContent = isConnected ? 'Terhubung' : 'Belum terhubung';
+            if (soundscapeConnect) soundscapeConnect.classList.toggle('hidden', !!isConnected);
+            if (soundscapeDisconnect) soundscapeDisconnect.classList.toggle('hidden', !isConnected);
+            if (!isConnected) renderSpotifyNowPlaying(null);
 
             if (badge && loginBtn && disconnectBtn) {
                 if (isConnected) {
@@ -3178,6 +3495,51 @@
                     disconnectBtn.classList.add('hidden');
                 }
             }
+        }
+
+        let spotifyNowPlayingTimer = null;
+
+        function renderSpotifyNowPlaying(data) {
+            const card = document.getElementById('spotifyNowPlayingCard');
+            const empty = document.getElementById('spotifyNowPlayingEmpty');
+            if (!card || !empty) return;
+            const item = data && data.item;
+            card.classList.toggle('hidden', !item);
+            empty.classList.toggle('hidden', !!item);
+            if (!item) return;
+            document.getElementById('spotifyNowPlayingArt').src = item.album?.images?.[0]?.url || '';
+            document.getElementById('spotifyNowPlayingTitle').textContent = item.name || 'Lagu Spotify';
+            document.getElementById('spotifyNowPlayingArtist').textContent = (item.artists || []).map(function (artist) { return artist.name; }).join(', ') || 'Spotify';
+            document.getElementById('spotifyNowPlayingLink').href = item.external_urls?.spotify || 'https://open.spotify.com';
+            const progress = item.duration_ms ? Math.min(100, Math.round(((data.progress_ms || 0) / item.duration_ms) * 100)) : 0;
+            document.getElementById('spotifyNowPlayingProgress').style.width = progress + '%';
+            document.getElementById('spotifyNowPlayingBars').classList.toggle('is-playing', !!data.is_playing);
+            document.getElementById('statMusicMode').textContent = item.name || 'Spotify';
+        }
+
+        async function fetchSpotifyNowPlaying() {
+            const token = localStorage.getItem('ZIEL_SPOTIFY_TOKEN');
+            const expiresAt = Number(localStorage.getItem('ZIEL_SPOTIFY_EXPIRES_AT') || 0);
+            if (!token || Date.now() >= expiresAt) return renderSpotifyNowPlaying(null);
+            try {
+                const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', { headers: { Authorization: 'Bearer ' + token } });
+                if (response.status === 204) return renderSpotifyNowPlaying(null);
+                if (!response.ok) throw new Error('Spotify playback tidak tersedia');
+                renderSpotifyNowPlaying(await response.json());
+            } catch (error) {
+                renderSpotifyNowPlaying(null);
+            }
+        }
+
+        function startSpotifyNowPlayingPolling() {
+            stopSpotifyNowPlayingPolling();
+            fetchSpotifyNowPlaying();
+            spotifyNowPlayingTimer = window.setInterval(fetchSpotifyNowPlaying, 10000);
+        }
+
+        function stopSpotifyNowPlayingPolling() {
+            if (spotifyNowPlayingTimer) window.clearInterval(spotifyNowPlayingTimer);
+            spotifyNowPlayingTimer = null;
         }
 
         function applyCustomSpotifyPlaylist() {
@@ -3215,8 +3577,6 @@
         }
 
         function openSoundscapeModal() {
-            const input = document.getElementById('soundscapeSpotifyInput');
-            if (input) input.value = localStorage.getItem('ZIEL_CUSTOM_SPOTIFY_PLAYLIST') || '';
             updateSpotifyUI();
             openModal('soundscapeModal');
             switchSoundscapeSource(activeMusicSource === 'spotify' ? 'spotify' : 'ambient');
@@ -3235,7 +3595,8 @@
             ambientTab.className = (isSpotify ? 'btn-secondary' : 'primary-btn-gradient') + ' px-3 py-2 rounded-xl text-xs font-bold';
             spotifyTab.className = (isSpotify ? 'primary-btn-gradient' : 'btn-secondary') + ' px-3 py-2 rounded-xl text-xs font-bold';
             if (volume) volume.classList.toggle('hidden', isSpotify);
-            if (isSpotify) stopAmbienceSound();
+            if (isSpotify) { stopAmbienceSound(); startSpotifyNowPlayingPolling(); }
+            else stopSpotifyNowPlayingPolling();
             safeLucideCreateIcons({ root: document.getElementById('soundscapeModal') });
         }
 
@@ -3811,12 +4172,8 @@ Gemini:`;
             const actualLight = mode === 'light' || (mode === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches);
             document.body.classList.toggle('light-mode', actualLight);
             if (persist !== false) localStorage.setItem('ZIEL_THEME', mode);
-            const oldSun = document.getElementById('iconSun');
-            const oldMoon = document.getElementById('iconMoon');
             const headerSun = document.getElementById('themeHeaderSun');
             const headerMoon = document.getElementById('themeHeaderMoon');
-            if (oldSun) oldSun.classList.toggle('hidden', !actualLight);
-            if (oldMoon) oldMoon.classList.toggle('hidden', actualLight);
             if (headerSun) headerSun.classList.toggle('hidden', !actualLight);
             if (headerMoon) headerMoon.classList.toggle('hidden', actualLight);
             document.getElementById('metaThemeColor')?.setAttribute('content', actualLight ? '#F6F7FB' : '#0F172A');
@@ -3826,18 +4183,16 @@ Gemini:`;
 
         // ================= WEB SETTINGS CONFIGURATION =================
         const ZIEL_SETTINGS_SECTIONS = [
-            { id: 'account', label: 'Account & Profile', icon: 'user-round' },
-            { id: 'workflow', label: 'Preferences & Workflow', icon: 'sliders-horizontal' },
-            { id: 'appearance', label: 'Appearance', icon: 'palette' },
-            { id: 'notifications', label: 'Notifications', icon: 'bell-ring' },
-            { id: 'integrations', label: 'Integrations', icon: 'plug' },
-            { id: 'data', label: 'Data & Browser', icon: 'database' },
-            { id: 'support', label: 'Support & Legal', icon: 'life-buoy' }
+            { id: 'account', label: 'Akun & Keamanan', icon: 'user-round' },
+            { id: 'workflow', label: 'Preferensi Kerja', icon: 'sliders-horizontal' },
+            { id: 'appearance', label: 'Tampilan', icon: 'palette' },
+            { id: 'notifications', label: 'Notifikasi', icon: 'bell-ring' },
+            { id: 'integrations', label: 'Integrasi & Data', icon: 'plug' }
         ];
         const DEFAULT_WEB_SETTINGS = {
             language: 'id', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jakarta',
             weekStart: 'monday', timeFormat: '24', launchPage: 'home', density: 'cozy', fontSize: 'normal',
-            accent: '#5B5FEF', browserPush: false, upcomingDeadlines: true, assignedTasks: true,
+            accent: '#6366F1', browserPush: false, upcomingDeadlines: true, assignedTasks: true,
             dailyDigest: true, emailDigest: 'off', quietHours: true, quietStart: '22:00', quietEnd: '07:00'
         };
         window.activeSettingsSection = 'account';
@@ -3856,7 +4211,7 @@ Gemini:`;
 
         function applyWebPreferences(settings) {
             settings = settings || getWebSettings();
-            document.documentElement.style.setProperty('--accent-indigo', settings.accent || '#5B5FEF');
+            document.documentElement.style.setProperty('--accent-indigo', settings.accent || '#6366F1');
             document.body.classList.toggle('density-compact', settings.density === 'compact');
             document.body.classList.toggle('font-large', settings.fontSize === 'large');
         }
@@ -3912,7 +4267,7 @@ Gemini:`;
                 const theme = localStorage.getItem('ZIEL_THEME') || 'dark';
                 body = '<div class="setting-group">' +
                     settingRow('Theme', 'Light, Dark, atau mengikuti OS/browser.', '<div class="settings-segment"><button onclick="setThemeSetting(\'light\')" class="' + (theme === 'light' ? 'active' : '') + '">Light</button><button onclick="setThemeSetting(\'dark\')" class="' + (theme === 'dark' ? 'active' : '') + '">Dark</button><button onclick="setThemeSetting(\'system\')" class="' + (theme === 'system' ? 'active' : '') + '">System</button></div>') +
-                    settingRow('Accent Color', 'Warna utama tombol dan status aktif.', '<div class="flex gap-2"><button onclick="setAccentColor(\'#5B5FEF\')" class="accent-dot ' + (s.accent === '#5B5FEF' ? 'active' : '') + '" style="background:#5B5FEF"></button><button onclick="setAccentColor(\'#0EA5E9\')" class="accent-dot ' + (s.accent === '#0EA5E9' ? 'active' : '') + '" style="background:#0EA5E9"></button><button onclick="setAccentColor(\'#10B981\')" class="accent-dot ' + (s.accent === '#10B981' ? 'active' : '') + '" style="background:#10B981"></button><button onclick="setAccentColor(\'#F97316\')" class="accent-dot ' + (s.accent === '#F97316' ? 'active' : '') + '" style="background:#F97316"></button></div>') +
+                    settingRow('Accent Color', 'Palet modern untuk tombol dan status aktif.', '<div class="flex flex-wrap gap-2"><button title="Indigo" aria-label="Indigo" onclick="setAccentColor(\'#6366F1\')" class="accent-dot ' + (s.accent === '#6366F1' ? 'active' : '') + '" style="background:#6366F1"></button><button title="Electric Blue" aria-label="Electric Blue" onclick="setAccentColor(\'#3B82F6\')" class="accent-dot ' + (s.accent === '#3B82F6' ? 'active' : '') + '" style="background:#3B82F6"></button><button title="Cyan" aria-label="Cyan" onclick="setAccentColor(\'#06B6D4\')" class="accent-dot ' + (s.accent === '#06B6D4' ? 'active' : '') + '" style="background:#06B6D4"></button><button title="Mint" aria-label="Mint" onclick="setAccentColor(\'#10B981\')" class="accent-dot ' + (s.accent === '#10B981' ? 'active' : '') + '" style="background:#10B981"></button><button title="Violet" aria-label="Violet" onclick="setAccentColor(\'#8B5CF6\')" class="accent-dot ' + (s.accent === '#8B5CF6' ? 'active' : '') + '" style="background:#8B5CF6"></button><button title="Pink" aria-label="Pink" onclick="setAccentColor(\'#EC4899\')" class="accent-dot ' + (s.accent === '#EC4899' ? 'active' : '') + '" style="background:#EC4899"></button><button title="Coral" aria-label="Coral" onclick="setAccentColor(\'#F97316\')" class="accent-dot ' + (s.accent === '#F97316' ? 'active' : '') + '" style="background:#F97316"></button><button title="Slate" aria-label="Slate" onclick="setAccentColor(\'#64748B\')" class="accent-dot ' + (s.accent === '#64748B' ? 'active' : '') + '" style="background:#64748B"></button></div>') +
                     settingRow('Font Size', 'Ukuran teks antarmuka web.', '<div class="settings-segment"><button onclick="setWebSetting(\'fontSize\',\'normal\')" class="' + (s.fontSize === 'normal' ? 'active' : '') + '">Normal</button><button onclick="setWebSetting(\'fontSize\',\'large\')" class="' + (s.fontSize === 'large' ? 'active' : '') + '">Large</button></div>') +
                     settingRow('Layout Density', 'Compact untuk desktop padat atau Cozy untuk ruang lebih lega.', '<div class="settings-segment"><button onclick="setWebSetting(\'density\',\'compact\')" class="' + (s.density === 'compact' ? 'active' : '') + '">Compact</button><button onclick="setWebSetting(\'density\',\'cozy\')" class="' + (s.density === 'cozy' ? 'active' : '') + '">Cozy</button></div>') + '</div>';
             } else if (section === 'notifications') {
@@ -3927,14 +4282,19 @@ Gemini:`;
                     settingRow('Quiet Hours', 'Bisukan notifikasi pada jam istirahat.', toggleControl('quietHours', s.quietHours)) +
                     settingRow('Quiet Schedule', 'Rentang otomatis untuk tidak mengganggu.', '<div class="flex items-center gap-2"><input type="time" value="' + s.quietStart + '" onchange="setWebSetting(\'quietStart\',this.value)" class="theme-input rounded-xl p-2 text-xs"><span>–</span><input type="time" value="' + s.quietEnd + '" onchange="setWebSetting(\'quietEnd\',this.value)" class="theme-input rounded-xl p-2 text-xs"></div>') + '</div>';
             } else if (section === 'integrations') {
-                title = 'Integrations & Extensions'; desc = 'Hubungkan kalender, cloud storage, audio, dan layanan developer.';
+                title = 'Integrasi & Data'; desc = 'Hubungkan layanan kerja dan kelola data browser dari satu tempat.';
                 const hasGemini = !!(localStorage.getItem('ZIEL_GEMINI_API_KEY') || '').trim();
+                const kb = Math.round(JSON.stringify(localStorage).length / 1024);
                 body = '<div class="setting-group">' +
                     settingRow('Calendar Sync', 'Google Calendar aktif via web; Outlook dan Apple siap dikembangkan.', '<button onclick="openGoogleCalendarWeb()" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Google Calendar</button>') +
-                    settingRow('Spotify', 'Playlist embed dan koneksi akun untuk Soundscape.', '<button onclick="closeModal(\'settingsModal\');openSoundscapeModal();switchSoundscapeSource(\'spotify\')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Buka Soundscape</button>') +
+                    settingRow('Spotify', 'Hubungkan akun dan lihat lagu aktif lewat Now Playing di Soundscape.', '<button onclick="closeModal(\'settingsModal\');openSoundscapeModal();switchSoundscapeSource(\'spotify\')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Kelola Spotify</button>') +
                     settingRow('Cloud Storage', 'Google Drive, Dropbox, dan OneDrive.', '<button onclick="showSettingsInfo(\'Koneksi cloud memerlukan OAuth dan backend provider. UI integrasi sudah ditempatkan di sini.\')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Connect</button>') +
                     settingRow('Webhooks & API Keys', 'Incoming/outgoing webhook untuk Pro dan Team.', '<span class="tag-amber px-3 py-2 rounded-xl text-xs font-bold">Pro / Team</span>') + '</div>' +
-                    '<div class="setting-group"><div class="setting-copy"><strong>Gemini Enhancement <span class="' + (hasGemini ? 'text-emerald-400' : 'text-amber-400') + '">' + (hasGemini ? '· Connected' : '· Optional') + '</span></strong><small>Ask ZIEL Local Coach tetap berfungsi tanpa key. Gemini memperluas percakapan generatif.</small></div><div class="flex gap-2 mt-3"><input id="settingsGeminiApiKey" type="password" class="theme-input flex-1 rounded-xl p-2.5 text-xs" placeholder="Gemini API key"><button onclick="saveSettingsGeminiKey()" class="primary-btn-gradient px-4 rounded-xl text-xs font-bold">Simpan</button><button onclick="removeGeminiApiKey();openSettingsSection(\'integrations\')" class="btn-secondary px-3 rounded-xl text-xs font-bold">Hapus</button></div></div>';
+                    '<div class="setting-group"><div class="setting-copy"><strong>Gemini Enhancement <span class="' + (hasGemini ? 'text-emerald-400' : 'text-amber-400') + '">' + (hasGemini ? '· Connected' : '· Optional') + '</span></strong><small>Ask ZIEL Local Coach tetap berfungsi tanpa key. Gemini memperluas percakapan generatif.</small></div><div class="flex flex-wrap gap-2 mt-3"><input id="settingsGeminiApiKey" type="password" autocomplete="off" data-lpignore="true" class="theme-input flex-1 rounded-xl p-2.5 text-xs" placeholder="Gemini API key"><button onclick="saveSettingsGeminiKey()" class="primary-btn-gradient px-4 rounded-xl text-xs font-bold">Simpan</button><button onclick="removeGeminiApiKey();openSettingsSection(\'integrations\')" class="btn-secondary px-3 rounded-xl text-xs font-bold">Hapus</button></div></div>' +
+                    '<div class="setting-group">' +
+                    settingRow('Ekspor Data', 'Unduh seluruh workspace sebagai JSON, CSV, atau PDF.', '<div class="flex flex-wrap gap-2"><button onclick="exportZielData(\'json\')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">JSON</button><button onclick="exportZielData(\'csv\')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">CSV</button><button onclick="exportZielData(\'pdf\')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">PDF</button></div>') +
+                    settingRow('Impor Data', 'Pulihkan backup ZIEL berformat JSON.', '<label class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold cursor-pointer">Pilih file<input type="file" accept="application/json" class="hidden" onchange="importZielData(this.files[0])"></label>') +
+                    settingRow('Cache Browser', 'Pemakaian lokal sekitar ' + kb + ' KB. Gunakan hanya saat sinkronisasi bermasalah.', '<button onclick="clearZielCache()" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold text-rose-400">Hapus cache & muat ulang</button>') + '</div>';
             } else if (section === 'data') {
                 title = 'Data & Browser Management'; desc = 'Ekspor, impor, storage, cache, dan pemulihan workspace.';
                 const kb = Math.round(JSON.stringify(localStorage).length / 1024);
@@ -3953,6 +4313,7 @@ Gemini:`;
             panel.innerHTML = '<header class="settings-section-head"><h3>' + title + '</h3><p>' + desc + '</p></header>' + body;
             renderSettingsNav();
             safeLucideCreateIcons({ root: document.getElementById('settingsModal') });
+            enhanceAllSelects(panel);
         }
 
         function setWebSetting(key, value) {
@@ -4361,18 +4722,15 @@ Gemini:`;
         function updateEnergyUI() {
             document.querySelectorAll('.energy-btn').forEach(btn => {
                 const lvl = parseInt(btn.dataset.level);
-                if (lvl === state.currentEnergy) {
-                    btn.className = 'energy-btn primary-btn-gradient px-4 py-2 rounded-full text-xs font-bold shadow-md scale-105 transition-all';
-                } else {
-                    btn.className = 'energy-btn px-4 py-2 rounded-full text-xs font-bold opacity-50 hover:opacity-100 transition-all';
-                }
+                btn.classList.toggle('active', lvl === state.currentEnergy);
+                btn.setAttribute('aria-pressed', String(lvl === state.currentEnergy));
             });
             const energyLabels = {
-                1: 'Level 1 (Sangat Rendah / Quick Wins)',
-                2: 'Level 2 (Rendah)',
-                3: 'Level 3 (Sedang)',
-                4: 'Level 4 (Tinggi / Fokus)',
-                5: 'Level 5 (Peak Deep Work)'
+                1: 'energi istirahat',
+                2: 'energi ringan',
+                3: 'energi seimbang',
+                4: 'energi fokus',
+                5: 'energi puncak'
             };
             const labelEl = document.getElementById('currentEnergyLabel');
             if (labelEl) labelEl.textContent = energyLabels[state.currentEnergy];
@@ -4400,12 +4758,12 @@ Gemini:`;
 
             btn.disabled = true;
             zapIcon.classList.add('animate-spin');
-            btnText.innerHTML = `AI menganalisis<span class="loading-dots ml-1 font-black inline-block"><span>.</span><span>.</span><span>.</span></span>`;
+            btnText.innerHTML = `ZIEL memilih<span class="loading-dots ml-1 font-black inline-block"><span>.</span><span>.</span><span>.</span></span>`;
 
             setTimeout(() => {
                 btn.disabled = false;
                 zapIcon.classList.remove('animate-spin');
-                btnText.textContent = 'WHAT SHOULD I DO NOW?';
+                btnText.textContent = 'Pilih tindakan';
                 calculateAndShowRecommendation();
             }, 850);
         }
@@ -4436,17 +4794,19 @@ Gemini:`;
             currentRecTask = scored[0].task;
 
             document.getElementById('recTaskTitle').textContent = currentRecTask.title;
-            document.getElementById('recDuration').textContent = currentRecTask.estimatedMinutes + " Menit";
-            document.getElementById('recPriority').textContent = currentRecTask.priority.toUpperCase();
+            document.getElementById('recDuration').textContent = currentRecTask.estimatedMinutes + " menit";
+            document.getElementById('recPriority').textContent = ({ urgent:'Mendesak', high:'Tinggi', medium:'Sedang', low:'Rendah' })[currentRecTask.priority] || 'Normal';
+            const energyDistance = Math.abs((currentRecTask.energyRequired || 3) - state.currentEnergy);
+            document.getElementById('recEnergyMatch').textContent = energyDistance === 0 ? 'Sangat cocok' : (energyDistance === 1 ? 'Cocok' : 'Cukup cocok');
 
             const parentGoal = state.goals.find(g => g.id === currentRecTask.goalId);
             const cats = getCategories();
             const matchedCat = cats.find(c => c.id === currentRecTask.category);
             const catName = matchedCat ? `${matchedCat.icon} ${matchedCat.name}` : currentRecTask.category.toUpperCase();
 
-            document.getElementById('recContext').textContent = parentGoal ? `Goal: ${parentGoal.title}` : `Kategori: ${catName}`;
+            document.getElementById('recContext').textContent = parentGoal ? `Goal · ${parentGoal.title}` : `Area · ${catName}`;
             const pendingAction = currentRecTask.atomicActions ? currentRecTask.atomicActions.find(a => !a.isCompleted) : null;
-            document.getElementById('recMicroAction').textContent = "• " + (pendingAction ? pendingAction.title : "Buka workspace dan mulai 5 menit pertama.");
+            document.getElementById('recMicroAction').textContent = pendingAction ? pendingAction.title : "Buka workspace dan mulai 5 menit pertama.";
 
             openModal('recommendationModal');
             playChime('success');
@@ -6131,9 +6491,7 @@ function toggleGoalPlanItem(id) {
 function editGoalPlanItem(id) {
     const item = pendingGoalPlan.items.find(function (x) { return x.id === id; });
     if (!item) return;
-    const title = window.prompt('Ubah nama target:', item.title);
-    if (title && title.trim()) item.title = title.trim();
-    renderGoalPlanReview();
+    openGoalPlanItemEditor(item);
 }
 
 function removeGoalPlanItem(id) {
@@ -6152,11 +6510,49 @@ function moveGoalPlanItem(index, direction) {
 
 function addGoalPlanItem() {
     if (!pendingGoalPlan || !pendingGoalDraft) return;
-    const title = window.prompt('Nama target baru:');
-    if (!title || !title.trim()) return;
-    const parent = pendingGoalPlan.items.filter(function (x) { return x.enabled; }).slice(-1)[0];
-    pendingGoalPlan.items.push(makePlanItem('milestone', title.trim(), parent ? parent.id : null, pendingGoalDraft.startDate, pendingGoalDraft.endDate, pendingGoalPlan.items.length));
+    openGoalPlanItemEditor(null);
+}
+
+function openGoalPlanItemEditor(item) {
+    if (!pendingGoalPlan || !pendingGoalDraft) return;
+    const editId = item?.id || '';
+    document.getElementById('goalPlanItemHeading').textContent = item ? 'Edit target' : 'Tambah target';
+    document.getElementById('goalPlanItemId').value = editId;
+    document.getElementById('goalPlanItemTitle').value = item?.title || '';
+    document.getElementById('goalPlanItemType').value = item?.type || 'milestone';
+    const parentSelect = document.getElementById('goalPlanItemParent');
+    parentSelect.innerHTML = '<option value="">Tanpa induk</option>' + pendingGoalPlan.items.filter(function (candidate) { return candidate.id !== editId && candidate.enabled; }).map(function (candidate) { return '<option value="' + candidate.id + '">' + escapeHtml((ZIEL_HORIZON_LABELS[candidate.type] || candidate.type) + ' · ' + candidate.title) + '</option>'; }).join('');
+    parentSelect.value = item?.parentId || (pendingGoalPlan.items.filter(function (x) { return x.enabled; }).slice(-1)[0]?.id || '');
+    openModal('goalPlanItemModal');
+    setTimeout(function () { document.getElementById('goalPlanItemTitle')?.focus(); }, 80);
+}
+
+function saveGoalPlanItemEditor() {
+    const title = document.getElementById('goalPlanItemTitle').value.trim();
+    if (!title) return showToast({ type: 'warning', title: 'Nama target belum diisi', message: 'Tuliskan hasil yang ingin dicapai pada level ini.' });
+    const editId = document.getElementById('goalPlanItemId').value;
+    const type = document.getElementById('goalPlanItemType').value;
+    const parentId = document.getElementById('goalPlanItemParent').value || null;
+    const existing = pendingGoalPlan.items.find(function (item) { return item.id === editId; });
+    if (existing) {
+        existing.title = title; existing.type = type; existing.parentId = parentId;
+    } else {
+        pendingGoalPlan.items.push(makePlanItem(type, title, parentId, pendingGoalDraft.startDate, pendingGoalDraft.endDate, pendingGoalPlan.items.length));
+    }
+    closeModal('goalPlanItemModal');
     renderGoalPlanReview();
+    showToast({ type: 'success', title: existing ? 'Target diperbarui' : 'Target ditambahkan', message: 'Struktur rencana sudah diperbarui.' });
+}
+
+function returnToGoalPlanEditor() {
+    closeModal('reviewGoalPlanModal');
+    const modal = document.getElementById('newGoalModal');
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    goalFormStep = 3;
+    renderGoalFormStep();
+    renderGoalPlanSkeleton();
+    safeLucideCreateIcons({ root: modal });
 }
 
 async function regenerateGoalPlan() {
@@ -6398,6 +6794,7 @@ function renderLinkingSelects() {
         }).join('');
         if (state.tasks.some(function (t) { return t.id === currentTask; })) agendaTask.value = currentTask;
     }
+    setTimeout(function () { enhanceAllSelects(document); refreshAllSmartSelects(); }, 0);
 }
 
 function updateTaskGoalContext(inheritCategory) {
@@ -6412,6 +6809,7 @@ function updateTaskGoalContext(inheritCategory) {
         const cat = document.getElementById('newTaskCategory');
         if (cat) cat.value = goal.category;
     }
+    setTimeout(refreshAllSmartSelects, 0);
 }
 
 function updateAgendaTaskContext() {
@@ -6430,6 +6828,7 @@ function updateAgendaTaskContext() {
         start.value = String(Math.floor(startMinutes / 60)).padStart(2, '0') + ':' + String(startMinutes % 60).padStart(2, '0');
         end.value = String(Math.floor(endMinutes / 60)).padStart(2, '0') + ':' + String(endMinutes % 60).padStart(2, '0');
     }
+    setTimeout(refreshAllSmartSelects, 0);
 }
 
 function prepareAgendaModal(taskId) {
@@ -6461,11 +6860,13 @@ function openModal(id) {
     }
     modal.classList.remove('hidden');
     safeLucideCreateIcons({ root: modal });
+    setTimeout(function () { enhanceAllSelects(modal); refreshAllSmartSelects(); }, 0);
 }
 
 function closeModal(id) {
     const modal = document.getElementById(id);
     if (modal) modal.classList.add('hidden');
+    if (id === 'soundscapeModal') stopSpotifyNowPlayingPolling();
 }
 
 function saveNewTask() {
@@ -6605,7 +7006,7 @@ function renderGoals() {
     if (!container) return;
     const goals = state.goals.filter(function (goal) { return categoryMatches(goal.category); });
     if (!goals.length) {
-        container.innerHTML = '<div class="rounded-2xl p-7 text-center text-xs border border-dashed border-[var(--border-card)]" style="color:var(--text-muted)">Belum ada goal.<br><span class="opacity-70">Mulai dari sesuatu yang berarti bagi Anda.</span><br><button onclick="openModal(\'newGoalModal\')" class="primary-btn-gradient mt-3 px-3 py-2 rounded-xl font-bold">+ Buat goal pertama</button></div>';
+        container.innerHTML = '<div class="rounded-2xl p-7 text-center text-xs border border-dashed border-[var(--border-card)]" style="color:var(--text-muted)">Belum ada goal.<br><span class="opacity-70">Mulai dari sesuatu yang berarti bagi Anda.</span><br><button onclick="openModal(\'newGoalModal\')" class="primary-btn-gradient add-cta mt-3 mx-auto"><span class="add-cta-icon"><i data-lucide="plus"></i></span><span>Buat goal pertama</span></button></div>';
         return;
     }
     const cats = getCategories();
@@ -6683,7 +7084,7 @@ function renderGoalDetail() {
                 '<span class="text-xs font-black text-teal-400">' + (h.progress || 0) + '%</span></div></div>';
         }).join('') : '<div class="p-4 border border-dashed border-[var(--border-card)] rounded-2xl text-xs" style="color:var(--text-muted)">Belum ada horizon pada level ini.</div>');
     const related = state.tasks.filter(function (t) { return t.goalId === goal.id && t.status !== 'completed'; });
-    tasks.innerHTML = '<div class="flex items-center justify-between"><span class="text-[10px] uppercase tracking-wider font-bold" style="color:var(--text-muted)">Next actions</span><button onclick="openModal(\'newTaskModal\')" class="btn-secondary px-2 py-1 rounded-lg text-[9px] font-bold">+ Task</button></div>' +
+    tasks.innerHTML = '<div class="flex items-center justify-between"><span class="text-[10px] uppercase tracking-wider font-bold" style="color:var(--text-muted)">Next actions</span><button onclick="openModal(\'newTaskModal\')" class="btn-secondary px-2.5 py-1.5 rounded-xl text-[9px] font-bold flex items-center gap-1"><i data-lucide="plus" class="w-3 h-3"></i>Task</button></div>' +
         (related.length ? related.slice(0, 5).map(function (t) {
             return '<div class="theme-card rounded-xl p-3 flex items-center justify-between gap-2"><div><p class="text-xs font-bold">' + escapeHtml(t.title) + '</p><p class="text-[9px] mt-1" style="color:var(--text-muted)">Due ' + escapeHtml(formatDateId(t.deadline)) + ' • ' + t.estimatedMinutes + ' menit</p></div>' +
                 '<button onclick="scheduleTaskInZiel(\'' + t.id + '\')" class="btn-secondary px-2 py-1.5 rounded-lg text-[9px] font-bold">Jadwalkan</button></div>';
@@ -6694,9 +7095,16 @@ function renderGoalDetail() {
 function editCurrentGoal() {
     const goal = state.goals.find(function (g) { return g.id === goalDetailCurrentId; });
     if (!goal) return;
-    const title = window.prompt('Judul Goal:', goal.title);
-    if (title === null) return;
-    const endDate = window.prompt('Tanggal selesai (YYYY-MM-DD):', goal.endDate);
+    document.getElementById('editGoalTitle').value = goal.title || '';
+    document.getElementById('editGoalEndDate').value = goal.endDate || '';
+    openModal('editGoalModal');
+}
+
+function saveCurrentGoalEdit() {
+    const goal = state.goals.find(function (g) { return g.id === goalDetailCurrentId; });
+    if (!goal) return;
+    const title = document.getElementById('editGoalTitle').value.trim();
+    const endDate = document.getElementById('editGoalEndDate').value;
     if (!title.trim() || !/^\d{4}-\d{2}-\d{2}$/.test(endDate || '') || endDate < goal.startDate) {
         showToast({ type: 'warning', title: 'Perubahan tidak valid', message: 'Periksa judul dan tanggal selesai Goal.' });
         return;
@@ -6705,6 +7113,7 @@ function editCurrentGoal() {
     goal.endDate = endDate;
     goal.deadline = endDate;
     goal.durationType = 'custom';
+    closeModal('editGoalModal');
     saveState();
     renderGoalDetail();
     showToast({ type: 'success', title: 'Goal diperbarui', message: 'Hierarchy dan data lama tetap dipertahankan.' });
@@ -7143,6 +7552,7 @@ function renderAll() {
     renderNotificationCenter();
     updateNotificationBadge();
     safeLucideCreateIcons();
+    setTimeout(function () { enhanceAllSelects(document.querySelector('.app-view:not(.hidden)') || document); refreshAllSmartSelects(); }, 0);
 }
     </script>
     <!-- 2-MINUTE QUICK WIN MODAL -->
