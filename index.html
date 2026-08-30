@@ -706,6 +706,159 @@
         .plan-choice strong, .plan-choice small { display: block; }
         .plan-choice strong { color: var(--text-main); font-size: .82rem; }
         .plan-choice small { margin-top: .18rem; color: var(--text-muted); font-size: .7rem; }
+        .goal-creator-shell { display: flex; flex-direction: column; }
+        .goal-creator-body { flex: 1; min-height: 0; overflow-y: auto; padding-right: .15rem; }
+        .goal-creator-footer {
+            position: sticky;
+            bottom: -.05rem;
+            z-index: 4;
+            padding-top: .8rem;
+            background: linear-gradient(180deg, transparent, var(--modal-bg) 28%);
+        }
+        .area-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: .55rem;
+        }
+        .area-option {
+            min-height: 4.6rem;
+            padding: .7rem .55rem;
+            border-radius: .85rem;
+            border: 1px solid var(--border-card);
+            background: var(--input-bg);
+            color: var(--text-sub);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: .45rem;
+            text-align: left;
+            transition: border-color .16s ease, background .16s ease, color .16s ease;
+        }
+        .area-option:hover { border-color: var(--border-card-hover); background: var(--bg-card-hover); }
+        .area-option.selected {
+            color: #A5B4FC;
+            border-color: rgba(129,140,248,.65);
+            background: rgba(91,95,239,.13);
+            box-shadow: inset 0 0 0 1px rgba(129,140,248,.12);
+        }
+        .area-option .area-emoji { font-size: 1.1rem; line-height: 1; }
+        .area-option strong { font-size: .69rem; line-height: 1.25; }
+        .area-option.add-area { border-style: dashed; color: #818CF8; justify-content: center; }
+        .inline-area-form {
+            padding: .75rem;
+            border: 1px solid var(--border-card);
+            border-radius: .9rem;
+            background: var(--btn-sec-bg);
+        }
+        .date-field-card {
+            width: 100%;
+            min-height: 4.25rem;
+            padding: .75rem;
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            text-align: left;
+            border-radius: .9rem;
+            border: 1px solid var(--border-card);
+            background: var(--input-bg);
+        }
+        .date-field-card:hover { border-color: var(--border-card-hover); background: var(--bg-card-hover); }
+        .date-field-card .date-copy { flex: 1; min-width: 0; }
+        .date-field-card small, .date-field-card strong { display: block; }
+        .date-field-card small { color: var(--text-muted); font-size: .66rem; }
+        .date-field-card strong { margin-top: .18rem; color: var(--text-main); font-size: .8rem; }
+        .duration-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .5rem; }
+        .duration-option {
+            min-height: 2.8rem;
+            padding: .55rem .3rem;
+            border-radius: .75rem;
+            border: 1px solid var(--border-card);
+            background: var(--input-bg);
+            color: var(--text-sub);
+            font-size: .7rem;
+            font-weight: 750;
+        }
+        .duration-option.selected { color: #fff; background: #5B5FEF; border-color: #5B5FEF; }
+        .time-summary {
+            padding: .75rem;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            border-radius: .85rem;
+            color: var(--text-sub);
+            background: rgba(91,95,239,.08);
+            border: 1px solid rgba(129,140,248,.18);
+        }
+        .time-summary svg { width: 1rem; color: #818CF8; }
+        .time-summary strong { color: var(--text-main); }
+        .plan-mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+        .plan-mode-card {
+            min-height: 6rem;
+            padding: .85rem;
+            border-radius: .9rem;
+            border: 1px solid var(--border-card);
+            background: var(--input-bg);
+            display: flex;
+            align-items: flex-start;
+            gap: .65rem;
+            text-align: left;
+        }
+        .plan-mode-card.selected { border-color: rgba(129,140,248,.65); background: rgba(91,95,239,.12); }
+        .plan-mode-card strong, .plan-mode-card small { display: block; }
+        .plan-mode-card strong { color: var(--text-main); font-size: .78rem; }
+        .plan-mode-card small { margin-top: .2rem; color: var(--text-muted); font-size: .66rem; line-height: 1.45; }
+        .plan-skeleton { display: grid; gap: .5rem; }
+        .plan-year-card {
+            padding: .75rem;
+            border-radius: .9rem;
+            border: 1px solid var(--border-card);
+            background: var(--input-bg);
+        }
+        .plan-year-card input { font-size: .75rem; font-weight: 700; }
+        .plan-year-meta { color: var(--text-muted); font-size: .65rem; }
+        .plan-structure-preview {
+            margin-top: .55rem;
+            padding: .6rem;
+            border-radius: .7rem;
+            background: var(--btn-sec-bg);
+            color: var(--text-muted);
+            font-size: .66rem;
+            line-height: 1.65;
+        }
+        .calendar-shell { max-width: 24rem; }
+        .calendar-weekdays, .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: .25rem; }
+        .calendar-weekdays span { padding: .3rem 0; color: var(--text-muted); font-size: .62rem; font-weight: 750; text-align: center; }
+        .calendar-day {
+            aspect-ratio: 1;
+            border-radius: .7rem;
+            display: grid;
+            place-items: center;
+            color: var(--text-sub);
+            font-size: .72rem;
+            font-weight: 650;
+        }
+        .calendar-day:hover { background: var(--btn-sec-bg); color: var(--text-main); }
+        .calendar-day.today { box-shadow: inset 0 0 0 1px rgba(129,140,248,.5); color: #A5B4FC; }
+        .calendar-day.selected { color: #fff; background: #5B5FEF; box-shadow: none; }
+        .calendar-day.outside { opacity: .28; }
+        .quick-date-row { display: flex; gap: .4rem; overflow-x: auto; }
+        .quick-date-row button { flex: 0 0 auto; }
+        .plan-review-row { transition: opacity .15s ease, background .15s ease; }
+        .plan-review-toggle { width: 1.55rem; height: 1.55rem; display: grid; place-items: center; }
+        .notification-trigger { overflow: visible !important; isolation: isolate; }
+        .notification-count {
+            z-index: 5;
+            top: -.28rem !important;
+            right: -.28rem !important;
+            min-width: 1.15rem !important;
+            height: 1.15rem !important;
+            padding: 0 .25rem !important;
+            line-height: 1 !important;
+            border: 2px solid var(--bg-main);
+            overflow: visible !important;
+        }
+        @media (min-width: 1024px) { .desktop-more-menu { display: none !important; } }
         .menu-list { display: grid; gap: .25rem; }
         .menu-list > button {
             width: 100%;
@@ -795,6 +948,21 @@
             .timeline-view-btn[data-view="year"] { display: none; }
             .mobile-timeline-more { display: block; min-width: 6.5rem; }
             .app-view { animation: none; }
+            #newGoalModal { align-items: stretch; padding: 0; }
+            #newGoalModal .goal-creator-shell {
+                width: 100%;
+                max-width: none;
+                height: 100dvh;
+                max-height: none;
+                padding: calc(1rem + env(safe-area-inset-top, 0px)) 1rem calc(.8rem + env(safe-area-inset-bottom, 0px));
+                border-radius: 0 !important;
+            }
+            .goal-form-step { min-height: auto; }
+            .area-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .duration-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .plan-mode-grid { grid-template-columns: 1fr; }
+            #goalDatePickerModal { align-items: flex-end; padding: 0; }
+            #goalDatePickerModal .calendar-shell { max-width: none; border-radius: 1.35rem 1.35rem 0 0 !important; }
         }
     </style>
     <meta name="theme-color" content="#607D8B">
@@ -858,11 +1026,11 @@
                 <button onclick="openQuickAdd()" class="primary-btn-gradient hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold">
                     <i data-lucide="plus" class="w-4 h-4"></i><span>Tambah</span>
                 </button>
-                <button onclick="openModal('notificationCenterModal')" class="clean-icon-btn relative" title="Notifikasi">
+                <button onclick="openModal('notificationCenterModal')" class="clean-icon-btn relative notification-trigger" title="Notifikasi">
                     <i data-lucide="bell" class="w-4 h-4"></i>
-                    <span id="notifBadgeCount" class="absolute -top-1 -right-1 min-w-[17px] h-[17px] bg-rose-500 text-white rounded-full text-[10px] font-black flex items-center justify-center px-1">2</span>
+                    <span id="notifBadgeCount" class="notification-count absolute bg-rose-500 text-white rounded-full text-[10px] font-black flex items-center justify-center">2</span>
                 </button>
-                <button onclick="openModal('moreMenuModal')" class="clean-icon-btn" title="Menu lainnya"><i data-lucide="ellipsis" class="w-5 h-5"></i></button>
+                <button onclick="openModal('moreMenuModal')" class="clean-icon-btn desktop-more-menu" title="Menu lainnya"><i data-lucide="ellipsis" class="w-5 h-5"></i></button>
                 <button onclick="openAuthModal()" class="relative" title="Akun">
                     <div id="navAvatarDisplay" class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-extrabold">Z</div>
                     <span id="navStatusDot" class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-[var(--bg-main)] rounded-full"></span>
@@ -1056,9 +1224,8 @@
             <div class="menu-list">
                 <button onclick="closeModal('moreMenuModal');openModal('aiCopilotModal')"><span class="icon-box"><i data-lucide="sparkles"></i></span><span><strong>Ask ZIEL</strong><small>Diskusikan strategi atau saat kamu buntu</small></span><i data-lucide="chevron-right"></i></button>
                 <button onclick="closeModal('moreMenuModal');openModal('brainDumpModal')"><span class="icon-box"><i data-lucide="brain"></i></span><span><strong>Brain Dump</strong><small>Susun pikiran menjadi task</small></span><i data-lucide="chevron-right"></i></button>
-                <button onclick="closeModal('moreMenuModal');openModal('manageCategoriesModal')"><span class="icon-box"><i data-lucide="tags"></i></span><span><strong>Kategori</strong><small>Atur area hidupmu</small></span><i data-lucide="chevron-right"></i></button>
+                <button onclick="closeModal('moreMenuModal');openModal('manageCategoriesModal')"><span class="icon-box"><i data-lucide="tags"></i></span><span><strong>Area Hidup</strong><small>Atur konteks untuk goal dan task</small></span><i data-lucide="chevron-right"></i></button>
                 <button onclick="closeModal('moreMenuModal');openGoogleCalendarWeb()"><span class="icon-box"><i data-lucide="calendar-days"></i></span><span><strong>Google Calendar</strong><small>Buka kalender terhubung</small></span><i data-lucide="external-link"></i></button>
-                <button onclick="closeModal('moreMenuModal');toggleTheme()"><span class="icon-box"><i data-lucide="sun-moon"></i></span><span><strong>Ganti tema</strong><small>Dark atau light mode</small></span><i data-lucide="chevron-right"></i></button>
                 <button onclick="closeModal('moreMenuModal');openModal('settingsModal')"><span class="icon-box"><i data-lucide="settings"></i></span><span><strong>Settings</strong><small>AI, Spotify, dan preferensi</small></span><i data-lucide="chevron-right"></i></button>
             </div>
         </div>
@@ -1667,10 +1834,10 @@
 
     <!-- 6. NEW GOAL MODAL -->
     <div id="newGoalModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
-    <div class="glass-modal rounded-3xl max-w-xl w-full p-6 space-y-4 relative max-h-[92vh] overflow-y-auto custom-scrollbar">
+    <div class="goal-creator-shell glass-modal rounded-3xl max-w-xl w-full p-6 relative max-h-[92vh]">
         <div class="flex items-center justify-between">
-            <h3 class="text-lg font-bold" style="color: var(--text-main);">Buat Goal Baru</h3>
-            <button onclick="closeModal('newGoalModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <div><p class="eyebrow">Goal baru</p><h3 class="text-lg font-bold" style="color: var(--text-main);">Tentukan arahmu</h3></div>
+            <button onclick="closeModal('newGoalModal')" class="clean-icon-btn" aria-label="Tutup"><i data-lucide="x" class="w-5 h-5"></i></button>
         </div>
 
         <div class="goal-stepper" aria-label="Tahapan membuat goal">
@@ -1679,6 +1846,7 @@
             <i></i><span data-goal-step-dot="3">3<strong>Rencana</strong></span>
         </div>
 
+        <div class="goal-creator-body custom-scrollbar mt-3">
         <div id="goalFormStep1" class="goal-form-step space-y-3 text-xs">
             <div><p class="eyebrow">Langkah 1</p><h4 class="form-step-title">Apa yang ingin kamu capai?</h4><p class="form-step-copy">Mulai dari hasil yang berarti, bukan daftar aktivitas.</p></div>
             <div>
@@ -1689,65 +1857,104 @@
                 <label class="block font-semibold mb-1.5" style="color:var(--text-sub)">Mengapa ini penting? <span class="font-normal opacity-60">(opsional)</span></label>
                 <textarea id="newGoalDescription" rows="3" class="w-full theme-input rounded-xl p-3" placeholder="Tuliskan hasil akhir atau alasan personalnya..."></textarea>
             </div>
-            <div>
-                <label class="block font-semibold mb-1.5" style="color:var(--text-sub)">Kategori</label>
-                <select id="newGoalCategory" class="w-full theme-input rounded-xl p-3"></select>
+            <div class="space-y-2">
+                <div class="flex items-center justify-between gap-2">
+                    <label class="block font-semibold" style="color:var(--text-sub)">Area Hidup <span class="font-normal opacity-60">(opsional)</span></label>
+                    <span class="text-[10px]" style="color:var(--text-muted)">Untuk filter & insight</span>
+                </div>
+                <input type="hidden" id="newGoalCategory" value="">
+                <div id="goalAreaGrid" class="area-grid"></div>
+                <div id="inlineAreaForm" class="inline-area-form hidden space-y-2">
+                    <p class="font-bold" style="color:var(--text-main)">Tambah area baru</p>
+                    <div class="flex gap-2">
+                        <input id="inlineAreaIcon" class="theme-input rounded-xl p-3 w-14 text-center" maxlength="2" placeholder="✨" aria-label="Ikon area">
+                        <input id="inlineAreaName" class="theme-input rounded-xl p-3 flex-1" maxlength="24" placeholder="Contoh: Bisnis" onkeydown="if(event.key==='Enter'){event.preventDefault();addGoalAreaInline()}">
+                    </div>
+                    <div class="flex justify-end gap-2"><button type="button" onclick="toggleInlineAreaForm(false)" class="btn-secondary px-3 py-2 rounded-xl font-bold">Batal</button><button type="button" onclick="addGoalAreaInline()" class="primary-btn-gradient px-3 py-2 rounded-xl font-bold">Simpan area</button></div>
+                </div>
             </div>
         </div>
 
         <div id="goalFormStep2" class="goal-form-step hidden space-y-3 text-xs">
             <div><p class="eyebrow">Langkah 2</p><h4 class="form-step-title">Berapa lama perjalanan ini?</h4><p class="form-step-copy">Tanggal digunakan untuk membuat horizon yang realistis.</p></div>
-            <div>
-                <label class="block font-semibold mb-1.5" style="color:var(--text-sub)">Mulai</label>
-                <input type="date" id="newGoalStartDate" onchange="updateGoalDurationUI()" class="w-full theme-input rounded-xl p-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <input type="hidden" id="newGoalStartDate">
+                <input type="hidden" id="newGoalEndDate">
+                <input type="hidden" id="newGoalDurationType" value="1_year">
+                <button type="button" onclick="openGoalDatePicker('start')" class="date-field-card">
+                    <span class="icon-box"><i data-lucide="calendar"></i></span>
+                    <span class="date-copy"><small>Mulai</small><strong id="goalStartDateLabel">Pilih tanggal</strong></span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 opacity-40"></i>
+                </button>
+                <button type="button" onclick="openGoalDatePicker('end')" class="date-field-card">
+                    <span class="icon-box"><i data-lucide="flag"></i></span>
+                    <span class="date-copy"><small>Selesai · bisa diubah</small><strong id="goalEndDateLabel">Pilih tanggal</strong></span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 opacity-40"></i>
+                </button>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                    <label class="block font-semibold mb-1.5" style="color:var(--text-sub)">Durasi</label>
-                    <select id="newGoalDurationType" onchange="updateGoalDurationUI()" class="w-full theme-input rounded-xl p-3">
-                        <option value="5_years">5 Tahun</option><option value="4_years">4 Tahun</option><option value="3_years">3 Tahun</option>
-                        <option value="2_years">2 Tahun</option><option value="1_year" selected>1 Tahun</option><option value="6_months">6 Bulan</option>
-                        <option value="3_months">3 Bulan</option><option value="1_month">1 Bulan</option><option value="custom">Custom</option>
-                    </select>
-                </div>
-                <div id="goalCalculatedEndWrap">
-                    <label class="block font-semibold mb-1.5" style="color:var(--text-sub)">Selesai</label>
-                    <input type="date" id="newGoalEndDate" class="w-full theme-input rounded-xl p-3" readonly>
-                </div>
+            <div class="space-y-2">
+                <label class="block font-semibold" style="color:var(--text-sub)">Durasi</label>
+                <div id="goalDurationGrid" class="duration-grid"></div>
             </div>
+            <div class="time-summary"><i data-lucide="route"></i><span id="goalTimeSummary">Pilih waktu untuk melihat ringkasan.</span></div>
         </div>
 
         <div id="goalFormStep3" class="goal-form-step hidden space-y-3 text-xs">
-            <div><p class="eyebrow">Langkah 3</p><h4 class="form-step-title">Bagaimana rencananya dibuat?</h4><p class="form-step-copy">Kamu selalu dapat meninjau dan mengedit sebelum menyimpan.</p></div>
-            <label class="plan-choice">
-                <input type="checkbox" id="enableAIBreakdown" checked onchange="toggleManualMilestoneUI()">
-                <span class="icon-box"><i data-lucide="sparkles"></i></span>
-                <span><strong>AI Goal Breakdown</strong><small>Buat horizon sederhana sesuai durasi Goal.</small></span>
-            </label>
-            <div id="manualMilestoneSection" class="space-y-2 hidden pt-3 border-t border-[var(--border-card)]">
-                <label class="block font-semibold" style="color:var(--text-sub)">Milestones Manual</label>
-                <div class="flex gap-2">
-                    <input type="text" id="manualMilestoneInput" class="flex-1 theme-input rounded-xl p-3 text-xs" placeholder="Contoh: Bab 1 selesai" onkeydown="if(event.key==='Enter') addManualMilestone()">
-                    <button type="button" onclick="addManualMilestone()" class="btn-secondary px-3 py-2 rounded-xl font-bold text-xs">Tambah</button>
-                </div>
-                <div id="manualMilestonesList" class="space-y-1.5 max-h-32 overflow-y-auto custom-scrollbar"></div>
+            <div><p class="eyebrow">Langkah 3</p><h4 class="form-step-title">Susun jalan menuju goal</h4><p class="form-step-copy">Manual menjadi pilihan awal. AI dapat membantu kapan pun kamu membutuhkannya.</p></div>
+            <input type="checkbox" id="enableAIBreakdown" class="hidden" onchange="toggleManualMilestoneUI()">
+            <div class="plan-mode-grid">
+                <button type="button" id="manualPlanMode" onclick="setGoalPlanMode('manual')" class="plan-mode-card selected">
+                    <span class="icon-box"><i data-lucide="list-tree"></i></span><span><strong>Susun manual</strong><small>Isi target tahunan, lalu pecah secara bertahap.</small></span>
+                </button>
+                <button type="button" id="aiPlanMode" onclick="setGoalPlanMode('ai')" class="plan-mode-card">
+                    <span class="icon-box"><i data-lucide="sparkles"></i></span><span><strong>Bantu dengan AI</strong><small>Dapatkan usulan yang tetap bisa kamu review.</small></span>
+                </button>
             </div>
+            <div id="manualMilestoneSection" class="space-y-2 pt-2">
+                <div class="flex items-center justify-between gap-2"><label class="block font-semibold" style="color:var(--text-sub)">Kerangka berdasarkan durasi</label><span class="text-[10px]" style="color:var(--text-muted)">Tersimpan bertingkat</span></div>
+                <div id="goalPlanSkeleton" class="plan-skeleton"></div>
+                <div class="plan-structure-preview"><strong style="color:var(--text-sub)">Struktur progresif:</strong> Tahun → 6 Bulan → Bulan → Minggu. Level detail akan tetap tertutup dan bisa dibuka saat dibutuhkan agar rencana tetap tenang.</div>
+            </div>
+            <div id="aiPlanHint" class="hidden p-3 rounded-2xl tag-indigo leading-relaxed">AI akan mengusulkan target sesuai durasi. Tidak ada rencana yang disimpan sebelum kamu meninjaunya.</div>
+        </div>
         </div>
 
-        <div class="flex gap-2 pt-1">
+        <div class="goal-creator-footer flex gap-2">
             <button onclick="changeGoalFormStep(-1)" id="btnGoalStepBack" class="btn-secondary px-4 py-3 rounded-xl text-xs font-bold hidden">Kembali</button>
             <button onclick="changeGoalFormStep(1)" id="btnGoalStepNext" class="primary-btn-gradient flex-1 px-4 py-3 rounded-xl text-xs font-bold">Lanjutkan</button>
-            <button onclick="saveNewGoal()" id="btnSaveGoal" class="primary-btn-gradient flex-1 px-4 py-3 rounded-xl text-xs font-bold hidden">Review Goal Plan</button>
+            <button onclick="saveNewGoal()" id="btnSaveGoal" class="primary-btn-gradient flex-1 px-4 py-3 rounded-xl text-xs font-bold hidden">Review Rencana</button>
         </div>
     </div>
 </div>
+
+    <!-- CUSTOM GOAL DATE PICKER -->
+    <div id="goalDatePickerModal" class="fixed inset-0 z-[70] modal-backdrop-blur flex items-center justify-center p-4 hidden">
+        <div class="calendar-shell glass-modal w-full p-5 space-y-4">
+            <div class="flex items-center justify-between gap-3">
+                <div><p id="goalCalendarEyebrow" class="eyebrow">Tanggal mulai</p><h3 id="goalCalendarTitle" class="text-base font-bold">Pilih tanggal</h3></div>
+                <button onclick="closeModal('goalDatePickerModal')" class="clean-icon-btn" aria-label="Tutup kalender"><i data-lucide="x"></i></button>
+            </div>
+            <div class="quick-date-row custom-scrollbar">
+                <button onclick="selectGoalQuickDate('today')" class="btn-secondary px-3 py-2 rounded-xl text-[10px] font-bold">Hari ini</button>
+                <button onclick="selectGoalQuickDate('next_monday')" class="btn-secondary px-3 py-2 rounded-xl text-[10px] font-bold">Senin depan</button>
+                <button onclick="selectGoalQuickDate('next_month')" class="btn-secondary px-3 py-2 rounded-xl text-[10px] font-bold">Awal bulan depan</button>
+            </div>
+            <div class="flex items-center justify-between">
+                <button onclick="changeGoalCalendarMonth(-1)" class="clean-icon-btn" aria-label="Bulan sebelumnya"><i data-lucide="chevron-left"></i></button>
+                <strong id="goalCalendarMonthLabel" class="text-sm"></strong>
+                <button onclick="changeGoalCalendarMonth(1)" class="clean-icon-btn" aria-label="Bulan berikutnya"><i data-lucide="chevron-right"></i></button>
+            </div>
+            <div class="calendar-weekdays"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div>
+            <div id="goalCalendarDays" class="calendar-days"></div>
+        </div>
+    </div>
 
     <!-- REVIEW GOAL PLAN MODAL -->
     <div id="reviewGoalPlanModal" class="fixed inset-0 z-[60] modal-backdrop-blur flex items-center justify-center p-4 hidden">
         <div class="glass-modal rounded-3xl max-w-2xl w-full p-5 sm:p-6 space-y-4 relative max-h-[92vh] overflow-y-auto custom-scrollbar">
             <div class="flex items-start justify-between gap-3">
                 <div>
-                    <div class="flex items-center gap-2 text-indigo-400"><i data-lucide="route" class="w-5 h-5"></i><h3 class="text-lg font-bold">Review Goal Plan</h3></div>
+                    <div class="flex items-center gap-2 text-indigo-400"><i data-lucide="route" class="w-5 h-5"></i><h3 class="text-lg font-bold">Review Rencana Goal</h3></div>
                     <p id="goalPlanSummary" class="text-[11px] mt-1" style="color: var(--text-muted);"></p>
                 </div>
                 <button onclick="closeModal('reviewGoalPlanModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -1756,8 +1963,8 @@
             <div id="goalPlanReviewList" class="space-y-2"></div>
             <div class="flex flex-col sm:flex-row gap-2 pt-1">
                 <button onclick="addGoalPlanItem()" class="btn-secondary px-3 py-2.5 rounded-xl text-xs font-bold">+ Tambah target</button>
-                <button onclick="regenerateGoalPlan()" class="btn-secondary px-3 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1"><i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Regenerate</button>
-                <button onclick="approveGoalPlan()" class="primary-btn-gradient flex-1 px-4 py-2.5 rounded-xl text-xs font-bold">Approve Goal Plan</button>
+                <button onclick="regenerateGoalPlan()" class="btn-secondary px-3 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1"><i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Susun ulang</button>
+                <button onclick="approveGoalPlan()" class="primary-btn-gradient flex-1 px-4 py-2.5 rounded-xl text-xs font-bold">Simpan Goal</button>
             </div>
         </div>
     </div>
@@ -1906,19 +2113,19 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2 text-indigo-400">
                     <i data-lucide="tag" class="w-5 h-5"></i>
-                    <h3 class="text-lg font-bold" style="color: var(--text-main);">Kelola Kategori</h3>
+                    <h3 class="text-lg font-bold" style="color: var(--text-main);">Kelola Area Hidup</h3>
                 </div>
                 <button onclick="closeModal('manageCategoriesModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
 
             <div class="p-3.5 rounded-2xl border border-[var(--border-card)] space-y-2.5" style="background-color: var(--bg-main);">
-                <span class="text-[11px] font-bold uppercase" style="color: var(--text-sub);">+ Tambah Kategori Baru</span>
+                <span class="text-[11px] font-bold uppercase" style="color: var(--text-sub);">+ Tambah Area Baru</span>
                 <div class="grid grid-cols-12 gap-2">
                     <div class="col-span-3">
                         <input type="text" id="newCatIcon" maxlength="4" placeholder="🎓 Icon" class="w-full theme-input rounded-xl p-2 text-xs text-center">
                     </div>
                     <div class="col-span-6">
-                        <input type="text" id="newCatName" placeholder="Nama Kategori..." class="w-full theme-input rounded-xl p-2 text-xs">
+                        <input type="text" id="newCatName" placeholder="Nama area..." class="w-full theme-input rounded-xl p-2 text-xs">
                     </div>
                     <div class="col-span-3">
                         <button onclick="addNewCategoryFromModal()" class="w-full h-full py-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs transition">
@@ -1929,7 +2136,7 @@
             </div>
 
             <div class="space-y-2">
-                <span class="text-[11px] font-bold uppercase" style="color: var(--text-muted);">Daftar Kategori:</span>
+                <span class="text-[11px] font-bold uppercase" style="color: var(--text-muted);">Daftar Area Hidup:</span>
                 <div id="categoryManagerList" class="space-y-1.5 max-h-52 overflow-y-auto custom-scrollbar"></div>
             </div>
         </div>
@@ -1946,8 +2153,17 @@
                 <button onclick="closeModal('settingsModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
 
-            <!-- Gemini API Key -->
             <div class="space-y-2 text-xs">
+                <label class="block font-semibold" style="color:var(--text-sub)">Tampilan</label>
+                <button type="button" onclick="toggleTheme()" class="date-field-card">
+                    <span class="icon-box"><i data-lucide="sun-moon"></i></span>
+                    <span class="date-copy"><small>Preferensi aplikasi</small><strong>Ganti tema terang / gelap</strong></span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 opacity-40"></i>
+                </button>
+            </div>
+
+            <!-- Gemini API Key -->
+            <div class="pt-4 border-t border-[var(--border-card)] space-y-2 text-xs">
                 <label class="block font-semibold" style="color: var(--text-sub);">Google Gemini API Key (Privat di Browser)</label>
                 <div class="relative flex items-center">
                     <input type="password" id="geminiApiKeyInput" class="w-full theme-input rounded-xl p-2.5 pr-10 font-mono text-xs" placeholder="AIzaSy... atau AQ...">
@@ -3371,9 +3587,13 @@ Gemini:`;
 
         // ================= DYNAMIC CATEGORIES =================
         const DEFAULT_CATEGORIES = [
-            { id: 'thesis', name: 'Thesis', icon: '🎓', color: 'indigo' },
-            { id: 'work', name: 'Work', icon: '💼', color: 'purple' },
-            { id: 'personal', name: 'Personal', icon: '👤', color: 'emerald' }
+            { id: 'work', name: 'Karier', icon: '💼', color: 'purple' },
+            { id: 'thesis', name: 'Pendidikan', icon: '🎓', color: 'indigo' },
+            { id: 'health', name: 'Kesehatan', icon: '💚', color: 'emerald' },
+            { id: 'finance', name: 'Keuangan', icon: '💰', color: 'amber' },
+            { id: 'personal', name: 'Personal', icon: '✨', color: 'teal' },
+            { id: 'relationship', name: 'Relasi', icon: '🤝', color: 'rose' },
+            { id: 'project', name: 'Proyek', icon: '🚀', color: 'indigo' }
         ];
 
         function getCategories() {
@@ -4837,6 +5057,12 @@ const ZIEL_HORIZON_ORDER = ['year', 'half_year', 'quarter', 'month', 'week', 'mi
 let pendingGoalDraft = null;
 let pendingGoalPlan = null;
 let goalDetailCurrentId = null;
+let goalCalendarMode = 'start';
+let goalCalendarCursor = new Date();
+let goalPlanYearDrafts = {};
+let planReviewExpanded = new Set();
+
+const GOAL_DURATION_OPTIONS = ['1_month', '3_months', '6_months', '1_year', '2_years', '3_years', '5_years', 'custom'];
 
 function escapeHtml(value) {
     return String(value == null ? '' : value)
@@ -4863,8 +5089,22 @@ function addDate(key, amount, unit) {
     const d = parseLocalDate(key);
     if (unit === 'day') d.setDate(d.getDate() + amount);
     if (unit === 'week') d.setDate(d.getDate() + amount * 7);
-    if (unit === 'month') d.setMonth(d.getMonth() + amount);
-    if (unit === 'year') d.setFullYear(d.getFullYear() + amount);
+    if (unit === 'month') {
+        const originalDay = d.getDate();
+        d.setDate(1);
+        d.setMonth(d.getMonth() + amount);
+        const lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0, 12).getDate();
+        d.setDate(Math.min(originalDay, lastDay));
+    }
+    if (unit === 'year') {
+        const originalMonth = d.getMonth();
+        const originalDay = d.getDate();
+        d.setDate(1);
+        d.setFullYear(d.getFullYear() + amount);
+        d.setMonth(originalMonth);
+        const lastDay = new Date(d.getFullYear(), originalMonth + 1, 0, 12).getDate();
+        d.setDate(Math.min(originalDay, lastDay));
+    }
     return localDateKey(d);
 }
 
@@ -4886,8 +5126,16 @@ function formatDateId(key, options) {
 }
 
 function durationLabel(goal) {
-    return (ZIEL_DURATION_CONFIG[goal.durationType] || {}).label ||
-        Math.max(1, Math.round((parseLocalDate(goal.endDate) - parseLocalDate(goal.startDate)) / 2629800000)) + ' Bulan';
+    if (goal.durationType && goal.durationType !== 'custom' && ZIEL_DURATION_CONFIG[goal.durationType]) {
+        return ZIEL_DURATION_CONFIG[goal.durationType].label;
+    }
+    const days = Math.max(1, Math.round((parseLocalDate(goal.endDate) - parseLocalDate(goal.startDate)) / 86400000) + 1);
+    const months = Math.max(1, Math.round(days / 30.4375));
+    const years = Math.floor(months / 12);
+    const rest = months % 12;
+    if (years && rest) return years + ' tahun ' + rest + ' bulan';
+    if (years) return years + ' tahun';
+    return months + ' bulan';
 }
 
 function normalizeAgendaItem(item) {
@@ -5020,9 +5268,104 @@ function updateGoalDurationUI() {
     const end = document.getElementById('newGoalEndDate');
     if (!start || !type || !end) return;
     if (!start.value) start.value = todayKey();
-    end.readOnly = type.value !== 'custom';
     if (type.value !== 'custom') end.value = calculateGoalEndDate(start.value, type.value);
     else if (!end.value || end.value < start.value) end.value = addDate(start.value, 1, 'month');
+    const startLabel = document.getElementById('goalStartDateLabel');
+    const endLabel = document.getElementById('goalEndDateLabel');
+    const summary = document.getElementById('goalTimeSummary');
+    if (startLabel) startLabel.textContent = formatDateId(start.value, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+    if (endLabel) endLabel.textContent = formatDateId(end.value, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+    const pseudoGoal = { durationType: type.value, startDate: start.value, endDate: end.value };
+    if (summary) summary.innerHTML = '<strong>' + escapeHtml(formatDateId(start.value, { day: 'numeric', month: 'short', year: 'numeric' })) + '</strong><span>→</span><strong>' + escapeHtml(formatDateId(end.value, { day: 'numeric', month: 'short', year: 'numeric' })) + '</strong><span>· ' + escapeHtml(durationLabel(pseudoGoal)) + '</span>';
+    renderGoalDurationGrid();
+    if (goalFormStep === 3) renderGoalPlanSkeleton();
+}
+
+function renderGoalDurationGrid() {
+    const grid = document.getElementById('goalDurationGrid');
+    const input = document.getElementById('newGoalDurationType');
+    if (!grid || !input) return;
+    grid.innerHTML = GOAL_DURATION_OPTIONS.map(function (key) {
+        const shortLabels = { '1_month': '1 bln', '3_months': '3 bln', '6_months': '6 bln', '1_year': '1 thn', '2_years': '2 thn', '3_years': '3 thn', '5_years': '5 thn', custom: 'Custom' };
+        return '<button type="button" onclick="setGoalDuration(\'' + key + '\')" class="duration-option ' + (input.value === key ? 'selected' : '') + '">' + shortLabels[key] + '</button>';
+    }).join('');
+}
+
+function setGoalDuration(type) {
+    const input = document.getElementById('newGoalDurationType');
+    if (!input) return;
+    input.value = type;
+    updateGoalDurationUI();
+    playChime('click');
+    if (type === 'custom') openGoalDatePicker('end');
+}
+
+function openGoalDatePicker(mode) {
+    goalCalendarMode = mode === 'end' ? 'end' : 'start';
+    const key = document.getElementById(goalCalendarMode === 'start' ? 'newGoalStartDate' : 'newGoalEndDate')?.value || todayKey();
+    goalCalendarCursor = parseLocalDate(key);
+    const eyebrow = document.getElementById('goalCalendarEyebrow');
+    if (eyebrow) eyebrow.textContent = goalCalendarMode === 'start' ? 'Tanggal mulai' : 'Tanggal selesai';
+    renderGoalCalendar();
+    openModal('goalDatePickerModal');
+}
+
+function renderGoalCalendar() {
+    const label = document.getElementById('goalCalendarMonthLabel');
+    const days = document.getElementById('goalCalendarDays');
+    if (!label || !days) return;
+    const year = goalCalendarCursor.getFullYear();
+    const month = goalCalendarCursor.getMonth();
+    label.textContent = new Date(year, month, 1).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
+    const first = new Date(year, month, 1, 12);
+    const mondayOffset = (first.getDay() + 6) % 7;
+    const gridStart = new Date(year, month, 1 - mondayOffset, 12);
+    const selected = document.getElementById(goalCalendarMode === 'start' ? 'newGoalStartDate' : 'newGoalEndDate')?.value;
+    const minEnd = document.getElementById('newGoalStartDate')?.value || todayKey();
+    let html = '';
+    for (let i = 0; i < 42; i++) {
+        const d = new Date(gridStart); d.setDate(gridStart.getDate() + i);
+        const key = localDateKey(d);
+        const outside = d.getMonth() !== month;
+        const disabled = goalCalendarMode === 'end' && key < minEnd;
+        html += '<button type="button" ' + (disabled ? 'disabled' : 'onclick="selectGoalCalendarDate(\'' + key + '\')"') + ' class="calendar-day ' + (outside ? 'outside ' : '') + (key === todayKey() ? 'today ' : '') + (key === selected ? 'selected ' : '') + (disabled ? 'opacity-20 cursor-not-allowed' : '') + '">' + d.getDate() + '</button>';
+    }
+    days.innerHTML = html;
+}
+
+function changeGoalCalendarMonth(delta) {
+    goalCalendarCursor = new Date(goalCalendarCursor.getFullYear(), goalCalendarCursor.getMonth() + delta, 1, 12);
+    renderGoalCalendar();
+}
+
+function selectGoalCalendarDate(key) {
+    const start = document.getElementById('newGoalStartDate');
+    const end = document.getElementById('newGoalEndDate');
+    const type = document.getElementById('newGoalDurationType');
+    if (goalCalendarMode === 'start') {
+        start.value = key;
+        if (type.value === 'custom' && (!end.value || end.value < key)) end.value = addDate(key, 1, 'month');
+    } else {
+        end.value = key;
+        type.value = 'custom';
+    }
+    closeModal('goalDatePickerModal');
+    updateGoalDurationUI();
+    playChime('click');
+}
+
+function selectGoalQuickDate(kind) {
+    let d = parseLocalDate(todayKey());
+    if (kind === 'next_monday') {
+        const add = (8 - d.getDay()) % 7 || 7;
+        d.setDate(d.getDate() + add);
+    } else if (kind === 'next_month') {
+        d = new Date(d.getFullYear(), d.getMonth() + 1, 1, 12);
+    }
+    let key = localDateKey(d);
+    const start = document.getElementById('newGoalStartDate')?.value || todayKey();
+    if (goalCalendarMode === 'end' && key < start) key = start;
+    selectGoalCalendarDate(key);
 }
 
 let goalFormStep = 1;
@@ -5061,24 +5404,44 @@ function changeGoalFormStep(direction) {
     }
     goalFormStep = Math.max(1, Math.min(3, goalFormStep + direction));
     renderGoalFormStep();
+    if (goalFormStep === 3) renderGoalPlanSkeleton();
     playChime('click');
 }
 
 function toggleManualMilestoneUI() {
-    const aiEnabled = document.getElementById('enableAIBreakdown')?.checked !== false;
+    const aiEnabled = document.getElementById('enableAIBreakdown')?.checked === true;
     const manual = document.getElementById('manualMilestoneSection');
+    const aiHint = document.getElementById('aiPlanHint');
+    const manualButton = document.getElementById('manualPlanMode');
+    const aiButton = document.getElementById('aiPlanMode');
     const save = document.getElementById('btnSaveGoal');
     if (manual) manual.classList.toggle('hidden', aiEnabled);
-    if (save) save.textContent = aiEnabled ? 'Review AI Goal Plan' : 'Review Goal Manual';
+    if (aiHint) aiHint.classList.toggle('hidden', !aiEnabled);
+    if (manualButton) manualButton.classList.toggle('selected', !aiEnabled);
+    if (aiButton) aiButton.classList.toggle('selected', aiEnabled);
+    if (save) save.textContent = aiEnabled ? 'Review Usulan AI' : 'Review Rencana';
+}
+
+function setGoalPlanMode(mode) {
+    const input = document.getElementById('enableAIBreakdown');
+    if (input) input.checked = mode === 'ai';
+    toggleManualMilestoneUI();
+    playChime('click');
 }
 
 function prepareGoalModal() {
     const start = document.getElementById('newGoalStartDate');
+    const type = document.getElementById('newGoalDurationType');
+    const ai = document.getElementById('enableAIBreakdown');
     if (start && !start.value) start.value = todayKey();
+    if (type && !type.value) type.value = '1_year';
+    if (ai) ai.checked = false;
     goalFormStep = 1;
     renderGoalFormStep();
     updateGoalDurationUI();
     renderCategorySelects();
+    toggleManualMilestoneUI();
+    renderGoalPlanSkeleton();
 }
 
 function makePlanItem(type, title, parentId, startDate, endDate, order) {
@@ -5094,37 +5457,89 @@ function makePlanItem(type, title, parentId, startDate, endDate, order) {
     };
 }
 
+function updateGoalYearDraft(index, value) {
+    goalPlanYearDrafts[index] = value;
+}
+
+function goalDraftMonthCount(startDate, endDate, durationType) {
+    const cfg = ZIEL_DURATION_CONFIG[durationType] || ZIEL_DURATION_CONFIG.custom;
+    return cfg.months || Math.max(1, Math.round(((parseLocalDate(endDate) - parseLocalDate(startDate)) / 86400000 + 1) / 30.4375));
+}
+
+function renderGoalPlanSkeleton() {
+    const container = document.getElementById('goalPlanSkeleton');
+    const start = document.getElementById('newGoalStartDate')?.value;
+    const end = document.getElementById('newGoalEndDate')?.value;
+    const type = document.getElementById('newGoalDurationType')?.value;
+    if (!container || !start || !end) return;
+    const months = goalDraftMonthCount(start, end, type);
+    const blocks = months >= 12 ? Math.ceil(months / 12) : 1;
+    let html = '';
+    for (let index = 0; index < blocks; index++) {
+        const blockStart = months >= 12 ? addDate(start, index, 'year') : start;
+        const proposedEnd = months >= 12 ? addDate(addDate(blockStart, 1, 'year'), -1, 'day') : end;
+        const blockEnd = proposedEnd > end ? end : proposedEnd;
+        const blockMonths = goalDraftMonthCount(blockStart, blockEnd, 'custom');
+        const halves = Math.max(1, Math.ceil(blockMonths / 6));
+        const weeks = Math.max(1, Math.ceil(((parseLocalDate(blockEnd) - parseLocalDate(blockStart)) / 86400000 + 1) / 7));
+        const label = months >= 12 ? 'Target Tahun ' + (index + 1) : 'Target periode ini';
+        const value = goalPlanYearDrafts[index] || '';
+        html += '<div class="plan-year-card"><div class="flex items-center justify-between gap-2"><div><strong class="text-xs" style="color:var(--text-main)">' + label + '</strong><p class="plan-year-meta">' + escapeHtml(formatDateId(blockStart, { day: 'numeric', month: 'short', year: 'numeric' })) + ' – ' + escapeHtml(formatDateId(blockEnd, { day: 'numeric', month: 'short', year: 'numeric' })) + '</p></div><span class="tag-indigo px-2 py-1 rounded-lg text-[10px] font-bold">' + halves + ' × 6 bln</span></div><input value="' + escapeHtml(value) + '" oninput="updateGoalYearDraft(' + index + ',this.value)" class="theme-input w-full rounded-xl p-2.5 mt-2" placeholder="' + (index === 0 ? 'Contoh: Fondasi dan kemampuan inti terbentuk' : 'Hasil utama yang ingin dicapai') + '"><div class="plan-year-meta mt-2">' + blockMonths + ' bulan · ±' + weeks + ' minggu · dibuka progresif</div></div>';
+    }
+    container.innerHTML = html;
+}
+
 function buildLocalGoalPlan(draft) {
     const cfg = ZIEL_DURATION_CONFIG[draft.durationType] || ZIEL_DURATION_CONFIG.custom;
-    const months = cfg.months || Math.max(1, Math.round((parseLocalDate(draft.endDate) - parseLocalDate(draft.startDate)) / 2629800000));
+    const months = cfg.months || goalDraftMonthCount(draft.startDate, draft.endDate, 'custom');
     const items = [];
     let order = 0;
-    let parentId = null;
-    if (months >= 12) {
-        const years = Math.max(1, Math.ceil(months / 12));
-        for (let y = 0; y < years; y++) {
-            const yStart = addDate(draft.startDate, y, 'year');
-            const yEnd = y === years - 1 ? draft.endDate : addDate(addDate(yStart, 1, 'year'), -1, 'day');
-            const item = makePlanItem('year', 'Tahun ' + (y + 1) + (y === 0 ? ' — Bangun fondasi' : y === years - 1 ? ' — Konsolidasi hasil' : ' — Perluas kemampuan'), null, yStart, yEnd, order++);
-            items.push(item);
-            if (y === 0) parentId = item.id;
-        }
+    const topBlocks = months >= 12 ? Math.ceil(months / 12) : (months >= 6 ? Math.ceil(months / 6) : months);
+    for (let topIndex = 0; topIndex < topBlocks; topIndex++) {
+        const topType = months >= 12 ? 'year' : (months >= 6 ? 'half_year' : 'month');
+        const blockMonths = topType === 'year' ? 12 : (topType === 'half_year' ? 6 : 1);
+        const topStart = addDate(draft.startDate, topIndex * blockMonths, 'month');
+        if (topStart > draft.endDate) break;
+        const rawTopEnd = addDate(addDate(topStart, blockMonths, 'month'), -1, 'day');
+        const topEnd = rawTopEnd > draft.endDate ? draft.endDate : rawTopEnd;
+        const customTitle = goalPlanYearDrafts[topIndex] && goalPlanYearDrafts[topIndex].trim();
+        const topLabel = topType === 'year' ? 'Tahun ' + (topIndex + 1) : (topType === 'half_year' ? '6 Bulan ' + (topIndex + 1) : 'Bulan ' + (topIndex + 1));
+        const top = makePlanItem(topType, customTitle || topLabel + ' — tentukan hasil utama', null, topStart, topEnd, order++);
+        items.push(top);
+
+        const halfParents = [];
+        if (topType === 'year') {
+            for (let halfIndex = 0; halfIndex < 2; halfIndex++) {
+                const halfStart = addDate(topStart, halfIndex * 6, 'month');
+                if (halfStart > topEnd) break;
+                const rawHalfEnd = addDate(addDate(halfStart, 6, 'month'), -1, 'day');
+                const half = makePlanItem('half_year', (halfIndex === 0 ? '6 Bulan Pertama' : '6 Bulan Kedua') + ' — target antara', top.id, halfStart, rawHalfEnd > topEnd ? topEnd : rawHalfEnd, order++);
+                items.push(half); halfParents.push(half);
+            }
+        } else halfParents.push(top);
+
+        halfParents.forEach(function (half) {
+            let monthStart = half.startDate;
+            let monthNumber = 1;
+            while (monthStart <= half.endDate && monthStart <= draft.endDate) {
+                const rawMonthEnd = addDate(addDate(monthStart, 1, 'month'), -1, 'day');
+                const monthEnd = rawMonthEnd > half.endDate ? half.endDate : rawMonthEnd;
+                const monthItem = makePlanItem('month', 'Bulan ' + monthNumber + ' — hasil bulanan', half.id, monthStart, monthEnd, order++);
+                items.push(monthItem);
+                let weekStart = monthStart;
+                let weekNumber = 1;
+                while (weekStart <= monthEnd) {
+                    const rawWeekEnd = addDate(weekStart, 6, 'day');
+                    const weekEnd = rawWeekEnd > monthEnd ? monthEnd : rawWeekEnd;
+                    items.push(makePlanItem('week', 'Minggu ' + weekNumber + ' — langkah nyata', monthItem.id, weekStart, weekEnd, order++));
+                    weekStart = addDate(weekEnd, 1, 'day');
+                    weekNumber += 1;
+                }
+                monthStart = addDate(monthEnd, 1, 'day');
+                monthNumber += 1;
+            }
+        });
     }
-    if (months >= 6) {
-        const item = makePlanItem('half_year', 'Target 6 bulan — hasil strategis pertama', parentId, draft.startDate, addDate(addDate(draft.startDate, 6, 'month'), -1, 'day'), order++);
-        items.push(item); parentId = item.id;
-    }
-    if (months >= 3) {
-        const item = makePlanItem('quarter', 'Target 3 bulan — validasi kemajuan utama', parentId, draft.startDate, addDate(addDate(draft.startDate, 3, 'month'), -1, 'day'), order++);
-        items.push(item); parentId = item.id;
-    }
-    if (months >= 1) {
-        const item = makePlanItem('month', 'Target bulan pertama — mulai dari dasar yang penting', parentId, draft.startDate, addDate(addDate(draft.startDate, 1, 'month'), -1, 'day'), order++);
-        items.push(item); parentId = item.id;
-    }
-    const weekEnd = addDate(draft.startDate, 6, 'day') > draft.endDate ? draft.endDate : addDate(draft.startDate, 6, 'day');
-    const week = makePlanItem('week', 'Minggu 1 — tentukan langkah nyata dan mulai', parentId, draft.startDate, weekEnd, order++);
-    items.push(week);
     return {
         items: items,
         starterTask: {
@@ -5166,7 +5581,7 @@ async function generateGoalPlan(draft) {
 async function saveNewGoal() {
     const title = document.getElementById('newGoalTitle').value.trim();
     const description = document.getElementById('newGoalDescription').value.trim();
-    const category = document.getElementById('newGoalCategory').value;
+    const category = document.getElementById('newGoalCategory').value || 'uncategorized';
     const startDate = document.getElementById('newGoalStartDate').value;
     const endDate = document.getElementById('newGoalEndDate').value;
     const durationType = document.getElementById('newGoalDurationType').value;
@@ -5186,18 +5601,18 @@ async function saveNewGoal() {
         id: 'goal-' + Date.now(), title: title, description: description,
         category: category, startDate: startDate, endDate: endDate,
         deadline: endDate, durationType: durationType,
-        durationValue: (ZIEL_DURATION_CONFIG[durationType] || {}).value || 0
+        durationValue: (ZIEL_DURATION_CONFIG[durationType] || {}).value || 0,
+        planMode: enableBreakdown ? 'ai' : 'manual'
     };
     if (enableBreakdown) {
         pendingGoalPlan = await generateGoalPlan(pendingGoalDraft);
     } else {
-        const manualItems = tempManualMilestones.map(function (m, index) {
-            return makePlanItem('milestone', m.title, index ? null : null, startDate, endDate, index);
-        });
-        pendingGoalPlan = manualItems.length ? { items: manualItems, starterTask: null } : buildLocalGoalPlan(pendingGoalDraft);
+        pendingGoalPlan = buildLocalGoalPlan(pendingGoalDraft);
+        pendingGoalPlan.starterTask = null;
     }
     btn.disabled = false;
-    btn.textContent = enableBreakdown ? 'Review Goal Plan' : 'Review Goal Manual';
+    btn.textContent = enableBreakdown ? 'Review Usulan AI' : 'Review Rencana';
+    planReviewExpanded = new Set();
     closeModal('newGoalModal');
     renderGoalPlanReview();
     openModal('reviewGoalPlanModal');
@@ -5223,20 +5638,42 @@ function renderGoalPlanReview() {
     const list = document.getElementById('goalPlanReviewList');
     summary.textContent = pendingGoalDraft.title + ' • ' + durationLabel(pendingGoalDraft) + ' • ' +
         formatDateId(pendingGoalDraft.startDate) + ' – ' + formatDateId(pendingGoalDraft.endDate);
-    list.innerHTML = pendingGoalPlan.items.map(function (item, index) {
+    const itemMap = new Map(pendingGoalPlan.items.map(function (item) { return [item.id, item]; }));
+    function isVisible(item) {
+        let parentId = item.parentId;
+        const seen = new Set();
+        while (parentId && !seen.has(parentId)) {
+            seen.add(parentId);
+            if (!planReviewExpanded.has(parentId)) return false;
+            const parent = itemMap.get(parentId);
+            parentId = parent ? parent.parentId : null;
+        }
+        return true;
+    }
+    const visibleItems = pendingGoalPlan.items.filter(isVisible);
+    list.innerHTML = visibleItems.map(function (item) {
+        const index = pendingGoalPlan.items.findIndex(function (x) { return x.id === item.id; });
         const depth = goalPlanDepth(item, pendingGoalPlan.items);
-        return '<div class="theme-card rounded-2xl p-3 flex items-center gap-2 ' + (item.enabled ? '' : 'opacity-40') + '" style="margin-left:' + Math.min(depth * 18, 54) + 'px">' +
+        const childCount = pendingGoalPlan.items.filter(function (x) { return x.parentId === item.id; }).length;
+        const expanded = planReviewExpanded.has(item.id);
+        return '<div class="plan-review-row theme-card rounded-2xl p-3 flex items-center gap-2 ' + (item.enabled ? '' : 'opacity-40') + '" style="margin-left:' + Math.min(depth * 18, 54) + 'px">' +
+            (childCount ? '<button onclick="togglePlanReviewBranch(\'' + item.id + '\')" class="plan-review-toggle btn-secondary rounded-lg" title="' + (expanded ? 'Tutup detail' : 'Buka detail') + '"><i data-lucide="chevron-' + (expanded ? 'down' : 'right') + '" class="w-3.5 h-3.5"></i></button>' : '<span class="plan-review-toggle"></span>') +
             '<button onclick="toggleGoalPlanItem(\'' + item.id + '\')" class="shrink-0 w-6 h-6 rounded-lg ' + (item.enabled ? 'tag-emerald' : 'btn-secondary') + ' text-[10px] font-black">' + (item.enabled ? '✓' : '—') + '</button>' +
             '<div class="flex-1 min-w-0"><div class="text-[9px] uppercase font-bold tracking-wider" style="color:var(--text-muted)">' + escapeHtml(ZIEL_HORIZON_LABELS[item.type] || item.type) + ' • ' + escapeHtml(formatDateId(item.startDate, { day: 'numeric', month: 'short' })) + '</div>' +
-            '<div class="text-xs font-bold truncate" style="color:var(--text-main)">' + escapeHtml(item.title) + '</div></div>' +
+            '<div class="text-xs font-bold truncate" style="color:var(--text-main)">' + escapeHtml(item.title) + '</div>' + (childCount ? '<small style="color:var(--text-muted)">' + childCount + ' bagian · ' + (expanded ? 'detail terbuka' : 'ketuk panah untuk membuka') + '</small>' : '') + '</div>' +
             '<div class="flex items-center gap-1 shrink-0">' +
-            '<button onclick="moveGoalPlanItem(' + index + ',-1)" class="btn-secondary p-1.5 rounded-lg" title="Naik">↑</button>' +
-            '<button onclick="moveGoalPlanItem(' + index + ',1)" class="btn-secondary p-1.5 rounded-lg" title="Turun">↓</button>' +
             '<button onclick="editGoalPlanItem(\'' + item.id + '\')" class="btn-secondary p-1.5 rounded-lg" title="Edit"><i data-lucide="pencil" class="w-3 h-3"></i></button>' +
             '<button onclick="removeGoalPlanItem(\'' + item.id + '\')" class="btn-secondary p-1.5 rounded-lg text-rose-400" title="Hapus"><i data-lucide="trash-2" class="w-3 h-3"></i></button>' +
             '</div></div>';
     }).join('');
+    if (!list.innerHTML) list.innerHTML = '<div class="clean-empty"><i data-lucide="route"></i><div><strong>Belum ada target aktif</strong><p>Tambahkan target atau aktifkan kembali bagian rencana.</p></div></div>';
     safeLucideCreateIcons({ root: list });
+}
+
+function togglePlanReviewBranch(id) {
+    if (planReviewExpanded.has(id)) planReviewExpanded.delete(id);
+    else planReviewExpanded.add(id);
+    renderGoalPlanReview();
 }
 
 function toggleGoalPlanItem(id) {
@@ -5278,7 +5715,12 @@ function addGoalPlanItem() {
 
 async function regenerateGoalPlan() {
     if (!pendingGoalDraft) return;
-    pendingGoalPlan = await generateGoalPlan(pendingGoalDraft);
+    if (pendingGoalDraft.planMode === 'ai') pendingGoalPlan = await generateGoalPlan(pendingGoalDraft);
+    else {
+        pendingGoalPlan = buildLocalGoalPlan(pendingGoalDraft);
+        pendingGoalPlan.starterTask = null;
+    }
+    planReviewExpanded = new Set();
     renderGoalPlanReview();
     showToast({ type: 'info', title: 'Rencana diperbarui', message: 'Tinjau kembali sebelum menyetujuinya.' });
 }
@@ -5363,12 +5805,22 @@ function resetGoalForm() {
     });
     const start = document.getElementById('newGoalStartDate');
     const type = document.getElementById('newGoalDurationType');
+    const end = document.getElementById('newGoalEndDate');
+    const category = document.getElementById('newGoalCategory');
+    const ai = document.getElementById('enableAIBreakdown');
     if (start) start.value = todayKey();
     if (type) type.value = '1_year';
+    if (end) end.value = '';
+    if (category) category.value = '';
+    if (ai) ai.checked = false;
+    goalPlanYearDrafts = {};
+    planReviewExpanded = new Set();
     goalFormStep = 1;
     renderGoalFormStep();
     renderManualMilestones();
     updateGoalDurationUI();
+    renderGoalAreaGrid();
+    toggleManualMilestoneUI();
 }
 
 function activeCategoryIds() {
@@ -5378,6 +5830,12 @@ function activeCategoryIds() {
 function categoryMatches(category) {
     const active = activeCategoryIds();
     return !active.length || active.includes(category);
+}
+
+function categoryDisplayLabel(category) {
+    if (!category || category === 'uncategorized') return '◌ Tanpa area';
+    const cat = getCategories().find(function (item) { return item.id === category; });
+    return cat ? cat.icon + ' ' + cat.name : category;
 }
 
 function filterCategory(category) {
@@ -5421,9 +5879,57 @@ function renderCategorySelects() {
     const options = cats.map(function (c) { return '<option value="' + c.id + '">' + escapeHtml(c.icon + ' ' + c.name) + '</option>'; }).join('');
     const goalSelect = document.getElementById('newGoalCategory');
     const taskSelect = document.getElementById('newTaskCategory');
-    if (goalSelect) goalSelect.innerHTML = options;
+    if (goalSelect && goalSelect.tagName === 'SELECT') goalSelect.innerHTML = options;
     if (taskSelect) taskSelect.innerHTML = options;
+    renderGoalAreaGrid();
     renderLinkingSelects();
+}
+
+function renderGoalAreaGrid() {
+    const grid = document.getElementById('goalAreaGrid');
+    const hidden = document.getElementById('newGoalCategory');
+    if (!grid || !hidden) return;
+    const selected = hidden.value === 'uncategorized' ? '' : (hidden.value || '');
+    let html = '<button type="button" onclick="selectGoalArea(\'\')" class="area-option ' + (!selected ? 'selected' : '') + '"><span class="area-emoji">◌</span><strong>Tanpa area</strong></button>';
+    getCategories().forEach(function (cat) {
+        html += '<button type="button" onclick="selectGoalArea(\'' + cat.id + '\')" class="area-option ' + (selected === cat.id ? 'selected' : '') + '"><span class="area-emoji">' + escapeHtml(cat.icon) + '</span><strong>' + escapeHtml(cat.name) + '</strong></button>';
+    });
+    html += '<button type="button" onclick="toggleInlineAreaForm(true)" class="area-option add-area"><span class="area-emoji">＋</span><strong>Area baru</strong></button>';
+    grid.innerHTML = html;
+}
+
+function selectGoalArea(id) {
+    const input = document.getElementById('newGoalCategory');
+    if (input) input.value = id;
+    renderGoalAreaGrid();
+    playChime('click');
+}
+
+function toggleInlineAreaForm(show) {
+    const form = document.getElementById('inlineAreaForm');
+    if (!form) return;
+    form.classList.toggle('hidden', !show);
+    if (show) setTimeout(function () { document.getElementById('inlineAreaName')?.focus(); }, 50);
+}
+
+function addGoalAreaInline() {
+    const iconInput = document.getElementById('inlineAreaIcon');
+    const nameInput = document.getElementById('inlineAreaName');
+    const name = (nameInput?.value || '').trim();
+    const icon = (iconInput?.value || '').trim() || '✨';
+    if (!name) {
+        showToast({ type: 'warning', title: 'Nama area belum diisi', message: 'Beri nama singkat seperti Bisnis atau Keluarga.' });
+        return;
+    }
+    const cats = getCategories();
+    const id = 'cat_' + Date.now();
+    cats.push({ id: id, name: name, icon: icon, color: 'teal' });
+    saveCategories(cats);
+    selectGoalArea(id);
+    if (iconInput) iconInput.value = '';
+    if (nameInput) nameInput.value = '';
+    toggleInlineAreaForm(false);
+    showToast({ type: 'success', title: 'Area Hidup ditambahkan', message: icon + ' ' + name + ' siap digunakan.' });
 }
 
 function renderLinkingSelects() {
@@ -5608,7 +6114,7 @@ function renderTasks() {
             (path ? '<p class="text-[10px] mt-1 text-indigo-400 truncate">↳ ' + escapeHtml(path) + '</p>' : '') +
             '<div class="flex flex-wrap items-center gap-1.5 mt-2 text-[9px]"><span class="' + priorityClass + ' px-2 py-0.5 rounded-full font-bold">' + escapeHtml(task.priority.toUpperCase()) + '</span>' +
             '<span style="color:var(--text-muted)">⏱ ' + task.estimatedMinutes + 'm</span><span style="color:var(--text-muted)">Energi ' + task.energyRequired + '</span>' +
-            '<span class="tag-teal px-2 py-0.5 rounded-full">' + escapeHtml(cat ? cat.icon + ' ' + cat.name : task.category) + '</span>' +
+            '<span class="tag-teal px-2 py-0.5 rounded-full">' + escapeHtml(categoryDisplayLabel(task.category)) + '</span>' +
             '<span style="color:var(--text-muted)">Due ' + escapeHtml(formatDateId(task.deadline, { day: 'numeric', month: 'short' })) + '</span></div></div></div>' +
             '<div class="flex items-center gap-1 shrink-0">' + (!done ?
                 '<button onclick="openFocusModeFromTask(\'' + task.id + '\')" class="primary-btn-gradient task-focus-btn px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5" title="Mulai fokus"><i data-lucide="play" class="w-3 h-3 fill-current"></i><span>Focus</span></button>' : '') +
@@ -5664,7 +6170,7 @@ function renderGoals() {
         }).join('') + '</div>' : '';
         return '<article class="rounded-2xl p-4 border border-[var(--border-card)]" style="background:var(--bg-main)">' +
             '<div class="flex items-start justify-between gap-2"><button onclick="toggleGoalExpanded(\'' + goal.id + '\')" class="text-left min-w-0 flex-1">' +
-            '<span class="tag-indigo inline-flex px-2 py-0.5 rounded-full text-[9px] font-bold">' + escapeHtml(cat ? cat.icon + ' ' + cat.name : goal.category) + ' • ' + escapeHtml(durationLabel(goal)) + '</span>' +
+            '<span class="tag-indigo inline-flex px-2 py-0.5 rounded-full text-[9px] font-bold">' + escapeHtml(categoryDisplayLabel(goal.category)) + ' • ' + escapeHtml(durationLabel(goal)) + '</span>' +
             '<h4 class="text-sm font-extrabold mt-2" style="color:var(--text-main)">' + escapeHtml(goal.title) + '</h4></button>' +
             '<div class="flex items-center gap-1"><button onclick="openGoalDetail(\'' + goal.id + '\')" class="btn-secondary p-2 rounded-xl" title="Buka goal"><i data-lucide="route" class="w-3.5 h-3.5"></i></button>' +
             '<button onclick="deleteGoal(\'' + goal.id + '\')" class="btn-secondary p-2 rounded-xl text-rose-400" title="Hapus"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button></div></div>' +
@@ -5705,7 +6211,7 @@ function renderGoalDetail() {
     const controls = document.getElementById('goalZoomControls');
     const path = document.getElementById('goalDetailPath');
     const tasks = document.getElementById('goalDetailTasks');
-    header.innerHTML = '<span class="tag-indigo px-2 py-0.5 rounded-full text-[9px] font-bold">' + escapeHtml(cat ? cat.icon + ' ' + cat.name : goal.category) + '</span>' +
+    header.innerHTML = '<span class="tag-indigo px-2 py-0.5 rounded-full text-[9px] font-bold">' + escapeHtml(categoryDisplayLabel(goal.category)) + '</span>' +
         '<h3 class="text-xl font-extrabold mt-2" style="color:var(--text-main)">🎯 ' + escapeHtml(goal.title) + '</h3>' +
         '<p class="text-[11px] mt-1" style="color:var(--text-muted)">' + escapeHtml(durationLabel(goal)) + ' • ' + escapeHtml(formatDateId(goal.startDate)) + ' – ' + escapeHtml(formatDateId(goal.endDate)) + ' • ' + (goal.progress || 0) + '%</p>';
     const available = ['all'].concat(Array.from(new Set(goal.horizons.map(function (h) { return h.type; }))));
