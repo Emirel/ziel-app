@@ -1258,10 +1258,21 @@
                 <label class="block font-semibold mb-1" style="color: var(--text-sub);">Judul Sasaran (Goal)</label>
                 <input type="text" id="newGoalTitle" class="w-full theme-input rounded-xl p-2.5" placeholder="Contoh: Lulus Sertifikasi AWS Cloud Practitioner">
             </div>
-            <div class="grid grid-cols-2 gap-2">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <div>
                     <label class="block font-semibold mb-1" style="color: var(--text-sub);">Kategori</label>
                     <select id="newGoalCategory" class="w-full theme-input rounded-xl p-2.5"></select>
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Jangka Waktu</label>
+                    <select id="newGoalDuration" class="w-full theme-input rounded-xl p-2.5">
+                        <option value="6_months">6 Bulan</option>
+                        <option value="1_year">1 Tahun</option>
+                        <option value="2_years">2 Tahun</option>
+                        <option value="3_years">3 Tahun</option>
+                        <option value="4_years">4 Tahun</option>
+                        <option value="5_years">5 Tahun</option>
+                    </select>
                 </div>
                 <div>
                     <label class="block font-semibold mb-1" style="color: var(--text-sub);">Target Deadline</label>
@@ -3596,14 +3607,111 @@ ${text}`;
         }
 
         // ================= GOAL & TASK ACTIONS =================
-        async function saveNewGoal() {
+        // ================= MANUAL & TIME-BASED MILESTONE LOGIC =================
+let tempManualMilestones = [];
+
+// Fungsi untuk menyembunyikan/menampilkan kolom manual jika AI dicentang
+function toggleManualMilestoneUI() {
+    const isAIEnabled = document.getElementById('enableAIBreakdown').checked;
+    const manualSection = document.getElementById('manualMilestoneSection');
+    const btnSave = document.getElementById('btnSaveGoal');
+    
+    if (isAIEnabled) {
+        manualSection.classList.add('hidden');
+        btnSave.textContent = 'Simpan & Dekomposisi Goal';
+    } else {
+        manualSection.classList.remove('hidden');
+        btnSave.textContent = 'Simpan Goal Manual';
+    }
+}
+
+// Fungsi untuk menambah milestone dari input teks manual
+function addManualMilestone() {
+    const input = document.getElementById('manualMilestoneInput');
+    const title = input.value.trim();
+    if (!title) return;
+    
+    tempManualMilestones.push({ id: 'm-man-' + Date.now(), title: title, status: 'pending' });
+    input.value = '';
+    renderManualMilestones();
+    playChime('click');
+}
+
+// Fungsi untuk menghapus milestone manual dari list sementara
+function removeManualMilestone(id) {
+    tempManualMilestones = tempManualMilestones.filter(m => m.id !== id);
+    renderManualMilestones();
+}
+
+// Fungsi untuk merender list milestone manual di dalam Modal
+function renderManualMilestones() {
+    const container = document.getElementById('manualMilestonesList');
+    container.innerHTML = '';
+    
+    if (tempManualMilestones.length === 0) {
+        container.innerHTML = '<p class="text-[10px] text-center py-2 italic" style="color: var(--text-muted);">Belum ada milestone ditambahkan.</p>';
+        return;
+    }
+
+    tempManualMilestones.forEach((m, idx) => {
+        const el = document.createElement('div');
+        el.className = 'flex items-center justify-between p-2 rounded-xl border border-[var(--border-card)] theme-card text-xs';
+        el.innerHTML = `
+            <span class="truncate pl-1 font-semibold" style="color: var(--text-main);">${idx + 1}. ${m.title}</span>
+            <button type="button" onclick="removeManualMilestone('${m.id}')" class="text-rose-400 p-1 hover:bg-rose-500/10 rounded-lg transition" title="Hapus">
+                <i data-lucide="x" class="w-3.5 h-3.5"></i>
+            </button>
+        `;
+        container.appendChild(el);
+    });
+    safeLucideCreateIcons({ root: container });
+}
+
+// Fungsi pembuat milestones otomatis berdasarkan jangka waktu (Jika manual dikosongkan)
+function generateTimeBasedMilestones(duration) {
+    let generated = [];
+    const addMs = (title) => generated.push({ id: 'm-time-' + Date.now() + '-' + generated.length, title: title, status: 'pending' });
+
+    switch(duration) {
+        case '5_years':
+        case '4_years':
+        case '3_years':
+        case '2_years':
+            addMs('Target Tahunan');
+            addMs('Target 6 Bulan');
+            addMs('Target 3 Bulan');
+            addMs('Target 1 Bulan');
+            addMs('Target 1 Minggu');
+            break;
+        case '1_year':
+            addMs('Target 6 Bulan');
+            addMs('Target 3 Bulan');
+            addMs('Target 1 Bulan');
+            addMs('Target 1 Minggu');
+            break;
+        case '6_months':
+            addMs('Target 3 Bulan');
+            addMs('Target 1 Bulan');
+            addMs('Target 1 Minggu');
+            break;
+        default:
+            // Fallback default jika jangka waktu tidak terdefinisi
+            addMs('Target 1 Bulan');
+            addMs('Target 1 Minggu');
+    }
+    return generated;
+}
+
+// ================= FUNGSI UTAMA SAVE GOAL =================
+async function saveNewGoal() {
     const title = document.getElementById('newGoalTitle').value.trim();
     const category = document.getElementById('newGoalCategory').value;
+    const duration = document.getElementById('newGoalDuration') ? document.getElementById('newGoalDuration').value : '1_year';
     const deadline = document.getElementById('newGoalDeadline').value;
     const enableBreakdown = document.getElementById('enableAIBreakdown').checked;
 
     if (!title) {
-        showToast({ type: 'warning', title: 'Judul Sasaran Kosong', message: 'Masukkan sasaran yang ingin Anda capai.' });
+        showToast({ type: 'warning', title: 'Judul Sasaran Kosong', message: 'Masukkan sasaran yang ingin dicapai.' });
         return;
     }
 
@@ -3617,9 +3725,9 @@ ${text}`;
     try {
         const apiKey = (localStorage.getItem('ZIEL_GEMINI_API_KEY') || '').trim();
         
-        // JIKA MENGGUNAKAN AI
+        // JIKA MENGGUNAKAN AI GEMINI
         if (enableBreakdown && apiKey) {
-            const prompt = `Anda adalah AI Goal Decomposer di aplikasi ZIEL.\nUbah sasaran: "${title}" (Kategori: ${category}) menjadi 3-4 Milestone berurutan, dan 1 tugas starter konkret.\nFormat JSON:\n{\n  "milestones": [{ "title": "Nama Milestone 1" }, { "title": "Nama Milestone 2" }],\n  "starterTask": { "title": "Judul tugas pertama", "priority": "high", "energyRequired": 3, "estimatedMinutes": 25, "microAction": "Langkah 2 menit awal" }\n}`;
+            const prompt = `Anda adalah AI Goal Decomposer di aplikasi ZIEL.\nUbah sasaran: "${title}" (Kategori: ${category}, Jangka Waktu: ${duration}) menjadi 3-4 Milestone berurutan, dan 1 tugas starter konkret.\nFormat JSON:\n{\n  "milestones": [{ "title": "Nama Milestone 1" }, { "title": "Nama Milestone 2" }],\n  "starterTask": { "title": "Judul tugas pertama", "priority": "high", "energyRequired": 3, "estimatedMinutes": 25, "microAction": "Langkah 2 menit awal" }\n}`;
             const res = await callGeminiAPI(prompt);
             if (res && res.milestones) {
                 milestones = res.milestones.map((m, idx) => ({ id: 'm-ai-' + Date.now() + '-' + idx, title: m.title, status: 'pending' }));
@@ -3639,22 +3747,21 @@ ${text}`;
                 }
             }
         } else {
-            // JIKA TIDAK PAKAI AI (MANUAL MODE)
+            // JIKA TIDAK PAKAI AI (Default Mode)
             if (tempManualMilestones.length > 0) {
+                // Pakai data yang diketik manual oleh pengguna
                 milestones = [...tempManualMilestones];
             } else {
-                milestones = [
-                    { id: 'm-1-' + Date.now(), title: 'Fase 1: Persiapan & Riset', status: 'pending' },
-                    { id: 'm-2-' + Date.now(), title: 'Fase 2: Eksekusi Inti', status: 'pending' }
-                ];
+                // Jika manual dikosongkan, panggil generator waktu hierarkis
+                milestones = generateTimeBasedMilestones(duration);
             }
         }
 
-        // Simpan Goal ke state
-        state.goals.unshift({ id: newGoalId, title, category, deadline: deadline || '2026-12-31', status: 'in_progress', milestones });
+        // Simpan Goal ke state aplikasi
+        state.goals.unshift({ id: newGoalId, title, category, deadline: deadline || '', status: 'in_progress', milestones });
         saveState();
         
-        // Reset UI Modal
+        // Bersihkan Modal setelah sukses menyimpan
         closeModal('newGoalModal');
         document.getElementById('newGoalTitle').value = '';
         document.getElementById('manualMilestoneInput').value = '';
