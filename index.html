@@ -1247,42 +1247,51 @@
 
     <!-- 6. NEW GOAL MODAL -->
     <div id="newGoalModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
-        <div class="glass-modal rounded-3xl max-w-lg w-full p-6 space-y-4 relative">
-            <div class="flex items-center justify-between">
-                <h3 class="text-lg font-bold" style="color: var(--text-main);">Buat Goal Baru</h3>
-                <button onclick="closeModal('newGoalModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
-            </div>
-
-            <div class="space-y-3 text-xs">
-                <div>
-                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Judul Sasaran (Goal)</label>
-                    <input type="text" id="newGoalTitle" class="w-full theme-input rounded-xl p-2.5" placeholder="Contoh: Lulus Sertifikasi AWS Cloud Practitioner">
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="block font-semibold mb-1" style="color: var(--text-sub);">Kategori</label>
-                        <select id="newGoalCategory" class="w-full theme-input rounded-xl p-2.5"></select>
-                    </div>
-                    <div>
-                        <label class="block font-semibold mb-1" style="color: var(--text-sub);">Target Deadline</label>
-                        <input type="date" id="newGoalDeadline" class="w-full theme-input rounded-xl p-2.5">
-                    </div>
-                </div>
-
-                <div class="p-3 rounded-2xl flex items-start space-x-2 tag-indigo">
-                    <input type="checkbox" id="enableAIBreakdown" checked class="mt-0.5 rounded text-indigo-600">
-                    <label for="enableAIBreakdown" class="text-[11px]">
-                        <strong class="block">Gemini Auto-Breakdown</strong>
-                        Otomatis buatkan Milestones dan starter micro-action dari goal ini.
-                    </label>
-                </div>
-            </div>
-
-            <button onclick="saveNewGoal()" id="btnSaveGoal" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md">
-                Simpan & Dekomposisi Goal
-            </button>
+    <div class="glass-modal rounded-3xl max-w-lg w-full p-6 space-y-4 relative">
+        <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold" style="color: var(--text-main);">Buat Goal Baru</h3>
+            <button onclick="closeModal('newGoalModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
         </div>
+
+        <div class="space-y-3 text-xs">
+            <div>
+                <label class="block font-semibold mb-1" style="color: var(--text-sub);">Judul Sasaran (Goal)</label>
+                <input type="text" id="newGoalTitle" class="w-full theme-input rounded-xl p-2.5" placeholder="Contoh: Lulus Sertifikasi AWS Cloud Practitioner">
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Kategori</label>
+                    <select id="newGoalCategory" class="w-full theme-input rounded-xl p-2.5"></select>
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Target Deadline</label>
+                    <input type="date" id="newGoalDeadline" class="w-full theme-input rounded-xl p-2.5">
+                </div>
+            </div>
+
+            <div class="p-3 rounded-2xl flex items-start space-x-2 tag-indigo">
+                <input type="checkbox" id="enableAIBreakdown" checked onchange="toggleManualMilestoneUI()" class="mt-0.5 rounded text-indigo-600">
+                <label for="enableAIBreakdown" class="text-[11px]">
+                    <strong class="block">Gemini Auto-Breakdown</strong>
+                    Otomatis buatkan Milestones dan starter micro-action dari goal ini.
+                </label>
+            </div>
+
+            <div id="manualMilestoneSection" class="space-y-2 hidden pt-2 border-t border-[var(--border-card)]">
+                <label class="block font-semibold" style="color: var(--text-sub);">Milestones Manual</label>
+                <div class="flex space-x-2">
+                    <input type="text" id="manualMilestoneInput" class="flex-1 theme-input rounded-xl p-2.5 text-xs" placeholder="Ketik langkah target... (Contoh: Bab 1 Selesai)" onkeydown="if(event.key==='Enter') addManualMilestone()">
+                    <button type="button" onclick="addManualMilestone()" class="btn-secondary px-3 py-2 rounded-xl font-bold text-xs">Tambah</button>
+                </div>
+                <div id="manualMilestonesList" class="space-y-1.5 max-h-32 overflow-y-auto custom-scrollbar"></div>
+            </div>
+        </div>
+
+        <button onclick="saveNewGoal()" id="btnSaveGoal" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md">
+            Simpan Goal
+        </button>
     </div>
+</div>
 
     <!-- 7. NEW TASK MODAL -->
     <div id="newTaskModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
@@ -3588,67 +3597,79 @@ ${text}`;
 
         // ================= GOAL & TASK ACTIONS =================
         async function saveNewGoal() {
-            const title = document.getElementById('newGoalTitle').value.trim();
-            const category = document.getElementById('newGoalCategory').value;
-            const deadline = document.getElementById('newGoalDeadline').value;
-            const enableBreakdown = document.getElementById('enableAIBreakdown').checked;
+    const title = document.getElementById('newGoalTitle').value.trim();
+    const category = document.getElementById('newGoalCategory').value;
+    const deadline = document.getElementById('newGoalDeadline').value;
+    const enableBreakdown = document.getElementById('enableAIBreakdown').checked;
 
-            if (!title) {
-                showToast({ type: 'warning', title: 'Judul Sasaran Kosong', message: 'Masukkan sasaran yang ingin Anda capai.' });
-                return;
+    if (!title) {
+        showToast({ type: 'warning', title: 'Judul Sasaran Kosong', message: 'Masukkan sasaran yang ingin Anda capai.' });
+        return;
+    }
+
+    const btn = document.getElementById('btnSaveGoal');
+    btn.disabled = true;
+    btn.innerHTML = enableBreakdown ? '⚡ Menganalisis Dekomposisi...' : 'Menyimpan...';
+
+    const newGoalId = 'goal-' + Date.now();
+    let milestones = [];
+
+    try {
+        const apiKey = (localStorage.getItem('ZIEL_GEMINI_API_KEY') || '').trim();
+        
+        // JIKA MENGGUNAKAN AI
+        if (enableBreakdown && apiKey) {
+            const prompt = `Anda adalah AI Goal Decomposer di aplikasi ZIEL.\nUbah sasaran: "${title}" (Kategori: ${category}) menjadi 3-4 Milestone berurutan, dan 1 tugas starter konkret.\nFormat JSON:\n{\n  "milestones": [{ "title": "Nama Milestone 1" }, { "title": "Nama Milestone 2" }],\n  "starterTask": { "title": "Judul tugas pertama", "priority": "high", "energyRequired": 3, "estimatedMinutes": 25, "microAction": "Langkah 2 menit awal" }\n}`;
+            const res = await callGeminiAPI(prompt);
+            if (res && res.milestones) {
+                milestones = res.milestones.map((m, idx) => ({ id: 'm-ai-' + Date.now() + '-' + idx, title: m.title, status: 'pending' }));
+                if (res.starterTask) {
+                    state.tasks.unshift({
+                        id: 't-ai-' + Date.now(),
+                        goalId: newGoalId,
+                        milestoneId: milestones[0]?.id || null,
+                        title: res.starterTask.title,
+                        category: category,
+                        priority: res.starterTask.priority || 'high',
+                        energyRequired: res.starterTask.energyRequired || 3,
+                        estimatedMinutes: res.starterTask.estimatedMinutes || 25,
+                        status: 'pending',
+                        atomicActions: [{ id: 'act-' + Date.now(), title: res.starterTask.microAction || 'Mulai langkah awal', isCompleted: false }]
+                    });
+                }
             }
-
-            const btn = document.getElementById('btnSaveGoal');
-            btn.disabled = true;
-            btn.innerHTML = '⚡ Menganalisis Dekomposisi...';
-
-            const newGoalId = 'goal-' + Date.now();
-            let milestones = [];
-
-            try {
-                const apiKey = (localStorage.getItem('ZIEL_GEMINI_API_KEY') || '').trim();
-                if (enableBreakdown && apiKey) {
-                    const prompt = `Anda adalah AI Goal Decomposer di aplikasi ZIEL.\nUbah sasaran: "${title}" (Kategori: ${category}) menjadi 3-4 Milestone berurutan, dan 1 tugas starter konkret.\nFormat JSON:\n{\n  "milestones": [{ "title": "Nama Milestone 1" }, { "title": "Nama Milestone 2" }],\n  "starterTask": { "title": "Judul tugas pertama", "priority": "high", "energyRequired": 3, "estimatedMinutes": 25, "microAction": "Langkah 2 menit awal" }\n}`;
-                    const res = await callGeminiAPI(prompt);
-                    if (res && res.milestones) {
-                        milestones = res.milestones.map((m, idx) => ({ id: 'm-ai-' + Date.now() + '-' + idx, title: m.title, status: 'pending' }));
-                        if (res.starterTask) {
-                            state.tasks.unshift({
-                                id: 't-ai-' + Date.now(),
-                                goalId: newGoalId,
-                                milestoneId: milestones[0]?.id || null,
-                                title: res.starterTask.title,
-                                category: category,
-                                priority: res.starterTask.priority || 'high',
-                                energyRequired: res.starterTask.energyRequired || 3,
-                                estimatedMinutes: res.starterTask.estimatedMinutes || 25,
-                                status: 'pending',
-                                atomicActions: [{ id: 'act-' + Date.now(), title: res.starterTask.microAction || 'Mulai langkah awal', isCompleted: false }]
-                            });
-                        }
-                    }
-                }
-
-                if (milestones.length === 0) {
-                    milestones = [
-                        { id: 'm-1-' + Date.now(), title: 'Fase 1: Persiapan & Riset', status: 'pending' },
-                        { id: 'm-2-' + Date.now(), title: 'Fase 2: Eksekusi Inti', status: 'pending' }
-                    ];
-                }
-
-                state.goals.unshift({ id: newGoalId, title, category, deadline: deadline || '2026-10-01', status: 'in_progress', milestones });
-                saveState();
-                closeModal('newGoalModal');
-                document.getElementById('newGoalTitle').value = '';
-                showToast({ type: 'success', title: 'Goal Baru Dibuat!', message: `"${title}" siap dieksekusi langkah demi langkah.` });
-                triggerConfetti();
-            } catch (err) {
-                showToast({ type: 'error', title: 'Kendala AI', message: err.message });
-            } finally {
-                btn.disabled = false;
-                btn.textContent = "Simpan & Dekomposisi Goal";
+        } else {
+            // JIKA TIDAK PAKAI AI (MANUAL MODE)
+            if (tempManualMilestones.length > 0) {
+                milestones = [...tempManualMilestones];
+            } else {
+                milestones = [
+                    { id: 'm-1-' + Date.now(), title: 'Fase 1: Persiapan & Riset', status: 'pending' },
+                    { id: 'm-2-' + Date.now(), title: 'Fase 2: Eksekusi Inti', status: 'pending' }
+                ];
             }
         }
+
+        // Simpan Goal ke state
+        state.goals.unshift({ id: newGoalId, title, category, deadline: deadline || '2026-12-31', status: 'in_progress', milestones });
+        saveState();
+        
+        // Reset UI Modal
+        closeModal('newGoalModal');
+        document.getElementById('newGoalTitle').value = '';
+        document.getElementById('manualMilestoneInput').value = '';
+        tempManualMilestones = []; 
+        renderManualMilestones();
+
+        showToast({ type: 'success', title: 'Goal Baru Dibuat!', message: `"${title}" siap dieksekusi langkah demi langkah.` });
+        triggerConfetti();
+    } catch (err) {
+        showToast({ type: 'error', title: 'Kendala Sistem', message: err.message });
+    } finally {
+        btn.disabled = false;
+        btn.textContent = enableBreakdown ? "Simpan & Dekomposisi Goal" : "Simpan Goal Manual";
+    }
+}
 
         function saveNewTask() {
             const title = document.getElementById('newTaskTitle').value.trim();
@@ -4230,6 +4251,61 @@ function toggleMilestoneStatus(goalId, milestoneId) {
                     .catch((err) => console.log('SW registration failed:', err));
             });
         }
+        // ================= MANUAL MILESTONE LOGIC =================
+let tempManualMilestones = [];
+
+function toggleManualMilestoneUI() {
+    const isAIEnabled = document.getElementById('enableAIBreakdown').checked;
+    const manualSection = document.getElementById('manualMilestoneSection');
+    const btnSave = document.getElementById('btnSaveGoal');
+    
+    if (isAIEnabled) {
+        manualSection.classList.add('hidden');
+        btnSave.textContent = 'Simpan & Dekomposisi Goal';
+    } else {
+        manualSection.classList.remove('hidden');
+        btnSave.textContent = 'Simpan Goal Manual';
+    }
+}
+
+function addManualMilestone() {
+    const input = document.getElementById('manualMilestoneInput');
+    const title = input.value.trim();
+    if (!title) return;
+    
+    tempManualMilestones.push({ id: 'm-man-' + Date.now(), title: title, status: 'pending' });
+    input.value = '';
+    renderManualMilestones();
+    playChime('click');
+}
+
+function removeManualMilestone(id) {
+    tempManualMilestones = tempManualMilestones.filter(m => m.id !== id);
+    renderManualMilestones();
+}
+
+function renderManualMilestones() {
+    const container = document.getElementById('manualMilestonesList');
+    container.innerHTML = '';
+    
+    if (tempManualMilestones.length === 0) {
+        container.innerHTML = '<p class="text-[10px] text-center py-2 italic" style="color: var(--text-muted);">Belum ada milestone ditambahkan.</p>';
+        return;
+    }
+
+    tempManualMilestones.forEach((m, idx) => {
+        const el = document.createElement('div');
+        el.className = 'flex items-center justify-between p-2 rounded-xl border border-[var(--border-card)] theme-card text-xs';
+        el.innerHTML = `
+            <span class="truncate pl-1 font-semibold" style="color: var(--text-main);">${idx + 1}. ${m.title}</span>
+            <button type="button" onclick="removeManualMilestone('${m.id}')" class="text-rose-400 p-1 hover:bg-rose-500/10 rounded-lg transition" title="Hapus">
+                <i data-lucide="x" class="w-3.5 h-3.5"></i>
+            </button>
+        `;
+        container.appendChild(el);
+    });
+    safeLucideCreateIcons({ root: container });
+}
     </script>
     <!-- 2-MINUTE QUICK WIN MODAL -->
     <div id="quickWinModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/80 backdrop-blur-sm transition-opacity">
