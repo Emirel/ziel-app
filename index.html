@@ -3776,6 +3776,7 @@ async function saveNewGoal() {
         btn.disabled = false;
         btn.textContent = enableBreakdown ? "Simpan & Dekomposisi Goal" : "Simpan Goal Manual";
     }
+}
 
         function saveNewTask() {
             const title = document.getElementById('newTaskTitle').value.trim();
@@ -4358,7 +4359,6 @@ function toggleMilestoneStatus(goalId, milestoneId) {
             });
         }
         // ================= MANUAL MILESTONE LOGIC =================
-let tempManualMilestones = [];
 
 function toggleManualMilestoneUI() {
     const isAIEnabled = document.getElementById('enableAIBreakdown').checked;
