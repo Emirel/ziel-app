@@ -343,6 +343,7 @@
             color: #fff !important;
             box-shadow: 0 4px 14px rgba(99, 102, 241, 0.28);
         }
+        .mobile-timeline-more { display: none; }
         .goal-horizon-row {
             position: relative;
             border-left: 1px solid var(--border-card);
@@ -370,6 +371,430 @@
             .timeline-month-grid { grid-template-columns: 1fr; }
             .goal-detail-panel { align-items: flex-end !important; padding: 0 !important; }
             .goal-detail-panel > div { border-radius: 1.5rem 1.5rem 0 0; max-height: 92vh; }
+        }
+
+        /* ================= CLEAN PRODUCT SHELL 2026 ================= */
+        :root {
+            --bg-main: #0F172A;
+            --bg-card: #172033;
+            --bg-card-hover: #1C2940;
+            --border-card: rgba(148, 163, 184, 0.13);
+            --border-card-hover: rgba(129, 140, 248, 0.32);
+            --text-main: #F1F5F9;
+            --text-sub: #B4C0D1;
+            --text-muted: #7E8CA3;
+            --card-shadow: 0 1px 2px rgba(0,0,0,.15), 0 10px 30px rgba(0,0,0,.08);
+            --header-bg: rgba(15, 23, 42, .9);
+            --primary-gradient: #5B5FEF;
+            --primary-glow: none;
+            --btn-sec-bg: rgba(148, 163, 184, .1);
+            --btn-sec-hover: rgba(148, 163, 184, .17);
+        }
+        body.light-mode {
+            --bg-main: #F6F7FB;
+            --bg-card: #FFFFFF;
+            --bg-card-hover: #F9FAFC;
+            --border-card: rgba(15, 23, 42, .08);
+            --border-card-hover: rgba(79, 70, 229, .22);
+            --text-main: #152033;
+            --text-sub: #48566A;
+            --text-muted: #778397;
+            --card-shadow: 0 1px 2px rgba(15,23,42,.03), 0 8px 24px rgba(15,23,42,.04);
+            --header-bg: rgba(246, 247, 251, .9);
+            --btn-sec-bg: #EEF1F6;
+            --btn-sec-hover: #E5E9F1;
+        }
+        body {
+            font-size: 14px;
+            line-height: 1.5;
+            letter-spacing: -.005em;
+        }
+        .top-bar-inner { height: 4.25rem; }
+        .theme-card {
+            border-radius: 1rem !important;
+            box-shadow: var(--card-shadow);
+        }
+        .glass-modal { border-radius: 1.25rem !important; }
+        .theme-card:hover { transform: none; }
+        .primary-btn-gradient,
+        .hero-action-btn {
+            background: #5B5FEF !important;
+            box-shadow: none !important;
+        }
+        .primary-btn-gradient:hover,
+        .hero-action-btn:hover {
+            background: #4F46E5 !important;
+            filter: none;
+            transform: none;
+        }
+        .btn-secondary { border: 1px solid var(--border-card) !important; }
+        .clean-icon-btn {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: .75rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            background: transparent;
+            border: 1px solid transparent;
+        }
+        .clean-icon-btn:hover {
+            color: var(--text-main);
+            background: var(--btn-sec-bg);
+            border-color: var(--border-card);
+        }
+        .ziel-main {
+            max-width: 82rem;
+            margin: 0 auto;
+        }
+        .ziel-sidebar {
+            position: fixed;
+            top: 4.25rem;
+            left: 0;
+            bottom: 0;
+            width: 14.5rem;
+            padding: 1.25rem 1rem;
+            flex-direction: column;
+            background: var(--bg-main);
+            border-right: 1px solid var(--border-card);
+            z-index: 20;
+        }
+        .ziel-nav-item {
+            width: 100%;
+            min-height: 2.75rem;
+            border-radius: .75rem;
+            padding: .65rem .75rem;
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            color: var(--text-muted);
+            font-size: .875rem;
+            font-weight: 650;
+            text-align: left;
+        }
+        .ziel-nav-item svg { width: 1.15rem; height: 1.15rem; }
+        .ziel-nav-item:hover { background: var(--btn-sec-bg); color: var(--text-main); }
+        .ziel-nav-item.active {
+            color: #6D72F6;
+            background: rgba(91, 95, 239, .12);
+        }
+        .page-heading {
+            min-height: 3.75rem;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .page-heading h2 {
+            margin-top: .15rem;
+            font-size: clamp(1.55rem, 3vw, 2rem);
+            line-height: 1.2;
+            font-weight: 800;
+            letter-spacing: -.035em;
+            color: var(--text-main);
+        }
+        .page-heading p:not(.eyebrow) {
+            margin-top: .35rem;
+            font-size: .875rem;
+            color: var(--text-muted);
+        }
+        .eyebrow {
+            color: #818CF8;
+            font-size: .7rem;
+            font-weight: 750;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+        .section-title {
+            color: var(--text-main);
+            font-size: 1rem;
+            font-weight: 750;
+            letter-spacing: -.02em;
+        }
+        .section-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .text-link {
+            color: #818CF8;
+            font-size: .75rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .text-link:hover { color: #A5B4FC; }
+        .command-card {
+            background:
+                radial-gradient(circle at 100% 0%, rgba(91,95,239,.13), transparent 34%),
+                var(--bg-card);
+        }
+        .energy-control {
+            padding: .3rem;
+            display: inline-flex;
+            gap: .2rem;
+            border-radius: .9rem;
+            border: 1px solid var(--border-card);
+            background: var(--bg-main);
+        }
+        .energy-control .energy-btn {
+            width: 2.25rem;
+            height: 2.25rem;
+            padding: 0 !important;
+            border-radius: .65rem !important;
+            font-size: 1rem !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+        }
+        .energy-control .energy-btn.primary-btn-gradient {
+            background: rgba(91, 95, 239, .2) !important;
+            outline: 1px solid rgba(129, 140, 248, .5);
+            transform: none !important;
+        }
+        .action-suggestion {
+            border: 1px solid rgba(129, 140, 248, .2);
+            background: rgba(91, 95, 239, .07);
+        }
+        .clean-stat-list { display: grid; gap: .1rem; }
+        .clean-stat-list > div {
+            padding: .7rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-card);
+        }
+        .clean-stat-list > div:last-child { border-bottom: 0; }
+        .clean-stat-list span {
+            display: inline-flex;
+            align-items: center;
+            gap: .55rem;
+            color: var(--text-sub);
+            font-size: .8rem;
+        }
+        .clean-stat-list svg { width: 1rem; height: 1rem; color: #818CF8; }
+        .clean-stat-list strong { color: var(--text-main); font-size: 1rem; }
+        .subtle-row {
+            min-height: 3.2rem;
+            padding: .65rem .75rem;
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+            border-radius: .8rem;
+            background: var(--btn-sec-bg);
+            color: var(--text-sub);
+        }
+        .subtle-row > svg { width: 1rem; height: 1rem; }
+        .subtle-row small, .subtle-row strong { display: block; }
+        .subtle-row small { color: var(--text-muted); font-size: .65rem; }
+        .subtle-row strong { color: var(--text-main); font-size: .75rem; margin-top: .05rem; }
+        .time-chip {
+            min-width: 3.1rem;
+            padding: .35rem .45rem;
+            border-radius: .55rem;
+            color: #818CF8;
+            background: rgba(91, 95, 239, .11);
+            font-size: .7rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-weight: 750;
+            text-align: center;
+        }
+        .clean-empty {
+            min-height: 6rem;
+            padding: 1rem;
+            border-radius: .8rem;
+            border: 1px dashed var(--border-card);
+            display: flex;
+            align-items: center;
+            gap: .85rem;
+            color: var(--text-muted);
+        }
+        .clean-empty > svg { width: 1.25rem; height: 1.25rem; }
+        .clean-empty strong { color: var(--text-sub); font-size: .8rem; }
+        .clean-empty p { margin-top: .2rem; font-size: .72rem; }
+        .goal-preview-row {
+            width: 100%;
+            padding: .75rem 0;
+            text-align: left;
+            border-bottom: 1px solid var(--border-card);
+        }
+        .goal-preview-row:last-child { border-bottom: 0; }
+        .goal-preview-row strong { color: var(--text-main); font-size: .8rem; }
+        .goal-preview-row span { color: #818CF8; font-size: .72rem; font-weight: 750; }
+        .goal-preview-row small { display: block; margin-top: .45rem; color: var(--text-muted); font-size: .68rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .mini-progress { height: .3rem; margin-top: .55rem; overflow: hidden; border-radius: 99px; background: var(--btn-sec-bg); }
+        .mini-progress i { display: block; height: 100%; border-radius: inherit; background: #6D72F6; }
+        .insight-launch h3 { margin-top: 1rem; color: var(--text-main); font-size: 1rem; font-weight: 750; }
+        .insight-launch p { margin-top: .4rem; min-height: 2.6rem; color: var(--text-muted); font-size: .8rem; line-height: 1.6; }
+        .insight-launch > span:last-child { margin-top: 1rem; display: inline-flex; gap: .35rem; align-items: center; color: #818CF8; font-size: .75rem; font-weight: 700; }
+        .insight-launch > span:last-child svg { width: .85rem; height: .85rem; }
+        .icon-box {
+            width: 2.35rem;
+            height: 2.35rem;
+            border-radius: .75rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #818CF8;
+            background: rgba(91, 95, 239, .12);
+        }
+        .icon-box svg { width: 1.1rem; height: 1.1rem; }
+        .action-sheet { border-radius: 1.25rem !important; }
+        .quick-action-tile {
+            min-height: 7.2rem;
+            padding: 1rem;
+            border-radius: .9rem;
+            border: 1px solid var(--border-card);
+            background: var(--bg-main);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .quick-action-tile:hover { border-color: var(--border-card-hover); background: var(--bg-card-hover); }
+        .quick-action-tile strong { margin-top: .65rem; color: var(--text-main); font-size: .85rem; }
+        .quick-action-tile small { margin-top: .15rem; color: var(--text-muted); font-size: .68rem; }
+        .goal-stepper {
+            padding: .25rem .1rem .5rem;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .goal-stepper > span {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: var(--text-muted);
+            background: var(--btn-sec-bg);
+            border: 1px solid var(--border-card);
+            font-size: .68rem;
+            font-weight: 750;
+        }
+        .goal-stepper > span strong {
+            position: absolute;
+            top: 2.2rem;
+            color: var(--text-muted);
+            font-size: .62rem;
+            font-weight: 650;
+            white-space: nowrap;
+        }
+        .goal-stepper > span.active { color: #fff; background: #5B5FEF; border-color: #5B5FEF; }
+        .goal-stepper > span.active strong { color: #818CF8; }
+        .goal-stepper > span.complete { color: #818CF8; background: rgba(91,95,239,.12); border-color: rgba(129,140,248,.3); }
+        .goal-stepper > i { width: 4rem; height: 1px; margin: 1rem .5rem 0; background: var(--border-card); }
+        .goal-form-step { min-height: 18rem; padding-top: 1rem; }
+        .form-step-title { margin-top: .25rem; color: var(--text-main); font-size: 1.05rem; font-weight: 780; }
+        .form-step-copy { margin-top: .25rem; color: var(--text-muted); font-size: .75rem; }
+        .plan-choice {
+            padding: 1rem;
+            border-radius: .9rem;
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            border: 1px solid rgba(129,140,248,.25);
+            background: rgba(91,95,239,.07);
+            cursor: pointer;
+        }
+        .plan-choice > input { width: 1rem; height: 1rem; accent-color: #5B5FEF; }
+        .plan-choice > span:last-child { flex: 1; }
+        .plan-choice strong, .plan-choice small { display: block; }
+        .plan-choice strong { color: var(--text-main); font-size: .82rem; }
+        .plan-choice small { margin-top: .18rem; color: var(--text-muted); font-size: .7rem; }
+        .menu-list { display: grid; gap: .25rem; }
+        .menu-list > button {
+            width: 100%;
+            min-height: 3.8rem;
+            padding: .55rem;
+            border-radius: .8rem;
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            text-align: left;
+        }
+        .menu-list > button:hover { background: var(--btn-sec-bg); }
+        .menu-list > button > span:nth-child(2) { flex: 1; min-width: 0; }
+        .menu-list strong, .menu-list small { display: block; }
+        .menu-list strong { color: var(--text-main); font-size: .8rem; }
+        .menu-list small { margin-top: .12rem; color: var(--text-muted); font-size: .68rem; }
+        .menu-list > button > svg { width: 1rem; color: var(--text-muted); }
+        .menu-list .danger-menu-item strong,
+        .menu-list .danger-menu-item > svg { color: #FB7185; }
+        .menu-list .danger-menu-item .icon-box { color: #FB7185; background: rgba(244,63,94,.1); }
+        .task-row {
+            border-radius: .9rem;
+            border: 1px solid var(--border-card);
+            background: var(--bg-card);
+            transition: border-color .16s ease, background .16s ease;
+        }
+        .task-row:hover { border-color: var(--border-card-hover); background: var(--bg-card-hover); }
+        .ziel-mobile-nav {
+            height: calc(4.35rem + env(safe-area-inset-bottom, 0px));
+            padding: .45rem .75rem calc(.45rem + env(safe-area-inset-bottom, 0px));
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            align-items: center;
+            border-top: 1px solid var(--border-card);
+        }
+        .ziel-mobile-nav > button {
+            height: 3.25rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: .18rem;
+            color: var(--text-muted);
+            font-size: .64rem;
+            font-weight: 650;
+            border-radius: .7rem;
+        }
+        .ziel-mobile-nav > button svg { width: 1.25rem; height: 1.25rem; }
+        .ziel-mobile-nav > button.active { color: #818CF8; }
+        .ziel-mobile-nav .mobile-add {
+            color: #fff;
+            background: #5B5FEF;
+            transform: translateY(-.45rem);
+            box-shadow: 0 8px 20px rgba(79,70,229,.26);
+        }
+        .ziel-mobile-nav .mobile-add span { font-size: .58rem; }
+        footer { display: none !important; }
+        [class*="text-[8px]"], [class*="text-[9px]"], [class*="text-[10px]"] { font-size: .69rem !important; }
+        [class*="text-[11px]"] { font-size: .75rem !important; }
+        .tag-indigo, .tag-teal, .tag-purple, .tag-amber, .tag-emerald, .tag-rose {
+            border-color: transparent;
+        }
+        @media (min-width: 1024px) {
+            .ziel-main {
+                width: calc(100% - 14.5rem) !important;
+                margin-left: 14.5rem;
+                margin-right: auto;
+                padding: 2rem 2.25rem 3rem;
+            }
+            header.glass-header .top-bar-inner { padding-left: .5rem; }
+            body { padding-bottom: 0; }
+        }
+        @media (max-width: 639px) {
+            .ziel-main { padding-top: 1.15rem; }
+            .page-heading { min-height: 0; }
+            .page-heading h2 { font-size: 1.55rem; }
+            .page-heading > button { font-size: 0; padding: .7rem; }
+            .page-heading > button svg { width: 1.15rem; height: 1.15rem; }
+            .command-card { padding: 1.15rem !important; }
+            .energy-control { width: 100%; justify-content: space-between; }
+            .energy-control .energy-btn { width: 2.5rem; height: 2.5rem; }
+            .action-sheet { border-radius: 1.25rem 1.25rem 0 0 !important; }
+            .task-focus-btn span { display: none; }
+            .task-focus-btn { padding: .6rem !important; }
+            .timeline-view-btn[data-view="quarter"],
+            .timeline-view-btn[data-view="half"],
+            .timeline-view-btn[data-view="year"] { display: none; }
+            .mobile-timeline-more { display: block; min-width: 6.5rem; }
+            .app-view { animation: none; }
         }
     </style>
     <meta name="theme-color" content="#607D8B">
@@ -419,191 +844,132 @@
     <!-- FLOATING TOAST NOTIFICATION CONTAINER (TOKOPEDIA / TRAVELOKA STYLE) -->
     <div id="toastContainer"></div>
 
-    <!-- Top Navigation Bar dengan Safe-Area Support -->
+    <!-- CLEAN APP HEADER -->
     <header class="glass-header sticky top-0 z-30 transition-all">
-        <div class="max-w-6xl app-max-width mx-auto px-3 sm:px-6 top-bar-inner">
-            
-            <!-- Left: Logo & Account Status -->
-            <div class="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
-                <button onclick="openAuthModal()" class="flex items-center space-x-2 sm:space-x-2.5 p-1 rounded-2xl hover:bg-slate-500/10 transition group text-left min-w-0">
-                    <div class="relative shrink-0">
-                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-teal-400 flex items-center justify-center font-black text-white text-base sm:text-lg tracking-wider shadow-md shadow-indigo-500/25 group-hover:scale-105 transition-transform" id="navAvatarDisplay">
-                            Z
-                        </div>
-                        <span id="navStatusDot" class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-[var(--bg-main)] rounded-full"></span>
-                    </div>
-                    <div class="flex flex-col justify-center leading-tight min-w-0">
-                        <div class="flex items-center space-x-1.5 min-w-0">
-                            <h1 class="text-xs sm:text-sm font-extrabold tracking-tight truncate max-w-[68px] sm:max-w-[150px]" style="color: var(--text-main);" id="navProfileName">ZIEL Space</h1>
-                            <span id="geminiStatusBadge" class="hidden lg:inline-flex items-center px-1.5 py-0.2 rounded text-[8px] font-bold tag-teal">
-                                Local AI
-                            </span>
-                        </div>
-                        <p class="hidden sm:block text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase mt-0.5 truncate max-w-[110px]" style="color: var(--accent-teal);" id="navAccountStatus">Akun Tertaut</p>
-                    </div>
-                </button>
+        <div class="px-4 sm:px-6 top-bar-inner">
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center font-black text-white shadow-sm">Z</div>
+                <div class="min-w-0">
+                    <h1 class="text-sm font-extrabold tracking-tight" style="color:var(--text-main)">ZIEL</h1>
+                    <p id="appPageTitle" class="text-xs truncate" style="color:var(--text-muted)">Home</p>
+                </div>
             </div>
-
-            <!-- Right Controls: Notification Hub, Copilot, Brain Dump, Goals, Theme & Settings -->
-            <div class="flex items-center space-x-1.5 sm:space-x-2.5 shrink-0">
-                
-                <!-- NOTIFICATION CENTER BELL (APP STORE STYLE) -->
-                <button onclick="openModal('notificationCenterModal')" class="btn-secondary p-1.5 sm:p-2 rounded-xl relative" title="Kotak Masuk Notifikasi">
-                    <i data-lucide="bell" class="w-4 h-4 text-indigo-400"></i>
-                    <span id="notifBadgeCount" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-rose-500 text-white rounded-full text-[10px] font-black flex items-center justify-center leading-none px-1 border-2 border-[var(--bg-main)] shadow-sm animate-pulse">
-                        2
-                    </span>
+            <div class="flex items-center gap-2">
+                <button onclick="openQuickAdd()" class="primary-btn-gradient hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold">
+                    <i data-lucide="plus" class="w-4 h-4"></i><span>Tambah</span>
                 </button>
-
-                <!-- AI COPILOT (Icon Only) -->
-                <button onclick="openModal('aiCopilotModal')" class="hidden md:flex btn-secondary p-1.5 sm:p-2 rounded-xl items-center justify-center" title="Tanya AI Copilot">
-                    <i data-lucide="bot" class="w-4 h-4 text-indigo-400"></i>
+                <button onclick="openModal('notificationCenterModal')" class="clean-icon-btn relative" title="Notifikasi">
+                    <i data-lucide="bell" class="w-4 h-4"></i>
+                    <span id="notifBadgeCount" class="absolute -top-1 -right-1 min-w-[17px] h-[17px] bg-rose-500 text-white rounded-full text-[10px] font-black flex items-center justify-center px-1">2</span>
                 </button>
-
-                <!-- INSIGHTS HUB: Analytics, Achievements & Daily Reflection -->
-                <button onclick="openInsightsModal('analytics')" class="btn-secondary p-1.5 sm:p-2 rounded-xl relative" title="Insights: Analitik, Lencana & Refleksi">
-                    <i data-lucide="line-chart" class="w-4 h-4 text-teal-400"></i>
-                    <span id="insightsNewBadgeDot" class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-[var(--bg-main)]"></span>
+                <button onclick="openModal('moreMenuModal')" class="clean-icon-btn" title="Menu lainnya"><i data-lucide="ellipsis" class="w-5 h-5"></i></button>
+                <button onclick="openAuthModal()" class="relative" title="Akun">
+                    <div id="navAvatarDisplay" class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-extrabold">Z</div>
+                    <span id="navStatusDot" class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-[var(--bg-main)] rounded-full"></span>
                 </button>
-
-                <!-- AI BRAIN DUMP (Icon Only) -->
-                <button onclick="openModal('brainDumpModal')" class="hidden sm:flex btn-secondary p-1.5 sm:p-2 rounded-xl items-center justify-center" title="Quick Brain Dump">
-                    <i data-lucide="sparkles" class="w-4 h-4 text-indigo-400"></i>
-                </button>
-
-                <!-- GOAL BARU (Primary CTA) -->
-                <button onclick="openModal('newGoalModal')" class="hidden sm:flex primary-btn-gradient items-center space-x-1.5 text-xs px-4 py-2 rounded-xl font-extrabold shadow-md" title="Goal Baru">
-                    <i data-lucide="plus-circle" class="w-4 h-4"></i>
-                    <span>Goal Baru</span>
-                </button>
-
-                <!-- THEME TOGGLE -->
-                <button onclick="toggleTheme()" class="btn-secondary p-1.5 sm:p-2 rounded-xl" title="Ganti Tema">
-                    <i data-lucide="sun" class="w-4 h-4 text-amber-400 hidden" id="iconSun"></i>
-                    <i data-lucide="moon" class="w-4 h-4 text-indigo-400 block" id="iconMoon"></i>
-                </button>
-
-                <!-- SETTINGS -->
-                <button onclick="openModal('settingsModal')" class="btn-secondary p-1.5 sm:p-2 rounded-xl" title="Pengaturan AI & Spotify">
-                    <i data-lucide="settings" class="w-4 h-4 opacity-75"></i>
-                </button>
+                <span id="navProfileName" class="hidden">ZIEL Space</span>
+                <span id="navAccountStatus" class="hidden">Akun Tertaut</span>
+                <span id="geminiStatusBadge" class="hidden">Local AI</span>
+                <i data-lucide="sun" class="hidden" id="iconSun"></i>
+                <i data-lucide="moon" class="hidden" id="iconMoon"></i>
+                <span id="insightsNewBadgeDot" class="hidden"></span>
             </div>
         </div>
     </header>
 
-    <!-- Main Container -->
-    <main class="flex-1 max-w-6xl app-max-width w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <!-- DESKTOP SIDEBAR -->
+    <aside class="ziel-sidebar hidden lg:flex">
+        <nav class="space-y-1">
+            <button onclick="navigateApp('home')" data-app-nav="home" class="ziel-nav-item"><i data-lucide="home"></i><span>Home</span></button>
+            <button onclick="navigateApp('timeline','day')" data-app-nav="timeline" class="ziel-nav-item"><i data-lucide="calendar-days"></i><span>Today</span></button>
+            <button onclick="navigateApp('goals')" data-app-nav="goals" class="ziel-nav-item"><i data-lucide="target"></i><span>Goals</span></button>
+            <button onclick="navigateApp('tasks')" data-app-nav="tasks" class="ziel-nav-item"><i data-lucide="circle-check-big"></i><span>Tasks</span></button>
+            <button onclick="navigateApp('insights')" data-app-nav="insights" class="ziel-nav-item"><i data-lucide="chart-no-axes-combined"></i><span>Insights</span></button>
+        </nav>
+        <div class="mt-auto space-y-1">
+            <button onclick="openModal('aiCopilotModal')" class="ziel-nav-item"><i data-lucide="sparkles"></i><span>Ask ZIEL</span></button>
+            <button onclick="openModal('settingsModal')" class="ziel-nav-item"><i data-lucide="settings"></i><span>Settings</span></button>
+        </div>
+    </aside>
 
-        <!-- HERO SECTION: SMART AI DECISION ENGINE -->
-        <section class="relative overflow-hidden rounded-3xl theme-card p-6 sm:p-8 text-center">
-            <div class="absolute -right-20 -top-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <!-- APP CONTENT -->
+    <main class="ziel-main flex-1 w-full px-4 sm:px-6 py-6">
+        <!-- HOME: decision first, detail second -->
+        <section id="homeView" class="app-view space-y-5">
+            <div class="page-heading">
+                <div><p class="eyebrow">Ruang fokusmu</p><h2 id="homeGreeting">Selamat datang kembali</h2><p>Mulai dari satu hal yang paling berarti.</p></div>
+            </div>
 
-            <div class="max-w-xl mx-auto space-y-5 relative z-10">
-                
-                <!-- ENERGY SELECTOR BARU DI HERO SECTION -->
-                <div class="flex flex-col items-center justify-center space-y-2.5 pb-2">
-                    <span class="text-[10px] font-extrabold uppercase tracking-widest" style="color: var(--text-muted);">Set Level Energimu Saat Ini:</span>
-                    <div class="inline-flex items-center space-x-1 sm:space-x-2 p-1.5 rounded-full border border-[var(--border-card)] shadow-sm" style="background-color: var(--bg-main);" id="energySelectorGroup">
-                        <button onclick="setEnergy(1)" class="energy-btn px-4 py-2 rounded-full text-xs font-bold transition" data-level="1" title="Level 1: Quick Wins">😴 1</button>
-                        <button onclick="setEnergy(2)" class="energy-btn px-4 py-2 rounded-full text-xs font-bold transition" data-level="2" title="Level 2: Ringan">🥱 2</button>
-                        <button onclick="setEnergy(3)" class="energy-btn px-4 py-2 rounded-full text-xs font-bold transition" data-level="3" title="Level 3: Sedang">😐 3</button>
-                        <button onclick="setEnergy(4)" class="energy-btn px-4 py-2 rounded-full text-xs font-bold transition" data-level="4" title="Level 4: Fokus">⚡ 4</button>
-                        <button onclick="setEnergy(5)" class="energy-btn px-4 py-2 rounded-full text-xs font-bold transition" data-level="5" title="Level 5: Deep Work">🔥 5</button>
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-4">
+                <section class="theme-card xl:col-span-8 p-5 sm:p-6 command-card">
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                        <div class="min-w-0">
+                            <p class="eyebrow">Energi saat ini</p>
+                            <h3 class="text-xl sm:text-2xl font-extrabold mt-1" style="color:var(--text-main)">Apa yang bisa kamu lakukan sekarang?</h3>
+                            <p class="text-sm mt-2 max-w-xl leading-relaxed" style="color:var(--text-sub)">ZIEL memilih satu tindakan yang sesuai dengan energi, deadline, dan prioritasmu.</p>
+                        </div>
+                        <div id="energySelectorGroup" class="energy-control shrink-0">
+                            <button onclick="setEnergy(1)" class="energy-btn" data-level="1" title="Sangat rendah">😴</button>
+                            <button onclick="setEnergy(2)" class="energy-btn" data-level="2" title="Rendah">🥱</button>
+                            <button onclick="setEnergy(3)" class="energy-btn" data-level="3" title="Sedang">😐</button>
+                            <button onclick="setEnergy(4)" class="energy-btn" data-level="4" title="Fokus">⚡</button>
+                            <button onclick="setEnergy(5)" class="energy-btn" data-level="5" title="Deep work">🔥</button>
+                        </div>
                     </div>
-                </div>
+                    <div class="mt-5 p-4 rounded-2xl action-suggestion">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div class="min-w-0">
+                                <p class="text-xs font-semibold" style="color:var(--text-muted)">Rekomendasi untuk <span id="currentEnergyLabel">Level 3</span></p>
+                                <p id="homeNextTaskTitle" class="font-extrabold mt-1 truncate" style="color:var(--text-main)">Pilih energi untuk mendapatkan rekomendasi</p>
+                                <p id="homeNextTaskMeta" class="text-xs mt-1" style="color:var(--text-muted)">Satu langkah kecil, tanpa membuat jadwal terasa penuh.</p>
+                            </div>
+                            <button id="btnWhatShouldIDo" onclick="triggerWhatShouldIDoNow()" class="primary-btn-gradient shrink-0 rounded-xl px-4 py-3 font-bold text-sm flex items-center justify-center gap-2">
+                                <i data-lucide="play" class="w-4 h-4" id="ctaZapIcon"></i><span id="ctaBtnText">Pilih tindakan</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
 
-                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full tag-indigo text-xs font-semibold">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i>
-                    <span>Adaptive Gemini Execution Engine</span>
-                </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight" style="color: var(--text-main);">
-                    Bingung mau mulai dari mana?
-                </h2>
-                <p class="text-xs sm:text-sm leading-relaxed" style="color: var(--text-sub);">
-                    ZIEL menyelaraskan energi kognitif (<span id="currentEnergyLabel" class="font-bold text-teal-400">Level 3</span>), deadline terdekat, dan prioritas hidup untuk memilihkan <strong style="color: var(--text-main);">1 tindakan mikro terbaik</strong> sekarang.
-                </p>
+                <section class="theme-card xl:col-span-4 p-5 sm:p-6">
+                    <div class="flex items-center justify-between"><div><p class="eyebrow">Hari ini</p><h3 class="section-title">Progress ringkas</h3></div><button onclick="navigateApp('insights')" class="text-link">Detail</button></div>
+                    <div class="clean-stat-list mt-4">
+                        <div><span><i data-lucide="check-circle-2"></i>Tindakan selesai</span><strong id="statCompletedToday">0</strong></div>
+                        <div><span><i data-lucide="timer"></i>Waktu fokus</span><strong><span id="statFocusTime">0</span>m</strong></div>
+                        <div><span><i data-lucide="flame"></i>Hari aktif</span><strong id="statStreakDays">1</strong></div>
+                    </div>
+                    <button onclick="openModal('settingsModal')" class="subtle-row mt-4 w-full"><i data-lucide="headphones"></i><span class="flex-1 text-left"><small>Soundscape</small><strong id="statMusicMode">Rain & Water</strong></span><i data-lucide="chevron-right"></i></button>
+                </section>
+            </div>
 
-                <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2">
-                    <button id="btnWhatShouldIDo" onclick="triggerWhatShouldIDoNow()" class="hero-action-btn w-full sm:w-auto rounded-2xl font-extrabold text-sm sm:text-base tracking-wide flex items-center justify-center space-x-3 uppercase">
-                        <i data-lucide="zap" class="w-5 h-5 fill-current" id="ctaZapIcon"></i>
-                        <span id="ctaBtnText">WHAT SHOULD I DO NOW?</span>
-                    </button>
-                    <button onclick="openModal('brainDumpModal')" class="sm:hidden w-full btn-secondary py-3 rounded-2xl font-bold text-xs flex items-center justify-center space-x-2">
-                        <i data-lucide="sparkles" class="w-4 h-4 text-indigo-400"></i>
-                        <span>AI Brain Dump</span>
-                    </button>
-                </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <section class="theme-card p-5">
+                    <div class="section-header"><div><p class="eyebrow">Jadwal</p><h3 class="section-title">Berikutnya hari ini</h3></div><button onclick="navigateApp('timeline','day')" class="text-link">Lihat semua</button></div>
+                    <div id="homeTodayPreview" class="mt-4 space-y-2"></div>
+                </section>
+                <section class="theme-card p-5">
+                    <div class="section-header"><div><p class="eyebrow">Arah</p><h3 class="section-title">Goal yang sedang berjalan</h3></div><button onclick="navigateApp('goals')" class="text-link">Lihat semua</button></div>
+                    <div id="homeGoalPreview" class="mt-4 space-y-3"></div>
+                </section>
             </div>
         </section>
 
-        <!-- STATS OVERVIEW BAR (WITH STREAK TRACKER) -->
-<!-- STATS OVERVIEW BAR (WITH STREAK TRACKER) -->
-<section class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-    <div class="theme-card p-4 rounded-2xl space-y-1">
-        <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full tag-emerald text-[10px] font-bold uppercase tracking-wider">
-            <i data-lucide="check-circle-2" class="w-3 h-3"></i>
-            <span>Tugas Selesai</span>
-        </div>
-        <div class="flex items-baseline space-x-1.5 pt-1">
-            <span class="text-2xl sm:text-3xl font-extrabold" style="color: var(--text-main);" id="statCompletedToday">3</span>
-            <span class="text-xs font-medium" style="color: var(--text-muted);">tindakan</span>
-        </div>
-    </div>
-
-    <div class="theme-card p-4 rounded-2xl space-y-1">
-        <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full tag-indigo text-[10px] font-bold uppercase tracking-wider">
-            <i data-lucide="timer" class="w-3 h-3"></i>
-            <span>Focus Time</span>
-        </div>
-        <div class="flex items-baseline space-x-1.5 pt-1">
-            <span class="text-2xl sm:text-3xl font-extrabold" style="color: var(--text-main);" id="statFocusTime">75</span>
-            <span class="text-xs font-medium" style="color: var(--text-muted);">menit</span>
-        </div>
-    </div>
-
-    <div class="theme-card p-4 rounded-2xl space-y-1">
-        <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full tag-rose text-[10px] font-bold uppercase tracking-wider">
-            <i data-lucide="flame" class="w-3 h-3 text-rose-400"></i>
-            <span>Daily Streak</span>
-        </div>
-        <div class="flex items-baseline space-x-1.5 pt-1">
-            <!-- Warna angka diubah menjadi warna teks utama agar seragam -->
-            <span class="text-2xl sm:text-3xl font-extrabold" style="color: var(--text-main);" id="statStreakDays">4</span>
-            <span class="text-xs font-medium" style="color: var(--text-muted);">hari aktif</span>
-        </div>
-    </div>
-
-    <div class="theme-card p-4 rounded-2xl space-y-1">
-        <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full tag-amber text-[10px] font-bold uppercase tracking-wider">
-            <i data-lucide="music" class="w-3 h-3"></i>
-            <span>Soundscape / Music</span>
-        </div>
-        <div class="flex items-baseline space-x-1.5 pt-1">
-            <!-- Warna teks diubah menjadi putih seragam dan ditambahkan teks abu-abu pendukung -->
-            <span class="text-sm sm:text-base font-extrabold truncate" style="color: var(--text-main);" id="statMusicMode">Rain & Water</span>
-            <span class="text-xs font-medium shrink-0" style="color: var(--text-muted);">aktif</span>
-        </div>
-    </div>
-</section>
-
-        <!-- EXECUTION TIMELINE & WORKING SURFACES -->
-        <section class="space-y-5">
-            <div class="theme-card rounded-3xl p-4 sm:p-5 space-y-4 overflow-hidden">
+        <!-- TODAY / TIMELINE -->
+        <section id="timelineView" class="app-view hidden space-y-5">
+            <div class="page-heading"><div><p class="eyebrow">Eksekusi</p><h2>Today & Timeline</h2><p>Lihat detail hari ini atau zoom out untuk merencanakan.</p></div><button onclick="prepareAgendaModal()" class="primary-btn-gradient px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2"><i data-lucide="plus"></i>Agenda</button></div>
+            <div class="theme-card rounded-2xl p-4 sm:p-5 space-y-4 overflow-hidden">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
                         <div class="flex items-center gap-2">
                             <i data-lucide="calendar-range" class="w-4 h-4 text-teal-400"></i>
-                            <h3 class="text-xs font-extrabold uppercase tracking-wider" style="color: var(--text-main);">Execution Timeline</h3>
+                            <h3 class="section-title">Execution Timeline</h3>
                         </div>
-                        <p id="timelinePeriodLabel" class="text-[10px] mt-1" style="color: var(--text-muted);"></p>
+                        <p id="timelinePeriodLabel" class="text-xs mt-1" style="color: var(--text-muted);"></p>
                     </div>
                     <div class="flex items-center gap-1.5">
                         <button onclick="shiftTimeline(-1)" class="btn-secondary p-2 rounded-xl" aria-label="Periode sebelumnya"><i data-lucide="chevron-left" class="w-3.5 h-3.5"></i></button>
-                        <button onclick="goTimelineToday()" class="btn-secondary px-3 py-2 rounded-xl text-[10px] font-bold">Hari ini</button>
+                        <button onclick="goTimelineToday()" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Hari ini</button>
                         <button onclick="shiftTimeline(1)" class="btn-secondary p-2 rounded-xl" aria-label="Periode berikutnya"><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button>
                         <button onclick="openGoogleCalendarWeb()" class="btn-secondary p-2 rounded-xl" title="Buka Google Calendar"><i data-lucide="external-link" class="w-3.5 h-3.5"></i></button>
-                        <button onclick="prepareAgendaModal()" class="primary-btn-gradient px-3 py-2 rounded-xl text-[10px] font-bold flex items-center gap-1"><i data-lucide="plus" class="w-3.5 h-3.5"></i> Agenda</button>
                     </div>
                 </div>
 
@@ -614,6 +980,9 @@
                     <button data-view="quarter" onclick="setTimelineView('quarter')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">3 Bulan</button>
                     <button data-view="half" onclick="setTimelineView('half')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">6 Bulan</button>
                     <button data-view="year" onclick="setTimelineView('year')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">Tahun</button>
+                    <select id="timelineMoreSelect" onchange="if(this.value){setTimelineView(this.value)}" class="mobile-timeline-more theme-input rounded-xl px-3 py-1.5 text-xs font-bold">
+                        <option value="">Lainnya</option><option value="quarter">3 Bulan</option><option value="half">6 Bulan</option><option value="year">Tahun</option>
+                    </select>
                 </div>
 
                 <div class="flex items-center justify-between gap-2">
@@ -624,68 +993,40 @@
                 <div id="timelineCapacityContainer"></div>
                 <div id="executionTimelineContent" class="min-h-[8rem]"></div>
             </div>
-
-            <!-- Two-Column Grid: Left (Agenda & Goals) & Right (Tasks Queue) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
-
-                <!-- Goals & Milestones: one calm, unified container -->
-                <div class="lg:col-span-5">
-                    <div class="theme-card p-4 sm:p-5 rounded-3xl space-y-4">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-xs font-bold uppercase tracking-wider flex items-center space-x-2" style="color: var(--text-main);">
-                                <i data-lucide="target" class="w-4 h-4 text-indigo-400"></i>
-                                <span>Goals & Milestones</span>
-                            </h3>
-                            <button onclick="openModal('newGoalModal')" class="primary-btn-gradient text-xs px-2.5 py-1 rounded-lg font-bold flex items-center space-x-1">
-                                <i data-lucide="plus" class="w-3 h-3"></i>
-                                <span>Buat Goal</span>
-                            </button>
-                        </div>
-                        <div id="goalsContainer" class="space-y-3"></div>
-                    </div>
-                </div>
-
-                <!-- Right Column: Tasks Queue -->
-                <div class="md:col-span-1 lg:col-span-7 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-xs font-bold uppercase tracking-wider flex items-center space-x-2" style="color: var(--text-sub);">
-                            <i data-lucide="list-todo" class="w-4 h-4 text-teal-400"></i>
-                            <span>Antrean Tindakan (Tasks)</span>
-                        </h3>
-                        <button onclick="openModal('newTaskModal')" class="primary-btn-gradient text-xs px-3 py-1.5 rounded-xl font-bold flex items-center space-x-1">
-                            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                            <span>Tambah Tugas</span>
-                        </button>
-                    </div>
-                    <div id="tasksContainer" class="space-y-3"></div>
-                </div>
-
-            </div>
         </section>
 
+        <!-- GOALS -->
+        <section id="goalsView" class="app-view hidden space-y-5">
+            <div class="page-heading"><div><p class="eyebrow">Arah jangka panjang</p><h2>Goals</h2><p>Zoom out untuk memahami. Zoom in untuk mengeksekusi.</p></div><button onclick="openModal('newGoalModal')" class="primary-btn-gradient px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2"><i data-lucide="plus"></i>Buat Goal</button></div>
+            <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar" id="goalCategoryTabsMirror"></div>
+            <div class="theme-card p-4 sm:p-5 rounded-2xl"><div id="goalsContainer" class="grid grid-cols-1 xl:grid-cols-2 gap-4"></div></div>
+        </section>
+
+        <!-- TASKS -->
+        <section id="tasksView" class="app-view hidden space-y-5">
+            <div class="page-heading"><div><p class="eyebrow">Tindakan berikutnya</p><h2>Tasks</h2><p>Antrean yang sederhana, terhubung ke Goal dan Agenda.</p></div><button onclick="openModal('newTaskModal')" class="primary-btn-gradient px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2"><i data-lucide="plus"></i>Tambah Task</button></div>
+            <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar" id="taskCategoryTabsMirror"></div>
+            <div id="tasksContainer" class="space-y-2"></div>
+        </section>
+
+        <!-- INSIGHTS -->
+        <section id="insightsView" class="app-view hidden space-y-5">
+            <div class="page-heading"><div><p class="eyebrow">Belajar tanpa menghakimi</p><h2>Insights</h2><p>Lihat pola progres, rayakan konsistensi, lalu refleksikan harimu.</p></div></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button onclick="openInsightsModal('analytics')" class="theme-card p-5 text-left insight-launch"><span class="icon-box"><i data-lucide="chart-no-axes-combined"></i></span><h3>Analytics</h3><p>Pahami ritme fokus dan penyelesaianmu.</p><span>Buka insight <i data-lucide="arrow-right"></i></span></button>
+                <button onclick="openInsightsModal('achievements')" class="theme-card p-5 text-left insight-launch"><span class="icon-box"><i data-lucide="award"></i></span><h3>Achievements</h3><p>Rayakan kemajuan tanpa gamifikasi berlebihan.</p><span>Lihat pencapaian <i data-lucide="arrow-right"></i></span></button>
+                <button onclick="openInsightsModal('reflection')" class="theme-card p-5 text-left insight-launch"><span class="icon-box"><i data-lucide="notebook-pen"></i></span><h3>Reflection</h3><p>Tutup hari dengan catatan yang ringan.</p><span>Mulai refleksi <i data-lucide="arrow-right"></i></span></button>
+            </div>
+        </section>
     </main>
 
-    <!-- MOBILE BOTTOM NAVIGATION BAR -->
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 glass-header border-t border-[var(--border-card)] px-4 py-2 flex items-center justify-around mobile-bottom-nav">
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="flex flex-col items-center space-y-0.5 text-indigo-400">
-            <i data-lucide="home" class="w-5 h-5"></i>
-            <span class="text-[10px] font-bold">Home</span>
-        </button>
-        <button onclick="openModal('newAgendaModal')" class="flex flex-col items-center space-y-0.5 text-slate-400 hover:text-teal-400">
-            <i data-lucide="calendar" class="w-5 h-5"></i>
-            <span class="text-[10px] font-bold">Agenda</span>
-        </button>
-        <button onclick="triggerWhatShouldIDoNow()" class="flex flex-col items-center justify-center -mt-5 w-12 h-12 rounded-full primary-btn-gradient shadow-lg shadow-indigo-500/40">
-            <i data-lucide="zap" class="w-6 h-6 fill-current text-white"></i>
-        </button>
-        <button onclick="openModal('aiCopilotModal')" class="flex flex-col items-center space-y-0.5 text-slate-400 hover:text-indigo-400">
-            <i data-lucide="bot" class="w-5 h-5"></i>
-            <span class="text-[10px] font-bold">Copilot</span>
-        </button>
-        <button onclick="openAuthModal()" class="flex flex-col items-center space-y-0.5 text-slate-400 hover:text-teal-400">
-            <i data-lucide="user" class="w-5 h-5"></i>
-            <span class="text-[10px] font-bold">Akun</span>
-        </button>
+    <!-- PURPOSE-BASED MOBILE NAVIGATION -->
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-40 glass-header ziel-mobile-nav mobile-bottom-nav">
+        <button onclick="navigateApp('home')" data-app-nav="home"><i data-lucide="home"></i><span>Home</span></button>
+        <button onclick="navigateApp('timeline','day')" data-app-nav="timeline"><i data-lucide="calendar-days"></i><span>Today</span></button>
+        <button onclick="openQuickAdd()" class="mobile-add"><i data-lucide="plus"></i><span>Tambah</span></button>
+        <button onclick="navigateApp('goals')" data-app-nav="goals"><i data-lucide="target"></i><span>Goals</span></button>
+        <button onclick="navigateApp('tasks')" data-app-nav="tasks"><i data-lucide="circle-check-big"></i><span>Tasks</span></button>
     </nav>
 
     <!-- Footer -->
@@ -694,6 +1035,47 @@
     </footer>
 
     <!-- ==================== MODALS ==================== -->
+
+    <!-- GLOBAL QUICK ADD -->
+    <div id="quickAddModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+        <div class="glass-modal action-sheet w-full sm:max-w-md p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between"><div><p class="eyebrow">Quick add</p><h3 class="text-lg font-extrabold">Apa yang ingin ditambahkan?</h3></div><button onclick="closeModal('quickAddModal')" class="clean-icon-btn"><i data-lucide="x"></i></button></div>
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="closeModal('quickAddModal');openModal('newTaskModal')" class="quick-action-tile"><span class="icon-box"><i data-lucide="circle-check-big"></i></span><strong>Task</strong><small>Tindakan konkret</small></button>
+                <button onclick="closeModal('quickAddModal');openModal('newGoalModal')" class="quick-action-tile"><span class="icon-box"><i data-lucide="target"></i></span><strong>Goal</strong><small>Arah jangka panjang</small></button>
+                <button onclick="closeModal('quickAddModal');prepareAgendaModal()" class="quick-action-tile"><span class="icon-box"><i data-lucide="calendar-plus"></i></span><strong>Agenda</strong><small>Waktu untuk eksekusi</small></button>
+                <button onclick="closeModal('quickAddModal');openModal('brainDumpModal')" class="quick-action-tile"><span class="icon-box"><i data-lucide="sparkles"></i></span><strong>Brain Dump</strong><small>Ubah pikiran jadi aksi</small></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONSOLIDATED MORE MENU -->
+    <div id="moreMenuModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+        <div class="glass-modal action-sheet w-full sm:max-w-md p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between"><div><p class="eyebrow">ZIEL</p><h3 class="text-lg font-extrabold">Menu lainnya</h3></div><button onclick="closeModal('moreMenuModal')" class="clean-icon-btn"><i data-lucide="x"></i></button></div>
+            <div class="menu-list">
+                <button onclick="closeModal('moreMenuModal');openModal('aiCopilotModal')"><span class="icon-box"><i data-lucide="sparkles"></i></span><span><strong>Ask ZIEL</strong><small>Diskusikan strategi atau saat kamu buntu</small></span><i data-lucide="chevron-right"></i></button>
+                <button onclick="closeModal('moreMenuModal');openModal('brainDumpModal')"><span class="icon-box"><i data-lucide="brain"></i></span><span><strong>Brain Dump</strong><small>Susun pikiran menjadi task</small></span><i data-lucide="chevron-right"></i></button>
+                <button onclick="closeModal('moreMenuModal');openModal('manageCategoriesModal')"><span class="icon-box"><i data-lucide="tags"></i></span><span><strong>Kategori</strong><small>Atur area hidupmu</small></span><i data-lucide="chevron-right"></i></button>
+                <button onclick="closeModal('moreMenuModal');openGoogleCalendarWeb()"><span class="icon-box"><i data-lucide="calendar-days"></i></span><span><strong>Google Calendar</strong><small>Buka kalender terhubung</small></span><i data-lucide="external-link"></i></button>
+                <button onclick="closeModal('moreMenuModal');toggleTheme()"><span class="icon-box"><i data-lucide="sun-moon"></i></span><span><strong>Ganti tema</strong><small>Dark atau light mode</small></span><i data-lucide="chevron-right"></i></button>
+                <button onclick="closeModal('moreMenuModal');openModal('settingsModal')"><span class="icon-box"><i data-lucide="settings"></i></span><span><strong>Settings</strong><small>AI, Spotify, dan preferensi</small></span><i data-lucide="chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTEXTUAL TASK ACTIONS -->
+    <div id="taskActionsModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+        <div class="glass-modal action-sheet w-full sm:max-w-sm p-5 space-y-4">
+            <div class="flex items-start justify-between gap-3"><div><p class="eyebrow">Task actions</p><h3 id="taskActionsTitle" class="text-base font-extrabold mt-1"></h3></div><button onclick="closeModal('taskActionsModal')" class="clean-icon-btn"><i data-lucide="x"></i></button></div>
+            <div class="menu-list">
+                <button onclick="runTaskAction('schedule')"><span class="icon-box"><i data-lucide="calendar-clock"></i></span><span><strong>Jadwalkan di ZIEL</strong><small>Cari slot yang sesuai kapasitas</small></span><i data-lucide="chevron-right"></i></button>
+                <button onclick="runTaskAction('gcal')"><span class="icon-box"><i data-lucide="calendar-plus"></i></span><span><strong>Google Calendar</strong><small>Buka dengan konteks Goal dan Milestone</small></span><i data-lucide="external-link"></i></button>
+                <button onclick="runTaskAction('focus')"><span class="icon-box"><i data-lucide="play"></i></span><span><strong>Mulai fokus</strong><small>Masuk ke ruang eksekusi</small></span><i data-lucide="chevron-right"></i></button>
+                <button onclick="runTaskAction('delete')" class="danger-menu-item"><span class="icon-box"><i data-lucide="trash-2"></i></span><span><strong>Hapus task</strong><small>Task terkait akan dihapus</small></span><i data-lucide="chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
 
     <!-- 0. NOTIFICATION CENTER MODAL (TOKOPEDIA / TRAVELOKA STYLE INBOX) -->
     <div id="notificationCenterModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
@@ -1291,68 +1673,72 @@
             <button onclick="closeModal('newGoalModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
         </div>
 
-        <div class="space-y-3 text-xs">
-            <div>
-                <label class="block font-semibold mb-1" style="color: var(--text-sub);">Judul Sasaran (Goal)</label>
-                <input type="text" id="newGoalTitle" class="w-full theme-input rounded-xl p-2.5" placeholder="Contoh: Lulus Sertifikasi AWS Cloud Practitioner">
-            </div>
-            <div>
-                <label class="block font-semibold mb-1" style="color: var(--text-sub);">Deskripsi singkat <span class="font-normal opacity-60">(opsional)</span></label>
-                <textarea id="newGoalDescription" rows="2" class="w-full theme-input rounded-xl p-2.5" placeholder="Mengapa goal ini penting dan seperti apa hasil akhirnya?"></textarea>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <div>
-                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Kategori</label>
-                    <select id="newGoalCategory" class="w-full theme-input rounded-xl p-2.5"></select>
-                </div>
-                <div>
-                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Mulai</label>
-                    <input type="date" id="newGoalStartDate" onchange="updateGoalDurationUI()" class="w-full theme-input rounded-xl p-2.5">
-                </div>
-            </div>
+        <div class="goal-stepper" aria-label="Tahapan membuat goal">
+            <span data-goal-step-dot="1" class="active">1<strong>Goal</strong></span>
+            <i></i><span data-goal-step-dot="2">2<strong>Waktu</strong></span>
+            <i></i><span data-goal-step-dot="3">3<strong>Rencana</strong></span>
+        </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div id="goalFormStep1" class="goal-form-step space-y-3 text-xs">
+            <div><p class="eyebrow">Langkah 1</p><h4 class="form-step-title">Apa yang ingin kamu capai?</h4><p class="form-step-copy">Mulai dari hasil yang berarti, bukan daftar aktivitas.</p></div>
+            <div>
+                <label class="block font-semibold mb-1.5" style="color:var(--text-sub)">Judul Goal</label>
+                <input type="text" id="newGoalTitle" class="w-full theme-input rounded-xl p-3" placeholder="Contoh: Membangun portfolio Data Analyst">
+            </div>
+            <div>
+                <label class="block font-semibold mb-1.5" style="color:var(--text-sub)">Mengapa ini penting? <span class="font-normal opacity-60">(opsional)</span></label>
+                <textarea id="newGoalDescription" rows="3" class="w-full theme-input rounded-xl p-3" placeholder="Tuliskan hasil akhir atau alasan personalnya..."></textarea>
+            </div>
+            <div>
+                <label class="block font-semibold mb-1.5" style="color:var(--text-sub)">Kategori</label>
+                <select id="newGoalCategory" class="w-full theme-input rounded-xl p-3"></select>
+            </div>
+        </div>
+
+        <div id="goalFormStep2" class="goal-form-step hidden space-y-3 text-xs">
+            <div><p class="eyebrow">Langkah 2</p><h4 class="form-step-title">Berapa lama perjalanan ini?</h4><p class="form-step-copy">Tanggal digunakan untuk membuat horizon yang realistis.</p></div>
+            <div>
+                <label class="block font-semibold mb-1.5" style="color:var(--text-sub)">Mulai</label>
+                <input type="date" id="newGoalStartDate" onchange="updateGoalDurationUI()" class="w-full theme-input rounded-xl p-3">
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Durasi Goal</label>
-                    <select id="newGoalDurationType" onchange="updateGoalDurationUI()" class="w-full theme-input rounded-xl p-2.5">
-                        <option value="5_years">5 Tahun</option>
-                        <option value="4_years">4 Tahun</option>
-                        <option value="3_years">3 Tahun</option>
-                        <option value="2_years">2 Tahun</option>
-                        <option value="1_year" selected>1 Tahun</option>
-                        <option value="6_months">6 Bulan</option>
-                        <option value="3_months">3 Bulan</option>
-                        <option value="1_month">1 Bulan</option>
-                        <option value="custom">Custom</option>
+                    <label class="block font-semibold mb-1.5" style="color:var(--text-sub)">Durasi</label>
+                    <select id="newGoalDurationType" onchange="updateGoalDurationUI()" class="w-full theme-input rounded-xl p-3">
+                        <option value="5_years">5 Tahun</option><option value="4_years">4 Tahun</option><option value="3_years">3 Tahun</option>
+                        <option value="2_years">2 Tahun</option><option value="1_year" selected>1 Tahun</option><option value="6_months">6 Bulan</option>
+                        <option value="3_months">3 Bulan</option><option value="1_month">1 Bulan</option><option value="custom">Custom</option>
                     </select>
                 </div>
                 <div id="goalCalculatedEndWrap">
-                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Selesai</label>
-                    <input type="date" id="newGoalEndDate" class="w-full theme-input rounded-xl p-2.5" readonly>
+                    <label class="block font-semibold mb-1.5" style="color:var(--text-sub)">Selesai</label>
+                    <input type="date" id="newGoalEndDate" class="w-full theme-input rounded-xl p-3" readonly>
                 </div>
             </div>
+        </div>
 
-            <div class="p-3 rounded-2xl flex items-start space-x-2 tag-indigo">
-                <input type="checkbox" id="enableAIBreakdown" checked onchange="toggleManualMilestoneUI()" class="mt-0.5 rounded text-indigo-600">
-                <label for="enableAIBreakdown" class="text-[11px]">
-                    <strong class="block">✨ AI Goal Breakdown</strong>
-                    Buat rencana time horizon yang sederhana. Anda akan meninjau dan mengeditnya sebelum disimpan.
-                </label>
-            </div>
-
-            <div id="manualMilestoneSection" class="space-y-2 hidden pt-2 border-t border-[var(--border-card)]">
-                <label class="block font-semibold" style="color: var(--text-sub);">Milestones Manual</label>
-                <div class="flex space-x-2">
-                    <input type="text" id="manualMilestoneInput" class="flex-1 theme-input rounded-xl p-2.5 text-xs" placeholder="Ketik langkah target... (Contoh: Bab 1 Selesai)" onkeydown="if(event.key==='Enter') addManualMilestone()">
+        <div id="goalFormStep3" class="goal-form-step hidden space-y-3 text-xs">
+            <div><p class="eyebrow">Langkah 3</p><h4 class="form-step-title">Bagaimana rencananya dibuat?</h4><p class="form-step-copy">Kamu selalu dapat meninjau dan mengedit sebelum menyimpan.</p></div>
+            <label class="plan-choice">
+                <input type="checkbox" id="enableAIBreakdown" checked onchange="toggleManualMilestoneUI()">
+                <span class="icon-box"><i data-lucide="sparkles"></i></span>
+                <span><strong>AI Goal Breakdown</strong><small>Buat horizon sederhana sesuai durasi Goal.</small></span>
+            </label>
+            <div id="manualMilestoneSection" class="space-y-2 hidden pt-3 border-t border-[var(--border-card)]">
+                <label class="block font-semibold" style="color:var(--text-sub)">Milestones Manual</label>
+                <div class="flex gap-2">
+                    <input type="text" id="manualMilestoneInput" class="flex-1 theme-input rounded-xl p-3 text-xs" placeholder="Contoh: Bab 1 selesai" onkeydown="if(event.key==='Enter') addManualMilestone()">
                     <button type="button" onclick="addManualMilestone()" class="btn-secondary px-3 py-2 rounded-xl font-bold text-xs">Tambah</button>
                 </div>
                 <div id="manualMilestonesList" class="space-y-1.5 max-h-32 overflow-y-auto custom-scrollbar"></div>
             </div>
         </div>
 
-        <button onclick="saveNewGoal()" id="btnSaveGoal" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md">
-            Review Goal Plan
-        </button>
+        <div class="flex gap-2 pt-1">
+            <button onclick="changeGoalFormStep(-1)" id="btnGoalStepBack" class="btn-secondary px-4 py-3 rounded-xl text-xs font-bold hidden">Kembali</button>
+            <button onclick="changeGoalFormStep(1)" id="btnGoalStepNext" class="primary-btn-gradient flex-1 px-4 py-3 rounded-xl text-xs font-bold">Lanjutkan</button>
+            <button onclick="saveNewGoal()" id="btnSaveGoal" class="primary-btn-gradient flex-1 px-4 py-3 rounded-xl text-xs font-bold hidden">Review Goal Plan</button>
+        </div>
     </div>
 </div>
 
@@ -4547,6 +4933,7 @@ function ensureStateShape() {
     }
     if (!state.timelineView) state.timelineView = 'day';
     if (!state.timelineAnchor) state.timelineAnchor = todayKey();
+    if (!state.currentView) state.currentView = 'home';
     if (!state.expandedGoals) state.expandedGoals = {};
     if (!state.goalZoom) state.goalZoom = {};
 
@@ -4638,9 +5025,58 @@ function updateGoalDurationUI() {
     else if (!end.value || end.value < start.value) end.value = addDate(start.value, 1, 'month');
 }
 
+let goalFormStep = 1;
+
+function renderGoalFormStep() {
+    [1, 2, 3].forEach(function (step) {
+        const panel = document.getElementById('goalFormStep' + step);
+        const dot = document.querySelector('[data-goal-step-dot="' + step + '"]');
+        if (panel) panel.classList.toggle('hidden', step !== goalFormStep);
+        if (dot) {
+            dot.classList.toggle('active', step === goalFormStep);
+            dot.classList.toggle('complete', step < goalFormStep);
+        }
+    });
+    const back = document.getElementById('btnGoalStepBack');
+    const next = document.getElementById('btnGoalStepNext');
+    const save = document.getElementById('btnSaveGoal');
+    if (back) back.classList.toggle('hidden', goalFormStep === 1);
+    if (next) next.classList.toggle('hidden', goalFormStep === 3);
+    if (save) save.classList.toggle('hidden', goalFormStep !== 3);
+    safeLucideCreateIcons({ root: document.getElementById('newGoalModal') });
+}
+
+function changeGoalFormStep(direction) {
+    if (direction > 0 && goalFormStep === 1 && !document.getElementById('newGoalTitle').value.trim()) {
+        showToast({ type: 'warning', title: 'Judul Goal belum diisi', message: 'Tuliskan hasil yang ingin kamu capai terlebih dahulu.' });
+        return;
+    }
+    if (direction > 0 && goalFormStep === 2) {
+        const start = document.getElementById('newGoalStartDate').value;
+        const end = document.getElementById('newGoalEndDate').value;
+        if (!start || !end || end < start) {
+            showToast({ type: 'warning', title: 'Rentang waktu belum valid', message: 'Periksa tanggal mulai dan tanggal selesai.' });
+            return;
+        }
+    }
+    goalFormStep = Math.max(1, Math.min(3, goalFormStep + direction));
+    renderGoalFormStep();
+    playChime('click');
+}
+
+function toggleManualMilestoneUI() {
+    const aiEnabled = document.getElementById('enableAIBreakdown')?.checked !== false;
+    const manual = document.getElementById('manualMilestoneSection');
+    const save = document.getElementById('btnSaveGoal');
+    if (manual) manual.classList.toggle('hidden', aiEnabled);
+    if (save) save.textContent = aiEnabled ? 'Review AI Goal Plan' : 'Review Goal Manual';
+}
+
 function prepareGoalModal() {
     const start = document.getElementById('newGoalStartDate');
     if (start && !start.value) start.value = todayKey();
+    goalFormStep = 1;
+    renderGoalFormStep();
     updateGoalDurationUI();
     renderCategorySelects();
 }
@@ -4929,6 +5365,8 @@ function resetGoalForm() {
     const type = document.getElementById('newGoalDurationType');
     if (start) start.value = todayKey();
     if (type) type.value = '1_year';
+    goalFormStep = 1;
+    renderGoalFormStep();
     renderManualMilestones();
     updateGoalDurationUI();
 }
@@ -4963,7 +5401,6 @@ function filterCategory(category) {
 
 function renderCategoryTabs() {
     const container = document.getElementById('categoryTabsList');
-    if (!container) return;
     const active = activeCategoryIds();
     const allClass = !active.length ? 'primary-btn-gradient' : 'btn-secondary';
     let html = '<button onclick="filterCategory(\'all\')" class="' + allClass + ' shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">Semua</button>';
@@ -4972,7 +5409,11 @@ function renderCategoryTabs() {
         html += '<button onclick="filterCategory(\'' + cat.id + '\')" class="' + (selected ? 'primary-btn-gradient' : 'btn-secondary') + ' shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">' +
             escapeHtml(cat.icon + ' ' + cat.name) + (selected ? ' ✓' : '') + '</button>';
     });
-    container.innerHTML = html;
+    if (container) container.innerHTML = html;
+    const mirror = document.getElementById('taskCategoryTabsMirror');
+    if (mirror) mirror.innerHTML = html;
+    const goalMirror = document.getElementById('goalCategoryTabsMirror');
+    if (goalMirror) goalMirror.innerHTML = html;
 }
 
 function renderCategorySelects() {
@@ -5160,7 +5601,7 @@ function renderTasks() {
         const cat = cats.find(function (c) { return c.id === task.category; });
         const path = taskPath(task);
         const priorityClass = task.priority === 'urgent' ? 'tag-rose' : task.priority === 'high' ? 'tag-amber' : task.priority === 'low' ? 'tag-teal' : 'tag-indigo';
-        return '<div class="theme-card p-3.5 sm:p-4 rounded-2xl ' + (done ? 'opacity-45' : '') + '">' +
+        return '<div class="task-row p-3.5 sm:p-4 ' + (done ? 'opacity-45' : '') + '">' +
             '<div class="flex items-start justify-between gap-3"><div class="flex items-start gap-3 min-w-0">' +
             '<button onclick="toggleTaskStatus(\'' + task.id + '\')" class="shrink-0 mt-0.5 w-5 h-5 rounded-lg border flex items-center justify-center ' + (done ? 'bg-teal-500 border-teal-400 text-slate-950' : 'border-[var(--border-card)]') + '">' + (done ? '✓' : '') + '</button>' +
             '<div class="min-w-0"><h4 class="text-xs sm:text-sm font-bold ' + (done ? 'line-through' : '') + '" style="color:var(--text-main)">' + escapeHtml(task.title) + '</h4>' +
@@ -5170,13 +5611,32 @@ function renderTasks() {
             '<span class="tag-teal px-2 py-0.5 rounded-full">' + escapeHtml(cat ? cat.icon + ' ' + cat.name : task.category) + '</span>' +
             '<span style="color:var(--text-muted)">Due ' + escapeHtml(formatDateId(task.deadline, { day: 'numeric', month: 'short' })) + '</span></div></div></div>' +
             '<div class="flex items-center gap-1 shrink-0">' + (!done ?
-                '<button onclick="scheduleTaskInZiel(\'' + task.id + '\')" class="btn-secondary p-2 rounded-xl" title="Jadwalkan di ZIEL"><i data-lucide="calendar-clock" class="w-3.5 h-3.5 text-indigo-400"></i></button>' +
-                '<button onclick="scheduleTaskToGoogleCalendar(\'' + task.id + '\')" class="btn-secondary p-2 rounded-xl" title="Google Calendar"><i data-lucide="calendar-plus" class="w-3.5 h-3.5 text-teal-400"></i></button>' +
-                '<button onclick="openFocusModeFromTask(\'' + task.id + '\')" class="primary-btn-gradient p-2 rounded-xl" title="Mulai fokus"><i data-lucide="play" class="w-3 h-3 fill-current"></i></button>' : '') +
-            '<button onclick="deleteTask(\'' + task.id + '\')" class="btn-secondary p-2 rounded-xl text-rose-400" title="Hapus"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>' +
+                '<button onclick="openFocusModeFromTask(\'' + task.id + '\')" class="primary-btn-gradient task-focus-btn px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5" title="Mulai fokus"><i data-lucide="play" class="w-3 h-3 fill-current"></i><span>Focus</span></button>' : '') +
+            '<button onclick="openTaskActions(\'' + task.id + '\')" class="clean-icon-btn" title="Aksi task"><i data-lucide="ellipsis-vertical" class="w-4 h-4"></i></button>' +
             '</div></div></div>';
     }).join('');
     safeLucideCreateIcons({ root: container });
+}
+
+let currentTaskActionId = null;
+
+function openTaskActions(taskId) {
+    const task = state.tasks.find(function (item) { return item.id === taskId; });
+    if (!task) return;
+    currentTaskActionId = taskId;
+    const title = document.getElementById('taskActionsTitle');
+    if (title) title.textContent = task.title;
+    openModal('taskActionsModal');
+}
+
+function runTaskAction(action) {
+    const taskId = currentTaskActionId;
+    closeModal('taskActionsModal');
+    if (!taskId) return;
+    if (action === 'schedule') scheduleTaskInZiel(taskId);
+    if (action === 'gcal') scheduleTaskToGoogleCalendar(taskId);
+    if (action === 'focus') openFocusModeFromTask(taskId);
+    if (action === 'delete') deleteTask(taskId);
 }
 
 function nextGoalAction(goal) {
@@ -5452,6 +5912,8 @@ function renderExecutionTimeline() {
     document.querySelectorAll('.timeline-view-btn').forEach(function (button) {
         button.classList.toggle('active', button.dataset.view === state.timelineView);
     });
+    const moreSelect = document.getElementById('timelineMoreSelect');
+    if (moreSelect) moreSelect.value = ['quarter', 'half', 'year'].includes(state.timelineView) ? state.timelineView : '';
     const label = document.getElementById('timelinePeriodLabel');
     if (label) label.textContent = timelinePeriodLabel();
     renderTimelineCapacity();
@@ -5617,6 +6079,95 @@ function aiReplan() {
     showToast({ type: 'success', title: 'AI Replan selesai', message: candidates.length + ' task non-urgent dipindahkan ke minggu depan. Tidak ada beban tambahan.' });
 }
 
+function openQuickAdd() {
+    openModal('quickAddModal');
+}
+
+function renderAppViewState(shouldScroll) {
+    const validViews = ['home', 'timeline', 'goals', 'tasks', 'insights'];
+    if (!validViews.includes(state.currentView)) state.currentView = 'home';
+    document.querySelectorAll('.app-view').forEach(function (view) {
+        view.classList.toggle('hidden', view.id !== state.currentView + 'View');
+    });
+    document.querySelectorAll('[data-app-nav]').forEach(function (button) {
+        button.classList.toggle('active', button.dataset.appNav === state.currentView);
+    });
+    const titles = { home: 'Home', timeline: 'Today & Timeline', goals: 'Goals', tasks: 'Tasks', insights: 'Insights' };
+    const pageTitle = document.getElementById('appPageTitle');
+    if (pageTitle) pageTitle.textContent = titles[state.currentView] || 'ZIEL';
+    if (shouldScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function navigateApp(view, timelineMode) {
+    state.currentView = view;
+    if (view === 'timeline' && timelineMode) {
+        state.timelineView = timelineMode;
+        if (timelineMode === 'day') state.timelineAnchor = todayKey();
+    }
+    localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state));
+    renderAppViewState(true);
+    if (view === 'home') renderHomeOverview();
+    if (view === 'timeline') renderExecutionTimeline();
+    if (view === 'goals') renderGoals();
+    if (view === 'tasks') renderTasks();
+    safeLucideCreateIcons();
+    playChime('click');
+}
+
+function recommendedHomeTask() {
+    const priorityScore = { urgent: 4, high: 3, medium: 2, low: 1 };
+    return state.tasks.filter(function (task) {
+        return task.status !== 'completed' && Number(task.energyRequired || 3) <= Number(state.currentEnergy || 3) + 1;
+    }).sort(function (a, b) {
+        const overdueA = a.deadline <= todayKey() ? 4 : 0;
+        const overdueB = b.deadline <= todayKey() ? 4 : 0;
+        return (overdueB + (priorityScore[b.priority] || 0)) - (overdueA + (priorityScore[a.priority] || 0));
+    })[0] || state.tasks.find(function (task) { return task.status !== 'completed'; });
+}
+
+function renderHomeOverview() {
+    const greeting = document.getElementById('homeGreeting');
+    const hour = new Date().getHours();
+    const profileName = (document.getElementById('navProfileName')?.textContent || 'ZIEL Space').split(' ')[0];
+    if (greeting) greeting.textContent = (hour < 11 ? 'Selamat pagi' : hour < 15 ? 'Selamat siang' : hour < 19 ? 'Selamat sore' : 'Selamat malam') + ', ' + profileName;
+
+    const task = recommendedHomeTask();
+    const taskTitle = document.getElementById('homeNextTaskTitle');
+    const taskMeta = document.getElementById('homeNextTaskMeta');
+    if (taskTitle) taskTitle.textContent = task ? task.title : 'Semua tindakan sudah selesai';
+    if (taskMeta) {
+        const path = task ? taskPath(task) : '';
+        taskMeta.textContent = task ? (task.estimatedMinutes + ' menit • Energi ' + task.energyRequired + (path ? ' • ' + path : '')) : 'Nikmati ruang yang lapang atau buat langkah baru.';
+    }
+
+    const todayContainer = document.getElementById('homeTodayPreview');
+    if (todayContainer) {
+        const agenda = getAgenda().filter(function (item) { return item.date === todayKey(); })
+            .sort(function (a, b) { return a.startTime.localeCompare(b.startTime); }).slice(0, 3);
+        todayContainer.innerHTML = agenda.length ? agenda.map(function (item) {
+            return '<button onclick="navigateApp(\'timeline\',\'day\')" class="subtle-row w-full"><span class="time-chip">' + escapeHtml(item.startTime) + '</span><span class="flex-1 min-w-0 text-left"><strong class="truncate">' + escapeHtml(item.title) + '</strong><small class="truncate">' + escapeHtml(item.location || 'Agenda ZIEL') + '</small></span><i data-lucide="chevron-right"></i></button>';
+        }).join('') : '<div class="clean-empty"><i data-lucide="calendar-check-2"></i><div><strong>Belum ada agenda hari ini</strong><p>Ruang yang kosong juga bagian dari rencana.</p></div></div>';
+    }
+
+    const goalContainer = document.getElementById('homeGoalPreview');
+    if (goalContainer) {
+        const goals = state.goals.filter(function (goal) { return goal.status !== 'completed'; }).slice(0, 3);
+        goalContainer.innerHTML = goals.length ? goals.map(function (goal) {
+            return '<button onclick="openGoalDetail(\'' + goal.id + '\')" class="goal-preview-row"><div class="flex items-center justify-between gap-2"><strong class="truncate">' + escapeHtml(goal.title) + '</strong><span>' + (goal.progress || 0) + '%</span></div><div class="mini-progress"><i style="width:' + (goal.progress || 0) + '%"></i></div><small>' + escapeHtml(durationLabel(goal)) + ' • ' + escapeHtml((nextGoalAction(goal) || {}).title || 'Belum ada next action') + '</small></button>';
+        }).join('') : '<div class="clean-empty"><i data-lucide="target"></i><div><strong>Belum ada goal</strong><p>Mulai dari sesuatu yang benar-benar berarti.</p></div></div>';
+    }
+    safeLucideCreateIcons({ root: document.getElementById('homeView') });
+}
+
+function renderStats() {
+    const completed = document.getElementById('statCompletedToday');
+    const focus = document.getElementById('statFocusTime');
+    const streak = document.getElementById('statStreakDays');
+    if (completed) completed.textContent = Number(state.stats.completedToday) || 0;
+    if (focus) focus.textContent = Number(state.stats.totalFocusMinutes) || 0;
+    if (streak) streak.textContent = Number(state.stats.streakDays) || 0;
+}
+
 function renderAll() {
     ensureStateShape();
     loadProfile();
@@ -5630,6 +6181,8 @@ function renderAll() {
     renderTasks();
     renderGoals();
     renderExecutionTimeline();
+    renderHomeOverview();
+    renderAppViewState(false);
     renderNotificationCenter();
     updateNotificationBadge();
     safeLucideCreateIcons();
