@@ -418,12 +418,12 @@
         .theme-card:hover { transform: none; }
         .primary-btn-gradient,
         .hero-action-btn {
-            background: #5B5FEF !important;
+            background: var(--accent-indigo) !important;
             box-shadow: none !important;
         }
         .primary-btn-gradient:hover,
         .hero-action-btn:hover {
-            background: #4F46E5 !important;
+            background: color-mix(in srgb, var(--accent-indigo) 86%, #000) !important;
             filter: none;
             transform: none;
         }
@@ -684,7 +684,7 @@
             font-weight: 650;
             white-space: nowrap;
         }
-        .goal-stepper > span.active { color: #fff; background: #5B5FEF; border-color: #5B5FEF; }
+        .goal-stepper > span.active { color: #fff; background: var(--accent-indigo); border-color: var(--accent-indigo); }
         .goal-stepper > span.active strong { color: #818CF8; }
         .goal-stepper > span.complete { color: #818CF8; background: rgba(91,95,239,.12); border-color: rgba(129,140,248,.3); }
         .goal-stepper > i { width: 4rem; height: 1px; margin: 1rem .5rem 0; background: var(--border-card); }
@@ -779,7 +779,7 @@
             font-size: .7rem;
             font-weight: 750;
         }
-        .duration-option.selected { color: #fff; background: #5B5FEF; border-color: #5B5FEF; }
+        .duration-option.selected { color: #fff; background: var(--accent-indigo); border-color: var(--accent-indigo); }
         .time-summary {
             padding: .75rem;
             display: flex;
@@ -840,7 +840,7 @@
         }
         .calendar-day:hover { background: var(--btn-sec-bg); color: var(--text-main); }
         .calendar-day.today { box-shadow: inset 0 0 0 1px rgba(129,140,248,.5); color: #A5B4FC; }
-        .calendar-day.selected { color: #fff; background: #5B5FEF; box-shadow: none; }
+        .calendar-day.selected { color: #fff; background: var(--accent-indigo); box-shadow: none; }
         .calendar-day.outside { opacity: .28; }
         .quick-date-row { display: flex; gap: .4rem; overflow-x: auto; }
         .quick-date-row button { flex: 0 0 auto; }
@@ -858,6 +858,65 @@
             border: 2px solid var(--bg-main);
             overflow: visible !important;
         }
+        .soundscape-choice {
+            min-height: 6.2rem;
+            padding: .8rem;
+            border-radius: .9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            text-align: left;
+            gap: .2rem;
+        }
+        .soundscape-choice > span { font-size: 1.25rem; }
+        .soundscape-choice strong { font-size: .75rem; }
+        .soundscape-choice small { font-size: .62rem; opacity: .68; }
+        .settings-shell { display: grid; grid-template-columns: 14rem minmax(0, 1fr); min-height: 36rem; }
+        .settings-nav {
+            padding: 1rem;
+            border-right: 1px solid var(--border-card);
+            background: color-mix(in srgb, var(--bg-main) 75%, transparent);
+        }
+        .settings-nav button {
+            width: 100%;
+            min-height: 2.65rem;
+            padding: .6rem .7rem;
+            border-radius: .7rem;
+            display: flex;
+            align-items: center;
+            gap: .65rem;
+            color: var(--text-muted);
+            font-size: .72rem;
+            font-weight: 700;
+            text-align: left;
+        }
+        .settings-nav button svg { width: 1rem; height: 1rem; }
+        .settings-nav button.active { color: #A5B4FC; background: rgba(91,95,239,.13); }
+        .settings-content { min-width: 0; padding: 1.25rem; overflow-y: auto; max-height: 72vh; }
+        .settings-section-head { padding-bottom: 1rem; border-bottom: 1px solid var(--border-card); }
+        .settings-section-head h3 { color: var(--text-main); font-size: 1.05rem; font-weight: 800; }
+        .settings-section-head p { margin-top: .25rem; color: var(--text-muted); font-size: .72rem; }
+        .setting-group { padding: 1rem 0; border-bottom: 1px solid var(--border-card); }
+        .setting-group:last-child { border-bottom: 0; }
+        .setting-row { min-height: 3.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .setting-copy { min-width: 0; }
+        .setting-copy strong, .setting-copy small { display: block; }
+        .setting-copy strong { color: var(--text-main); font-size: .76rem; }
+        .setting-copy small { margin-top: .15rem; color: var(--text-muted); font-size: .66rem; line-height: 1.4; }
+        .setting-control { flex: 0 0 auto; max-width: 15rem; }
+        .setting-control select, .setting-control input[type="text"], .setting-control input[type="time"], .setting-control input[type="password"] { min-width: 10rem; }
+        .settings-segment { padding: .2rem; display: inline-flex; gap: .2rem; border-radius: .75rem; background: var(--btn-sec-bg); }
+        .settings-segment button { padding: .48rem .65rem; border-radius: .58rem; color: var(--text-muted); font-size: .66rem; font-weight: 750; }
+        .settings-segment button.active { color: #fff; background: var(--accent-indigo); }
+        .toggle-switch { width: 2.6rem; height: 1.45rem; padding: .15rem; border-radius: 99px; background: var(--btn-sec-bg); transition: background .16s; }
+        .toggle-switch i { width: 1.15rem; height: 1.15rem; display: block; border-radius: 50%; background: #fff; transition: transform .16s; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+        .toggle-switch.on { background: var(--accent-indigo); }
+        .toggle-switch.on i { transform: translateX(1.15rem); }
+        .accent-dot { width: 1.8rem; height: 1.8rem; border-radius: 50%; border: 3px solid transparent; }
+        .accent-dot.active { border-color: var(--text-main); box-shadow: 0 0 0 2px var(--bg-card); }
+        body.density-compact .theme-card { padding-top: .75rem !important; padding-bottom: .75rem !important; }
+        body.font-large { font-size: 15.5px; }
         @media (min-width: 1024px) { .desktop-more-menu { display: none !important; } }
         .menu-list { display: grid; gap: .25rem; }
         .menu-list > button {
@@ -963,6 +1022,15 @@
             .plan-mode-grid { grid-template-columns: 1fr; }
             #goalDatePickerModal { align-items: flex-end; padding: 0; }
             #goalDatePickerModal .calendar-shell { max-width: none; border-radius: 1.35rem 1.35rem 0 0 !important; }
+            #settingsModal { padding: 0; align-items: stretch; }
+            #settingsModal > .glass-modal { max-height: none; height: 100dvh; border-radius: 0 !important; }
+            .settings-shell { grid-template-columns: 1fr; display: flex; flex-direction: column; min-height: 0; height: 100%; }
+            .settings-nav { display: flex; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--border-card); padding: .65rem; }
+            .settings-nav button { width: auto; flex: 0 0 auto; }
+            .settings-nav button span { white-space: nowrap; }
+            .settings-content { flex: 1; max-height: none; padding: 1rem; }
+            .setting-row { align-items: flex-start; flex-direction: column; gap: .6rem; padding: .55rem 0; }
+            .setting-control, .setting-control select, .setting-control input { width: 100%; max-width: none; }
         }
     </style>
     <meta name="theme-color" content="#607D8B">
@@ -1030,6 +1098,10 @@
                     <i data-lucide="bell" class="w-4 h-4"></i>
                     <span id="notifBadgeCount" class="notification-count absolute bg-rose-500 text-white rounded-full text-[10px] font-black flex items-center justify-center">2</span>
                 </button>
+                <button id="themeToggleButton" onclick="toggleTheme()" class="clean-icon-btn" title="Ganti tema terang/gelap" aria-label="Ganti tema terang atau gelap">
+                    <i data-lucide="sun" id="themeHeaderSun" class="w-4 h-4 hidden"></i>
+                    <i data-lucide="moon" id="themeHeaderMoon" class="w-4 h-4"></i>
+                </button>
                 <button onclick="openModal('moreMenuModal')" class="clean-icon-btn desktop-more-menu" title="Menu lainnya"><i data-lucide="ellipsis" class="w-5 h-5"></i></button>
                 <button onclick="openAuthModal()" class="relative" title="Akun">
                     <div id="navAvatarDisplay" class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-extrabold">Z</div>
@@ -1055,7 +1127,10 @@
             <button onclick="navigateApp('insights')" data-app-nav="insights" class="ziel-nav-item"><i data-lucide="chart-no-axes-combined"></i><span>Insights</span></button>
         </nav>
         <div class="mt-auto space-y-1">
+            <p class="eyebrow px-3 pb-1">Tools</p>
             <button onclick="openModal('aiCopilotModal')" class="ziel-nav-item"><i data-lucide="sparkles"></i><span>Ask ZIEL</span></button>
+            <button onclick="openModal('brainDumpModal')" class="ziel-nav-item"><i data-lucide="brain"></i><span>Brain Dump</span></button>
+            <button onclick="openSoundscapeModal()" class="ziel-nav-item"><i data-lucide="headphones"></i><span>Soundscape</span></button>
             <button onclick="openModal('settingsModal')" class="ziel-nav-item"><i data-lucide="settings"></i><span>Settings</span></button>
         </div>
     </aside>
@@ -1105,7 +1180,7 @@
                         <div><span><i data-lucide="timer"></i>Waktu fokus</span><strong><span id="statFocusTime">0</span>m</strong></div>
                         <div><span><i data-lucide="flame"></i>Hari aktif</span><strong id="statStreakDays">1</strong></div>
                     </div>
-                    <button onclick="openModal('settingsModal')" class="subtle-row mt-4 w-full"><i data-lucide="headphones"></i><span class="flex-1 text-left"><small>Soundscape</small><strong id="statMusicMode">Rain & Water</strong></span><i data-lucide="chevron-right"></i></button>
+                    <button onclick="openSoundscapeModal()" class="subtle-row mt-4 w-full"><i data-lucide="headphones"></i><span class="flex-1 text-left"><small>Soundscape</small><strong id="statMusicMode">Rain & Water</strong></span><i data-lucide="chevron-right"></i></button>
                 </section>
             </div>
 
@@ -1224,6 +1299,7 @@
             <div class="menu-list">
                 <button onclick="closeModal('moreMenuModal');openModal('aiCopilotModal')"><span class="icon-box"><i data-lucide="sparkles"></i></span><span><strong>Ask ZIEL</strong><small>Diskusikan strategi atau saat kamu buntu</small></span><i data-lucide="chevron-right"></i></button>
                 <button onclick="closeModal('moreMenuModal');openModal('brainDumpModal')"><span class="icon-box"><i data-lucide="brain"></i></span><span><strong>Brain Dump</strong><small>Susun pikiran menjadi task</small></span><i data-lucide="chevron-right"></i></button>
+                <button onclick="closeModal('moreMenuModal');openSoundscapeModal()"><span class="icon-box"><i data-lucide="headphones"></i></span><span><strong>Soundscape</strong><small>Musik fokus, ambience, dan Spotify</small></span><i data-lucide="chevron-right"></i></button>
                 <button onclick="closeModal('moreMenuModal');openModal('manageCategoriesModal')"><span class="icon-box"><i data-lucide="tags"></i></span><span><strong>Area Hidup</strong><small>Atur konteks untuk goal dan task</small></span><i data-lucide="chevron-right"></i></button>
                 <button onclick="closeModal('moreMenuModal');openGoogleCalendarWeb()"><span class="icon-box"><i data-lucide="calendar-days"></i></span><span><strong>Google Calendar</strong><small>Buka kalender terhubung</small></span><i data-lucide="external-link"></i></button>
                 <button onclick="closeModal('moreMenuModal');openModal('settingsModal')"><span class="icon-box"><i data-lucide="settings"></i></span><span><strong>Settings</strong><small>AI, Spotify, dan preferensi</small></span><i data-lucide="chevron-right"></i></button>
@@ -1286,9 +1362,7 @@
                     <i data-lucide="trash" class="w-3 h-3"></i>
                     <span>Hapus Riwayat Notifikasi</span>
                 </button>
-                <button onclick="triggerSampleNotification()" class="text-teal-400 hover:underline text-[11px] font-semibold">
-                    + Notif Uji Coba
-                </button>
+                <button onclick="closeModal('notificationCenterModal');openSettingsSection('notifications')" class="text-link">Atur notifikasi</button>
             </div>
         </div>
     </div>
@@ -1752,6 +1826,48 @@
         </div>
     </div>
 
+    <!-- STANDALONE SOUNDSCAPE LIBRARY -->
+    <div id="soundscapeModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+        <div class="glass-modal action-sheet w-full sm:max-w-2xl p-5 sm:p-6 space-y-4 max-h-[92vh] overflow-y-auto custom-scrollbar">
+            <div class="flex items-start justify-between gap-3">
+                <div><p class="eyebrow">Focus audio</p><h3 class="text-lg font-extrabold">Soundscape</h3><p class="text-xs mt-1" style="color:var(--text-muted)">Pilih suasana kerja tanpa masuk ke Settings.</p></div>
+                <button onclick="closeModal('soundscapeModal')" class="clean-icon-btn"><i data-lucide="x"></i></button>
+            </div>
+            <div class="flex items-center justify-between gap-3 border-b border-[var(--border-card)] pb-3">
+                <div class="flex gap-2">
+                    <button id="soundscapeAmbientTab" onclick="switchSoundscapeSource('ambient')" class="primary-btn-gradient px-3 py-2 rounded-xl text-xs font-bold">Ambience</button>
+                    <button id="soundscapeSpotifyTab" onclick="switchSoundscapeSource('spotify')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Spotify</button>
+                </div>
+                <div id="soundscapeVolumeWrap" class="flex items-center gap-2"><i data-lucide="volume-2" class="w-4 h-4 opacity-60"></i><input type="range" min="0" max="1" step="0.05" value="0.4" oninput="setAmbienceVolume(this.value)" class="w-24 accent-indigo-500"></div>
+            </div>
+            <div id="soundscapeAmbientPanel" class="space-y-3">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <button onclick="setAmbienceTrack('rain')" class="ambience-track-btn soundscape-choice primary-btn-gradient" data-track="rain"><span>🌧️</span><strong>Hujan</strong><small>Tenang & stabil</small></button>
+                    <button onclick="setAmbienceTrack('waves')" class="ambience-track-btn soundscape-choice btn-secondary" data-track="waves"><span>🌊</span><strong>Ombak</strong><small>Ritme lembut</small></button>
+                    <button onclick="setAmbienceTrack('birds')" class="ambience-track-btn soundscape-choice btn-secondary" data-track="birds"><span>🌿</span><strong>Hutan</strong><small>Segar & ringan</small></button>
+                    <button onclick="setAmbienceTrack('coffee')" class="ambience-track-btn soundscape-choice btn-secondary" data-track="coffee"><span>☕</span><strong>Kafe</strong><small>Background ramai</small></button>
+                    <button onclick="setAmbienceTrack('brown')" class="ambience-track-btn soundscape-choice btn-secondary" data-track="brown"><span>🟤</span><strong>Brown Noise</strong><small>Blok distraksi</small></button>
+                    <button onclick="setAmbienceTrack('fire')" class="ambience-track-btn soundscape-choice btn-secondary" data-track="fire"><span>🔥</span><strong>Perapian</strong><small>Hangat & pelan</small></button>
+                    <button onclick="setAmbienceTrack('night')" class="ambience-track-btn soundscape-choice btn-secondary" data-track="night"><span>🌙</span><strong>Malam</strong><small>Deep work</small></button>
+                    <button onclick="setAmbienceTrack('alpha')" class="ambience-track-btn soundscape-choice btn-secondary" data-track="alpha"><span>🧘</span><strong>Alpha Focus</strong><small>10 Hz binaural</small></button>
+                </div>
+                <div class="flex gap-2"><button onclick="previewAmbience()" id="soundscapePlayButton" class="primary-btn-gradient flex-1 py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2"><i data-lucide="play" class="w-4 h-4"></i><span>Putar preview</span></button><button onclick="stopSoundscapePreview()" class="btn-secondary px-4 py-3 rounded-xl text-xs font-bold">Stop</button></div>
+            </div>
+            <div id="soundscapeSpotifyPanel" class="hidden space-y-3">
+                <div class="p-3 rounded-2xl tag-emerald text-xs leading-relaxed flex items-start justify-between gap-3"><span><strong>Spotify Embed</strong><br>Playlist dapat diputar tanpa Gemini API. Login Spotify hanya diperlukan untuk kontrol akun lanjutan.</span><span id="soundscapeSpotifyStatus" class="shrink-0 font-bold">Belum login</span></div>
+                <div class="flex gap-2 overflow-x-auto custom-scrollbar pb-1">
+                    <button onclick="loadSpotifyPlaylist('37i9dQZF1DXdLEN7aqioXM')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap">Lo-Fi Beats</button>
+                    <button onclick="loadSpotifyPlaylist('37i9dQZF1DWZeKCadgRdKQ')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap">Deep Focus</button>
+                    <button onclick="loadSpotifyPlaylist('37i9dQZF1DX4sWSpwq3LiO')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap">Peaceful Piano</button>
+                    <button onclick="loadSpotifyPlaylist('37i9dQZF1DWZqd5JICZI0u')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap">Focus Flow</button>
+                </div>
+                <iframe id="soundscapeSpotifyIframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdLEN7aqioXM?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="flex gap-2"><input id="soundscapeSpotifyInput" class="theme-input flex-1 rounded-xl p-3 text-xs" placeholder="Tempel link atau ID playlist"><button onclick="applySoundscapeSpotifyPlaylist()" class="primary-btn-gradient px-4 rounded-xl text-xs font-bold">Muat</button></div>
+                <button onclick="loginSpotify()" class="w-full py-3 rounded-xl bg-[#1DB954] text-slate-950 font-extrabold text-xs">Hubungkan akun Spotify</button>
+            </div>
+        </div>
+    </div>
+
     <!-- 4. AI COPILOT PLANNER CHAT MODAL -->
     <div id="aiCopilotModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
         <div class="glass-modal rounded-3xl max-w-lg w-full p-5 space-y-3 relative flex flex-col h-[85vh] max-h-[650px]">
@@ -1761,8 +1877,8 @@
                         <i data-lucide="bot" class="w-4 h-4"></i>
                     </div>
                     <div>
-                        <h3 class="text-sm font-bold" style="color: var(--text-main);">ZIEL Gemini Copilot</h3>
-                        <p class="text-[10px]" style="color: var(--text-muted);">Smart Executive AI & Action Strategist</p>
+                        <h3 class="text-sm font-bold" style="color: var(--text-main);">Ask ZIEL</h3>
+                        <p class="text-[10px]" style="color: var(--text-muted);"><span class="text-teal-400 font-bold">Local Coach aktif</span> · Gemini opsional</p>
                     </div>
                 </div>
                 <div class="flex items-center space-x-1">
@@ -1787,14 +1903,14 @@
             <!-- Chat Messages Log -->
             <div id="aiCopilotChatLogs" class="flex-1 overflow-y-auto space-y-2.5 p-3 rounded-2xl border border-[var(--border-card)] custom-scrollbar text-xs" style="background-color: var(--bg-main);">
                 <div class="p-3 rounded-2xl tag-indigo text-xs space-y-1">
-                    <p class="font-bold">👋 Halo! Saya Gemini Copilot Anda.</p>
-                    <p class="opacity-90 leading-relaxed">Tanyakan apa pun, ajak diskusi santai, minta saran saat buntu, atau minta saya bedah tugas besar menjadi tindakan yang mudah.</p>
+                    <p class="font-bold">👋 Halo! Saya ZIEL Coach.</p>
+                    <p class="opacity-90 leading-relaxed">Saya bisa membaca goal, task, energi, dan agenda di aplikasi ini tanpa API. Hubungkan Gemini hanya jika kamu ingin percakapan generatif yang lebih luas.</p>
                 </div>
             </div>
 
             <!-- Input Box -->
             <div class="flex items-center space-x-2 pt-1">
-                <input type="text" id="aiCopilotInput" class="flex-1 theme-input rounded-xl p-2.5 text-xs" placeholder="Ketik pesan atau tanya strategi ke Gemini AI..." onkeydown="if(event.key==='Enter') sendAiCopilotMessage()">
+                <input type="text" id="aiCopilotInput" class="flex-1 theme-input rounded-xl p-2.5 text-xs" placeholder="Contoh: Aku harus mulai dari mana?" onkeydown="if(event.key==='Enter') sendAiCopilotMessage()">
                 <button onclick="sendAiCopilotMessage()" id="btnSendCopilot" class="primary-btn-gradient p-2.5 rounded-xl font-bold text-xs shrink-0">
                     <i data-lucide="send" class="w-4 h-4"></i>
                 </button>
@@ -1814,14 +1930,14 @@
             </div>
 
             <p class="text-xs leading-relaxed" style="color: var(--text-sub);">
-                Tuliskan semua pikiran atau tugas yang menumpuk di kepala Anda. Gemini AI akan membedahnya secara cerdas ke kategori yang sesuai.
+                Tuliskan semua pikiran atau tugas yang menumpuk. ZIEL akan mengurainya secara lokal; Gemini hanya dipakai jika sudah terhubung.
             </p>
 
             <textarea id="brainDumpInput" rows="4" class="w-full theme-input rounded-2xl p-3 text-xs" placeholder="Contoh: jadwalkan janji ke psikiater minggu ini, bimbingan revisi bab 3 skripsi, review modul AWS IAM, dan belanja bulanan..."></textarea>
 
             <button onclick="processBrainDumpAI()" id="btnProcessBrainDump" class="w-full py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs tracking-wide flex items-center justify-center space-x-2 transition shadow-md">
                 <i data-lucide="cpu" class="w-4 h-4"></i>
-                <span id="btnBrainDumpText">Bedah dengan Gemini AI</span>
+                <span id="btnBrainDumpText">Urai dengan ZIEL</span>
             </button>
 
             <div id="brainDumpResults" class="hidden space-y-2 pt-2">
@@ -2144,15 +2260,21 @@
 
     <!-- 10. SETTINGS MODAL (GEMINI AI & SPOTIFY WEB API) -->
     <div id="settingsModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
-        <div class="glass-modal rounded-3xl max-w-md w-full p-6 space-y-4 relative max-h-[90vh] overflow-y-auto custom-scrollbar">
-            <div class="flex items-center justify-between">
+        <div class="glass-modal rounded-3xl max-w-5xl w-full p-0 relative max-h-[90vh] overflow-hidden">
+            <div class="flex items-center justify-between p-5 border-b border-[var(--border-card)]">
                 <div class="flex items-center space-x-2 text-indigo-400">
                     <i data-lucide="settings" class="w-5 h-5"></i>
-                    <h3 class="text-base font-bold" style="color: var(--text-main);">Pengaturan ZIEL</h3>
+                    <div><h3 class="text-base font-bold" style="color: var(--text-main);">Settings</h3><p class="text-[10px]" style="color:var(--text-muted)">Workspace, workflow, integrasi, dan data ZIEL</p></div>
                 </div>
-                <button onclick="closeModal('settingsModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+                <button onclick="closeModal('settingsModal')" class="clean-icon-btn"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
 
+            <div class="settings-shell">
+                <nav id="settingsNav" class="settings-nav custom-scrollbar"></nav>
+                <section id="settingsContent" class="settings-content custom-scrollbar"></section>
+            </div>
+
+            <div class="hidden">
             <div class="space-y-2 text-xs">
                 <label class="block font-semibold" style="color:var(--text-sub)">Tampilan</label>
                 <button type="button" onclick="toggleTheme()" class="date-field-card">
@@ -2218,6 +2340,7 @@
                         Putuskan Akun Spotify
                     </button>
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -2416,8 +2539,8 @@
             {
                 id: 'notif-1',
                 category: 'ai',
-                title: '⚡ Gemini AI Recommendation Siap',
-                message: 'Level energi saat ini (Level 3) cocok untuk menyelesaikan Revisi Bab 3 Skripsi.',
+                title: '⚡ ZIEL Insight Siap',
+                message: 'Level energi saat ini cocok untuk menyelesaikan satu task prioritas.',
                 time: 'Baru saja',
                 read: false,
                 actionType: 'triggerRec'
@@ -2468,13 +2591,25 @@
             notifs.unshift(newNotif);
             saveNotifications(notifs);
 
-            showToast({
-                type: category === 'ai' ? 'ai' : (category === 'task' ? 'info' : 'success'),
-                title,
-                message,
-                actionLabel: actionType ? 'Buka' : null,
-                onAction: actionType ? () => handleNotifAction(actionType) : null
-            });
+            const settings = getWebSettings();
+            const now = new Date();
+            const hhmm = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+            const quiet = settings.quietHours && (settings.quietStart <= settings.quietEnd
+                ? hhmm >= settings.quietStart && hhmm < settings.quietEnd
+                : hhmm >= settings.quietStart || hhmm < settings.quietEnd);
+            const triggerEnabled = category === 'task' ? settings.assignedTasks : (category === 'ai' ? settings.dailyDigest : true);
+            if (!quiet && triggerEnabled) {
+                showToast({
+                    type: category === 'ai' ? 'ai' : (category === 'task' ? 'info' : 'success'),
+                    title,
+                    message,
+                    actionLabel: actionType ? 'Buka' : null,
+                    onAction: actionType ? () => handleNotifAction(actionType) : null
+                });
+                if (settings.browserPush && typeof Notification !== 'undefined' && Notification.permission === 'granted' && document.hidden) {
+                    new Notification(title, { body: message });
+                }
+            }
         }
 
         function updateNotificationBadge() {
@@ -2572,8 +2707,10 @@
         }
 
         function clearAllNotifications() {
-            saveNotifications([]);
-            showToast({ type: 'warning', title: 'Riwayat Notifikasi Dikosongkan', message: 'Semua pesan notifikasi lama telah dihapus.' });
+            openConfirmModal('Hapus riwayat notifikasi?', 'Semua pesan di kotak masuk akan dihapus. Pengaturan notifikasi tidak berubah.', function () {
+                saveNotifications([]);
+                showToast({ type: 'warning', title: 'Riwayat notifikasi dikosongkan', message: 'Kotak masuk sekarang bersih.' });
+            });
         }
 
         function handleNotifAction(type) {
@@ -2967,32 +3104,48 @@
         }
 
         // ================= SPOTIFY WEB API & OAUTH LOGIC =================
-        function checkSpotifyAuthRedirect() {
-            const hash = window.location.hash.substring(1);
-            if (!hash) return;
-
-            const params = new URLSearchParams(hash);
-            const accessToken = params.get('access_token');
-            const expiresIn = params.get('expires_in');
-
-            if (accessToken) {
-                localStorage.setItem('ZIEL_SPOTIFY_TOKEN', accessToken);
-                localStorage.setItem('ZIEL_SPOTIFY_EXPIRES_AT', Date.now() + (parseInt(expiresIn) || 3600) * 1000);
-                history.replaceState(null, null, window.location.pathname + window.location.search);
-                showToast({ type: 'success', title: 'Spotify Terhubung 🎵', message: 'Akun Spotify Anda sukses ditautkan ke ZIEL Focus Mode.' });
+        async function checkSpotifyAuthRedirect() {
+            const params = new URLSearchParams(window.location.search);
+            const code = params.get('code');
+            if (!code) return;
+            const verifier = localStorage.getItem('ZIEL_SPOTIFY_CODE_VERIFIER');
+            if (!verifier) return;
+            try {
+                const body = new URLSearchParams({ client_id: SPOTIFY_CONFIG.clientId, grant_type: 'authorization_code', code: code, redirect_uri: SPOTIFY_CONFIG.redirectUri, code_verifier: verifier });
+                const response = await fetch('https://accounts.spotify.com/api/token', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body });
+                if (!response.ok) throw new Error('Spotify token exchange gagal');
+                const data = await response.json();
+                localStorage.setItem('ZIEL_SPOTIFY_TOKEN', data.access_token);
+                localStorage.setItem('ZIEL_SPOTIFY_EXPIRES_AT', Date.now() + (Number(data.expires_in) || 3600) * 1000);
+                if (data.refresh_token) localStorage.setItem('ZIEL_SPOTIFY_REFRESH_TOKEN', data.refresh_token);
+                localStorage.removeItem('ZIEL_SPOTIFY_CODE_VERIFIER');
+                history.replaceState(null, '', window.location.pathname);
+                showToast({ type: 'success', title: 'Spotify terhubung', message: 'Akun Spotify siap digunakan di Soundscape.' });
                 updateSpotifyUI();
+            } catch (error) {
+                showToast({ type: 'error', title: 'Spotify belum terhubung', message: 'Pastikan redirect URL aplikasi Spotify sama dengan URL ZIEL ini.' });
             }
         }
 
-        function loginSpotify() {
-            const authEndpoint = "https://accounts.spotify.com/authorize";
-            const authUrl = `${authEndpoint}?client_id=${encodeURIComponent(SPOTIFY_CONFIG.clientId)}&response_type=code&redirect_uri=${encodeURIComponent(SPOTIFY_CONFIG.redirectUri)}&scope=${encodeURIComponent(SPOTIFY_CONFIG.scopes)}&show_dialog=true`;
-            window.location.href = authUrl;
+        function spotifyRandomString(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+            const values = crypto.getRandomValues(new Uint8Array(length));
+            return Array.from(values, function (value) { return chars[value % chars.length]; }).join('');
+        }
+
+        async function loginSpotify() {
+            const verifier = spotifyRandomString(64);
+            const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier));
+            const challenge = btoa(String.fromCharCode.apply(null, new Uint8Array(digest))).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+            localStorage.setItem('ZIEL_SPOTIFY_CODE_VERIFIER', verifier);
+            const params = new URLSearchParams({ client_id: SPOTIFY_CONFIG.clientId, response_type: 'code', redirect_uri: SPOTIFY_CONFIG.redirectUri, scope: SPOTIFY_CONFIG.scopes, code_challenge_method: 'S256', code_challenge: challenge });
+            window.location.href = 'https://accounts.spotify.com/authorize?' + params.toString();
         }
 
         function disconnectSpotify() {
             localStorage.removeItem('ZIEL_SPOTIFY_TOKEN');
             localStorage.removeItem('ZIEL_SPOTIFY_EXPIRES_AT');
+            localStorage.removeItem('ZIEL_SPOTIFY_REFRESH_TOKEN');
             updateSpotifyUI();
             showToast({ type: 'info', title: 'Spotify Terputus', message: 'Koneksi akun Spotify telah direset.' });
         }
@@ -3006,9 +3159,11 @@
             const loginBtn = document.getElementById('btnSpotifyLogin');
             const disconnectBtn = document.getElementById('btnSpotifyDisconnect');
             const customInput = document.getElementById('customSpotifyInput');
+            const soundscapeStatus = document.getElementById('soundscapeSpotifyStatus');
             const savedPlaylist = localStorage.getItem('ZIEL_CUSTOM_SPOTIFY_PLAYLIST') || '37i9dQZF1DXdLEN7aqioXM';
 
             if (customInput) customInput.value = savedPlaylist;
+            if (soundscapeStatus) soundscapeStatus.textContent = isConnected ? 'Terhubung' : 'Belum login';
 
             if (badge && loginBtn && disconnectBtn) {
                 if (isConnected) {
@@ -3052,10 +3207,58 @@
 
         function loadSpotifyPlaylist(playlistId) {
             const iframe = document.getElementById('spotifyIframe');
-            if (iframe) {
-                iframe.src = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=0`;
-            }
+            const soundscapeIframe = document.getElementById('soundscapeSpotifyIframe');
+            const src = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=0`;
+            if (iframe) iframe.src = src;
+            if (soundscapeIframe) soundscapeIframe.src = src;
             playChime('click');
+        }
+
+        function openSoundscapeModal() {
+            const input = document.getElementById('soundscapeSpotifyInput');
+            if (input) input.value = localStorage.getItem('ZIEL_CUSTOM_SPOTIFY_PLAYLIST') || '';
+            updateSpotifyUI();
+            openModal('soundscapeModal');
+            switchSoundscapeSource(activeMusicSource === 'spotify' ? 'spotify' : 'ambient');
+        }
+
+        function switchSoundscapeSource(source) {
+            activeMusicSource = source;
+            const ambient = document.getElementById('soundscapeAmbientPanel');
+            const spotify = document.getElementById('soundscapeSpotifyPanel');
+            const ambientTab = document.getElementById('soundscapeAmbientTab');
+            const spotifyTab = document.getElementById('soundscapeSpotifyTab');
+            const volume = document.getElementById('soundscapeVolumeWrap');
+            if (!ambient || !spotify) return;
+            const isSpotify = source === 'spotify';
+            ambient.classList.toggle('hidden', isSpotify); spotify.classList.toggle('hidden', !isSpotify);
+            ambientTab.className = (isSpotify ? 'btn-secondary' : 'primary-btn-gradient') + ' px-3 py-2 rounded-xl text-xs font-bold';
+            spotifyTab.className = (isSpotify ? 'primary-btn-gradient' : 'btn-secondary') + ' px-3 py-2 rounded-xl text-xs font-bold';
+            if (volume) volume.classList.toggle('hidden', isSpotify);
+            if (isSpotify) stopAmbienceSound();
+            safeLucideCreateIcons({ root: document.getElementById('soundscapeModal') });
+        }
+
+        function previewAmbience() {
+            activeMusicSource = 'ambient';
+            startAmbienceSound();
+            const button = document.getElementById('soundscapePlayButton');
+            if (button) button.querySelector('span').textContent = 'Sedang diputar';
+            document.getElementById('statMusicMode').textContent = ({ rain:'Hujan', waves:'Ombak', birds:'Hutan', coffee:'Kafe', brown:'Brown Noise', fire:'Perapian', night:'Malam', alpha:'Alpha Focus' })[currentAmbienceTrack] || 'Soundscape';
+        }
+
+        function stopSoundscapePreview() {
+            stopAmbienceSound();
+            const button = document.getElementById('soundscapePlayButton');
+            if (button) button.querySelector('span').textContent = 'Putar preview';
+        }
+
+        function applySoundscapeSpotifyPlaylist() {
+            let input = (document.getElementById('soundscapeSpotifyInput')?.value || '').trim();
+            if (!input) return showToast({ type: 'warning', title: 'Playlist kosong', message: 'Tempel link atau ID playlist Spotify.' });
+            const match = input.match(/playlist\/([a-zA-Z0-9]+)/); if (match) input = match[1];
+            localStorage.setItem('ZIEL_CUSTOM_SPOTIFY_PLAYLIST', input); loadSpotifyPlaylist(input);
+            showToast({ type: 'success', title: 'Playlist dimuat', message: 'Playlist tersedia di Soundscape dan Focus Mode.' });
         }
 
         function toggleApiKeyVisibility() {
@@ -3097,13 +3300,10 @@
         function setAmbienceTrack(trackName) {
             currentAmbienceTrack = trackName;
             document.querySelectorAll('.ambience-track-btn').forEach(btn => {
-                if (btn.dataset.track === trackName) {
-                    btn.className = 'ambience-track-btn p-2 rounded-xl primary-btn-gradient font-bold text-[11px] flex items-center justify-center space-x-1';
-                } else {
-                    btn.className = 'ambience-track-btn p-2 rounded-xl btn-secondary font-bold text-[11px] flex items-center justify-center space-x-1';
-                }
+                btn.classList.toggle('primary-btn-gradient', btn.dataset.track === trackName);
+                btn.classList.toggle('btn-secondary', btn.dataset.track !== trackName);
             });
-            const names = { rain: 'Rain & Water', birds: 'Forest Birds', waves: 'Ocean Waves', alpha: 'Alpha 432Hz' };
+            const names = { rain: 'Rain & Water', birds: 'Forest Birds', waves: 'Ocean Waves', coffee: 'Coffee Shop', brown: 'Brown Noise', fire: 'Fireplace', night: 'Night Focus', alpha: 'Alpha 10Hz' };
             document.getElementById('statMusicMode').textContent = names[trackName] || 'Nature Sounds';
 
             if (isTimerRunning && activeMusicSource === 'ambient') {
@@ -3120,7 +3320,7 @@
                 stopAmbienceSound();
                 isAmbiencePlaying = true;
 
-                if (currentAmbienceTrack === 'rain') {
+                if (['rain', 'coffee', 'brown', 'fire'].includes(currentAmbienceTrack)) {
                     const bufferSize = audioCtx.sampleRate * 2;
                     const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
                     const output = noiseBuffer.getChannelData(0);
@@ -3132,27 +3332,29 @@
 
                     const filter = audioCtx.createBiquadFilter();
                     filter.type = 'lowpass';
-                    filter.frequency.setValueAtTime(850, audioCtx.currentTime);
+                    const frequencies = { rain: 850, coffee: 1250, brown: 260, fire: 1800 };
+                    filter.frequency.setValueAtTime(frequencies[currentAmbienceTrack] || 850, audioCtx.currentTime);
 
                     whiteNoise.connect(filter);
                     filter.connect(ambienceGainNode);
                     whiteNoise.start();
                     activeAmbienceNodes.push(whiteNoise);
 
-                } else if (currentAmbienceTrack === 'birds') {
+                } else if (currentAmbienceTrack === 'birds' || currentAmbienceTrack === 'night') {
                     const osc = audioCtx.createOscillator();
                     const birdGain = audioCtx.createGain();
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(2800, audioCtx.currentTime);
+                    osc.frequency.setValueAtTime(currentAmbienceTrack === 'night' ? 1200 : 2800, audioCtx.currentTime);
                     birdGain.gain.setValueAtTime(0.01, audioCtx.currentTime);
 
                     const chirpInterval = setInterval(() => {
                         if (!isAmbiencePlaying) { clearInterval(chirpInterval); return; }
                         const now = audioCtx.currentTime;
-                        osc.frequency.setValueAtTime(3200, now);
-                        osc.frequency.exponentialRampToValueAtTime(4600, now + 0.08);
-                        osc.frequency.exponentialRampToValueAtTime(2500, now + 0.18);
-                        birdGain.gain.setValueAtTime(0.2, now);
+                        const night = currentAmbienceTrack === 'night';
+                        osc.frequency.setValueAtTime(night ? 900 : 3200, now);
+                        osc.frequency.exponentialRampToValueAtTime(night ? 1500 : 4600, now + 0.08);
+                        osc.frequency.exponentialRampToValueAtTime(night ? 800 : 2500, now + 0.18);
+                        birdGain.gain.setValueAtTime(night ? 0.08 : 0.2, now);
                         birdGain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
                     }, 2400);
 
@@ -3439,8 +3641,8 @@
             copilotChatHistory = [];
             document.getElementById('aiCopilotChatLogs').innerHTML = `
                 <div class="p-3 rounded-2xl tag-indigo text-xs space-y-1">
-                    <p class="font-bold">👋 Halo! Saya Gemini Copilot Anda.</p>
-                    <p class="opacity-90 leading-relaxed">Tanyakan apa pun, ajak diskusi santai, minta saran saat buntu, atau minta saya bedah tugas besar menjadi tindakan yang mudah.</p>
+                    <p class="font-bold">👋 Halo! Saya ZIEL Coach.</p>
+                    <p class="opacity-90 leading-relaxed">Saya bisa membantu memilih prioritas dan langkah kecil langsung dari data ZIEL. Gemini bersifat opsional.</p>
                 </div>
             `;
             showToast({ type: 'info', title: 'Chat Di-reset', message: 'Riwayat percakapan copilot telah dibersihkan.' });
@@ -3449,6 +3651,44 @@
         function sendQuickPrompt(promptText) {
             document.getElementById('aiCopilotInput').value = promptText;
             sendAiCopilotMessage();
+        }
+
+        function buildLocalZielReply(message) {
+            const lower = String(message || '').toLowerCase();
+            const active = state.tasks.filter(function (task) { return task.status !== 'completed'; });
+            const weight = { high: 0, medium: 1, low: 2 };
+            const suitable = active.slice().sort(function (a, b) {
+                const energyA = Math.abs((Number(a.energyRequired) || 3) - (Number(state.currentEnergy) || 3));
+                const energyB = Math.abs((Number(b.energyRequired) || 3) - (Number(state.currentEnergy) || 3));
+                return (weight[a.priority] || 1) - (weight[b.priority] || 1) || energyA - energyB || String(a.deadline || '').localeCompare(String(b.deadline || ''));
+            });
+            const first = suitable[0];
+            const todayAgenda = getAgenda().filter(function (item) { return item.date === todayKey(); });
+            if (/overwhelm|bingung|mulai|prioritas|harus.*mana|apa.*dulu/.test(lower)) {
+                if (!first) return '**Mode Local Coach**\n\nBelum ada task aktif. Buat satu task kecil dengan hasil yang jelas, lalu mulai selama 5 menit.';
+                return '**Mode Local Coach**\n\nMulai dari **' + first.title + '**. Task ini paling seimbang dengan prioritas dan energi level ' + state.currentEnergy + '.\n\nMicro-action: ' + ((first.atomicActions && first.atomicActions[0] && first.atomicActions[0].title) || 'Buka bahan yang dibutuhkan dan kerjakan selama 2 menit.') + '\n\nEstimasi awal: ' + (first.estimatedMinutes || 25) + ' menit.';
+            }
+            if (/2 jam|dua jam|rencana.*jam/.test(lower)) {
+                const picked = suitable.slice(0, 3);
+                if (!picked.length) return '**Rencana 2 jam**\n\nBelum ada task aktif. Gunakan 15 menit pertama untuk membuat daftar tiga hasil yang penting.';
+                return '**Rencana 2 jam berdasarkan task ZIEL**\n\n' + picked.map(function (task, index) { return (index + 1) + '. **' + task.title + '** — ' + Math.min(Number(task.estimatedMinutes) || 25, 45) + ' menit'; }).join('\n') + '\n\nSisakan 10 menit untuk jeda dan review.';
+            }
+            if (/agenda|jadwal|hari ini|today/.test(lower)) {
+                const due = active.filter(function (task) { return task.deadline === todayKey(); });
+                return '**Ringkasan hari ini**\n\nAgenda: ' + todayAgenda.length + ' blok. Task jatuh tempo: ' + due.length + '.\n\n' + (first ? 'Next action yang disarankan: **' + first.title + '**.' : 'Tidak ada task aktif yang perlu dikejar.');
+            }
+            if (/goal|target|tujuan/.test(lower)) {
+                const running = state.goals.filter(function (goal) { return goal.status !== 'completed'; });
+                return '**Status Goal**\n\nAda ' + running.length + ' goal aktif. ' + (running[0] ? 'Fokus utama saat ini: **' + running[0].title + '** (' + (running[0].progress || 0) + '%).' : 'Belum ada goal aktif.') + (first ? '\n\nLangkah terdekat: **' + first.title + '**.' : '');
+            }
+            return '**ZIEL Local Coach**\n\nAku dapat membantu membaca prioritas, energi, goal, task, dan agenda tanpa API. Coba tanyakan “aku harus mulai dari mana?”, “buat rencana 2 jam”, atau “ringkas agenda hari ini”.\n\nUntuk percakapan bebas dan pengetahuan umum, hubungkan Gemini dari Settings → Integrations.';
+        }
+
+        function formatCopilotReply(reply) {
+            return String(reply || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/`([^`]+)`/g, '<code class="px-1 rounded bg-slate-800 text-teal-300 font-mono text-[11px]">$1</code>')
+                .replace(/\n\n/g, '<br><br>').replace(/\n- /g, '<br>• ').replace(/\n(\d+)\. /g, '<br><strong>$1.</strong> ');
         }
 
         async function sendAiCopilotMessage() {
@@ -3467,15 +3707,18 @@
 
             const botBubble = document.createElement('div');
             botBubble.className = 'p-2.5 rounded-2xl tag-indigo text-xs mr-6 space-y-1';
-            botBubble.innerHTML = '<span class="loading-dots font-semibold">Gemini sedang berpikir<span>.</span><span>.</span><span>.</span></span>';
+            botBubble.innerHTML = '<span class="loading-dots font-semibold">ZIEL sedang menyusun jawaban<span>.</span><span>.</span><span>.</span></span>';
             chatLogs.appendChild(botBubble);
             chatLogs.scrollTop = chatLogs.scrollHeight;
 
             const apiKey = (localStorage.getItem('ZIEL_GEMINI_API_KEY') || '').trim();
 
             if (!apiKey) {
-                botBubble.innerHTML = `<p class="font-bold text-amber-400">⚠️ API Key Belum Disimpan</p><p class="opacity-90 leading-relaxed">Silakan masukkan Gemini API Key di menu <strong>Pengaturan (⚙️)</strong> agar Copilot bisa merespons.</p>`;
+                const localReply = buildLocalZielReply(text);
+                copilotChatHistory.push({ role: 'user', text: text }, { role: 'model', text: localReply });
+                botBubble.innerHTML = '<p class="font-bold text-teal-400">✦ ZIEL Local Coach</p><div class="opacity-95 leading-relaxed">' + formatCopilotReply(localReply) + '</div>';
                 chatLogs.scrollTop = chatLogs.scrollHeight;
+                playChime('success');
                 return;
             }
 
@@ -3537,52 +3780,239 @@ Gemini:`;
 
             if (reply) {
                 copilotChatHistory.push({ role: 'model', text: reply });
-                const formattedReply = reply
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                    .replace(/```([\s\S]*?)```/g, '<pre class="p-2 rounded bg-slate-900 overflow-x-auto my-1 font-mono text-[11px]"><code>$1</code></pre>')
-                    .replace(/`([^`]+)`/g, '<code class="px-1 rounded bg-slate-800 text-teal-300 font-mono text-[11px]">$1</code>')
-                    .replace(/\n\n/g, '<br><br>')
-                    .replace(/\n- /g, '<br>• ')
-                    .replace(/\n\* /g, '<br>• ')
-                    .replace(/\n(\d+)\. /g, '<br><strong>$1.</strong> ');
+                const formattedReply = formatCopilotReply(reply);
 
-                botBubble.innerHTML = `<p class="font-bold text-indigo-400">🤖 Gemini Copilot:</p><div class="opacity-95 leading-relaxed">${formattedReply}</div>`;
+                botBubble.innerHTML = `<p class="font-bold text-indigo-400">✦ ZIEL AI · Gemini</p><div class="opacity-95 leading-relaxed">${formattedReply}</div>`;
                 playChime('success');
             } else {
-                copilotChatHistory.pop();
-                botBubble.innerHTML = `<p class="text-rose-400 font-bold">⚠️ Kendala Gemini API:</p><p class="text-[11px] opacity-90">${lastError || 'Gagal menghubungi Gemini API. Pastikan API Key valid.'}</p>`;
-                playChime('error');
+                const localReply = buildLocalZielReply(text);
+                botBubble.innerHTML = '<p class="font-bold text-amber-400">Gemini tidak tersedia · Local Coach aktif</p><div class="opacity-95 leading-relaxed">' + formatCopilotReply(localReply) + '</div>';
+                copilotChatHistory.push({ role: 'model', text: localReply });
+                playChime('success');
             }
             chatLogs.scrollTop = chatLogs.scrollHeight;
         }
 
         // ================= DUAL THEME SYSTEM =================
         function initTheme() {
-            const savedTheme = localStorage.getItem('ZIEL_THEME') || 'dark';
-            if (savedTheme === 'light') {
-                document.body.classList.add('light-mode');
-                document.getElementById('iconSun').classList.remove('hidden');
-                document.getElementById('iconMoon').classList.add('hidden');
-                document.getElementById('metaThemeColor').setAttribute('content', '#F1F5F9');
-            } else {
-                document.body.classList.remove('light-mode');
-                document.getElementById('iconSun').classList.add('hidden');
-                document.getElementById('iconMoon').classList.remove('hidden');
-                document.getElementById('metaThemeColor').setAttribute('content', '#131B2F');
-            }
+            applyThemePreference(localStorage.getItem('ZIEL_THEME') || 'dark', false);
+            applyWebPreferences(getWebSettings());
         }
 
         function toggleTheme() {
-            const isLight = document.body.classList.toggle('light-mode');
-            localStorage.setItem('ZIEL_THEME', isLight ? 'light' : 'dark');
-            document.getElementById('iconSun').classList.toggle('hidden', !isLight);
-            document.getElementById('iconMoon').classList.toggle('hidden', isLight);
-            document.getElementById('metaThemeColor').setAttribute('content', isLight ? '#F1F5F9' : '#131B2F');
+            applyThemePreference(document.body.classList.contains('light-mode') ? 'dark' : 'light', true);
             playChime('click');
             renderCategoryTabs();
             renderTasks();
             renderGoals();
+        }
+
+        function applyThemePreference(mode, persist) {
+            const actualLight = mode === 'light' || (mode === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches);
+            document.body.classList.toggle('light-mode', actualLight);
+            if (persist !== false) localStorage.setItem('ZIEL_THEME', mode);
+            const oldSun = document.getElementById('iconSun');
+            const oldMoon = document.getElementById('iconMoon');
+            const headerSun = document.getElementById('themeHeaderSun');
+            const headerMoon = document.getElementById('themeHeaderMoon');
+            if (oldSun) oldSun.classList.toggle('hidden', !actualLight);
+            if (oldMoon) oldMoon.classList.toggle('hidden', actualLight);
+            if (headerSun) headerSun.classList.toggle('hidden', !actualLight);
+            if (headerMoon) headerMoon.classList.toggle('hidden', actualLight);
+            document.getElementById('metaThemeColor')?.setAttribute('content', actualLight ? '#F6F7FB' : '#0F172A');
+            if (document.getElementById('settingsContent')) renderSettingsPanel(window.activeSettingsSection || 'account');
+            safeLucideCreateIcons();
+        }
+
+        // ================= WEB SETTINGS CONFIGURATION =================
+        const ZIEL_SETTINGS_SECTIONS = [
+            { id: 'account', label: 'Account & Profile', icon: 'user-round' },
+            { id: 'workflow', label: 'Preferences & Workflow', icon: 'sliders-horizontal' },
+            { id: 'appearance', label: 'Appearance', icon: 'palette' },
+            { id: 'notifications', label: 'Notifications', icon: 'bell-ring' },
+            { id: 'integrations', label: 'Integrations', icon: 'plug' },
+            { id: 'data', label: 'Data & Browser', icon: 'database' },
+            { id: 'support', label: 'Support & Legal', icon: 'life-buoy' }
+        ];
+        const DEFAULT_WEB_SETTINGS = {
+            language: 'id', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jakarta',
+            weekStart: 'monday', timeFormat: '24', launchPage: 'home', density: 'cozy', fontSize: 'normal',
+            accent: '#5B5FEF', browserPush: false, upcomingDeadlines: true, assignedTasks: true,
+            dailyDigest: true, emailDigest: 'off', quietHours: true, quietStart: '22:00', quietEnd: '07:00'
+        };
+        window.activeSettingsSection = 'account';
+
+        function getWebSettings() {
+            let stored = {};
+            try { stored = JSON.parse(localStorage.getItem('ZIEL_WEB_SETTINGS') || '{}'); } catch (e) { stored = {}; }
+            return Object.assign({}, DEFAULT_WEB_SETTINGS, stored, { theme: localStorage.getItem('ZIEL_THEME') || 'dark' });
+        }
+
+        function persistWebSettings(settings) {
+            const copy = Object.assign({}, settings); delete copy.theme;
+            localStorage.setItem('ZIEL_WEB_SETTINGS', JSON.stringify(copy));
+            applyWebPreferences(settings);
+        }
+
+        function applyWebPreferences(settings) {
+            settings = settings || getWebSettings();
+            document.documentElement.style.setProperty('--accent-indigo', settings.accent || '#5B5FEF');
+            document.body.classList.toggle('density-compact', settings.density === 'compact');
+            document.body.classList.toggle('font-large', settings.fontSize === 'large');
+        }
+
+        function settingRow(title, copy, control) {
+            return '<div class="setting-row"><div class="setting-copy"><strong>' + title + '</strong><small>' + copy + '</small></div><div class="setting-control">' + control + '</div></div>';
+        }
+
+        function toggleControl(key, enabled) {
+            return '<button onclick="toggleWebSetting(\'' + key + '\')" class="toggle-switch ' + (enabled ? 'on' : '') + '" role="switch" aria-checked="' + enabled + '"><i></i></button>';
+        }
+
+        function renderSettingsNav() {
+            const nav = document.getElementById('settingsNav');
+            if (!nav) return;
+            nav.innerHTML = ZIEL_SETTINGS_SECTIONS.map(function (section) {
+                return '<button onclick="openSettingsSection(\'' + section.id + '\')" class="' + (window.activeSettingsSection === section.id ? 'active' : '') + '"><i data-lucide="' + section.icon + '"></i><span>' + section.label + '</span></button>';
+            }).join('');
+        }
+
+        function openSettingsSection(section) {
+            window.activeSettingsSection = ZIEL_SETTINGS_SECTIONS.some(function (x) { return x.id === section; }) ? section : 'account';
+            const modal = document.getElementById('settingsModal');
+            if (modal) modal.classList.remove('hidden');
+            renderSettingsNav();
+            renderSettingsPanel(window.activeSettingsSection);
+            safeLucideCreateIcons({ root: modal });
+        }
+
+        function renderSettingsPanel(section) {
+            const panel = document.getElementById('settingsContent');
+            if (!panel) return;
+            const s = getWebSettings();
+            const profile = JSON.parse(localStorage.getItem('ZIEL_USER_PROFILE') || '{"name":"ZIEL User","email":"Belum terhubung"}');
+            let title = '', desc = '', body = '';
+            if (section === 'account') {
+                title = 'Account & Profile'; desc = 'Identitas, keamanan browser, dan paket workspace.';
+                body = '<div class="setting-group">' +
+                    settingRow('Profile Details', 'Edit nama, avatar, email, dan peran workspace.', '<button onclick="closeModal(\'settingsModal\');openAuthModal()" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">' + (profile.name || 'Edit profil') + '</button>') +
+                    settingRow('Security & Sign-in', 'Password, email, sesi browser aktif, dan Two-Factor Authentication.', '<button onclick="showSettingsInfo(\'Keamanan akun membutuhkan backend autentikasi. Struktur UI-nya sudah disiapkan untuk Firebase/Auth provider.\')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Kelola</button>') +
+                    settingRow('Subscription & Billing', 'Paket web, invoice, dan metode pembayaran.', '<span class="tag-indigo px-3 py-2 rounded-xl text-xs font-bold">Free plan</span>') + '</div>';
+            } else if (section === 'workflow') {
+                title = 'Preferences & Web Workflow'; desc = 'Optimalkan kalender, tampilan awal, dan alur kerja keyboard.';
+                body = '<div class="setting-group">' +
+                    settingRow('Language', 'Bahasa antarmuka aplikasi.', '<select onchange="setWebSetting(\'language\',this.value)" class="theme-input rounded-xl p-2 text-xs"><option value="id" ' + (s.language === 'id' ? 'selected' : '') + '>Bahasa Indonesia</option><option value="en" ' + (s.language === 'en' ? 'selected' : '') + '>English</option></select>') +
+                    settingRow('Timezone', 'Terdeteksi dari browser agar deadline tetap akurat.', '<input value="' + s.timezone + '" onchange="setWebSetting(\'timezone\',this.value)" class="theme-input rounded-xl p-2 text-xs" type="text">') +
+                    settingRow('Start Week On', 'Hari pertama pada kalender ZIEL.', '<div class="settings-segment"><button onclick="setWebSetting(\'weekStart\',\'monday\')" class="' + (s.weekStart === 'monday' ? 'active' : '') + '">Monday</button><button onclick="setWebSetting(\'weekStart\',\'sunday\')" class="' + (s.weekStart === 'sunday' ? 'active' : '') + '">Sunday</button></div>') +
+                    settingRow('Time Format', 'Format jam pada timeline dan agenda.', '<div class="settings-segment"><button onclick="setWebSetting(\'timeFormat\',\'24\')" class="' + (s.timeFormat === '24' ? 'active' : '') + '">24-hour</button><button onclick="setWebSetting(\'timeFormat\',\'12\')" class="' + (s.timeFormat === '12' ? 'active' : '') + '">12-hour</button></div>') +
+                    settingRow('Default Launch Page', 'Halaman pertama saat ZIEL dibuka.', '<select onchange="setWebSetting(\'launchPage\',this.value)" class="theme-input rounded-xl p-2 text-xs"><option value="home" ' + (s.launchPage === 'home' ? 'selected' : '') + '>Home</option><option value="timeline" ' + (s.launchPage === 'timeline' ? 'selected' : '') + '>Today</option><option value="goals" ' + (s.launchPage === 'goals' ? 'selected' : '') + '>Goals</option><option value="tasks" ' + (s.launchPage === 'tasks' ? 'selected' : '') + '>Tasks</option></select>') + '</div>' +
+                    '<div class="setting-group"><div class="setting-copy"><strong>Keyboard Shortcuts</strong><small>Shortcut web aktif dan dapat dipelajari tanpa meninggalkan halaman.</small></div><div class="grid grid-cols-2 gap-2 mt-3 text-xs"><span class="subtle-row"><kbd>G H</kbd><strong>Home</strong></span><span class="subtle-row"><kbd>G T</kbd><strong>Tasks</strong></span><span class="subtle-row"><kbd>N</kbd><strong>Quick add</strong></span><span class="subtle-row"><kbd>⌘ K</kbd><strong>Ask ZIEL</strong></span></div></div>';
+            } else if (section === 'appearance') {
+                title = 'Appearance'; desc = 'Tema, warna aksen, ukuran teks, dan kepadatan layout.';
+                const theme = localStorage.getItem('ZIEL_THEME') || 'dark';
+                body = '<div class="setting-group">' +
+                    settingRow('Theme', 'Light, Dark, atau mengikuti OS/browser.', '<div class="settings-segment"><button onclick="setThemeSetting(\'light\')" class="' + (theme === 'light' ? 'active' : '') + '">Light</button><button onclick="setThemeSetting(\'dark\')" class="' + (theme === 'dark' ? 'active' : '') + '">Dark</button><button onclick="setThemeSetting(\'system\')" class="' + (theme === 'system' ? 'active' : '') + '">System</button></div>') +
+                    settingRow('Accent Color', 'Warna utama tombol dan status aktif.', '<div class="flex gap-2"><button onclick="setAccentColor(\'#5B5FEF\')" class="accent-dot ' + (s.accent === '#5B5FEF' ? 'active' : '') + '" style="background:#5B5FEF"></button><button onclick="setAccentColor(\'#0EA5E9\')" class="accent-dot ' + (s.accent === '#0EA5E9' ? 'active' : '') + '" style="background:#0EA5E9"></button><button onclick="setAccentColor(\'#10B981\')" class="accent-dot ' + (s.accent === '#10B981' ? 'active' : '') + '" style="background:#10B981"></button><button onclick="setAccentColor(\'#F97316\')" class="accent-dot ' + (s.accent === '#F97316' ? 'active' : '') + '" style="background:#F97316"></button></div>') +
+                    settingRow('Font Size', 'Ukuran teks antarmuka web.', '<div class="settings-segment"><button onclick="setWebSetting(\'fontSize\',\'normal\')" class="' + (s.fontSize === 'normal' ? 'active' : '') + '">Normal</button><button onclick="setWebSetting(\'fontSize\',\'large\')" class="' + (s.fontSize === 'large' ? 'active' : '') + '">Large</button></div>') +
+                    settingRow('Layout Density', 'Compact untuk desktop padat atau Cozy untuk ruang lebih lega.', '<div class="settings-segment"><button onclick="setWebSetting(\'density\',\'compact\')" class="' + (s.density === 'compact' ? 'active' : '') + '">Compact</button><button onclick="setWebSetting(\'density\',\'cozy\')" class="' + (s.density === 'cozy' ? 'active' : '') + '">Cozy</button></div>') + '</div>';
+            } else if (section === 'notifications') {
+                title = 'Notifications'; desc = 'Atur browser push, pemicu, digest, dan jam tenang.';
+                const permission = typeof Notification === 'undefined' ? 'Tidak didukung' : Notification.permission;
+                body = '<div class="setting-group">' +
+                    settingRow('Browser Push Notifications', 'Izin HTML5 browser saat aplikasi tidak aktif.', '<button onclick="requestBrowserNotifications()" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">' + permission + '</button>') +
+                    settingRow('Upcoming Deadlines', 'Ingatkan goal dan task yang mendekati deadline.', toggleControl('upcomingDeadlines', s.upcomingDeadlines)) +
+                    settingRow('Assigned Tasks', 'Perubahan task yang ditugaskan kepadamu.', toggleControl('assignedTasks', s.assignedTasks)) +
+                    settingRow('Daily Digest', 'Ringkasan prioritas dan agenda setiap hari.', toggleControl('dailyDigest', s.dailyDigest)) +
+                    settingRow('Email Digests', 'Frekuensi ringkasan email.', '<select onchange="setWebSetting(\'emailDigest\',this.value)" class="theme-input rounded-xl p-2 text-xs"><option value="off" ' + (s.emailDigest === 'off' ? 'selected' : '') + '>Off</option><option value="daily" ' + (s.emailDigest === 'daily' ? 'selected' : '') + '>Daily</option><option value="weekly" ' + (s.emailDigest === 'weekly' ? 'selected' : '') + '>Weekly</option></select>') +
+                    settingRow('Quiet Hours', 'Bisukan notifikasi pada jam istirahat.', toggleControl('quietHours', s.quietHours)) +
+                    settingRow('Quiet Schedule', 'Rentang otomatis untuk tidak mengganggu.', '<div class="flex items-center gap-2"><input type="time" value="' + s.quietStart + '" onchange="setWebSetting(\'quietStart\',this.value)" class="theme-input rounded-xl p-2 text-xs"><span>–</span><input type="time" value="' + s.quietEnd + '" onchange="setWebSetting(\'quietEnd\',this.value)" class="theme-input rounded-xl p-2 text-xs"></div>') + '</div>';
+            } else if (section === 'integrations') {
+                title = 'Integrations & Extensions'; desc = 'Hubungkan kalender, cloud storage, audio, dan layanan developer.';
+                const hasGemini = !!(localStorage.getItem('ZIEL_GEMINI_API_KEY') || '').trim();
+                body = '<div class="setting-group">' +
+                    settingRow('Calendar Sync', 'Google Calendar aktif via web; Outlook dan Apple siap dikembangkan.', '<button onclick="openGoogleCalendarWeb()" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Google Calendar</button>') +
+                    settingRow('Spotify', 'Playlist embed dan koneksi akun untuk Soundscape.', '<button onclick="closeModal(\'settingsModal\');openSoundscapeModal();switchSoundscapeSource(\'spotify\')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Buka Soundscape</button>') +
+                    settingRow('Cloud Storage', 'Google Drive, Dropbox, dan OneDrive.', '<button onclick="showSettingsInfo(\'Koneksi cloud memerlukan OAuth dan backend provider. UI integrasi sudah ditempatkan di sini.\')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Connect</button>') +
+                    settingRow('Webhooks & API Keys', 'Incoming/outgoing webhook untuk Pro dan Team.', '<span class="tag-amber px-3 py-2 rounded-xl text-xs font-bold">Pro / Team</span>') + '</div>' +
+                    '<div class="setting-group"><div class="setting-copy"><strong>Gemini Enhancement <span class="' + (hasGemini ? 'text-emerald-400' : 'text-amber-400') + '">' + (hasGemini ? '· Connected' : '· Optional') + '</span></strong><small>Ask ZIEL Local Coach tetap berfungsi tanpa key. Gemini memperluas percakapan generatif.</small></div><div class="flex gap-2 mt-3"><input id="settingsGeminiApiKey" type="password" class="theme-input flex-1 rounded-xl p-2.5 text-xs" placeholder="Gemini API key"><button onclick="saveSettingsGeminiKey()" class="primary-btn-gradient px-4 rounded-xl text-xs font-bold">Simpan</button><button onclick="removeGeminiApiKey();openSettingsSection(\'integrations\')" class="btn-secondary px-3 rounded-xl text-xs font-bold">Hapus</button></div></div>';
+            } else if (section === 'data') {
+                title = 'Data & Browser Management'; desc = 'Ekspor, impor, storage, cache, dan pemulihan workspace.';
+                const kb = Math.round(JSON.stringify(localStorage).length / 1024);
+                body = '<div class="setting-group">' +
+                    settingRow('Export Data', 'Unduh workspace lengkap untuk backup atau analisis.', '<div class="flex gap-2"><button onclick="exportZielData(\'json\')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">JSON</button><button onclick="exportZielData(\'csv\')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">CSV</button><button onclick="exportZielData(\'pdf\')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">PDF</button></div>') +
+                    settingRow('Import Data', 'Migrasi JSON dari backup ZIEL; importer layanan lain dapat ditambahkan.', '<label class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold cursor-pointer">Pilih file<input type="file" accept="application/json" class="hidden" onchange="importZielData(this.files[0])"></label>') +
+                    settingRow('Storage & Cache', 'Perkiraan local storage: ' + kb + ' KB.', '<button onclick="clearZielCache()" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold text-rose-400">Clear Cache & Reload</button>') + '</div>';
+            } else {
+                title = 'Support & Legal'; desc = 'Dokumentasi, feedback, informasi browser, dan kebijakan.';
+                body = '<div class="setting-group">' +
+                    settingRow('Documentation', 'Panduan Goal, timeline, Focus Mode, dan shortcut.', '<button onclick="showSettingsInfo(\'Dokumentasi ZIEL akan dibuka di knowledge center.\')" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Buka panduan</button>') +
+                    settingRow('Feedback & Bug Report', 'Sertakan browser dan OS secara otomatis.', '<button onclick="copyBugReport()" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Salin info bug</button>') +
+                    settingRow('About ZIEL', 'Web app version 3.1 · Calm execution system.', '<span class="tag-indigo px-3 py-2 rounded-xl text-xs font-bold">v3.1</span>') +
+                    settingRow('Privacy & Terms', 'Kebijakan privasi dan ketentuan layanan.', '<button onclick="showSettingsInfo(\'Halaman Privacy Policy dan Terms perlu dihubungkan ke URL produksi.\')" class="text-link">Lihat dokumen</button>') + '</div>';
+            }
+            panel.innerHTML = '<header class="settings-section-head"><h3>' + title + '</h3><p>' + desc + '</p></header>' + body;
+            renderSettingsNav();
+            safeLucideCreateIcons({ root: document.getElementById('settingsModal') });
+        }
+
+        function setWebSetting(key, value) {
+            const settings = getWebSettings(); settings[key] = value; persistWebSettings(settings); renderSettingsPanel(window.activeSettingsSection);
+        }
+        function toggleWebSetting(key) { const s = getWebSettings(); setWebSetting(key, !s[key]); }
+        function setThemeSetting(mode) { applyThemePreference(mode, true); renderSettingsPanel('appearance'); }
+        function setAccentColor(color) { setWebSetting('accent', color); document.documentElement.style.setProperty('--accent-indigo', color); }
+        function showSettingsInfo(message) { showToast({ type: 'info', title: 'ZIEL Settings', message: message }); }
+
+        async function requestBrowserNotifications() {
+            if (typeof Notification === 'undefined') return showSettingsInfo('Browser ini tidak mendukung push notification.');
+            const permission = await Notification.requestPermission();
+            setWebSetting('browserPush', permission === 'granted');
+            showToast({ type: permission === 'granted' ? 'success' : 'warning', title: 'Browser notification', message: permission === 'granted' ? 'Izin notifikasi berhasil diberikan.' : 'Izin belum diberikan. Kamu dapat mengubahnya dari pengaturan browser.' });
+        }
+
+        function saveSettingsGeminiKey() {
+            const dynamicInput = document.getElementById('settingsGeminiApiKey');
+            const legacyInput = document.getElementById('geminiApiKeyInput');
+            if (legacyInput) legacyInput.value = dynamicInput?.value || '';
+            const key = (dynamicInput?.value || '').trim();
+            if (!key) return showSettingsInfo('Masukkan Gemini API key terlebih dahulu.');
+            localStorage.setItem('ZIEL_GEMINI_API_KEY', key); updateGeminiStatusUI();
+            showToast({ type: 'success', title: 'Gemini terhubung', message: 'Ask ZIEL sekarang memakai Gemini untuk percakapan generatif.' });
+            openSettingsSection('integrations');
+        }
+
+        function exportZielData(format) {
+            const payload = { version: '3.1', exportedAt: new Date().toISOString(), profile: JSON.parse(localStorage.getItem('ZIEL_USER_PROFILE') || 'null'), state: state, agenda: getAgenda(), categories: getCategories(), settings: getWebSettings() };
+            let content, type, filename;
+            if (format === 'pdf') {
+                const printWindow = window.open('', '_blank');
+                if (!printWindow) return showSettingsInfo('Izinkan pop-up browser untuk membuat PDF.');
+                const taskRows = state.tasks.map(function (t) { return '<tr><td>' + String(t.title || '').replace(/</g,'&lt;') + '</td><td>' + t.status + '</td><td>' + (t.deadline || '-') + '</td></tr>'; }).join('');
+                printWindow.document.write('<!doctype html><html><head><title>ZIEL Workspace Report</title><style>body{font-family:Arial,sans-serif;padding:32px;color:#172033}h1{margin-bottom:4px}small{color:#64748b}table{width:100%;border-collapse:collapse;margin-top:24px}th,td{text-align:left;padding:9px;border-bottom:1px solid #e2e8f0;font-size:12px}@media print{button{display:none}}</style></head><body><h1>ZIEL Workspace Report</h1><small>Dibuat ' + new Date().toLocaleString('id-ID') + '</small><p>' + state.goals.length + ' goal · ' + state.tasks.length + ' task · ' + getAgenda().length + ' agenda</p><table><thead><tr><th>Task</th><th>Status</th><th>Deadline</th></tr></thead><tbody>' + taskRows + '</tbody></table><button onclick="print()">Save as PDF</button></body></html>');
+                printWindow.document.close(); setTimeout(function () { printWindow.print(); }, 300); return;
+            } else if (format === 'csv') {
+                const rows = [['type','title','status','deadline']].concat(state.tasks.map(function (t) { return ['task', t.title, t.status, t.deadline || '']; }), state.goals.map(function (g) { return ['goal', g.title, g.status, g.endDate || '']; }));
+                content = rows.map(function (row) { return row.map(function (cell) { return '"' + String(cell || '').replace(/"/g, '""') + '"'; }).join(','); }).join('\n'); type = 'text/csv'; filename = 'ziel-data.csv';
+            } else { content = JSON.stringify(payload, null, 2); type = 'application/json'; filename = 'ziel-backup.json'; }
+            const url = URL.createObjectURL(new Blob([content], { type: type })); const a = document.createElement('a'); a.href = url; a.download = filename; a.click(); setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        }
+
+        function importZielData(file) {
+            if (!file) return; const reader = new FileReader();
+            reader.onload = function () { try { const data = JSON.parse(reader.result); openConfirmModal('Import backup ZIEL?', 'Data dari file akan menggantikan bagian workspace yang tersedia di backup.', function () { if (data.state) { state = data.state; localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state)); } if (data.agenda) localStorage.setItem('ZIEL_AGENDA', JSON.stringify(data.agenda)); if (data.categories) localStorage.setItem('ZIEL_CATEGORIES', JSON.stringify(data.categories)); if (data.settings) persistWebSettings(data.settings); renderAll(); showToast({ type: 'success', title: 'Import selesai', message: 'Data workspace berhasil dipulihkan.' }); }); } catch (e) { showToast({ type: 'error', title: 'File tidak valid', message: 'Gunakan backup JSON dari ZIEL.' }); } };
+            reader.readAsText(file);
+        }
+
+        function clearZielCache() {
+            openConfirmModal('Clear Cache & Reload?', 'Cache tampilan akan dibersihkan. Goal, task, dan pengaturan tetap aman.', function () {
+                if ('caches' in window) caches.keys().then(function (keys) { return Promise.all(keys.map(function (key) { return caches.delete(key); })); }).finally(function () { location.reload(); });
+                else location.reload();
+            });
+        }
+
+        function copyBugReport() {
+            const info = 'ZIEL v3.1\n' + navigator.userAgent + '\nViewport: ' + innerWidth + 'x' + innerHeight;
+            navigator.clipboard?.writeText(info); showToast({ type: 'success', title: 'Info bug disalin', message: 'Tempelkan informasi ini saat mengirim laporan.' });
         }
 
         // ================= DYNAMIC CATEGORIES =================
@@ -4172,6 +4602,18 @@ Gemini:`;
             }
         });
 
+        let zielKeySequence = '';
+        window.addEventListener('keydown', function (e) {
+            const target = e.target;
+            if (target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return;
+            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openModal('aiCopilotModal'); return; }
+            if (!e.metaKey && !e.ctrlKey && e.key.toLowerCase() === 'n') { e.preventDefault(); openQuickAdd(); return; }
+            zielKeySequence = (zielKeySequence + e.key.toLowerCase()).slice(-2);
+            if (zielKeySequence === 'gh') { navigateApp('home'); zielKeySequence = ''; }
+            if (zielKeySequence === 'gt') { navigateApp('tasks'); zielKeySequence = ''; }
+            setTimeout(function () { zielKeySequence = ''; }, 800);
+        });
+
         // ================= AI BRAIN DUMP =================
         let parsedBrainDumpTasks = [];
 
@@ -4183,7 +4625,7 @@ Gemini:`;
             }
 
             const btn = document.getElementById('btnProcessBrainDump');
-            btn.innerHTML = '<span class="animate-spin mr-2">⚡</span> Menganalisis dengan Gemini...';
+            btn.innerHTML = '<span class="animate-spin mr-2">⚡</span> ZIEL sedang mengurai...';
             btn.disabled = true;
 
             const cats = getCategories();
@@ -4971,6 +5413,10 @@ function toggleMilestoneStatus(goalId, milestoneId) {
             initTheme();
             checkSpotifyAuthRedirect();
             renderAll();
+            if (!sessionStorage.getItem('ZIEL_LAUNCH_APPLIED')) {
+                sessionStorage.setItem('ZIEL_LAUNCH_APPLIED', '1');
+                navigateApp(getWebSettings().launchPage || 'home');
+            }
             initFirebase();
         });
 
@@ -6001,6 +6447,11 @@ function prepareAgendaModal(taskId) {
 function openModal(id) {
     const modal = document.getElementById(id);
     if (!modal) return;
+    if (id === 'settingsModal') {
+        window.activeSettingsSection = window.activeSettingsSection || 'account';
+        renderSettingsNav();
+        renderSettingsPanel(window.activeSettingsSection);
+    }
     if (id === 'newGoalModal') prepareGoalModal();
     if (id === 'newTaskModal') renderLinkingSelects();
     if (id === 'newAgendaModal') {
