@@ -336,6 +336,41 @@
         @media (min-width: 1280px) {
             .app-max-width { max-width: 84rem; }
         }
+
+        /* ZIEL multi-horizon execution system */
+        .timeline-view-btn.active {
+            background: var(--primary-gradient) !important;
+            color: #fff !important;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.28);
+        }
+        .goal-horizon-row {
+            position: relative;
+            border-left: 1px solid var(--border-card);
+        }
+        .goal-horizon-row::before {
+            content: '';
+            position: absolute;
+            left: -1px;
+            top: 1.1rem;
+            width: .75rem;
+            border-top: 1px solid var(--border-card);
+        }
+        .timeline-week-grid {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(8rem, 1fr));
+            gap: .6rem;
+            min-width: 58rem;
+        }
+        .timeline-month-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(10rem, 1fr));
+            gap: .75rem;
+        }
+        @media (max-width: 640px) {
+            .timeline-month-grid { grid-template-columns: 1fr; }
+            .goal-detail-panel { align-items: flex-end !important; padding: 0 !important; }
+            .goal-detail-panel > div { border-radius: 1.5rem 1.5rem 0 0; max-height: 92vh; }
+        }
     </style>
     <meta name="theme-color" content="#607D8B">
     <link rel="manifest" href="manifest.json">
@@ -552,49 +587,52 @@
     </div>
 </section>
 
-        <!-- CATEGORIES & TABS -->
-        <section class="space-y-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2 overflow-x-auto pb-1.5 custom-scrollbar flex-1 mr-2" id="categoryTabsList"></div>
-                <button onclick="openModal('manageCategoriesModal')" class="btn-secondary shrink-0 p-2 rounded-2xl text-xs font-bold flex items-center space-x-1.5" title="Kelola Kategori">
-                    <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-indigo-400"></i>
-                    <span class="hidden sm:inline">Kategori</span>
-                </button>
+        <!-- EXECUTION TIMELINE & WORKING SURFACES -->
+        <section class="space-y-5">
+            <div class="theme-card rounded-3xl p-4 sm:p-5 space-y-4 overflow-hidden">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="calendar-range" class="w-4 h-4 text-teal-400"></i>
+                            <h3 class="text-xs font-extrabold uppercase tracking-wider" style="color: var(--text-main);">Execution Timeline</h3>
+                        </div>
+                        <p id="timelinePeriodLabel" class="text-[10px] mt-1" style="color: var(--text-muted);"></p>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="shiftTimeline(-1)" class="btn-secondary p-2 rounded-xl" aria-label="Periode sebelumnya"><i data-lucide="chevron-left" class="w-3.5 h-3.5"></i></button>
+                        <button onclick="goTimelineToday()" class="btn-secondary px-3 py-2 rounded-xl text-[10px] font-bold">Hari ini</button>
+                        <button onclick="shiftTimeline(1)" class="btn-secondary p-2 rounded-xl" aria-label="Periode berikutnya"><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button>
+                        <button onclick="openGoogleCalendarWeb()" class="btn-secondary p-2 rounded-xl" title="Buka Google Calendar"><i data-lucide="external-link" class="w-3.5 h-3.5"></i></button>
+                        <button onclick="prepareAgendaModal()" class="primary-btn-gradient px-3 py-2 rounded-xl text-[10px] font-bold flex items-center gap-1"><i data-lucide="plus" class="w-3.5 h-3.5"></i> Agenda</button>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar pb-1" id="timelineViewSelector">
+                    <button data-view="day" onclick="setTimelineView('day')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">Hari</button>
+                    <button data-view="week" onclick="setTimelineView('week')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">Minggu</button>
+                    <button data-view="month" onclick="setTimelineView('month')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">Bulan</button>
+                    <button data-view="quarter" onclick="setTimelineView('quarter')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">3 Bulan</button>
+                    <button data-view="half" onclick="setTimelineView('half')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">6 Bulan</button>
+                    <button data-view="year" onclick="setTimelineView('year')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">Tahun</button>
+                </div>
+
+                <div class="flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar flex-1" id="categoryTabsList"></div>
+                    <button onclick="openModal('manageCategoriesModal')" class="btn-secondary shrink-0 p-2 rounded-xl" title="Kelola kategori"><i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-indigo-400"></i></button>
+                </div>
+
+                <div id="timelineCapacityContainer"></div>
+                <div id="executionTimelineContent" class="min-h-[8rem]"></div>
             </div>
 
             <!-- Two-Column Grid: Left (Agenda & Goals) & Right (Tasks Queue) -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
 
-                <!-- Left Column: Agenda & Goals -->
-                <div class="lg:col-span-5 space-y-5">
-                    
-                    <!-- KARTU AGENDA HARI INI -->
-                    <div class="theme-card p-4 rounded-2xl space-y-3">
+                <!-- Goals & Milestones: one calm, unified container -->
+                <div class="lg:col-span-5">
+                    <div class="theme-card p-4 sm:p-5 rounded-3xl space-y-4">
                         <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-2">
-                                <i data-lucide="calendar-check-2" class="w-4 h-4 text-teal-400"></i>
-                                <h3 class="text-xs font-bold uppercase tracking-wider" style="color: var(--text-main);">Agenda Hari Ini</h3>
-                            </div>
-                            <div class="flex items-center space-x-1">
-                                <button onclick="openGoogleCalendarWeb()" class="btn-secondary text-[10px] px-2 py-1 rounded-lg font-bold flex items-center space-x-1" title="Buka GCal">
-                                    <i data-lucide="external-link" class="w-3 h-3"></i>
-                                    <span>GCal</span>
-                                </button>
-                                <button onclick="openModal('newAgendaModal')" class="primary-btn-gradient text-[10px] px-2.5 py-1 rounded-lg font-bold flex items-center space-x-1" title="Tambah Agenda">
-                                    <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                                    <span>+ Agenda</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Schedule Items Container -->
-                        <div class="space-y-2 text-xs" id="calendarAgendaContainer"></div>
-                    </div>
-
-                    <!-- Goals & Milestones -->
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-xs font-bold uppercase tracking-wider flex items-center space-x-2" style="color: var(--text-sub);">
+                            <h3 class="text-xs font-bold uppercase tracking-wider flex items-center space-x-2" style="color: var(--text-main);">
                                 <i data-lucide="target" class="w-4 h-4 text-indigo-400"></i>
                                 <span>Goals & Milestones</span>
                             </h3>
@@ -1247,7 +1285,7 @@
 
     <!-- 6. NEW GOAL MODAL -->
     <div id="newGoalModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
-    <div class="glass-modal rounded-3xl max-w-lg w-full p-6 space-y-4 relative">
+    <div class="glass-modal rounded-3xl max-w-xl w-full p-6 space-y-4 relative max-h-[92vh] overflow-y-auto custom-scrollbar">
         <div class="flex items-center justify-between">
             <h3 class="text-lg font-bold" style="color: var(--text-main);">Buat Goal Baru</h3>
             <button onclick="closeModal('newGoalModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -1258,22 +1296,47 @@
                 <label class="block font-semibold mb-1" style="color: var(--text-sub);">Judul Sasaran (Goal)</label>
                 <input type="text" id="newGoalTitle" class="w-full theme-input rounded-xl p-2.5" placeholder="Contoh: Lulus Sertifikasi AWS Cloud Practitioner">
             </div>
-            <div class="grid grid-cols-2 gap-2">
+            <div>
+                <label class="block font-semibold mb-1" style="color: var(--text-sub);">Deskripsi singkat <span class="font-normal opacity-60">(opsional)</span></label>
+                <textarea id="newGoalDescription" rows="2" class="w-full theme-input rounded-xl p-2.5" placeholder="Mengapa goal ini penting dan seperti apa hasil akhirnya?"></textarea>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div>
                     <label class="block font-semibold mb-1" style="color: var(--text-sub);">Kategori</label>
                     <select id="newGoalCategory" class="w-full theme-input rounded-xl p-2.5"></select>
                 </div>
                 <div>
-                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Target Deadline</label>
-                    <input type="date" id="newGoalDeadline" class="w-full theme-input rounded-xl p-2.5">
+                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Mulai</label>
+                    <input type="date" id="newGoalStartDate" onchange="updateGoalDurationUI()" class="w-full theme-input rounded-xl p-2.5">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div>
+                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Durasi Goal</label>
+                    <select id="newGoalDurationType" onchange="updateGoalDurationUI()" class="w-full theme-input rounded-xl p-2.5">
+                        <option value="5_years">5 Tahun</option>
+                        <option value="4_years">4 Tahun</option>
+                        <option value="3_years">3 Tahun</option>
+                        <option value="2_years">2 Tahun</option>
+                        <option value="1_year" selected>1 Tahun</option>
+                        <option value="6_months">6 Bulan</option>
+                        <option value="3_months">3 Bulan</option>
+                        <option value="1_month">1 Bulan</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </div>
+                <div id="goalCalculatedEndWrap">
+                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Selesai</label>
+                    <input type="date" id="newGoalEndDate" class="w-full theme-input rounded-xl p-2.5" readonly>
                 </div>
             </div>
 
             <div class="p-3 rounded-2xl flex items-start space-x-2 tag-indigo">
                 <input type="checkbox" id="enableAIBreakdown" checked onchange="toggleManualMilestoneUI()" class="mt-0.5 rounded text-indigo-600">
                 <label for="enableAIBreakdown" class="text-[11px]">
-                    <strong class="block">Gemini Auto-Breakdown</strong>
-                    Otomatis buatkan Milestones dan starter micro-action dari goal ini.
+                    <strong class="block">✨ AI Goal Breakdown</strong>
+                    Buat rencana time horizon yang sederhana. Anda akan meninjau dan mengeditnya sebelum disimpan.
                 </label>
             </div>
 
@@ -1288,10 +1351,49 @@
         </div>
 
         <button onclick="saveNewGoal()" id="btnSaveGoal" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md">
-            Simpan Goal
+            Review Goal Plan
         </button>
     </div>
 </div>
+
+    <!-- REVIEW GOAL PLAN MODAL -->
+    <div id="reviewGoalPlanModal" class="fixed inset-0 z-[60] modal-backdrop-blur flex items-center justify-center p-4 hidden">
+        <div class="glass-modal rounded-3xl max-w-2xl w-full p-5 sm:p-6 space-y-4 relative max-h-[92vh] overflow-y-auto custom-scrollbar">
+            <div class="flex items-start justify-between gap-3">
+                <div>
+                    <div class="flex items-center gap-2 text-indigo-400"><i data-lucide="route" class="w-5 h-5"></i><h3 class="text-lg font-bold">Review Goal Plan</h3></div>
+                    <p id="goalPlanSummary" class="text-[11px] mt-1" style="color: var(--text-muted);"></p>
+                </div>
+                <button onclick="closeModal('reviewGoalPlanModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div class="p-3 rounded-2xl tag-indigo text-[11px] leading-relaxed">Zoom out untuk memahami arah. Zoom in untuk memilih tindakan berikutnya. Nonaktifkan level yang tidak Anda perlukan.</div>
+            <div id="goalPlanReviewList" class="space-y-2"></div>
+            <div class="flex flex-col sm:flex-row gap-2 pt-1">
+                <button onclick="addGoalPlanItem()" class="btn-secondary px-3 py-2.5 rounded-xl text-xs font-bold">+ Tambah target</button>
+                <button onclick="regenerateGoalPlan()" class="btn-secondary px-3 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1"><i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Regenerate</button>
+                <button onclick="approveGoalPlan()" class="primary-btn-gradient flex-1 px-4 py-2.5 rounded-xl text-xs font-bold">Approve Goal Plan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GOAL DETAIL / HIERARCHY MODAL -->
+    <div id="goalDetailModal" class="goal-detail-panel fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
+        <div class="glass-modal rounded-3xl max-w-3xl w-full p-5 sm:p-6 space-y-4 relative overflow-y-auto custom-scrollbar max-h-[92vh]">
+            <div class="flex items-start justify-between gap-3">
+                <div id="goalDetailHeader"></div>
+                <button onclick="closeModal('goalDetailModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-1 overflow-x-auto custom-scrollbar" id="goalZoomControls"></div>
+                <div class="flex items-center gap-1">
+                    <button onclick="editCurrentGoal()" class="btn-secondary shrink-0 px-3 py-2 rounded-xl text-[10px] font-bold flex items-center gap-1"><i data-lucide="pencil" class="w-3.5 h-3.5"></i> Edit</button>
+                    <button onclick="aiReplan()" class="btn-secondary shrink-0 px-3 py-2 rounded-xl text-[10px] font-bold flex items-center gap-1"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i> AI Replan</button>
+                </div>
+            </div>
+            <div id="goalDetailPath" class="space-y-2"></div>
+            <div id="goalDetailTasks" class="space-y-2"></div>
+        </div>
+    </div>
 
     <!-- 7. NEW TASK MODAL -->
     <div id="newTaskModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
@@ -1305,6 +1407,16 @@
                 <div>
                     <label class="block font-semibold mb-1" style="color: var(--text-sub);">Judul Tugas</label>
                     <input type="text" id="newTaskTitle" class="w-full theme-input rounded-xl p-2.5" placeholder="Contoh: Baca panduan VPC & Subnetting">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div>
+                        <label class="block font-semibold mb-1" style="color: var(--text-sub);">Terhubung ke Goal</label>
+                        <select id="newTaskGoal" onchange="updateTaskGoalContext()" class="w-full theme-input rounded-xl p-2.5"><option value="">Tanpa Goal</option></select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1" style="color: var(--text-sub);">Milestone</label>
+                        <select id="newTaskMilestone" class="w-full theme-input rounded-xl p-2.5"><option value="">Tanpa Milestone</option></select>
+                    </div>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
@@ -1341,6 +1453,10 @@
                     <label class="block font-semibold mb-1" style="color: var(--text-sub);">Micro Next Action (Langkah Awal 2 Menit)</label>
                     <input type="text" id="newTaskMicroAction" class="w-full theme-input rounded-xl p-2.5" placeholder="Aksi konkret 2 menit pertama">
                 </div>
+                <div>
+                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Deadline</label>
+                    <input type="date" id="newTaskDeadline" class="w-full theme-input rounded-xl p-2.5">
+                </div>
             </div>
 
             <button onclick="saveNewTask()" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-md">
@@ -1353,14 +1469,22 @@
     <div id="newAgendaModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4 hidden">
         <div class="glass-modal rounded-3xl max-w-md w-full p-6 space-y-4 relative">
             <div class="flex items-center justify-between">
-                <h3 class="text-lg font-bold" style="color: var(--text-main);">Tambah Agenda Hari Ini</h3>
+                <h3 class="text-lg font-bold" style="color: var(--text-main);">Tambah Agenda</h3>
                 <button onclick="closeModal('newAgendaModal')" class="opacity-60 hover:opacity-100 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
 
             <div class="space-y-3 text-xs">
                 <div>
+                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Dari Task <span class="font-normal opacity-60">(opsional)</span></label>
+                    <select id="newAgendaTask" onchange="updateAgendaTaskContext()" class="w-full theme-input rounded-xl p-2.5"><option value="">Agenda mandiri</option></select>
+                </div>
+                <div>
                     <label class="block font-semibold mb-1" style="color: var(--text-sub);">Nama Acara / Jadwal</label>
                     <input type="text" id="newAgendaTitle" class="w-full theme-input rounded-xl p-2.5" placeholder="Contoh: Bimbingan Skripsi via Google Meet">
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1" style="color: var(--text-sub);">Tanggal</label>
+                    <input type="date" id="newAgendaDate" class="w-full theme-input rounded-xl p-2.5">
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
@@ -4305,6 +4429,1210 @@ function renderManualMilestones() {
         container.appendChild(el);
     });
     safeLucideCreateIcons({ root: container });
+}
+
+/* ================= ZIEL MULTI-HORIZON ENHANCEMENT ================= */
+const ZIEL_DURATION_CONFIG = {
+    '5_years': { label: '5 Tahun', months: 60, value: 5 },
+    '4_years': { label: '4 Tahun', months: 48, value: 4 },
+    '3_years': { label: '3 Tahun', months: 36, value: 3 },
+    '2_years': { label: '2 Tahun', months: 24, value: 2 },
+    '1_year': { label: '1 Tahun', months: 12, value: 1 },
+    '6_months': { label: '6 Bulan', months: 6, value: 6 },
+    '3_months': { label: '3 Bulan', months: 3, value: 3 },
+    '1_month': { label: '1 Bulan', months: 1, value: 1 },
+    'custom': { label: 'Custom', months: 0, value: 0 }
+};
+const ZIEL_HORIZON_LABELS = {
+    year: 'Tahun', half_year: '6 Bulan', quarter: '3 Bulan',
+    month: 'Bulan', week: 'Minggu', milestone: 'Milestone'
+};
+const ZIEL_HORIZON_ORDER = ['year', 'half_year', 'quarter', 'month', 'week', 'milestone'];
+let pendingGoalDraft = null;
+let pendingGoalPlan = null;
+let goalDetailCurrentId = null;
+
+function escapeHtml(value) {
+    return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+function localDateKey(date) {
+    const d = date instanceof Date ? date : new Date(date);
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+function todayKey() {
+    return localDateKey(new Date());
+}
+
+function parseLocalDate(key) {
+    const parts = String(key || todayKey()).slice(0, 10).split('-').map(Number);
+    return new Date(parts[0], (parts[1] || 1) - 1, parts[2] || 1, 12, 0, 0, 0);
+}
+
+function addDate(key, amount, unit) {
+    const d = parseLocalDate(key);
+    if (unit === 'day') d.setDate(d.getDate() + amount);
+    if (unit === 'week') d.setDate(d.getDate() + amount * 7);
+    if (unit === 'month') d.setMonth(d.getMonth() + amount);
+    if (unit === 'year') d.setFullYear(d.getFullYear() + amount);
+    return localDateKey(d);
+}
+
+function startOfWeekKey(key) {
+    const d = parseLocalDate(key);
+    const offset = (d.getDay() + 6) % 7;
+    d.setDate(d.getDate() - offset);
+    return localDateKey(d);
+}
+
+function calculateGoalEndDate(startDate, durationType) {
+    const cfg = ZIEL_DURATION_CONFIG[durationType] || ZIEL_DURATION_CONFIG.custom;
+    if (!cfg.months) return document.getElementById('newGoalEndDate')?.value || startDate;
+    return addDate(addDate(startDate, cfg.months, 'month'), -1, 'day');
+}
+
+function formatDateId(key, options) {
+    return parseLocalDate(key).toLocaleDateString('id-ID', options || { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function durationLabel(goal) {
+    return (ZIEL_DURATION_CONFIG[goal.durationType] || {}).label ||
+        Math.max(1, Math.round((parseLocalDate(goal.endDate) - parseLocalDate(goal.startDate)) / 2629800000)) + ' Bulan';
+}
+
+function normalizeAgendaItem(item) {
+    const date = item.date || (item.startDateTime ? String(item.startDateTime).slice(0, 10) : todayKey());
+    return Object.assign({
+        id: 'ag-' + Date.now(),
+        title: 'Agenda',
+        date: date,
+        startTime: '09:00',
+        endTime: '10:00',
+        location: 'Agenda Harian',
+        goalId: null,
+        milestoneId: null,
+        taskId: null,
+        category: null
+    }, item, { date: date });
+}
+
+function getAgenda() {
+    let stored = null;
+    try { stored = JSON.parse(localStorage.getItem('ZIEL_AGENDA')); } catch (e) { stored = null; }
+    const source = Array.isArray(stored) ? stored : DEFAULT_AGENDA;
+    return source.map(normalizeAgendaItem);
+}
+
+function ensureStateShape() {
+    if (!state || typeof state !== 'object') state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    if (!Array.isArray(state.goals)) state.goals = [];
+    if (!Array.isArray(state.tasks)) state.tasks = [];
+    if (!state.stats) state.stats = { completedToday: 0, totalFocusMinutes: 0, streakDays: 0 };
+    if (state.stats.completedToday === undefined) state.stats.completedToday = 0;
+    if (state.stats.totalFocusMinutes === undefined) state.stats.totalFocusMinutes = 0;
+    if (state.stats.streakDays === undefined) state.stats.streakDays = 0;
+    if (state.stats.totalCompletedAllTime === undefined) state.stats.totalCompletedAllTime = state.stats.completedToday || 0;
+    if (state.stats.brainDumpImports === undefined) state.stats.brainDumpImports = 0;
+    if (state.stats.lastActiveDate === undefined) state.stats.lastActiveDate = null;
+    if (!state.history) state.history = {};
+    if (!state.badges) state.badges = [];
+    if (!state.reflections) state.reflections = {};
+    if (!state.flags) state.flags = { hasEarlyCompletion: false, hasDeepFocusSession: false };
+    if (!Array.isArray(state.filterCategories)) {
+        state.filterCategories = state.filterCategory && state.filterCategory !== 'all' ? [state.filterCategory] : [];
+    }
+    if (!state.timelineView) state.timelineView = 'day';
+    if (!state.timelineAnchor) state.timelineAnchor = todayKey();
+    if (!state.expandedGoals) state.expandedGoals = {};
+    if (!state.goalZoom) state.goalZoom = {};
+
+    state.goals.forEach(function (goal) {
+        goal.startDate = goal.startDate || (goal.createdAt ? String(goal.createdAt).slice(0, 10) : todayKey());
+        goal.endDate = goal.endDate || goal.deadline || addDate(goal.startDate, 1, 'year');
+        goal.deadline = goal.deadline || goal.endDate;
+        goal.durationType = goal.durationType || 'custom';
+        goal.durationValue = goal.durationValue == null ? 0 : goal.durationValue;
+        goal.description = goal.description || '';
+        goal.category = goal.category || goal.categoryId || 'personal';
+        if (!Array.isArray(goal.horizons)) goal.horizons = [];
+        if (!Array.isArray(goal.milestones)) goal.milestones = [];
+        goal.horizons.forEach(function (h, index) {
+            h.id = h.id || 'h-' + goal.id + '-' + index;
+            h.type = h.type || 'milestone';
+            h.startDate = h.startDate || goal.startDate;
+            h.endDate = h.endDate || goal.endDate;
+            h.parentId = h.parentId || null;
+            h.progress = Number(h.progress) || 0;
+            h.status = h.status || 'pending';
+        });
+        goal.milestones.forEach(function (m) {
+            m.horizonId = m.horizonId || null;
+            m.parentMilestoneId = m.parentMilestoneId || null;
+            m.progress = m.progress == null ? (m.status === 'completed' ? 100 : 0) : Number(m.progress);
+        });
+    });
+    state.tasks.forEach(function (task) {
+        const goal = state.goals.find(function (g) { return g.id === task.goalId; });
+        task.category = task.category || (goal && goal.category) || 'personal';
+        task.milestoneId = task.milestoneId || null;
+        task.deadline = task.deadline || (goal && goal.endDate) || addDate(todayKey(), 7, 'day');
+        task.estimatedMinutes = Number(task.estimatedMinutes) || 25;
+        task.energyRequired = Number(task.energyRequired) || 3;
+        task.priority = task.priority || 'medium';
+        task.status = task.status || 'pending';
+        if (!Array.isArray(task.atomicActions)) task.atomicActions = [];
+    });
+    recomputeAllProgress();
+}
+
+function calculateMilestoneProgress(goalId, milestone) {
+    const children = state.tasks.filter(function (t) {
+        return t.goalId === goalId && t.milestoneId === milestone.id;
+    });
+    if (children.length) {
+        return Math.round(children.reduce(function (sum, t) { return sum + (t.status === 'completed' ? 100 : 0); }, 0) / children.length);
+    }
+    return milestone.status === 'completed' ? 100 : (milestone.status === 'in_progress' ? 50 : Number(milestone.progress) || 0);
+}
+
+function recomputeAllProgress() {
+    if (!state || !Array.isArray(state.goals) || !Array.isArray(state.tasks)) return;
+    state.goals.forEach(function (goal) {
+        goal.milestones.forEach(function (m) {
+            m.progress = calculateMilestoneProgress(goal.id, m);
+            if (m.progress >= 100) m.status = 'completed';
+            else if (m.progress > 0 && m.status === 'pending') m.status = 'in_progress';
+            const horizon = goal.horizons.find(function (h) { return h.id === m.horizonId; });
+            if (horizon) {
+                horizon.progress = m.progress;
+                horizon.status = m.status;
+            }
+        });
+        goal.progress = goal.milestones.length
+            ? Math.round(goal.milestones.reduce(function (sum, m) { return sum + (Number(m.progress) || 0); }, 0) / goal.milestones.length)
+            : (goal.status === 'completed' ? 100 : 0);
+        goal.status = goal.progress >= 100 ? 'completed' : 'in_progress';
+    });
+}
+
+function saveState() {
+    ensureStateShape();
+    recomputeAllProgress();
+    localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state));
+    renderAll();
+    triggerCloudSync();
+}
+
+function updateGoalDurationUI() {
+    const start = document.getElementById('newGoalStartDate');
+    const type = document.getElementById('newGoalDurationType');
+    const end = document.getElementById('newGoalEndDate');
+    if (!start || !type || !end) return;
+    if (!start.value) start.value = todayKey();
+    end.readOnly = type.value !== 'custom';
+    if (type.value !== 'custom') end.value = calculateGoalEndDate(start.value, type.value);
+    else if (!end.value || end.value < start.value) end.value = addDate(start.value, 1, 'month');
+}
+
+function prepareGoalModal() {
+    const start = document.getElementById('newGoalStartDate');
+    if (start && !start.value) start.value = todayKey();
+    updateGoalDurationUI();
+    renderCategorySelects();
+}
+
+function makePlanItem(type, title, parentId, startDate, endDate, order) {
+    return {
+        id: 'plan-' + Date.now() + '-' + order + '-' + Math.random().toString(36).slice(2, 6),
+        type: type,
+        title: title,
+        parentId: parentId || null,
+        startDate: startDate,
+        endDate: endDate,
+        enabled: true,
+        order: order
+    };
+}
+
+function buildLocalGoalPlan(draft) {
+    const cfg = ZIEL_DURATION_CONFIG[draft.durationType] || ZIEL_DURATION_CONFIG.custom;
+    const months = cfg.months || Math.max(1, Math.round((parseLocalDate(draft.endDate) - parseLocalDate(draft.startDate)) / 2629800000));
+    const items = [];
+    let order = 0;
+    let parentId = null;
+    if (months >= 12) {
+        const years = Math.max(1, Math.ceil(months / 12));
+        for (let y = 0; y < years; y++) {
+            const yStart = addDate(draft.startDate, y, 'year');
+            const yEnd = y === years - 1 ? draft.endDate : addDate(addDate(yStart, 1, 'year'), -1, 'day');
+            const item = makePlanItem('year', 'Tahun ' + (y + 1) + (y === 0 ? ' — Bangun fondasi' : y === years - 1 ? ' — Konsolidasi hasil' : ' — Perluas kemampuan'), null, yStart, yEnd, order++);
+            items.push(item);
+            if (y === 0) parentId = item.id;
+        }
+    }
+    if (months >= 6) {
+        const item = makePlanItem('half_year', 'Target 6 bulan — hasil strategis pertama', parentId, draft.startDate, addDate(addDate(draft.startDate, 6, 'month'), -1, 'day'), order++);
+        items.push(item); parentId = item.id;
+    }
+    if (months >= 3) {
+        const item = makePlanItem('quarter', 'Target 3 bulan — validasi kemajuan utama', parentId, draft.startDate, addDate(addDate(draft.startDate, 3, 'month'), -1, 'day'), order++);
+        items.push(item); parentId = item.id;
+    }
+    if (months >= 1) {
+        const item = makePlanItem('month', 'Target bulan pertama — mulai dari dasar yang penting', parentId, draft.startDate, addDate(addDate(draft.startDate, 1, 'month'), -1, 'day'), order++);
+        items.push(item); parentId = item.id;
+    }
+    const weekEnd = addDate(draft.startDate, 6, 'day') > draft.endDate ? draft.endDate : addDate(draft.startDate, 6, 'day');
+    const week = makePlanItem('week', 'Minggu 1 — tentukan langkah nyata dan mulai', parentId, draft.startDate, weekEnd, order++);
+    items.push(week);
+    return {
+        items: items,
+        starterTask: {
+            title: 'Mulai langkah pertama untuk ' + draft.title,
+            priority: 'high',
+            energyRequired: 3,
+            estimatedMinutes: 25,
+            microAction: 'Buka catatan dan tulis hasil terkecil yang ingin dicapai minggu ini'
+        }
+    };
+}
+
+async function generateGoalPlan(draft) {
+    const fallback = buildLocalGoalPlan(draft);
+    const apiKey = (localStorage.getItem('ZIEL_GEMINI_API_KEY') || '').trim();
+    if (!apiKey) return fallback;
+    const prompt = 'Anda adalah ZIEL AI Goal Planner. Buat breakdown sederhana dan realistis untuk goal "' +
+        draft.title + '" dari ' + draft.startDate + ' sampai ' + draft.endDate +
+        '. Gunakan hanya type year, half_year, quarter, month, week yang relevan. Jangan terlalu banyak. ' +
+        'Balas JSON: {"horizons":[{"type":"year","title":"...","parentIndex":null}],"starterTask":{"title":"...","priority":"high","energyRequired":3,"estimatedMinutes":25,"microAction":"..."}}';
+    try {
+        const result = await callGeminiAPI(prompt);
+        if (!result || !Array.isArray(result.horizons) || !result.horizons.length) return fallback;
+        const allowed = new Set(ZIEL_HORIZON_ORDER);
+        const items = [];
+        result.horizons.slice(0, 12).forEach(function (raw, index) {
+            const type = allowed.has(raw.type) ? raw.type : 'milestone';
+            const parent = Number.isInteger(raw.parentIndex) && items[raw.parentIndex] ? items[raw.parentIndex].id : null;
+            const base = makePlanItem(type, raw.title || ZIEL_HORIZON_LABELS[type], parent, draft.startDate, draft.endDate, index);
+            items.push(base);
+        });
+        return { items: items, starterTask: Object.assign({}, fallback.starterTask, result.starterTask || {}) };
+    } catch (error) {
+        showToast({ type: 'warning', title: 'AI breakdown unavailable', message: 'Rencana lokal yang aman telah disiapkan. Anda tetap dapat mengeditnya manual.' });
+        return fallback;
+    }
+}
+
+async function saveNewGoal() {
+    const title = document.getElementById('newGoalTitle').value.trim();
+    const description = document.getElementById('newGoalDescription').value.trim();
+    const category = document.getElementById('newGoalCategory').value;
+    const startDate = document.getElementById('newGoalStartDate').value;
+    const endDate = document.getElementById('newGoalEndDate').value;
+    const durationType = document.getElementById('newGoalDurationType').value;
+    const enableBreakdown = document.getElementById('enableAIBreakdown').checked;
+    if (!title || !startDate || !endDate) {
+        showToast({ type: 'warning', title: 'Goal belum lengkap', message: 'Isi judul, tanggal mulai, dan tanggal selesai.' });
+        return;
+    }
+    if (endDate < startDate) {
+        showToast({ type: 'warning', title: 'Rentang tanggal tidak valid', message: 'Tanggal selesai harus setelah tanggal mulai.' });
+        return;
+    }
+    const btn = document.getElementById('btnSaveGoal');
+    btn.disabled = true;
+    btn.textContent = enableBreakdown ? 'Menyusun rencana yang tenang…' : 'Menyiapkan rencana…';
+    pendingGoalDraft = {
+        id: 'goal-' + Date.now(), title: title, description: description,
+        category: category, startDate: startDate, endDate: endDate,
+        deadline: endDate, durationType: durationType,
+        durationValue: (ZIEL_DURATION_CONFIG[durationType] || {}).value || 0
+    };
+    if (enableBreakdown) {
+        pendingGoalPlan = await generateGoalPlan(pendingGoalDraft);
+    } else {
+        const manualItems = tempManualMilestones.map(function (m, index) {
+            return makePlanItem('milestone', m.title, index ? null : null, startDate, endDate, index);
+        });
+        pendingGoalPlan = manualItems.length ? { items: manualItems, starterTask: null } : buildLocalGoalPlan(pendingGoalDraft);
+    }
+    btn.disabled = false;
+    btn.textContent = enableBreakdown ? 'Review Goal Plan' : 'Review Goal Manual';
+    closeModal('newGoalModal');
+    renderGoalPlanReview();
+    openModal('reviewGoalPlanModal');
+}
+
+function goalPlanDepth(item, items) {
+    let depth = 0;
+    let parent = item.parentId;
+    const seen = new Set();
+    while (parent && !seen.has(parent) && depth < 6) {
+        seen.add(parent);
+        const found = items.find(function (x) { return x.id === parent; });
+        if (!found) break;
+        depth += 1;
+        parent = found.parentId;
+    }
+    return depth;
+}
+
+function renderGoalPlanReview() {
+    if (!pendingGoalPlan || !pendingGoalDraft) return;
+    const summary = document.getElementById('goalPlanSummary');
+    const list = document.getElementById('goalPlanReviewList');
+    summary.textContent = pendingGoalDraft.title + ' • ' + durationLabel(pendingGoalDraft) + ' • ' +
+        formatDateId(pendingGoalDraft.startDate) + ' – ' + formatDateId(pendingGoalDraft.endDate);
+    list.innerHTML = pendingGoalPlan.items.map(function (item, index) {
+        const depth = goalPlanDepth(item, pendingGoalPlan.items);
+        return '<div class="theme-card rounded-2xl p-3 flex items-center gap-2 ' + (item.enabled ? '' : 'opacity-40') + '" style="margin-left:' + Math.min(depth * 18, 54) + 'px">' +
+            '<button onclick="toggleGoalPlanItem(\'' + item.id + '\')" class="shrink-0 w-6 h-6 rounded-lg ' + (item.enabled ? 'tag-emerald' : 'btn-secondary') + ' text-[10px] font-black">' + (item.enabled ? '✓' : '—') + '</button>' +
+            '<div class="flex-1 min-w-0"><div class="text-[9px] uppercase font-bold tracking-wider" style="color:var(--text-muted)">' + escapeHtml(ZIEL_HORIZON_LABELS[item.type] || item.type) + ' • ' + escapeHtml(formatDateId(item.startDate, { day: 'numeric', month: 'short' })) + '</div>' +
+            '<div class="text-xs font-bold truncate" style="color:var(--text-main)">' + escapeHtml(item.title) + '</div></div>' +
+            '<div class="flex items-center gap-1 shrink-0">' +
+            '<button onclick="moveGoalPlanItem(' + index + ',-1)" class="btn-secondary p-1.5 rounded-lg" title="Naik">↑</button>' +
+            '<button onclick="moveGoalPlanItem(' + index + ',1)" class="btn-secondary p-1.5 rounded-lg" title="Turun">↓</button>' +
+            '<button onclick="editGoalPlanItem(\'' + item.id + '\')" class="btn-secondary p-1.5 rounded-lg" title="Edit"><i data-lucide="pencil" class="w-3 h-3"></i></button>' +
+            '<button onclick="removeGoalPlanItem(\'' + item.id + '\')" class="btn-secondary p-1.5 rounded-lg text-rose-400" title="Hapus"><i data-lucide="trash-2" class="w-3 h-3"></i></button>' +
+            '</div></div>';
+    }).join('');
+    safeLucideCreateIcons({ root: list });
+}
+
+function toggleGoalPlanItem(id) {
+    const item = pendingGoalPlan.items.find(function (x) { return x.id === id; });
+    if (item) item.enabled = !item.enabled;
+    renderGoalPlanReview();
+}
+
+function editGoalPlanItem(id) {
+    const item = pendingGoalPlan.items.find(function (x) { return x.id === id; });
+    if (!item) return;
+    const title = window.prompt('Ubah nama target:', item.title);
+    if (title && title.trim()) item.title = title.trim();
+    renderGoalPlanReview();
+}
+
+function removeGoalPlanItem(id) {
+    pendingGoalPlan.items = pendingGoalPlan.items.filter(function (x) { return x.id !== id; });
+    pendingGoalPlan.items.forEach(function (x) { if (x.parentId === id) x.parentId = null; });
+    renderGoalPlanReview();
+}
+
+function moveGoalPlanItem(index, direction) {
+    const next = index + direction;
+    if (next < 0 || next >= pendingGoalPlan.items.length) return;
+    const item = pendingGoalPlan.items.splice(index, 1)[0];
+    pendingGoalPlan.items.splice(next, 0, item);
+    renderGoalPlanReview();
+}
+
+function addGoalPlanItem() {
+    if (!pendingGoalPlan || !pendingGoalDraft) return;
+    const title = window.prompt('Nama target baru:');
+    if (!title || !title.trim()) return;
+    const parent = pendingGoalPlan.items.filter(function (x) { return x.enabled; }).slice(-1)[0];
+    pendingGoalPlan.items.push(makePlanItem('milestone', title.trim(), parent ? parent.id : null, pendingGoalDraft.startDate, pendingGoalDraft.endDate, pendingGoalPlan.items.length));
+    renderGoalPlanReview();
+}
+
+async function regenerateGoalPlan() {
+    if (!pendingGoalDraft) return;
+    pendingGoalPlan = await generateGoalPlan(pendingGoalDraft);
+    renderGoalPlanReview();
+    showToast({ type: 'info', title: 'Rencana diperbarui', message: 'Tinjau kembali sebelum menyetujuinya.' });
+}
+
+function approveGoalPlan() {
+    if (!pendingGoalDraft || !pendingGoalPlan) return;
+    const enabled = pendingGoalPlan.items.filter(function (x) { return x.enabled; });
+    if (!enabled.length) {
+        showToast({ type: 'warning', title: 'Rencana masih kosong', message: 'Aktifkan atau tambahkan minimal satu target.' });
+        return;
+    }
+    const enabledIds = new Set(enabled.map(function (x) { return x.id; }));
+    const horizons = enabled.map(function (item, index) {
+        return {
+            id: 'h-' + Date.now() + '-' + index,
+            sourcePlanId: item.id,
+            type: item.type,
+            title: item.title,
+            startDate: item.startDate,
+            endDate: item.endDate,
+            parentSourceId: enabledIds.has(item.parentId) ? item.parentId : null,
+            progress: 0,
+            status: 'pending'
+        };
+    });
+    const sourceToHorizonId = {};
+    horizons.forEach(function (h) { sourceToHorizonId[h.sourcePlanId] = h.id; });
+    horizons.forEach(function (h) {
+        h.parentId = h.parentSourceId ? (sourceToHorizonId[h.parentSourceId] || null) : null;
+        delete h.sourcePlanId; delete h.parentSourceId;
+    });
+    const milestoneIds = horizons.map(function (_, index) { return 'm-' + Date.now() + '-' + index; });
+    const milestones = horizons.map(function (h, index) {
+        const parentIndex = h.parentId ? horizons.findIndex(function (x) { return x.id === h.parentId; }) : -1;
+        return {
+            id: milestoneIds[index],
+            title: h.title,
+            status: 'pending',
+            progress: 0,
+            horizonId: h.id,
+            parentMilestoneId: parentIndex >= 0 ? milestoneIds[parentIndex] : null
+        };
+    });
+    const goal = Object.assign({}, pendingGoalDraft, {
+        status: 'in_progress',
+        progress: 0,
+        horizons: horizons,
+        milestones: milestones,
+        createdAt: new Date().toISOString()
+    });
+    state.goals.unshift(goal);
+    if (pendingGoalPlan.starterTask) {
+        const leaf = milestones[milestones.length - 1];
+        const leafHorizon = horizons[horizons.length - 1];
+        const starter = pendingGoalPlan.starterTask;
+        state.tasks.unshift({
+            id: 'task-' + Date.now(),
+            goalId: goal.id,
+            milestoneId: leaf ? leaf.id : null,
+            title: starter.title || 'Mulai langkah pertama untuk ' + goal.title,
+            category: goal.category,
+            priority: starter.priority || 'high',
+            energyRequired: Number(starter.energyRequired) || 3,
+            estimatedMinutes: Number(starter.estimatedMinutes) || 25,
+            status: 'pending',
+            deadline: leafHorizon ? leafHorizon.endDate : goal.endDate,
+            atomicActions: [{ id: 'act-' + Date.now(), title: starter.microAction || 'Mulai selama 2 menit', isCompleted: false }]
+        });
+    }
+    const title = goal.title;
+    pendingGoalDraft = null; pendingGoalPlan = null; tempManualMilestones = [];
+    closeModal('reviewGoalPlanModal');
+    resetGoalForm();
+    saveState();
+    showToast({ type: 'success', title: 'Goal Plan disetujui', message: '"' + title + '" sekarang terhubung dari horizon hingga tindakan.' });
+    triggerConfetti();
+}
+
+function resetGoalForm() {
+    ['newGoalTitle', 'newGoalDescription', 'manualMilestoneInput'].forEach(function (id) {
+        const el = document.getElementById(id); if (el) el.value = '';
+    });
+    const start = document.getElementById('newGoalStartDate');
+    const type = document.getElementById('newGoalDurationType');
+    if (start) start.value = todayKey();
+    if (type) type.value = '1_year';
+    renderManualMilestones();
+    updateGoalDurationUI();
+}
+
+function activeCategoryIds() {
+    return Array.isArray(state.filterCategories) ? state.filterCategories : [];
+}
+
+function categoryMatches(category) {
+    const active = activeCategoryIds();
+    return !active.length || active.includes(category);
+}
+
+function filterCategory(category) {
+    if (category === 'all') {
+        state.filterCategories = [];
+        state.filterCategory = 'all';
+    } else {
+        const active = activeCategoryIds().slice();
+        const index = active.indexOf(category);
+        if (index >= 0) active.splice(index, 1); else active.push(category);
+        state.filterCategories = active;
+        state.filterCategory = active.length === 1 ? active[0] : 'all';
+    }
+    localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state));
+    renderCategoryTabs();
+    renderTasks();
+    renderGoals();
+    renderExecutionTimeline();
+    playChime('click');
+}
+
+function renderCategoryTabs() {
+    const container = document.getElementById('categoryTabsList');
+    if (!container) return;
+    const active = activeCategoryIds();
+    const allClass = !active.length ? 'primary-btn-gradient' : 'btn-secondary';
+    let html = '<button onclick="filterCategory(\'all\')" class="' + allClass + ' shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">Semua</button>';
+    getCategories().forEach(function (cat) {
+        const selected = active.includes(cat.id);
+        html += '<button onclick="filterCategory(\'' + cat.id + '\')" class="' + (selected ? 'primary-btn-gradient' : 'btn-secondary') + ' shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">' +
+            escapeHtml(cat.icon + ' ' + cat.name) + (selected ? ' ✓' : '') + '</button>';
+    });
+    container.innerHTML = html;
+}
+
+function renderCategorySelects() {
+    const cats = getCategories();
+    const options = cats.map(function (c) { return '<option value="' + c.id + '">' + escapeHtml(c.icon + ' ' + c.name) + '</option>'; }).join('');
+    const goalSelect = document.getElementById('newGoalCategory');
+    const taskSelect = document.getElementById('newTaskCategory');
+    if (goalSelect) goalSelect.innerHTML = options;
+    if (taskSelect) taskSelect.innerHTML = options;
+    renderLinkingSelects();
+}
+
+function renderLinkingSelects() {
+    const goalSelect = document.getElementById('newTaskGoal');
+    const agendaTask = document.getElementById('newAgendaTask');
+    if (goalSelect) {
+        const current = goalSelect.value;
+        goalSelect.innerHTML = '<option value="">Tanpa Goal</option>' + state.goals.map(function (g) {
+            return '<option value="' + g.id + '">' + escapeHtml(g.title) + '</option>';
+        }).join('');
+        if (state.goals.some(function (g) { return g.id === current; })) goalSelect.value = current;
+        updateTaskGoalContext(false);
+    }
+    if (agendaTask) {
+        const currentTask = agendaTask.value;
+        agendaTask.innerHTML = '<option value="">Agenda mandiri</option>' + state.tasks.filter(function (t) {
+            return t.status !== 'completed';
+        }).map(function (t) {
+            return '<option value="' + t.id + '">' + escapeHtml(t.title) + '</option>';
+        }).join('');
+        if (state.tasks.some(function (t) { return t.id === currentTask; })) agendaTask.value = currentTask;
+    }
+}
+
+function updateTaskGoalContext(inheritCategory) {
+    const goalId = document.getElementById('newTaskGoal')?.value || '';
+    const milestoneSelect = document.getElementById('newTaskMilestone');
+    if (!milestoneSelect) return;
+    const goal = state.goals.find(function (g) { return g.id === goalId; });
+    milestoneSelect.innerHTML = '<option value="">Tanpa Milestone</option>' + (goal ? goal.milestones.map(function (m) {
+        return '<option value="' + m.id + '">' + escapeHtml(m.title) + '</option>';
+    }).join('') : '');
+    if (goal && inheritCategory !== false) {
+        const cat = document.getElementById('newTaskCategory');
+        if (cat) cat.value = goal.category;
+    }
+}
+
+function updateAgendaTaskContext() {
+    const taskId = document.getElementById('newAgendaTask')?.value;
+    const task = state.tasks.find(function (t) { return t.id === taskId; });
+    if (!task) return;
+    const title = document.getElementById('newAgendaTitle');
+    const date = document.getElementById('newAgendaDate');
+    const start = document.getElementById('newAgendaStartTime');
+    const end = document.getElementById('newAgendaEndTime');
+    if (title) title.value = task.title;
+    if (date) date.value = task.scheduledDate || task.deadline || state.timelineAnchor || todayKey();
+    if (start && end) {
+        const startMinutes = 9 * 60;
+        const endMinutes = startMinutes + (Number(task.estimatedMinutes) || 25);
+        start.value = String(Math.floor(startMinutes / 60)).padStart(2, '0') + ':' + String(startMinutes % 60).padStart(2, '0');
+        end.value = String(Math.floor(endMinutes / 60)).padStart(2, '0') + ':' + String(endMinutes % 60).padStart(2, '0');
+    }
+}
+
+function prepareAgendaModal(taskId) {
+    renderLinkingSelects();
+    const taskSelect = document.getElementById('newAgendaTask');
+    const date = document.getElementById('newAgendaDate');
+    if (date) date.value = state.timelineAnchor || todayKey();
+    if (taskSelect && taskId) {
+        taskSelect.value = taskId;
+        updateAgendaTaskContext();
+    }
+    openModal('newAgendaModal');
+}
+
+function openModal(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    if (id === 'newGoalModal') prepareGoalModal();
+    if (id === 'newTaskModal') renderLinkingSelects();
+    if (id === 'newAgendaModal') {
+        renderLinkingSelects();
+        const date = document.getElementById('newAgendaDate');
+        if (date && !date.value) date.value = state.timelineAnchor || todayKey();
+    }
+    modal.classList.remove('hidden');
+    safeLucideCreateIcons({ root: modal });
+}
+
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) modal.classList.add('hidden');
+}
+
+function saveNewTask() {
+    const title = document.getElementById('newTaskTitle').value.trim();
+    const goalId = document.getElementById('newTaskGoal')?.value || null;
+    const milestoneId = document.getElementById('newTaskMilestone')?.value || null;
+    const goal = state.goals.find(function (g) { return g.id === goalId; });
+    const category = goal ? goal.category : document.getElementById('newTaskCategory').value;
+    const deadline = document.getElementById('newTaskDeadline').value || (goal && goal.endDate) || addDate(todayKey(), 7, 'day');
+    if (!title) {
+        showToast({ type: 'warning', title: 'Judul Tugas Kosong', message: 'Masukkan nama tugas yang ingin dikerjakan.' });
+        return;
+    }
+    state.tasks.unshift({
+        id: 'task-' + Date.now(),
+        goalId: goalId,
+        milestoneId: milestoneId,
+        title: title,
+        category: category,
+        priority: document.getElementById('newTaskPriority').value,
+        energyRequired: Number(document.getElementById('newTaskEnergy').value) || 3,
+        estimatedMinutes: Number(document.getElementById('newTaskDuration').value) || 25,
+        status: 'pending',
+        deadline: deadline,
+        atomicActions: document.getElementById('newTaskMicroAction').value.trim()
+            ? [{ id: 'act-' + Date.now(), title: document.getElementById('newTaskMicroAction').value.trim(), isCompleted: false }]
+            : []
+    });
+    saveState();
+    closeModal('newTaskModal');
+    document.getElementById('newTaskTitle').value = '';
+    document.getElementById('newTaskMicroAction').value = '';
+    showToast({ type: 'success', title: 'Tugas Ditambahkan', message: '"' + title + '" terhubung ke jalur eksekusinya.' });
+}
+
+function getMilestone(goal, milestoneId) {
+    return goal && goal.milestones.find(function (m) { return m.id === milestoneId; });
+}
+
+function toggleTaskStatus(taskId) {
+    const task = state.tasks.find(function (t) { return t.id === taskId; });
+    if (!task) return;
+    const wasDone = task.status === 'completed';
+    task.status = wasDone ? 'pending' : 'completed';
+    if (!wasDone) {
+        recordCompletion(0);
+        playChime('success');
+        triggerConfetti();
+        checkAchievements();
+        showToast({ type: 'success', title: 'Tugas Selesai', message: 'Progress goal dan milestone telah diperbarui.' });
+    } else {
+        state.stats.completedToday = Math.max(0, state.stats.completedToday - 1);
+        state.stats.totalCompletedAllTime = Math.max(0, state.stats.totalCompletedAllTime - 1);
+        const key = todayKey();
+        if (state.history[key]) state.history[key].completed = Math.max(0, state.history[key].completed - 1);
+        playChime('click');
+    }
+    saveState();
+}
+
+function toggleMilestoneStatus(goalId, milestoneId) {
+    const goal = state.goals.find(function (g) { return g.id === goalId; });
+    const milestone = getMilestone(goal, milestoneId);
+    if (!milestone) return;
+    if (milestone.status === 'pending') milestone.status = 'in_progress';
+    else if (milestone.status === 'in_progress') milestone.status = 'completed';
+    else milestone.status = 'pending';
+    milestone.progress = milestone.status === 'completed' ? 100 : milestone.status === 'in_progress' ? 50 : 0;
+    saveState();
+    if (milestone.status === 'completed') showToast({ type: 'success', title: 'Milestone selesai', message: 'Kemajuan diteruskan ke parent goal.' });
+}
+
+function taskPath(task) {
+    const goal = state.goals.find(function (g) { return g.id === task.goalId; });
+    const milestone = getMilestone(goal, task.milestoneId);
+    return [goal && goal.title, milestone && milestone.title].filter(Boolean).join(' › ');
+}
+
+function renderTasks() {
+    const container = document.getElementById('tasksContainer');
+    if (!container) return;
+    const tasks = state.tasks.filter(function (task) { return categoryMatches(task.category); });
+    if (!tasks.length) {
+        container.innerHTML = '<div class="theme-card rounded-2xl p-8 text-center text-xs border border-dashed border-[var(--border-card)]" style="color:var(--text-muted)">Tidak ada tindakan di sini.<br><span class="opacity-70">Ruang yang lapang juga baik.</span></div>';
+        return;
+    }
+    const cats = getCategories();
+    container.innerHTML = tasks.map(function (task) {
+        const done = task.status === 'completed';
+        const cat = cats.find(function (c) { return c.id === task.category; });
+        const path = taskPath(task);
+        const priorityClass = task.priority === 'urgent' ? 'tag-rose' : task.priority === 'high' ? 'tag-amber' : task.priority === 'low' ? 'tag-teal' : 'tag-indigo';
+        return '<div class="theme-card p-3.5 sm:p-4 rounded-2xl ' + (done ? 'opacity-45' : '') + '">' +
+            '<div class="flex items-start justify-between gap-3"><div class="flex items-start gap-3 min-w-0">' +
+            '<button onclick="toggleTaskStatus(\'' + task.id + '\')" class="shrink-0 mt-0.5 w-5 h-5 rounded-lg border flex items-center justify-center ' + (done ? 'bg-teal-500 border-teal-400 text-slate-950' : 'border-[var(--border-card)]') + '">' + (done ? '✓' : '') + '</button>' +
+            '<div class="min-w-0"><h4 class="text-xs sm:text-sm font-bold ' + (done ? 'line-through' : '') + '" style="color:var(--text-main)">' + escapeHtml(task.title) + '</h4>' +
+            (path ? '<p class="text-[10px] mt-1 text-indigo-400 truncate">↳ ' + escapeHtml(path) + '</p>' : '') +
+            '<div class="flex flex-wrap items-center gap-1.5 mt-2 text-[9px]"><span class="' + priorityClass + ' px-2 py-0.5 rounded-full font-bold">' + escapeHtml(task.priority.toUpperCase()) + '</span>' +
+            '<span style="color:var(--text-muted)">⏱ ' + task.estimatedMinutes + 'm</span><span style="color:var(--text-muted)">Energi ' + task.energyRequired + '</span>' +
+            '<span class="tag-teal px-2 py-0.5 rounded-full">' + escapeHtml(cat ? cat.icon + ' ' + cat.name : task.category) + '</span>' +
+            '<span style="color:var(--text-muted)">Due ' + escapeHtml(formatDateId(task.deadline, { day: 'numeric', month: 'short' })) + '</span></div></div></div>' +
+            '<div class="flex items-center gap-1 shrink-0">' + (!done ?
+                '<button onclick="scheduleTaskInZiel(\'' + task.id + '\')" class="btn-secondary p-2 rounded-xl" title="Jadwalkan di ZIEL"><i data-lucide="calendar-clock" class="w-3.5 h-3.5 text-indigo-400"></i></button>' +
+                '<button onclick="scheduleTaskToGoogleCalendar(\'' + task.id + '\')" class="btn-secondary p-2 rounded-xl" title="Google Calendar"><i data-lucide="calendar-plus" class="w-3.5 h-3.5 text-teal-400"></i></button>' +
+                '<button onclick="openFocusModeFromTask(\'' + task.id + '\')" class="primary-btn-gradient p-2 rounded-xl" title="Mulai fokus"><i data-lucide="play" class="w-3 h-3 fill-current"></i></button>' : '') +
+            '<button onclick="deleteTask(\'' + task.id + '\')" class="btn-secondary p-2 rounded-xl text-rose-400" title="Hapus"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>' +
+            '</div></div></div>';
+    }).join('');
+    safeLucideCreateIcons({ root: container });
+}
+
+function nextGoalAction(goal) {
+    return state.tasks.find(function (t) { return t.goalId === goal.id && t.status !== 'completed'; });
+}
+
+function renderGoals() {
+    const container = document.getElementById('goalsContainer');
+    if (!container) return;
+    const goals = state.goals.filter(function (goal) { return categoryMatches(goal.category); });
+    if (!goals.length) {
+        container.innerHTML = '<div class="rounded-2xl p-7 text-center text-xs border border-dashed border-[var(--border-card)]" style="color:var(--text-muted)">Belum ada goal.<br><span class="opacity-70">Mulai dari sesuatu yang berarti bagi Anda.</span><br><button onclick="openModal(\'newGoalModal\')" class="primary-btn-gradient mt-3 px-3 py-2 rounded-xl font-bold">+ Buat goal pertama</button></div>';
+        return;
+    }
+    const cats = getCategories();
+    container.innerHTML = goals.map(function (goal) {
+        const cat = cats.find(function (c) { return c.id === goal.category; });
+        const expanded = !!state.expandedGoals[goal.id];
+        const nextMilestone = goal.milestones.find(function (m) { return m.status !== 'completed'; });
+        const nextTask = nextGoalAction(goal);
+        const milestones = expanded ? '<div class="space-y-1.5 pt-1">' + goal.milestones.slice(0, 7).map(function (m) {
+            return '<button onclick="toggleMilestoneStatus(\'' + goal.id + '\',\'' + m.id + '\')" class="w-full flex items-center justify-between gap-2 text-left text-[10px] p-2 rounded-xl hover:bg-slate-500/10">' +
+                '<span class="' + (m.status === 'completed' ? 'line-through opacity-50' : '') + '" style="color:var(--text-main)">' + (m.status === 'completed' ? '✓ ' : m.status === 'in_progress' ? '◐ ' : '○ ') + escapeHtml(m.title) + '</span>' +
+                '<span class="shrink-0 font-bold text-teal-400">' + (Number(m.progress) || 0) + '%</span></button>';
+        }).join('') + '</div>' : '';
+        return '<article class="rounded-2xl p-4 border border-[var(--border-card)]" style="background:var(--bg-main)">' +
+            '<div class="flex items-start justify-between gap-2"><button onclick="toggleGoalExpanded(\'' + goal.id + '\')" class="text-left min-w-0 flex-1">' +
+            '<span class="tag-indigo inline-flex px-2 py-0.5 rounded-full text-[9px] font-bold">' + escapeHtml(cat ? cat.icon + ' ' + cat.name : goal.category) + ' • ' + escapeHtml(durationLabel(goal)) + '</span>' +
+            '<h4 class="text-sm font-extrabold mt-2" style="color:var(--text-main)">' + escapeHtml(goal.title) + '</h4></button>' +
+            '<div class="flex items-center gap-1"><button onclick="openGoalDetail(\'' + goal.id + '\')" class="btn-secondary p-2 rounded-xl" title="Buka goal"><i data-lucide="route" class="w-3.5 h-3.5"></i></button>' +
+            '<button onclick="deleteGoal(\'' + goal.id + '\')" class="btn-secondary p-2 rounded-xl text-rose-400" title="Hapus"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button></div></div>' +
+            '<div class="flex items-center gap-3 mt-3"><div class="flex-1 h-1.5 rounded-full overflow-hidden" style="background:var(--border-card)"><div class="h-full bg-gradient-to-r from-indigo-500 to-teal-400 transition-all" style="width:' + (goal.progress || 0) + '%"></div></div><span class="text-xs font-black text-teal-400">' + (goal.progress || 0) + '%</span></div>' +
+            milestones +
+            '<div class="mt-3 pt-3 border-t border-[var(--border-card)] text-[10px] space-y-1">' +
+            (nextMilestone ? '<p style="color:var(--text-sub)">Next milestone: <strong style="color:var(--text-main)">' + escapeHtml(nextMilestone.title) + '</strong></p>' : '') +
+            (nextTask ? '<p style="color:var(--text-sub)">Next action: <strong class="text-indigo-400">' + escapeHtml(nextTask.title) + '</strong></p>' : '<p style="color:var(--text-muted)">Belum ada action berikutnya.</p>') +
+            '</div></article>';
+    }).join('');
+    safeLucideCreateIcons({ root: container });
+}
+
+function toggleGoalExpanded(goalId) {
+    state.expandedGoals[goalId] = !state.expandedGoals[goalId];
+    localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state));
+    renderGoals();
+}
+
+function openGoalDetail(goalId) {
+    goalDetailCurrentId = goalId;
+    if (!state.goalZoom[goalId]) state.goalZoom[goalId] = 'all';
+    renderGoalDetail();
+    openModal('goalDetailModal');
+}
+
+function setGoalZoom(type) {
+    if (!goalDetailCurrentId) return;
+    state.goalZoom[goalDetailCurrentId] = type;
+    renderGoalDetail();
+}
+
+function renderGoalDetail() {
+    const goal = state.goals.find(function (g) { return g.id === goalDetailCurrentId; });
+    if (!goal) return;
+    const cat = getCategories().find(function (c) { return c.id === goal.category; });
+    const header = document.getElementById('goalDetailHeader');
+    const controls = document.getElementById('goalZoomControls');
+    const path = document.getElementById('goalDetailPath');
+    const tasks = document.getElementById('goalDetailTasks');
+    header.innerHTML = '<span class="tag-indigo px-2 py-0.5 rounded-full text-[9px] font-bold">' + escapeHtml(cat ? cat.icon + ' ' + cat.name : goal.category) + '</span>' +
+        '<h3 class="text-xl font-extrabold mt-2" style="color:var(--text-main)">🎯 ' + escapeHtml(goal.title) + '</h3>' +
+        '<p class="text-[11px] mt-1" style="color:var(--text-muted)">' + escapeHtml(durationLabel(goal)) + ' • ' + escapeHtml(formatDateId(goal.startDate)) + ' – ' + escapeHtml(formatDateId(goal.endDate)) + ' • ' + (goal.progress || 0) + '%</p>';
+    const available = ['all'].concat(Array.from(new Set(goal.horizons.map(function (h) { return h.type; }))));
+    controls.innerHTML = available.map(function (type) {
+        const active = state.goalZoom[goal.id] === type;
+        return '<button onclick="setGoalZoom(\'' + type + '\')" class="' + (active ? 'primary-btn-gradient' : 'btn-secondary') + ' shrink-0 px-2.5 py-1.5 rounded-xl text-[9px] font-bold">' + (type === 'all' ? 'Semua' : escapeHtml(ZIEL_HORIZON_LABELS[type] || type)) + '</button>';
+    }).join('');
+    const visible = goal.horizons.filter(function (h) {
+        return state.goalZoom[goal.id] === 'all' || h.type === state.goalZoom[goal.id];
+    });
+    path.innerHTML = '<div class="text-[10px] uppercase tracking-wider font-bold" style="color:var(--text-muted)">Goal Path</div>' +
+        (visible.length ? visible.map(function (h) {
+            const depth = goalPlanDepth(h, goal.horizons);
+            return '<div class="goal-horizon-row p-3 rounded-r-2xl" style="margin-left:' + Math.min(depth * 20, 60) + 'px;background:var(--bg-main)">' +
+                '<div class="flex items-center justify-between gap-2"><div><span class="text-[9px] uppercase font-bold text-indigo-400">' + escapeHtml(ZIEL_HORIZON_LABELS[h.type] || h.type) + '</span>' +
+                '<p class="text-xs font-bold mt-0.5" style="color:var(--text-main)">' + escapeHtml(h.title) + '</p>' +
+                '<p class="text-[9px] mt-1" style="color:var(--text-muted)">' + escapeHtml(formatDateId(h.startDate, { day: 'numeric', month: 'short' })) + ' – ' + escapeHtml(formatDateId(h.endDate, { day: 'numeric', month: 'short', year: 'numeric' })) + '</p></div>' +
+                '<span class="text-xs font-black text-teal-400">' + (h.progress || 0) + '%</span></div></div>';
+        }).join('') : '<div class="p-4 border border-dashed border-[var(--border-card)] rounded-2xl text-xs" style="color:var(--text-muted)">Belum ada horizon pada level ini.</div>');
+    const related = state.tasks.filter(function (t) { return t.goalId === goal.id && t.status !== 'completed'; });
+    tasks.innerHTML = '<div class="flex items-center justify-between"><span class="text-[10px] uppercase tracking-wider font-bold" style="color:var(--text-muted)">Next actions</span><button onclick="openModal(\'newTaskModal\')" class="btn-secondary px-2 py-1 rounded-lg text-[9px] font-bold">+ Task</button></div>' +
+        (related.length ? related.slice(0, 5).map(function (t) {
+            return '<div class="theme-card rounded-xl p-3 flex items-center justify-between gap-2"><div><p class="text-xs font-bold">' + escapeHtml(t.title) + '</p><p class="text-[9px] mt-1" style="color:var(--text-muted)">Due ' + escapeHtml(formatDateId(t.deadline)) + ' • ' + t.estimatedMinutes + ' menit</p></div>' +
+                '<button onclick="scheduleTaskInZiel(\'' + t.id + '\')" class="btn-secondary px-2 py-1.5 rounded-lg text-[9px] font-bold">Jadwalkan</button></div>';
+        }).join('') : '<p class="text-xs p-3 border border-dashed border-[var(--border-card)] rounded-xl" style="color:var(--text-muted)">Semua tindakan selesai atau belum ada task.</p>');
+    safeLucideCreateIcons({ root: document.getElementById('goalDetailModal') });
+}
+
+function editCurrentGoal() {
+    const goal = state.goals.find(function (g) { return g.id === goalDetailCurrentId; });
+    if (!goal) return;
+    const title = window.prompt('Judul Goal:', goal.title);
+    if (title === null) return;
+    const endDate = window.prompt('Tanggal selesai (YYYY-MM-DD):', goal.endDate);
+    if (!title.trim() || !/^\d{4}-\d{2}-\d{2}$/.test(endDate || '') || endDate < goal.startDate) {
+        showToast({ type: 'warning', title: 'Perubahan tidak valid', message: 'Periksa judul dan tanggal selesai Goal.' });
+        return;
+    }
+    goal.title = title.trim();
+    goal.endDate = endDate;
+    goal.deadline = endDate;
+    goal.durationType = 'custom';
+    saveState();
+    renderGoalDetail();
+    showToast({ type: 'success', title: 'Goal diperbarui', message: 'Hierarchy dan data lama tetap dipertahankan.' });
+}
+
+function setTimelineView(view) {
+    state.timelineView = view;
+    localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state));
+    renderExecutionTimeline();
+    playChime('click');
+}
+
+function shiftTimeline(direction) {
+    const unit = state.timelineView === 'day' ? 'day' : state.timelineView === 'week' ? 'week' :
+        state.timelineView === 'year' ? 'year' : 'month';
+    const amount = state.timelineView === 'quarter' ? 3 * direction : state.timelineView === 'half' ? 6 * direction : direction;
+    state.timelineAnchor = addDate(state.timelineAnchor, amount, unit);
+    localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state));
+    renderExecutionTimeline();
+}
+
+function goTimelineToday() {
+    state.timelineAnchor = todayKey();
+    localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state));
+    renderExecutionTimeline();
+}
+
+function timelinePeriodLabel() {
+    const anchor = parseLocalDate(state.timelineAnchor);
+    if (state.timelineView === 'day') return formatDateId(state.timelineAnchor, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    if (state.timelineView === 'week') {
+        const start = startOfWeekKey(state.timelineAnchor);
+        return formatDateId(start, { day: 'numeric', month: 'short' }) + ' – ' + formatDateId(addDate(start, 6, 'day'), { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+    if (state.timelineView === 'month') return anchor.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
+    if (state.timelineView === 'quarter') return 'Q' + (Math.floor(anchor.getMonth() / 3) + 1) + ' ' + anchor.getFullYear();
+    if (state.timelineView === 'half') return (anchor.getMonth() < 6 ? 'Jan – Jun ' : 'Jul – Des ') + anchor.getFullYear();
+    return String(anchor.getFullYear());
+}
+
+function agendaMinutes(item) {
+    const start = String(item.startTime || '00:00').split(':').map(Number);
+    const end = String(item.endTime || '00:00').split(':').map(Number);
+    return Math.max(0, (end[0] * 60 + end[1]) - (start[0] * 60 + start[1]));
+}
+
+function renderTimelineCapacity() {
+    const container = document.getElementById('timelineCapacityContainer');
+    if (!container) return;
+    const start = startOfWeekKey(state.timelineAnchor);
+    const end = addDate(start, 6, 'day');
+    const minutes = getAgenda().filter(function (a) {
+        return a.date >= start && a.date <= end && categoryMatches(a.category);
+    }).reduce(function (sum, a) { return sum + agendaMinutes(a); }, 0);
+    const available = 360;
+    const healthy = minutes <= available;
+    container.innerHTML = '<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 rounded-2xl ' + (healthy ? 'tag-emerald' : 'tag-amber') + '">' +
+        '<div><p class="text-[10px] uppercase font-bold tracking-wider">Weekly Capacity</p><p class="text-xs font-bold mt-0.5">' + Math.floor(minutes / 60) + 'j ' + (minutes % 60) + 'm dijadwalkan • 6j tersedia</p></div>' +
+        '<div class="flex items-center gap-2"><span class="text-[10px] font-bold">' + (healthy ? '✓ Sehat' : '⚠ Jadwal mulai padat') + '</span>' +
+        (!healthy ? '<button onclick="aiReplan()" class="btn-secondary px-2.5 py-1.5 rounded-lg text-[9px] font-bold">AI Rebalance</button>' : '') + '</div></div>';
+}
+
+function agendaCard(item) {
+    const goal = state.goals.find(function (g) { return g.id === item.goalId; });
+    return '<div class="theme-card rounded-xl p-3 flex items-center justify-between gap-2"><div class="min-w-0"><p class="text-xs font-bold truncate">' + escapeHtml(item.title) + '</p>' +
+        '<p class="text-[9px] mt-1" style="color:var(--text-muted)">' + escapeHtml(item.location || 'Agenda') + (goal ? ' • ' + escapeHtml(goal.title) : '') + '</p></div>' +
+        '<div class="flex items-center gap-2 shrink-0"><span class="text-[10px] font-mono font-bold text-indigo-400">' + escapeHtml(item.startTime + '–' + item.endTime) + '</span>' +
+        '<button onclick="deleteAgendaItem(\'' + item.id + '\')" class="text-rose-400 p-1" title="Hapus"><i data-lucide="x" class="w-3 h-3"></i></button></div></div>';
+}
+
+function renderDayTimeline() {
+    const agenda = getAgenda().filter(function (a) { return a.date === state.timelineAnchor && categoryMatches(a.category); })
+        .sort(function (a, b) { return a.startTime.localeCompare(b.startTime); });
+    const unscheduled = state.tasks.filter(function (t) {
+        return t.status !== 'completed' && t.deadline === state.timelineAnchor && categoryMatches(t.category) &&
+            !agenda.some(function (a) { return a.taskId === t.id; });
+    });
+    let html = '<div class="space-y-2">';
+    if (!agenda.length && !unscheduled.length) {
+        html += '<div class="p-6 text-center border border-dashed border-[var(--border-card)] rounded-2xl text-xs" style="color:var(--text-muted)">Tidak ada yang dijadwalkan.<br><span class="opacity-70">Ruang yang lapang tidak apa-apa.</span></div>';
+    }
+    html += agenda.map(agendaCard).join('');
+    html += unscheduled.map(function (t) {
+        return '<div class="p-3 rounded-xl border border-dashed border-[var(--border-card)] flex items-center justify-between gap-2"><div><p class="text-xs font-bold">' + escapeHtml(t.title) + '</p><p class="text-[9px] mt-1" style="color:var(--text-muted)">Deadline hari ini • belum dijadwalkan</p></div><button onclick="scheduleTaskInZiel(\'' + t.id + '\')" class="btn-secondary px-2 py-1.5 rounded-lg text-[9px] font-bold">Cari slot</button></div>';
+    }).join('');
+    return html + '</div>';
+}
+
+function renderWeekTimeline() {
+    const start = startOfWeekKey(state.timelineAnchor);
+    const names = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
+    const agenda = getAgenda();
+    return '<div class="overflow-x-auto custom-scrollbar pb-2"><div class="timeline-week-grid">' + names.map(function (name, index) {
+        const date = addDate(start, index, 'day');
+        const items = agenda.filter(function (a) { return a.date === date && categoryMatches(a.category); });
+        const tasks = state.tasks.filter(function (t) { return t.deadline === date && t.status !== 'completed' && categoryMatches(t.category); });
+        return '<div class="rounded-2xl p-3 border border-[var(--border-card)] ' + (date === todayKey() ? 'tag-indigo' : '') + '"><p class="text-[9px] uppercase font-bold">' + name + '</p><p class="text-sm font-black mt-0.5">' + parseLocalDate(date).getDate() + '</p><div class="space-y-1.5 mt-3">' +
+            items.map(function (a) { return '<div class="theme-card p-2 rounded-lg text-[9px]"><span class="font-mono text-indigo-400">' + a.startTime + '</span><p class="font-bold mt-0.5">' + escapeHtml(a.title) + '</p></div>'; }).join('') +
+            tasks.filter(function (t) { return !items.some(function (a) { return a.taskId === t.id; }); }).map(function (t) { return '<button onclick="scheduleTaskInZiel(\'' + t.id + '\')" class="w-full text-left p-2 rounded-lg border border-dashed border-[var(--border-card)] text-[9px]">' + escapeHtml(t.title) + '</button>'; }).join('') +
+            (!items.length && !tasks.length ? '<p class="text-[9px] opacity-50">Ruang kosong</p>' : '') + '</div></div>';
+    }).join('') + '</div></div>';
+}
+
+function categoryProgressHtml(start, end) {
+    const cats = getCategories().filter(function (c) { return categoryMatches(c.id); });
+    return cats.map(function (cat) {
+        const goals = state.goals.filter(function (g) { return g.category === cat.id && g.startDate <= end && g.endDate >= start; });
+        const progress = goals.length ? Math.round(goals.reduce(function (sum, g) { return sum + (g.progress || 0); }, 0) / goals.length) : 0;
+        return '<div class="p-3 rounded-xl border border-[var(--border-card)]"><div class="flex justify-between text-[10px] font-bold"><span>' + escapeHtml(cat.icon + ' ' + cat.name) + '</span><span class="text-teal-400">' + progress + '%</span></div><div class="h-1.5 rounded-full mt-2 overflow-hidden" style="background:var(--border-card)"><div class="h-full bg-gradient-to-r from-indigo-500 to-teal-400" style="width:' + progress + '%"></div></div></div>';
+    }).join('');
+}
+
+function renderStrategicTimeline(view) {
+    const anchor = parseLocalDate(state.timelineAnchor);
+    let start, end, months = [];
+    if (view === 'month') {
+        start = localDateKey(new Date(anchor.getFullYear(), anchor.getMonth(), 1, 12));
+        end = localDateKey(new Date(anchor.getFullYear(), anchor.getMonth() + 1, 0, 12));
+    } else if (view === 'quarter') {
+        const qStart = Math.floor(anchor.getMonth() / 3) * 3;
+        start = localDateKey(new Date(anchor.getFullYear(), qStart, 1, 12));
+        end = localDateKey(new Date(anchor.getFullYear(), qStart + 3, 0, 12));
+        for (let i = 0; i < 3; i++) months.push(new Date(anchor.getFullYear(), qStart + i, 1).toLocaleDateString('id-ID', { month: 'short' }));
+    } else if (view === 'half') {
+        const hStart = anchor.getMonth() < 6 ? 0 : 6;
+        start = localDateKey(new Date(anchor.getFullYear(), hStart, 1, 12));
+        end = localDateKey(new Date(anchor.getFullYear(), hStart + 6, 0, 12));
+        for (let i = 0; i < 6; i++) months.push(new Date(anchor.getFullYear(), hStart + i, 1).toLocaleDateString('id-ID', { month: 'short' }));
+    } else {
+        start = anchor.getFullYear() + '-01-01';
+        end = anchor.getFullYear() + '-12-31';
+    }
+    const important = state.tasks.filter(function (t) {
+        return t.deadline >= start && t.deadline <= end && t.status !== 'completed' && categoryMatches(t.category);
+    }).sort(function (a, b) { return a.deadline.localeCompare(b.deadline); }).slice(0, 6);
+    let html = '';
+    if (view === 'quarter' || view === 'half') {
+        html += '<div class="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-2">' + months.map(function (m) {
+            return '<div class="btn-secondary min-w-[5rem] text-center py-2 rounded-xl text-[10px] font-bold">' + escapeHtml(m) + '</div>';
+        }).join('') + '</div>';
+    }
+    if (view === 'year') {
+        html += '<div class="grid grid-cols-4 gap-2 mb-3">' + ['Q1', 'Q2', 'Q3', 'Q4'].map(function (q, index) {
+            const qStart = anchor.getFullYear() + '-' + String(index * 3 + 1).padStart(2, '0') + '-01';
+            const qEnd = localDateKey(new Date(anchor.getFullYear(), index * 3 + 3, 0, 12));
+            const qTasks = state.tasks.filter(function (t) { return t.deadline >= qStart && t.deadline <= qEnd && categoryMatches(t.category); });
+            const qProgress = qTasks.length ? Math.round(qTasks.filter(function (t) { return t.status === 'completed'; }).length / qTasks.length * 100) : 0;
+            return '<div class="p-3 rounded-xl text-center tag-indigo"><p class="text-[9px] font-bold">' + q + '</p><p class="text-xs font-black mt-1">' + qProgress + '%</p><div class="h-1 rounded-full mt-2 overflow-hidden" style="background:var(--border-card)"><div class="h-full bg-indigo-400" style="width:' + qProgress + '%"></div></div></div>';
+        }).join('') + '</div>';
+    }
+    html += '<div class="timeline-month-grid">' + categoryProgressHtml(start, end) + '</div>';
+    html += '<div class="mt-4"><p class="text-[9px] uppercase tracking-wider font-bold mb-2" style="color:var(--text-muted)">' + (view === 'month' ? 'Milestone & task penting' : 'Strategic targets & deadlines') + '</p>' +
+        (important.length ? important.map(function (t) {
+            return '<div class="flex items-center justify-between gap-2 py-2 border-b border-[var(--border-card)] text-[10px]"><span class="font-bold">' + escapeHtml(t.title) + '</span><span style="color:var(--text-muted)">' + escapeHtml(formatDateId(t.deadline, { day: 'numeric', month: 'short' })) + '</span></div>';
+        }).join('') : '<p class="text-xs p-4 border border-dashed border-[var(--border-card)] rounded-xl" style="color:var(--text-muted)">Belum ada target penting pada periode ini.</p>') + '</div>';
+    return html;
+}
+
+function renderExecutionTimeline() {
+    const content = document.getElementById('executionTimelineContent');
+    if (!content) return;
+    document.querySelectorAll('.timeline-view-btn').forEach(function (button) {
+        button.classList.toggle('active', button.dataset.view === state.timelineView);
+    });
+    const label = document.getElementById('timelinePeriodLabel');
+    if (label) label.textContent = timelinePeriodLabel();
+    renderTimelineCapacity();
+    if (state.timelineView === 'day') content.innerHTML = renderDayTimeline();
+    else if (state.timelineView === 'week') content.innerHTML = renderWeekTimeline();
+    else content.innerHTML = renderStrategicTimeline(state.timelineView);
+    safeLucideCreateIcons({ root: content });
+}
+
+function renderAgendaList() {
+    renderExecutionTimeline();
+}
+
+function saveNewAgenda(openGCal) {
+    const title = document.getElementById('newAgendaTitle').value.trim();
+    const date = document.getElementById('newAgendaDate').value || todayKey();
+    const startTime = document.getElementById('newAgendaStartTime').value;
+    const endTime = document.getElementById('newAgendaEndTime').value;
+    const taskId = document.getElementById('newAgendaTask')?.value || null;
+    const task = state.tasks.find(function (t) { return t.id === taskId; });
+    const goal = task && state.goals.find(function (g) { return g.id === task.goalId; });
+    if (!title || !startTime || !endTime) {
+        showToast({ type: 'warning', title: 'Agenda belum lengkap', message: 'Isi judul dan rentang waktu.' });
+        return;
+    }
+    if (endTime <= startTime) {
+        showToast({ type: 'warning', title: 'Waktu tidak valid', message: 'Jam selesai harus setelah jam mulai.' });
+        return;
+    }
+    const agenda = getAgenda();
+    const item = {
+        id: 'ag-' + Date.now(), title: title, date: date,
+        startTime: startTime, endTime: endTime,
+        location: document.getElementById('newAgendaLocation').value.trim() || 'Agenda ZIEL',
+        goalId: task ? task.goalId : null,
+        milestoneId: task ? task.milestoneId : null,
+        taskId: taskId,
+        category: task ? task.category : (goal ? goal.category : null),
+        startDateTime: date + 'T' + startTime,
+        endDateTime: date + 'T' + endTime
+    };
+    agenda.push(item);
+    saveAgenda(agenda);
+    if (task) {
+        task.scheduledDate = date;
+        task.agendaId = item.id;
+        localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state));
+    }
+    closeModal('newAgendaModal');
+    document.getElementById('newAgendaTitle').value = '';
+    document.getElementById('newAgendaTask').value = '';
+    if (openGCal) {
+        const details = 'Goal: ' + (goal ? goal.title : '-') + '\nMilestone: ' +
+            (task && getMilestone(goal, task.milestoneId) ? getMilestone(goal, task.milestoneId).title : '-') +
+            '\nCategory: ' + (task ? task.category : '-');
+        const url = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) +
+            '&dates=' + formatGCalDateTime(new Date(date + 'T' + startTime)) + '/' + formatGCalDateTime(new Date(date + 'T' + endTime)) +
+            '&location=' + encodeURIComponent(item.location) + '&details=' + encodeURIComponent(details);
+        const opened = window.open(url, '_blank');
+        if (!opened) showToast({ type: 'warning', title: 'Tidak dapat membuka Google Calendar', message: 'Agenda tetap tersimpan di ZIEL.' });
+    }
+    renderExecutionTimeline();
+    showToast({ type: 'success', title: 'Agenda tersimpan', message: '"' + title + '" terhubung ke timeline.' });
+}
+
+function formatGCalDateTime(date) {
+    return date.getFullYear() + String(date.getMonth() + 1).padStart(2, '0') + String(date.getDate()).padStart(2, '0') +
+        'T' + String(date.getHours()).padStart(2, '0') + String(date.getMinutes()).padStart(2, '0') + '00';
+}
+
+function scheduleTaskToGoogleCalendar(taskId) {
+    const task = state.tasks.find(function (t) { return t.id === taskId; });
+    if (!task) return;
+    const goal = state.goals.find(function (g) { return g.id === task.goalId; });
+    const milestone = getMilestone(goal, task.milestoneId);
+    const details = 'Goal: ' + (goal ? goal.title : '-') + '\nMilestone: ' + (milestone ? milestone.title : '-') +
+        '\nCategory: ' + task.category + '\nPriority: ' + task.priority + '\nEnergy: Level ' + task.energyRequired;
+    const url = createGoogleCalendarUrl(task.title, task.estimatedMinutes || 25, details);
+    const opened = window.open(url, '_blank');
+    if (opened) showToast({ type: 'success', title: 'Google Calendar dibuka', message: 'Konteks Goal, Milestone, dan Category ikut disertakan.' });
+    else showToast({ type: 'warning', title: 'Tidak dapat membuka Google Calendar', message: 'Task tetap tersimpan di ZIEL.' });
+}
+
+function openGoogleCalendarWeb() {
+    const opened = window.open('https://calendar.google.com/', '_blank');
+    if (!opened) showToast({ type: 'warning', title: 'Tidak dapat membuka Google Calendar', message: 'Periksa izin pop-up browser Anda.' });
+}
+
+function minutesToTime(total) {
+    return String(Math.floor(total / 60)).padStart(2, '0') + ':' + String(total % 60).padStart(2, '0');
+}
+
+function scheduleTaskInZiel(taskId) {
+    const task = state.tasks.find(function (t) { return t.id === taskId; });
+    if (!task) return;
+    const agenda = getAgenda();
+    const duration = Number(task.estimatedMinutes) || 25;
+    let selected = null;
+    for (let offset = 0; offset < 14 && !selected; offset++) {
+        const date = addDate(todayKey(), offset, 'day');
+        if (date > task.deadline) break;
+        const d = parseLocalDate(date).getDay();
+        if (d === 0) continue;
+        const dayItems = agenda.filter(function (a) { return a.date === date; });
+        const dayMinutes = dayItems.reduce(function (sum, a) { return sum + agendaMinutes(a); }, 0);
+        const weekStart = startOfWeekKey(date);
+        const weekEnd = addDate(weekStart, 6, 'day');
+        const weekMinutes = agenda.filter(function (a) { return a.date >= weekStart && a.date <= weekEnd; })
+            .reduce(function (sum, a) { return sum + agendaMinutes(a); }, 0);
+        if (weekMinutes + duration > 360) continue;
+        if (dayMinutes + duration > 180) continue;
+        let start = 9 * 60;
+        dayItems.sort(function (a, b) { return a.startTime.localeCompare(b.startTime); }).forEach(function (a) {
+            const parts = a.endTime.split(':').map(Number);
+            start = Math.max(start, parts[0] * 60 + parts[1] + 15);
+        });
+        if (start + duration <= 18 * 60) selected = { date: date, start: minutesToTime(start), end: minutesToTime(start + duration) };
+    }
+    if (!selected) {
+        showToast({ type: 'warning', title: 'Kapasitas terlindungi', message: 'Tidak ada slot sehat sebelum deadline. Coba AI Rebalance atau ubah deadline.' });
+        return;
+    }
+    const item = {
+        id: 'ag-' + Date.now(), title: task.title, date: selected.date,
+        startTime: selected.start, endTime: selected.end, location: 'Smart Schedule ZIEL',
+        goalId: task.goalId, milestoneId: task.milestoneId, taskId: task.id, category: task.category,
+        startDateTime: selected.date + 'T' + selected.start, endDateTime: selected.date + 'T' + selected.end
+    };
+    agenda.push(item);
+    saveAgenda(agenda);
+    task.scheduledDate = selected.date; task.agendaId = item.id;
+    localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state));
+    renderAll();
+    showToast({ type: 'success', title: 'Slot tenang ditemukan', message: formatDateId(selected.date, { weekday: 'long', day: 'numeric', month: 'short' }) + ' • ' + selected.start + '–' + selected.end });
+}
+
+function aiReplan() {
+    const agenda = getAgenda();
+    const weekStart = startOfWeekKey(todayKey());
+    const weekEnd = addDate(weekStart, 6, 'day');
+    const candidates = agenda.filter(function (a) {
+        const task = state.tasks.find(function (t) { return t.id === a.taskId; });
+        return a.date >= weekStart && a.date <= weekEnd && task && task.status !== 'completed' && ['low', 'medium'].includes(task.priority);
+    }).sort(function (a, b) {
+        const ta = state.tasks.find(function (t) { return t.id === a.taskId; });
+        const tb = state.tasks.find(function (t) { return t.id === b.taskId; });
+        return (ta.priority === 'low' ? -1 : 1) - (tb.priority === 'low' ? -1 : 1);
+    }).slice(0, 2);
+    if (!candidates.length) {
+        showToast({ type: 'info', title: 'Rencana tetap tenang', message: 'Tidak ada task berprioritas rendah yang perlu dipindahkan. Goal utama tetap on track.' });
+        return;
+    }
+    candidates.forEach(function (item) {
+        item.date = addDate(item.date, 7, 'day');
+        item.startDateTime = item.date + 'T' + item.startTime;
+        item.endDateTime = item.date + 'T' + item.endTime;
+        const task = state.tasks.find(function (t) { return t.id === item.taskId; });
+        if (task) task.scheduledDate = item.date;
+    });
+    saveAgenda(agenda);
+    localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state));
+    renderAll();
+    showToast({ type: 'success', title: 'AI Replan selesai', message: candidates.length + ' task non-urgent dipindahkan ke minggu depan. Tidak ada beban tambahan.' });
+}
+
+function renderAll() {
+    ensureStateShape();
+    loadProfile();
+    updateGeminiStatusUI();
+    updateSpotifyUI();
+    updateEnergyUI();
+    renderCategoryTabs();
+    renderCategorySelects();
+    renderCategoryManagerList();
+    renderStats();
+    renderTasks();
+    renderGoals();
+    renderExecutionTimeline();
+    renderNotificationCenter();
+    updateNotificationBadge();
+    safeLucideCreateIcons();
 }
     </script>
     <!-- 2-MINUTE QUICK WIN MODAL -->
