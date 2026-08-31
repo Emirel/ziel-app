@@ -1,13 +1,16 @@
 {
   "name": "ZIEL — Calm Tech AI Execution System",
   "short_name": "ZIEL",
-  "description": "Personal AI-powered execution and productivity system for deep focus work",
+  "description": "Personal AI-powered execution and productivity system untuk deep focus, goal management, dan eksekusi harian yang tenang.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
   "background_color": "#131B2F",
   "theme_color": "#131B2F",
+  "categories": ["productivity", "utilities"],
+  "lang": "id-ID",
+  "dir": "ltr",
   "icons": [
     {
       "src": "/logo-192.png",
@@ -27,37 +30,24 @@
       "src": "/screenshot-1.png",
       "sizes": "540x720",
       "type": "image/png",
-      "form_factor": "narrow"
+      "form_factor": "narrow",
+      "label": "Dashboard dan fokus harian ZIEL"
     },
     {
       "src": "/screenshot-2.png",
       "sizes": "540x720",
       "type": "image/png",
-      "form_factor": "narrow"
-    }
-  ],
-  "splash_screens": [
-    {
-      "src": "/splash-192.png",
-      "sizes": "192x192",
-      "form_factor": "narrow"
+      "form_factor": "narrow",
+      "label": "Goal, task, dan execution timeline"
     },
     {
       "src": "/splash-512.png",
       "sizes": "512x512",
-      "form_factor": "wide"
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "ZIEL splash screen"
     }
   ],
-  "prefer_related_applications": false,
-  "categories": ["productivity", "utilities"],
   "share_target": {
     "action": "/share",
-    "method": "POST",
-    "enctype": "multipart/form-data",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  }
-}
+   
