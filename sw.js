@@ -1,20 +1,12 @@
 /**
- * ZIEL — Service Worker
- * Strategy:
- *  - App shell (index.html, manifest.json) -> precached on install, served
- *    network-first with cache fallback so users always get the latest
- *    version when online, and the app still opens offline.
- *  - Same-origin static assets -> cache-first, filled in as they're used.
- *  - Cross-origin CDN assets (fonts, Tailwind, Lucide, Firebase SDK) ->
- *    stale-while-revalidate so the app works offline after first load
- *    but still picks up updates in the background.
- *  - Firebase Auth / Firestore API calls and any non-GET request are
- *    NEVER intercepted — they need a live network connection to work
- *    correctly (auth tokens, real-time sync), and caching them would
- *    cause stale or broken data.
+ * ZIEL — Service Worker v4
+ * Enhancements:
+ *  - Push notification handling
+ *  - Offline sync support
+ *  - Improved caching strategy
  */
 
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v4';
 const APP_SHELL_CACHE = `ziel-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `ziel-runtime-${CACHE_VERSION}`;
 
@@ -24,8 +16,6 @@ const APP_SHELL_ASSETS = [
   './manifest.json'
 ];
 
-// Hosts whose responses should never be cached or served from cache —
-// live API traffic that must always hit the network.
 const NEVER_CACHE_HOSTS = [
   'firestore.googleapis.com',
   'identitytoolkit.googleapis.com',
@@ -58,8 +48,6 @@ function isNeverCacheHost(url) {
   return NEVER_CACHE_HOSTS.some((host) => url.hostname === host);
 }
 
-// Network-first: try the network, fall back to cache, and refresh the
-// cache with whatever the network returned.
 async function networkFirst(request, cacheName) {
   try {
     const response = await fetch(request);
@@ -75,8 +63,6 @@ async function networkFirst(request, cacheName) {
   }
 }
 
-// Stale-while-revalidate: serve from cache immediately if present, and
-// update the cache in the background for next time.
 async function staleWhileRevalidate(request, cacheName) {
   const cache = await caches.open(cacheName);
   const cached = await cache.match(request);
@@ -93,12 +79,9 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Only handle safe, cacheable GET requests. Everything else (POST to
-  // Firebase, etc.) goes straight to the network untouched.
   if (request.method !== 'GET') return;
   if (isNeverCacheHost(url)) return;
 
-  // Navigations (opening/refreshing the app) -> app shell, network-first.
   if (request.mode === 'navigate') {
     event.respondWith(
       networkFirst(request, APP_SHELL_CACHE).catch(() =>
@@ -108,7 +91,6 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Same-origin static assets -> cache-first.
   if (url.origin === self.location.origin) {
     event.respondWith(
       caches.match(request).then((cached) => {
@@ -124,7 +106,77 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cross-origin CDN assets (fonts, Tailwind, Lucide, Firebase SDK JS
-  // files) -> stale-while-revalidate.
   event.respondWith(staleWhileRevalidate(request, RUNTIME_CACHE));
 });
+
+// ============ PUSH NOTIFICATION HANDLING ============
+
+self.addEventListener('push', (event) => {
+  let notificationData = {
+    title: 'ZIEL Notifikasi',
+    body: 'Anda punya update',
+    icon: '/logo-192.png',
+    badge: '/logo-192.png'
+  };
+
+  if (event.data) {
+    try {
+      const payload = event.data.json();
+      notificationData = { ...notificationData, ...payload };
+    } catch (e) {
+      notificationData.body = event.data.text();
+    }
+  }
+
+  event.waitUntil(
+    self.registration.showNotification(notificationData.title, {
+      body: notificationData.body,
+      icon: notificationData.icon,
+      badge: notificationData.badge,
+      tag: 'ziel-notification',
+      requireInteraction: false,
+      vibrate: [200, 100, 200]
+    })
+  );
+});
+
+// ============ NOTIFICATION CLICK HANDLING ============
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then((clientList) => {
+      // Focus existing window if open
+      for (let client of clientList) {
+        if (client.url === '/' && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      // Open new window if not open
+      if (clients.openWindow) {
+        return clients.openWindow('/');
+      }
+    })
+  );
+});
+
+// ============ BACKGROUND SYNC (Optional) ============
+
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-offline-queue') {
+    event.waitUntil(
+      clients.matchAll().then((clientList) => {
+        // Notify client to process offline queue
+        clientList.forEach((client) => {
+          client.postMessage({
+            type: 'SYNC_OFFLINE_QUEUE'
+          });
+        });
+        return Promise.resolve();
+      })
+    );
+  }
+});
+
+console.log('ZIEL Service Worker v4 loaded');
