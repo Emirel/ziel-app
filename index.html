@@ -1325,6 +1325,26 @@
         .goal-stepper > i { flex: 1; max-width: 3.5rem; }
         #goalFormStep1 .theme-input, #goalFormStep2 .date-field-card, #goalFormStep3 .plan-mode-card { border-radius: 1.1rem !important; }
         @media (max-width: 640px) { .focus-hero { border-radius: 1.35rem; padding: 1rem; } .goal-form-step { padding: .9rem; } }
+        /* Professional mobile controls */
+        button, .add-cta, .btn-secondary, .primary-btn-gradient, .clean-icon-btn {
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: -.01em;
+        }
+        .btn-secondary { border: 1px solid var(--border-card) !important; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+        .primary-btn-gradient { box-shadow: 0 8px 20px -10px rgba(79,70,229,.9), inset 0 1px 0 rgba(255,255,255,.2); }
+        .add-cta { min-height: 3rem; padding: .5rem .9rem .5rem .5rem !important; border-radius: 1rem !important; }
+        .add-cta-icon { border-radius: .75rem; }
+        .clean-icon-btn { min-width: 2.65rem; min-height: 2.65rem; border: 1px solid var(--border-card); background: var(--btn-sec-bg); display: inline-grid; place-items: center; }
+        .modern-toast { border-radius: 1.1rem; padding: .8rem .9rem; box-shadow: 0 16px 40px -18px rgba(0,0,0,.55); }
+        .toast-progress-bar { height: 2px; }
+        .focus-dial { touch-action: none; cursor: crosshair; filter: drop-shadow(0 12px 28px rgba(45,212,191,.10)); }
+        .focus-dial-handle { fill: #fff; stroke: #2DD4BF; stroke-width: 5; filter: drop-shadow(0 3px 7px rgba(0,0,0,.35)); transition: cx .08s linear, cy .08s linear; }
+        .focus-dial-hint { color: var(--text-muted); font-size: .65rem; line-height: 1.5; }
+        #focusModeOverlay[data-timer-mode="custom"] .focus-dial { cursor: grab; }
+        #focusModeOverlay[data-timer-mode="custom"] .focus-dial:active { cursor: grabbing; }
+        .simple-plan-card { padding: 1rem; border: 1px solid var(--border-card); border-radius: 1.15rem; background: var(--input-bg); }
+        .simple-plan-card input { min-height: 3.25rem; }
+        .horizontal-control-zone { overscroll-behavior-x: contain; touch-action: pan-x; }
     </style>
     <meta name="theme-color" content="#607D8B">
     <link rel="manifest" href="manifest.json">
@@ -1531,7 +1551,7 @@
                     </div>
                 </div>
 
-                <div class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar pb-1" id="timelineViewSelector">
+                <div class="horizontal-control-zone flex items-center gap-1.5 overflow-x-auto custom-scrollbar pb-1" id="timelineViewSelector">
                     <button data-view="day" onclick="setTimelineView('day')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">Hari</button>
                     <button data-view="week" onclick="setTimelineView('week')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">Minggu</button>
                     <button data-view="month" onclick="setTimelineView('month')" class="timeline-view-btn btn-secondary shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">Bulan</button>
@@ -1544,7 +1564,7 @@
                 </div>
 
                 <div class="flex items-center justify-between gap-2">
-                    <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar flex-1" id="categoryTabsList"></div>
+                    <div class="horizontal-control-zone flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar flex-1" id="categoryTabsList"></div>
                     <button onclick="openModal('manageCategoriesModal')" class="btn-secondary shrink-0 p-2 rounded-xl" title="Kelola kategori"><i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-indigo-400"></i></button>
                 </div>
 
@@ -2069,10 +2089,11 @@
             </div>
 
             <!-- Single Circular Timer -->
-            <div class="relative w-52 h-52 sm:w-60 sm:h-60 mx-auto flex items-center justify-center">
-                <svg class="w-full h-full transform -rotate-90">
+            <div id="focusDialWrap" class="relative w-52 h-52 sm:w-60 sm:h-60 mx-auto flex items-center justify-center">
+                <svg id="focusDial" class="focus-dial w-full h-full" viewBox="0 0 240 240" role="slider" aria-label="Durasi fokus custom" aria-valuemin="1" aria-valuemax="180" aria-valuenow="25" tabindex="0">
                     <circle cx="50%" cy="50%" r="90" stroke="var(--border-card)" stroke-width="8" fill="transparent" />
-                    <circle id="timerProgressRing" cx="50%" cy="50%" r="90" stroke="#2DD4BF" stroke-width="8" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0" stroke-linecap="round" class="transition-all duration-1000" />
+                    <circle id="timerProgressRing" cx="50%" cy="50%" r="90" stroke="#2DD4BF" stroke-width="8" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 120 120)" class="transition-all duration-1000" />
+                    <circle id="focusDialHandle" class="focus-dial-handle" cx="120" cy="30" r="7" />
                 </svg>
                 <div class="absolute flex flex-col items-center">
                     <span class="text-4xl sm:text-5xl font-black tracking-tighter font-mono" style="color: var(--text-main);" id="focusTimerDisplay">25:00</span>
@@ -2090,6 +2111,7 @@
                     <input id="customFocusMinutes" type="number" min="1" max="180" value="25" class="theme-input" oninput="applyCustomFocusDuration(this.value)" aria-label="Durasi fokus dalam menit">
                     <span class="text-xs font-bold" style="color:var(--text-muted)">menit fokus</span>
                 </div>
+                <p id="customDialHint" class="focus-dial-hint hidden mt-2">Geser titik pada lingkaran · ½ putaran = 90 menit</p>
                 <div id="pomodoroStatus" class="pomodoro-status"><span>25 menit fokus · 5 menit jeda</span><span class="pomodoro-dots" id="pomodoroDots"><i class="active"></i><i></i><i></i><i></i></span></div>
             </div>
 
@@ -2132,7 +2154,7 @@
 
                 <!-- 2. Spotify Player Tab -->
                 <div id="spotifySoundsPanel" class="hidden space-y-2">
-                    <div class="p-3 rounded-xl border border-[var(--border-card)] flex items-center gap-3"><span class="w-9 h-9 rounded-xl bg-[#1DB954] text-slate-950 grid place-items-center"><i data-lucide="music-2" class="w-4 h-4"></i></span><span class="flex-1"><strong class="block text-xs">Ikuti Spotify-mu</strong><small class="block mt-0.5" style="color:var(--text-muted)">Hubungkan tanpa meninggalkan sesi fokus ini.</small></span><button onclick="openSpotifyFromFocus()" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold">Now Playing</button></div>
+                    <div class="p-3 rounded-xl border border-[var(--border-card)] flex items-center gap-3"><span class="w-9 h-9 rounded-xl bg-[#1DB954] text-slate-950 grid place-items-center"><i data-lucide="music-2" class="w-4 h-4"></i></span><span class="flex-1"><strong class="block text-xs">Buka Spotify</strong><small class="block mt-0.5" style="color:var(--text-muted)">Pilih musik langsung dari aplikasi Spotify.</small></span><button onclick="openSpotifyApp()" class="spotify-connect-button px-3 py-2 rounded-xl text-xs font-bold">Buka app <i data-lucide="external-link"></i></button></div>
                 </div>
             </div>
 
@@ -2348,22 +2370,22 @@
         </div>
 
         <div id="goalFormStep3" class="goal-form-step hidden space-y-3 text-xs">
-            <div><p class="eyebrow">Langkah 3</p><h4 class="form-step-title">Susun jalan menuju goal</h4><p class="form-step-copy">Manual menjadi pilihan awal. AI dapat membantu kapan pun kamu membutuhkannya.</p></div>
+            <div><p class="eyebrow">Langkah 3 · terakhir</p><h4 class="form-step-title">Apa hasil pertama yang terlihat?</h4><p class="form-step-copy">Cukup tentukan satu hasil awal. ZIEL akan membuat struktur waktunya di belakang layar.</p></div>
             <input type="checkbox" id="enableAIBreakdown" class="hidden" onchange="toggleManualMilestoneUI()">
             <div class="plan-mode-grid">
                 <button type="button" id="manualPlanMode" onclick="setGoalPlanMode('manual')" class="plan-mode-card selected">
-                    <span class="icon-box"><i data-lucide="list-tree"></i></span><span><strong>Susun manual</strong><small>Isi target tahunan, lalu pecah secara bertahap.</small></span>
+                    <span class="icon-box"><i data-lucide="flag"></i></span><span><strong>Tentukan sendiri</strong><small>Tulis satu hasil awal yang sederhana.</small></span>
                 </button>
                 <button type="button" id="aiPlanMode" onclick="setGoalPlanMode('ai')" class="plan-mode-card">
-                    <span class="icon-box"><i data-lucide="sparkles"></i></span><span><strong>Bantu dengan AI</strong><small>Dapatkan usulan yang tetap bisa kamu review.</small></span>
+                    <span class="icon-box"><i data-lucide="sparkles"></i></span><span><strong>Sarankan otomatis</strong><small>ZIEL menyiapkan hasil awal untuk direview.</small></span>
                 </button>
             </div>
             <div id="manualMilestoneSection" class="space-y-2 pt-2">
-                <div class="flex items-center justify-between gap-2"><label class="block font-semibold" style="color:var(--text-sub)">Kerangka berdasarkan durasi</label><span class="text-[10px]" style="color:var(--text-muted)">Tersimpan bertingkat</span></div>
+                <div class="flex items-center justify-between gap-2"><label class="block font-semibold" style="color:var(--text-sub)">Hasil pertama</label><span class="text-[10px]" style="color:var(--text-muted)">Bisa diubah nanti</span></div>
                 <div id="goalPlanSkeleton" class="plan-skeleton"></div>
-                <div class="plan-structure-preview"><strong style="color:var(--text-sub)">Struktur progresif:</strong> Tahun → 6 Bulan → Bulan → Minggu. Level detail akan tetap tertutup dan bisa dibuka saat dibutuhkan agar rencana tetap tenang.</div>
+                <div class="plan-structure-preview"><strong style="color:var(--text-sub)">Tetap ringan:</strong> detail tahun, bulan, dan minggu dibuat otomatis dan hanya ditampilkan saat dibutuhkan.</div>
             </div>
-            <div id="aiPlanHint" class="hidden p-3 rounded-2xl tag-indigo leading-relaxed">AI akan mengusulkan target sesuai durasi. Tidak ada rencana yang disimpan sebelum kamu meninjaunya.</div>
+            <div id="aiPlanHint" class="hidden p-3 rounded-2xl tag-indigo leading-relaxed">ZIEL akan mengusulkan satu hasil pertama dan struktur sederhana. Kamu tetap meninjaunya sebelum disimpan.</div>
         </div>
         </div>
 
@@ -2865,14 +2887,14 @@
 
             let actionBtnHtml = '';
             if (actionLabel && onAction) {
-                actionBtnHtml = `<button class="toast-action-btn mt-1.5 px-2.5 py-1 rounded-lg primary-btn-gradient text-[10px] font-bold tracking-wide">${actionLabel}</button>`;
+                actionBtnHtml = `<button type="button" class="toast-action-btn mt-1.5 px-2.5 py-1 rounded-lg primary-btn-gradient text-[10px] font-bold tracking-wide">${escapeHtml(actionLabel)}</button>`;
             }
 
             toast.innerHTML = `
                 ${icons[type] || icons.info}
                 <div class="flex-1 space-y-0.5 overflow-hidden">
-                    <h5 class="text-xs font-bold leading-snug" style="color: var(--text-main);">${title}</h5>
-                    <p class="text-[11px] leading-relaxed opacity-85 line-clamp-2" style="color: var(--text-sub);">${message}</p>${actionBtnHtml}
+                    <h5 class="text-xs font-bold leading-snug" style="color: var(--text-main);">${escapeHtml(title)}</h5>
+                    <p class="text-[11px] leading-relaxed opacity-85 line-clamp-2" style="color: var(--text-sub);">${escapeHtml(message)}</p>${actionBtnHtml}
                 </div>
                 <button class="toast-close-btn opacity-50 hover:opacity-100 p-1 -mr-1 text-xs shrink-0 transition" title="Tutup">
                     <i data-lucide="x" class="w-3.5 h-3.5"></i>
@@ -3624,6 +3646,11 @@
             switchSoundscapeSource('spotify');
         }
 
+        function openSpotifyApp() {
+            localStorage.setItem('ZIEL_SPOTIFY_RETURN_CONTEXT', JSON.stringify({ screen: 'focus', taskId: focusTask?.id || null, source: 'spotify', timestamp: Date.now() }));
+            window.location.href = 'https://open.spotify.com/';
+        }
+
         function disconnectSpotify() {
             localStorage.removeItem('ZIEL_SPOTIFY_TOKEN');
             localStorage.removeItem('ZIEL_SPOTIFY_EXPIRES_AT');
@@ -4283,6 +4310,10 @@
                 return;
             }
 
+            const fastReply = buildLocalZielReply(text);
+            botBubble.innerHTML = '<p class="font-bold text-teal-400">✦ Jawaban cepat</p><div class="opacity-95 leading-relaxed">' + formatCopilotReply(fastReply) + '</div><p class="mt-2 text-[10px] opacity-55">Memperdalam dengan AI…</p>';
+            chatLogs.scrollTop = chatLogs.scrollHeight;
+
             copilotChatHistory.push({ role: 'user', text: text });
 
             const activeTasksList = state.tasks.filter(t => t.status !== 'completed').slice(0, 4).map(t => `- ${t.title} (${t.priority}, Durasi: ${t.estimatedMinutes}m, Energy: L${t.energyRequired})`).join('\n');
@@ -4304,12 +4335,7 @@ ${previousHistoryText ? '--- Riwayat Percakapan Sebelumnya ---\n' + previousHist
 Pengguna: ${text}
 Gemini:`;
 
-            const candidateModels = [
-                'gemini-3.7-flash',
-                'gemini-3.6-flash',
-                'gemini-2.5-flash',
-                'gemini-2.5-flash-lite'
-            ];
+            const candidateModels = ['gemini-2.5-flash-lite', 'gemini-2.5-flash'];
 
             let reply = "";
             let lastError = "";
@@ -4320,6 +4346,7 @@ Gemini:`;
                     const response = await fetch(endpoint, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
+                        signal: AbortSignal.timeout(12000),
                         body: JSON.stringify({
                             contents: [{ parts: [{ text: fullPrompt }] }],
                             generationConfig: { temperature: 0.7, maxOutputTokens: 1200 }
@@ -4726,12 +4753,7 @@ Gemini:`;
             const apiKey = (localStorage.getItem('ZIEL_GEMINI_API_KEY') || '').trim();
             if (!apiKey) return null;
 
-            const candidateModels = [
-                'gemini-3.7-flash',
-                'gemini-3.6-flash',
-                'gemini-2.5-flash',
-                'gemini-2.5-flash-lite'
-            ];
+            const candidateModels = ['gemini-2.5-flash-lite', 'gemini-2.5-flash'];
             let lastError = null;
 
             for (const model of candidateModels) {
@@ -4740,6 +4762,7 @@ Gemini:`;
                     const response = await fetch(endpoint, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
+                        signal: AbortSignal.timeout(12000),
                         body: JSON.stringify({
                             contents: [{ parts: [{ text: promptText }] }],
                             generationConfig: { temperature: 0.2 }
@@ -4988,15 +5011,18 @@ Gemini:`;
         let focusTimerMode = 'pomodoro';
         let pomodoroPhase = 'focus';
         let pomodoroSession = 1;
+        let sessionFocusedSeconds = 0;
+        let focusDialDragging = false;
 
         function openFocusMode(task) {
             focusTask = task;
+            sessionFocusedSeconds = 0;
             playChime('click');
             document.getElementById('focusTaskTitle').textContent = task.title;
 
             const cats = getCategories();
             const matchedCat = cats.find(c => c.id === task.category);
-            document.getElementById('focusCategoryBadge').textContent = matchedCat ? `${matchedCat.icon} ${matchedCat.name.toUpperCase()}` : task.category.toUpperCase();
+            document.getElementById('focusCategoryBadge').textContent = matchedCat ? `${matchedCat.icon} ${matchedCat.name.toUpperCase()}` : String(task.category || 'FOKUS').toUpperCase();
 
             setFocusTimerMode('pomodoro');
             renderFocusMicroActions();
@@ -5049,14 +5075,60 @@ Gemini:`;
             document.getElementById('focusModeCustom').className = focusTimerMode === 'custom' ? 'primary-btn-gradient' : 'btn-secondary';
             document.getElementById('focusModePomodoro').className = focusTimerMode === 'pomodoro' ? 'primary-btn-gradient' : 'btn-secondary';
             document.getElementById('customDurationControl').classList.toggle('hidden', focusTimerMode !== 'custom');
+            document.getElementById('customDialHint').classList.toggle('hidden', focusTimerMode !== 'custom');
+            document.getElementById('focusModeOverlay').dataset.timerMode = focusTimerMode;
             document.getElementById('pomodoroStatus').classList.toggle('hidden', focusTimerMode !== 'pomodoro');
             if (focusTimerMode === 'pomodoro') setFocusDuration(25);
             else setFocusDuration(document.getElementById('customFocusMinutes')?.value || 25);
             updateFocusPhaseUI();
+            updateFocusDialHandle(focusTimerMode === 'custom' ? Number(document.getElementById('customFocusMinutes')?.value || 25) : 25);
         }
 
         function applyCustomFocusDuration(value) {
-            if (focusTimerMode === 'custom') setFocusDuration(value);
+            const minutes = Math.max(1, Math.min(180, Number(value) || 1));
+            if (focusTimerMode === 'custom') setFocusDuration(minutes);
+            updateFocusDialHandle(minutes);
+        }
+
+        function updateFocusDialHandle(minutes) {
+            const handle = document.getElementById('focusDialHandle');
+            const dial = document.getElementById('focusDial');
+            if (!handle || !dial) return;
+            const angle = (Math.max(1, Math.min(180, minutes)) / 180) * Math.PI * 2 - Math.PI / 2;
+            handle.setAttribute('cx', String(120 + 90 * Math.cos(angle)));
+            handle.setAttribute('cy', String(120 + 90 * Math.sin(angle)));
+            dial.setAttribute('aria-valuenow', String(Math.round(minutes)));
+        }
+
+        function setCustomDurationFromPointer(event) {
+            if (focusTimerMode !== 'custom' || isTimerRunning) return;
+            const dial = document.getElementById('focusDial');
+            const rect = dial.getBoundingClientRect();
+            const x = (event.clientX - rect.left) * 240 / rect.width - 120;
+            const y = (event.clientY - rect.top) * 240 / rect.height - 120;
+            let degrees = (Math.atan2(y, x) * 180 / Math.PI + 90 + 360) % 360;
+            let minutes = Math.max(1, Math.min(180, Math.round(degrees / 2)));
+            document.getElementById('customFocusMinutes').value = minutes;
+            setFocusDuration(minutes);
+            updateFocusDialHandle(minutes);
+        }
+
+        function initFocusDial() {
+            const dial = document.getElementById('focusDial');
+            if (!dial || dial.dataset.ready) return;
+            dial.dataset.ready = 'true';
+            dial.addEventListener('pointerdown', function (event) { focusDialDragging = true; dial.setPointerCapture(event.pointerId); setCustomDurationFromPointer(event); });
+            dial.addEventListener('pointermove', function (event) { if (focusDialDragging) setCustomDurationFromPointer(event); });
+            dial.addEventListener('pointerup', function () { focusDialDragging = false; });
+            dial.addEventListener('pointercancel', function () { focusDialDragging = false; });
+            dial.addEventListener('keydown', function (event) {
+                if (!['ArrowLeft','ArrowDown','ArrowRight','ArrowUp'].includes(event.key) || focusTimerMode !== 'custom') return;
+                event.preventDefault();
+                const delta = ['ArrowRight','ArrowUp'].includes(event.key) ? 1 : -1;
+                const input = document.getElementById('customFocusMinutes');
+                input.value = Math.max(1, Math.min(180, Number(input.value || 25) + delta));
+                applyCustomFocusDuration(input.value);
+            });
         }
 
         function updateFocusPhaseUI() {
@@ -5104,6 +5176,7 @@ Gemini:`;
             timerInterval = setInterval(() => {
                 if (timerSeconds > 0) {
                     timerSeconds--;
+                    if (focusTimerMode === 'custom' || pomodoroPhase === 'focus') sessionFocusedSeconds++;
                     updateTimerDisplay();
                 } else {
                     pauseTimer();
@@ -5134,7 +5207,7 @@ Gemini:`;
             pauseTimer();
             if (focusTask) {
                 focusTask.status = 'completed';
-                const minutesFocused = Math.round((timerTotalSeconds - timerSeconds) / 60) || 15;
+                const minutesFocused = sessionFocusedSeconds > 0 ? Math.max(1, Math.round(sessionFocusedSeconds / 60)) : 0;
                 recordCompletion(minutesFocused);
                 if (minutesFocused >= 45) state.flags.hasDeepFocusSession = true;
                 saveState();
@@ -5969,9 +6042,18 @@ function toggleMilestoneStatus(goalId, milestoneId) {
         window.addEventListener('DOMContentLoaded', () => {
             // Semua aksi UI bersifat tombol biasa; mencegah submit form/password manager tak disengaja.
             document.querySelectorAll('button:not([type])').forEach(function (button) { button.type = 'button'; });
+            new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) { mutation.addedNodes.forEach(function (node) {
+                    if (node.nodeType !== 1) return;
+                    if (node.matches?.('button:not([type])')) node.type = 'button';
+                    node.querySelectorAll?.('button:not([type])').forEach(function (button) { button.type = 'button'; });
+                }); });
+            }).observe(document.body, { childList: true, subtree: true });
             initTheme();
+            initFocusDial();
             checkSpotifyAuthRedirect();
             renderAll();
+            if (!new URLSearchParams(window.location.search).has('code')) window.setTimeout(restoreSpotifyReturnContext, 120);
             initFormDrafts();
             window.setTimeout(maybeShowOnboarding, 350);
             if (!sessionStorage.getItem('ZIEL_LAUNCH_APPLIED')) {
@@ -6484,20 +6566,9 @@ function renderGoalPlanSkeleton() {
     const type = document.getElementById('newGoalDurationType')?.value;
     if (!container || !start || !end) return;
     const months = goalDraftMonthCount(start, end, type);
-    const blocks = months >= 12 ? Math.ceil(months / 12) : 1;
-    let html = '';
-    for (let index = 0; index < blocks; index++) {
-        const blockStart = months >= 12 ? addDate(start, index, 'year') : start;
-        const proposedEnd = months >= 12 ? addDate(addDate(blockStart, 1, 'year'), -1, 'day') : end;
-        const blockEnd = proposedEnd > end ? end : proposedEnd;
-        const blockMonths = goalDraftMonthCount(blockStart, blockEnd, 'custom');
-        const halves = Math.max(1, Math.ceil(blockMonths / 6));
-        const weeks = Math.max(1, Math.ceil(((parseLocalDate(blockEnd) - parseLocalDate(blockStart)) / 86400000 + 1) / 7));
-        const label = months >= 12 ? 'Target Tahun ' + (index + 1) : 'Target periode ini';
-        const value = goalPlanYearDrafts[index] || '';
-        html += '<div class="plan-year-card"><div class="flex items-center justify-between gap-2"><div><strong class="text-xs" style="color:var(--text-main)">' + label + '</strong><p class="plan-year-meta">' + escapeHtml(formatDateId(blockStart, { day: 'numeric', month: 'short', year: 'numeric' })) + ' – ' + escapeHtml(formatDateId(blockEnd, { day: 'numeric', month: 'short', year: 'numeric' })) + '</p></div><span class="tag-indigo px-2 py-1 rounded-lg text-[10px] font-bold">' + halves + ' × 6 bln</span></div><input value="' + escapeHtml(value) + '" oninput="updateGoalYearDraft(' + index + ',this.value)" class="theme-input w-full rounded-xl p-2.5 mt-2" placeholder="' + (index === 0 ? 'Contoh: Fondasi dan kemampuan inti terbentuk' : 'Hasil utama yang ingin dicapai') + '"><div class="plan-year-meta mt-2">' + blockMonths + ' bulan · ±' + weeks + ' minggu · dibuka progresif</div></div>';
-    }
-    container.innerHTML = html;
+    const value = goalPlanYearDrafts[0] || '';
+    const firstWindow = months >= 12 ? '90 hari pertama' : (months >= 3 ? '30 hari pertama' : 'minggu pertama');
+    container.innerHTML = '<div class="simple-plan-card"><div class="flex items-center justify-between gap-2"><div><strong class="text-xs" style="color:var(--text-main)">Hasil ' + firstWindow + '</strong><p class="plan-year-meta">Satu tanda kemajuan yang mudah dikenali</p></div><span class="tag-indigo px-2 py-1 rounded-lg text-[10px] font-bold">1 langkah</span></div><input type="text" name="ziel_first_outcome" autocomplete="off" inputmode="text" data-lpignore="true" data-1p-ignore="true" data-form-type="other" value="' + escapeHtml(value) + '" oninput="updateGoalYearDraft(0,this.value)" class="theme-input w-full rounded-xl p-2.5 mt-3" placeholder="Contoh: Versi pertama selesai dan siap diuji"><div class="plan-year-meta mt-2">ZIEL menyusun detail berikutnya secara otomatis setelah goal disimpan.</div></div>';
 }
 
 function buildLocalGoalPlan(draft) {
@@ -7131,6 +7202,7 @@ function initFormDrafts() {
 function openModal(id) {
     const modal = document.getElementById(id);
     if (!modal) return;
+    if (id === 'newGoalModal') document.getElementById('authModal')?.classList.add('hidden');
     if (id === 'settingsModal') {
         window.activeSettingsSection = window.activeSettingsSection || 'account';
         renderSettingsNav();
@@ -7802,6 +7874,7 @@ let touchStartX = 0;
 let touchStartY = 0;
 let touchStartTime = 0;
 let isSwipingCard = false;
+let swipeStartedInControl = false;
 
 // Detect swipe between tabs
 document.addEventListener('touchstart', function(e) {
@@ -7809,6 +7882,7 @@ document.addEventListener('touchstart', function(e) {
     touchStartY = e.touches[0].clientY;
     touchStartTime = Date.now();
     isSwipingCard = false;
+    swipeStartedInControl = !!e.target.closest('.horizontal-control-zone, .custom-scrollbar, input, textarea, select, [role="slider"], .calendar-days');
 }, { passive: true });
 
 document.addEventListener('touchmove', function(e) {
@@ -7842,8 +7916,8 @@ document.addEventListener('touchend', function(e) {
         return;
     }
 
-    // Horizontal swipe for TAB NAVIGATION
-    if (Math.abs(dy) < Math.abs(dx) * 0.5 && velocity > 0.3) {
+    // Horizontal swipe for TAB NAVIGATION, kecuali dimulai dari kontrol yang dapat digeser.
+    if (!swipeStartedInControl && Math.abs(dy) < Math.abs(dx) * 0.5 && velocity > 0.3) {
         const currentIdx = ZIEL_NAVIGATION_TABS.indexOf(state.currentView);
         let nextView = null;
         
