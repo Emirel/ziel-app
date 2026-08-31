@@ -401,6 +401,73 @@
             to { transform: scale(2.6); opacity: 0; }
         }
 
+        /* ============ PAGE TRANSITION ANIMATIONS ============ */
+        @keyframes slideInFromRight {
+            from { opacity: 0; transform: translateX(100%); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideOutToLeft {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(-100%); }
+        }
+        @keyframes slideInFromLeft {
+            from { opacity: 0; transform: translateX(-100%); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideOutToRight {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(100%); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .app-view {
+            transition: opacity 0.3s ease-out;
+        }
+        .app-view.entering-from-right {
+            animation: slideInFromRight 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .app-view.exiting-to-left {
+            animation: slideOutToLeft 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            position: absolute;
+            pointer-events: none;
+        }
+        .app-view.entering-from-left {
+            animation: slideInFromLeft 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .app-view.exiting-to-right {
+            animation: slideOutToRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        /* SWIPE ACTION VISUAL FEEDBACK */
+        .task-card, .goal-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .task-card::before, .goal-card::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: linear-gradient(to left, rgba(239, 68, 68, 0.1), transparent);
+            transition: width 0.3s ease;
+            pointer-events: none;
+        }
+        .task-card.swiped-left::before, .goal-card.swiped-left::before {
+            width: 100%;
+        }
+
+        /* GESTURE FEEDBACK */
+        .gesture-active {
+            transform: scale(0.98);
+        }
+
         .auth-tab-btn {
             position: relative;
             z-index: 10;
@@ -7622,19 +7689,182 @@ function renderAppViewState(shouldScroll) {
     if (shouldScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// ============ GESTURE & ANIMATION SYSTEM ============
+const ZIEL_NAVIGATION_TABS = ['home', 'timeline', 'goals', 'tasks', 'insights'];
+
+let touchStartX = 0;
+let touchStartY = 0;
+let touchStartTime = 0;
+let isSwipingCard = false;
+
+// Detect swipe between tabs
+document.addEventListener('touchstart', function(e) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchStartTime = Date.now();
+    isSwipingCard = false;
+}, { passive: true });
+
+document.addEventListener('touchmove', function(e) {
+    if (!isSwipingCard) {
+        const dx = Math.abs(e.touches[0].clientX - touchStartX);
+        const dy = Math.abs(e.touches[0].clientY - touchStartY);
+        
+        // Swipe is horizontal and not vertical scroll
+        if (dx > 10 && dx > dy * 1.5) {
+            isSwipingCard = true;
+            const target = e.target.closest('.task-card, .goal-card');
+            if (target && e.touches[0].clientX < touchStartX) {
+                target.classList.add('swiped-left');
+            } else if (target) {
+                target.classList.remove('swiped-left');
+            }
+        }
+    }
+}, { passive: true });
+
+document.addEventListener('touchend', function(e) {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    const timeDiff = Date.now() - touchStartTime;
+    const distance = Math.abs(dx);
+    const velocity = distance / (timeDiff || 1);
+
+    // Check if it's a valid swipe (not just a tap)
+    if (distance < 30 || timeDiff > 1000) {
+        isSwipingCard = false;
+        return;
+    }
+
+    // Horizontal swipe for TAB NAVIGATION
+    if (Math.abs(dy) < Math.abs(dx) * 0.5 && velocity > 0.3) {
+        const currentIdx = ZIEL_NAVIGATION_TABS.indexOf(state.currentView);
+        let nextView = null;
+        
+        if (dx > 50 && currentIdx > 0) {
+            // Swipe right -> go to previous tab
+            nextView = ZIEL_NAVIGATION_TABS[currentIdx - 1];
+            triggerHaptic('light');
+        } else if (dx < -50 && currentIdx < ZIEL_NAVIGATION_TABS.length - 1) {
+            // Swipe left -> go to next tab
+            nextView = ZIEL_NAVIGATION_TABS[currentIdx + 1];
+            triggerHaptic('light');
+        }
+        
+        if (nextView) {
+            navigateAppWithSwipe(nextView, currentIdx > ZIEL_NAVIGATION_TABS.indexOf(nextView));
+        }
+    }
+
+    // Swipe LEFT on card -> show delete/complete action
+    const card = e.target.closest('.task-card, .goal-card');
+    if (card && dx < -50) {
+        card.classList.add('swiped-left');
+        triggerHaptic('medium');
+        
+        setTimeout(() => {
+            const taskId = card.dataset.taskId;
+            const goalId = card.dataset.goalId;
+            
+            if (taskId) {
+                // Show quick actions for task
+                const task = state.tasks.find(t => t.id === taskId);
+                if (task) openConfirmModal(
+                    'Mark as done?',
+                    '"' + task.title + '" akan ditandai selesai.',
+                    () => { task.status = 'completed'; saveState(); renderAll(); }
+                );
+            } else if (goalId) {
+                const goal = state.goals.find(g => g.id === goalId);
+                if (goal) openConfirmModal(
+                    'Delete goal?',
+                    '"' + goal.title + '" akan dihapus permanen.',
+                    () => { state.goals = state.goals.filter(g => g.id !== goalId); saveState(); renderAll(); }
+                );
+            }
+            card.classList.remove('swiped-left');
+        }, 300);
+    }
+
+    isSwipingCard = false;
+}, { passive: true });
+
+function navigateAppWithSwipe(view, fromRight) {
+    const currentView = document.querySelector('.app-view:not(.hidden)');
+    const nextView = document.getElementById(view + 'View');
+
+    if (!currentView || !nextView) return;
+
+    // Set animation direction based on swipe direction
+    if (fromRight) {
+        currentView.classList.add('exiting-to-left');
+        nextView.classList.add('entering-from-right');
+    } else {
+        currentView.classList.add('exiting-to-right');
+        nextView.classList.add('entering-from-left');
+    }
+
+    // Remove hidden and update state
+    nextView.classList.remove('hidden');
+    state.currentView = view;
+    localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state));
+
+    // Render content
+    if (view === 'home') renderHomeOverview();
+    if (view === 'timeline') renderExecutionTimeline();
+    if (view === 'goals') renderGoals();
+    if (view === 'tasks') renderTasks();
+    safeLucideCreateIcons();
+
+    // Cleanup animations
+    setTimeout(() => {
+        currentView.classList.add('hidden');
+        currentView.classList.remove('exiting-to-left', 'exiting-to-right');
+        nextView.classList.remove('entering-from-left', 'entering-from-right');
+
+        // Update nav buttons
+        document.querySelectorAll('[data-app-nav]').forEach((btn) => {
+            btn.classList.toggle('active', btn.dataset.appNav === view);
+        });
+    }, 350);
+}
+
+function enhanceCardsWithGestureData() {
+    // Add data-task-id to task rows
+    document.querySelectorAll('.task-row').forEach((row, idx) => {
+        const task = state.tasks[idx];
+        if (task) {
+            row.classList.add('task-card');
+            row.dataset.taskId = task.id;
+        }
+    });
+    // Add data-goal-id to goal cards
+    document.querySelectorAll('.goal-item').forEach((item) => {
+        const goalTitle = item.querySelector('h4');
+        if (goalTitle) {
+            const goal = state.goals.find(g => g.title === goalTitle.textContent);
+            if (goal) {
+                item.classList.add('goal-card');
+                item.dataset.goalId = goal.id;
+            }
+        }
+    });
+}
+
 function navigateApp(view, timelineMode) {
+    const currentIdx = ZIEL_NAVIGATION_TABS.indexOf(state.currentView);
+    const nextIdx = ZIEL_NAVIGATION_TABS.indexOf(view);
+    const fromRight = currentIdx < nextIdx;
+
     state.currentView = view;
     if (view === 'timeline' && timelineMode) {
         state.timelineView = timelineMode;
         if (timelineMode === 'day') state.timelineAnchor = todayKey();
     }
     localStorage.setItem('ZIEL_APP_STATE', JSON.stringify(state));
-    renderAppViewState(true);
-    if (view === 'home') renderHomeOverview();
-    if (view === 'timeline') renderExecutionTimeline();
-    if (view === 'goals') renderGoals();
-    if (view === 'tasks') renderTasks();
-    safeLucideCreateIcons();
+    
+    // Use swipe animation for smoother transitions via button clicks
+    navigateAppWithSwipe(view, fromRight);
     playChime('click');
 }
 
@@ -7730,6 +7960,7 @@ function renderAll() {
     renderNotificationCenter();
     updateNotificationBadge();
     safeLucideCreateIcons();
+    enhanceCardsWithGestureData();
     setTimeout(function () { enhanceAllSelects(document.querySelector('.app-view:not(.hidden)') || document); refreshAllSmartSelects(); }, 0);
 }
     </script>
@@ -7804,5 +8035,6 @@ function renderAll() {
             triggerConfetti();
         }
 </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v3d52b47920f24c319d37e2661827c42b1787588026925" integrity="sha512-d9sL6GJLXn6fInD1+TVXhTcQOsmxeHfmHAvwGDIxp5TO+uo1fiWW7mHomMj4MLRlCsJDTqXzWLHJFFlPCEIj/A==" data-cf-beacon='{"version":"2024.11.0","token":"dc035d1dafe443d792cebe7e471273f7","r":1}' crossorigin="anonymous"></script>
 </body>
 </html>
