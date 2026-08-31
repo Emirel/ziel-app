@@ -1,182 +1,212 @@
-/**
- * ZIEL — Service Worker v4
- * Enhancements:
- *  - Push notification handling
- *  - Offline sync support
- *  - Improved caching strategy
- */
-
-const CACHE_VERSION = 'v4';
-const APP_SHELL_CACHE = `ziel-shell-${CACHE_VERSION}`;
+const CACHE_VERSION = 'ziel-cache-v5';
+const APP_SHELL_CACHE = `ziel-app-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `ziel-runtime-${CACHE_VERSION}`;
 
 const APP_SHELL_ASSETS = [
   './',
   './index.html',
-  './manifest.json'
+  './manifest.json',
+  './logo-192.png',
+  './logo-512.png',
+  './screenshot-1.png',
+  './screenshot-2.png',
+  './splash-192.png',
+  './splash-512.png'
 ];
 
-const NEVER_CACHE_HOSTS = [
+const DO_NOT_CACHE_HOSTS = [
   'firestore.googleapis.com',
-  'identitytoolkit.googleapis.com',
-  'securetoken.googleapis.com',
-  'www.googleapis.com'
+  'googleapis.com',
+  'gstatic.com',
+  'open.spotify.com'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(APP_SHELL_CACHE)
-      .then((cache) => cache.addAll(APP_SHELL_ASSETS))
-      .catch((err) => console.warn('SW: precache failed', err))
-      .then(() => self.skipWaiting())
+    caches.open(APP_SHELL_CACHE).then((cache) => cache.addAll(APP_SHELL_ASSETS))
   );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys
-          .filter((key) => key !== APP_SHELL_CACHE && key !== RUNTIME_CACHE)
-          .map((key) => caches.delete(key))
-      )
-    ).then(() => self.clients.claim())
-  );
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(
+      keys
+        .filter((key) => ![APP_SHELL_CACHE, RUNTIME_CACHE].includes(key))
+        .map((key) => caches.delete(key))
+    );
+    await self.clients.claim();
+  })());
 });
 
-function isNeverCacheHost(url) {
-  return NEVER_CACHE_HOSTS.some((host) => url.hostname === host);
+function shouldBypassCache(requestUrl) {
+  return DO_NOT_CACHE_HOSTS.some((host) => requestUrl.hostname.includes(host));
 }
 
-async function networkFirst(request, cacheName) {
+async function networkFirst(request) {
+  const cache = await caches.open(RUNTIME_CACHE);
   try {
-    const response = await fetch(request);
-    if (response && response.ok) {
-      const cache = await caches.open(cacheName);
-      cache.put(request, response.clone());
+    const fresh = await fetch(request);
+    if (request.method === 'GET' && fresh && fresh.ok) {
+      cache.put(request, fresh.clone());
     }
-    return response;
-  } catch (err) {
-    const cached = await caches.match(request, { ignoreSearch: true });
+    return fresh;
+  } catch (error) {
+    const cached = await cache.match(request);
     if (cached) return cached;
-    throw err;
+    throw error;
   }
 }
 
-async function staleWhileRevalidate(request, cacheName) {
-  const cache = await caches.open(cacheName);
+async function staleWhileRevalidate(request) {
+  const cache = await caches.open(RUNTIME_CACHE);
   const cached = await cache.match(request);
-  const networkFetch = fetch(request)
+
+  const networkPromise = fetch(request)
     .then((response) => {
-      if (response && response.ok) cache.put(request, response.clone());
+      if (request.method === 'GET' && response && response.ok) {
+        cache.put(request, response.clone());
+      }
       return response;
     })
-    .catch(() => cached);
-  return cached || networkFetch;
+    .catch(() => null);
+
+  return cached || networkPromise;
 }
 
 self.addEventListener('fetch', (event) => {
   const { request } = event;
+
+  if (
+    request.method !== 'GET' &&
+    !(request.method === 'POST' && new URL(request.url).pathname === '/share')
+  ) {
+    return;
+  }
+
   const url = new URL(request.url);
 
-  if (request.method !== 'GET') return;
-  if (isNeverCacheHost(url)) return;
+  if (url.pathname === '/share' && request.method === 'POST') {
+    event.respondWith((async () => {
+      const formData = await request.formData();
+      const params = new URLSearchParams({
+        shareTitle: String(formData.get('title') || ''),
+        shareText: String(formData.get('text') || ''),
+        shareUrl: String(formData.get('url') || '')
+      });
+
+      return Response.redirect('/?' + params.toString(), 303);
+    })());
+    return;
+  }
+
+  if (shouldBypassCache(url)) {
+    event.respondWith(fetch(request));
+    return;
+  }
 
   if (request.mode === 'navigate') {
     event.respondWith(
-      networkFirst(request, APP_SHELL_CACHE).catch(() =>
-        caches.match('./index.html')
-      )
+      networkFirst(request).catch(() => caches.match('./index.html'))
     );
     return;
   }
 
-  if (url.origin === self.location.origin) {
+  if (
+    APP_SHELL_ASSETS.some((asset) => {
+      const normalized = asset.replace('./', '/');
+      return url.pathname === normalized || url.pathname.endsWith(normalized);
+    })
+  ) {
     event.respondWith(
-      caches.match(request).then((cached) => {
-        if (cached) return cached;
-        return fetch(request).then((response) => {
-          if (response && response.ok) {
-            caches.open(APP_SHELL_CACHE).then((cache) => cache.put(request, response.clone()));
-          }
-          return response;
-        });
-      })
+      caches.match(request).then((cached) => cached || fetch(request))
     );
     return;
   }
 
-  event.respondWith(staleWhileRevalidate(request, RUNTIME_CACHE));
+  event.respondWith(staleWhileRevalidate(request));
 });
 
-// ============ PUSH NOTIFICATION HANDLING ============
-
 self.addEventListener('push', (event) => {
-  let notificationData = {
-    title: 'ZIEL Notifikasi',
-    body: 'Anda punya update',
-    icon: '/logo-192.png',
-    badge: '/logo-192.png'
+  let payload = {
+    title: 'ZIEL Reminder',
+    body: 'Saatnya kembali ke langkah berikutnya.',
+    icon: './logo-192.png',
+    badge: './logo-192.png',
+    data: { url: '/' }
   };
 
-  if (event.data) {
-    try {
-      const payload = event.data.json();
-      notificationData = { ...notificationData, ...payload };
-    } catch (e) {
-      notificationData.body = event.data.text();
+  try {
+    const data = event.data ? event.data.json() : null;
+    if (data) {
+      payload = {
+        ...payload,
+        ...data,
+        data: {
+          url: '/',
+          ...(data.data || {})
+        }
+      };
     }
+  } catch (err) {
+    // fallback default payload
   }
 
   event.waitUntil(
-    self.registration.showNotification(notificationData.title, {
-      body: notificationData.body,
-      icon: notificationData.icon,
-      badge: notificationData.badge,
-      tag: 'ziel-notification',
-      requireInteraction: false,
-      vibrate: [200, 100, 200]
+    self.registration.showNotification(payload.title, {
+      body: payload.body,
+      icon: payload.icon,
+      badge: payload.badge,
+      data: payload.data
     })
   );
 });
-
-// ============ NOTIFICATION CLICK HANDLING ============
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  
-  event.waitUntil(
-    clients.matchAll({ type: 'window' }).then((clientList) => {
-      // Focus existing window if open
-      for (let client of clientList) {
-        if (client.url === '/' && 'focus' in client) {
-          return client.focus();
-        }
-      }
-      // Open new window if not open
-      if (clients.openWindow) {
-        return clients.openWindow('/');
-      }
-    })
-  );
-});
 
-// ============ BACKGROUND SYNC (Optional) ============
+  const targetUrl = new URL(
+    event.notification?.data?.url || '/',
+    self.location.origin
+  ).href;
+
+  event.waitUntil((async () => {
+    const clientList = await clients.matchAll({
+      type: 'window',
+      includeUncontrolled: true
+    });
+
+    for (const client of clientList) {
+      if (client.url.startsWith(self.location.origin)) {
+        if ('navigate' in client) {
+          await client.navigate(targetUrl);
+        }
+        return client.focus();
+      }
+    }
+
+    if (clients.openWindow) {
+      return clients.openWindow(targetUrl);
+    }
+  })());
+});
 
 self.addEventListener('sync', (event) => {
   if (event.tag === 'sync-offline-queue') {
-    event.waitUntil(
-      clients.matchAll().then((clientList) => {
-        // Notify client to process offline queue
-        clientList.forEach((client) => {
-          client.postMessage({
-            type: 'SYNC_OFFLINE_QUEUE'
-          });
-        });
-        return Promise.resolve();
-      })
-    );
+    event.waitUntil(processOfflineQueue());
   }
 });
 
-console.log('ZIEL Service Worker v4 loaded');
+async function processOfflineQueue() {
+  const allClients = await clients.matchAll({
+    includeUncontrolled: true,
+    type: 'window'
+  });
+
+  for (const client of allClients) {
+    client.postMessage({ type: 'SYNC_OFFLINE_QUEUE' });
+  }
+}
+
+console.log('ZIEL Service Worker v5 loaded');
