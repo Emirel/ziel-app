@@ -2294,11 +2294,7 @@
         <!-- TODAY / TIMELINE -->
         <section id="timelineView" class="app-view hidden space-y-5">
             <div class="page-heading"><div><h2 class="text-2xl sm:text-3xl font-black" style="color:var(--text-main)">Hari Ini & Timeline</h2><p class="text-xs sm:text-sm mt-0.5" style="color:var(--text-muted)">Jadwal harian dan horizon eksekusi</p></div><button onclick="prepareAgendaModal()" class="primary-btn-gradient add-cta text-sm"><span class="add-cta-icon"><i data-lucide="plus"></i></span><span>Agenda</span></button></div>
-            <div class="today-focus-strip">
-                <div class="today-focus-icon"><i data-lucide="sparkles"></i></div>
-                <div class="min-w-0 flex-1"><strong id="todayFocusTitle">Mulai dari satu tindakan terbaik</strong><small id="todayFocusCopy">ZIEL mencocokkan prioritas, tenggat, dan kapasitas energimu.</small></div>
-                <button id="todayFocusAction" onclick="triggerWhatShouldIDoNow()" class="primary-btn-gradient add-cta"><span class="add-cta-icon"><i data-lucide="play"></i></span><span>Pilih tindakan</span></button>
-            </div>
+
             <div class="theme-card rounded-2xl p-4 sm:p-5 space-y-4 overflow-hidden">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
@@ -2415,7 +2411,7 @@
                 </div>
                 <button onclick="BipolarTracker.startCheckIn()" id="bmHubTodayBtn" class="primary-btn-gradient px-4 py-2.5 rounded-xl text-xs font-bold shrink-0 justify-center flex items-center gap-2 w-full sm:w-auto shadow-sm">
                     <i data-lucide="plus" class="w-4 h-4"></i>
-                    <span id="bmHubTodayBtnText">+ Catat Mood</span>
+                    <span id="bmHubTodayBtnText">Catat Skrining Mood</span>
                 </button>
             </div>
 
@@ -2428,29 +2424,29 @@
                 <button id="bmFilter90Btn" onclick="BipolarTracker.setChartRange(90)" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-xl text-xs font-semibold btn-secondary whitespace-nowrap transition-all">90 Hari</button>
             </div>
 
-            <!-- 4 Kartu Ringkasan (KPI Cards) - Clean without cluttered subtitles -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                <div class="theme-card p-3 rounded-2xl border border-[var(--border-card)] space-y-1">
-                    <span class="text-[10px] block font-bold uppercase tracking-wider text-slate-400 truncate">Mood Dominan</span>
-                    <div class="flex items-center gap-1.5 min-w-0">
-                        <span id="bmKpiDominantBadge" class="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0"></span>
-                        <strong id="bmKpiDominant" class="text-xs sm:text-sm font-black text-teal-300 truncate">-</strong>
+            <!-- 4 Kartu Ringkasan (KPI Cards) - Balanced, High-Contrast & Zero Collision -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+                <div class="theme-card p-3.5 rounded-2xl border border-[var(--border-card)] flex flex-col justify-between min-h-[82px]">
+                    <span class="text-[10px] block font-bold uppercase tracking-wider text-slate-400">Mood Dominan</span>
+                    <div class="mt-1 flex items-center gap-1.5 min-w-0">
+                        <span id="bmKpiDominantScore" class="px-2 py-0.5 rounded-md text-[11px] font-black font-mono bg-indigo-500/15 text-indigo-400 shrink-0">-</span>
+                        <strong id="bmKpiDominant" class="text-xs font-bold truncate leading-tight" style="color:var(--text-main)">-</strong>
                     </div>
                 </div>
-                <div class="theme-card p-3 rounded-2xl border border-[var(--border-card)] space-y-1">
-                    <span class="text-[10px] block font-bold uppercase tracking-wider text-slate-400 truncate">Rata-rata Tidur</span>
-                    <strong id="bmKpiSleep" class="text-base sm:text-lg font-black font-mono text-indigo-300 block">-</strong>
+                <div class="theme-card p-3.5 rounded-2xl border border-[var(--border-card)] flex flex-col justify-between min-h-[82px]">
+                    <span class="text-[10px] block font-bold uppercase tracking-wider text-slate-400">Rata-rata Tidur</span>
+                    <strong id="bmKpiSleep" class="text-base sm:text-lg font-black font-mono block mt-1" style="color:var(--text-main)">-</strong>
                 </div>
-                <div class="theme-card p-3 rounded-2xl border border-[var(--border-card)] space-y-1">
-                    <span class="text-[10px] block font-bold uppercase tracking-wider text-slate-400 truncate">Stabilitas Emosi</span>
-                    <div class="flex items-baseline gap-1.5">
-                        <strong id="bmKpiStability" class="text-base sm:text-lg font-black font-mono text-teal-300">-</strong>
-                        <span id="bmKpiStabilityBadge" class="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-teal-500/15 text-teal-300"></span>
+                <div class="theme-card p-3.5 rounded-2xl border border-[var(--border-card)] flex flex-col justify-between min-h-[82px]">
+                    <span class="text-[10px] block font-bold uppercase tracking-wider text-slate-400">Stabilitas Emosi</span>
+                    <div class="mt-1 flex items-center justify-between gap-1">
+                        <strong id="bmKpiStability" class="text-base sm:text-lg font-black font-mono" style="color:var(--text-main)">-</strong>
+                        <span id="bmKpiStabilityBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full"></span>
                     </div>
                 </div>
-                <div class="theme-card p-3 rounded-2xl border border-[var(--border-card)] space-y-1">
-                    <span class="text-[10px] block font-bold uppercase tracking-wider text-slate-400 truncate">Kepatuhan Obat</span>
-                    <strong id="bmKpiMedication" class="text-base sm:text-lg font-black font-mono text-emerald-400 block">-</strong>
+                <div class="theme-card p-3.5 rounded-2xl border border-[var(--border-card)] flex flex-col justify-between min-h-[82px]">
+                    <span class="text-[10px] block font-bold uppercase tracking-wider text-slate-400">Kepatuhan Obat</span>
+                    <strong id="bmKpiMedication" class="text-base sm:text-lg font-black font-mono block mt-1" style="color:var(--text-main)">-</strong>
                 </div>
             </div>
 
@@ -5732,8 +5728,8 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             let html = '<button onclick="filterCategory(\'all\')" class="' + allClass + ' shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">Semua</button>';
             getCategories().forEach(function (cat) {
                 const selected = active.includes(cat.id);
-                html += '<button onclick="filterCategory(\'' + cat.id + '\')" class="' + (selected ? 'primary-btn-gradient' : 'btn-secondary') + ' shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">' +
-                    escapeHtml(cat.icon + ' ' + cat.name) + (selected ? ' ✓' : '') + '</button>';
+                html += '<button onclick="filterCategory(\'' + cat.id + '\')" class="' + (selected ? 'primary-btn-gradient' : 'btn-secondary') + ' shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap">' +
+                    escapeHtml(cat.name) + (selected ? ' ✓' : '') + '</button>';
             });
             container.innerHTML = html;
             const mirror = document.getElementById('taskCategoryTabsMirror');
@@ -5995,7 +5991,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
         function categoryDisplayLabel(category) {
             if (!category || category === 'uncategorized') return '◌ Tanpa area';
             const cat = getCategories().find(function (item) { return item.id === category; });
-            return cat ? cat.icon + ' ' + cat.name : category;
+            return cat ? cat.name : category;
         }
 
         // ================= HERO ACTION & WHAT SHOULD I DO NOW =================
@@ -7348,7 +7344,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
         function categoryDisplayLabel(category) {
             if (!category || category === 'uncategorized') return '◌ Tanpa area';
             const cat = getCategories().find(function (item) { return item.id === category; });
-            return cat ? cat.icon + ' ' + cat.name : category;
+            return cat ? cat.name : category;
         }
 
         function filterCategory(category) {
@@ -7377,8 +7373,8 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             let html = '<button onclick="filterCategory(\'all\')" class="' + allClass + ' shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">Semua</button>';
             getCategories().forEach(function (cat) {
                 const selected = active.includes(cat.id);
-                html += '<button onclick="filterCategory(\'' + cat.id + '\')" class="' + (selected ? 'primary-btn-gradient' : 'btn-secondary') + ' shrink-0 px-3 py-1.5 rounded-xl text-[10px] font-bold">' +
-                    escapeHtml(cat.icon + ' ' + cat.name) + (selected ? ' ✓' : '') + '</button>';
+                html += '<button onclick="filterCategory(\'' + cat.id + '\')" class="' + (selected ? 'primary-btn-gradient' : 'btn-secondary') + ' shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap">' +
+                    escapeHtml(cat.name) + (selected ? ' ✓' : '') + '</button>';
             });
             if (container) container.innerHTML = html;
             const mirror = document.getElementById('taskCategoryTabsMirror');
@@ -8339,10 +8335,24 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             const task = recommendedHomeTask();
             const taskTitle = document.getElementById('homeNextTaskTitle');
             const taskMeta = document.getElementById('homeNextTaskMeta');
-            if (taskTitle) taskTitle.textContent = task ? task.title : 'Semua tindakan sudah selesai';
-            if (taskMeta) {
-                const path = task ? taskPath(task) : '';
-                taskMeta.textContent = task ? (task.estimatedMinutes + ' menit • Energi ' + task.energyRequired + (path ? ' • ' + path : '')) : 'Nikmati ruang yang lapang atau buat langkah baru.';
+            const ctaBtn = document.getElementById('btnWhatShouldIDo');
+            const ctaText = document.getElementById('ctaBtnText');
+
+            if (task) {
+                if (taskTitle) taskTitle.textContent = task.title;
+                const path = taskPath(task);
+                if (taskMeta) taskMeta.textContent = `${task.estimatedMinutes} menit • Energi L${task.energyRequired}${path ? ' • ' + path : ''}`;
+                if (ctaBtn) {
+                    ctaBtn.onclick = () => openFocusModeFromTask(task.id);
+                }
+                if (ctaText) ctaText.textContent = 'Mulai Fokus';
+            } else {
+                if (taskTitle) taskTitle.textContent = 'Semua tindakan sudah selesai';
+                if (taskMeta) taskMeta.textContent = 'Nikmati ruang yang lapang atau buat langkah baru.';
+                if (ctaBtn) {
+                    ctaBtn.onclick = () => openModal('newTaskModal');
+                }
+                if (ctaText) ctaText.textContent = '+ Buat Task';
             }
 
             const todayContainer = document.getElementById('homeTodayPreview');
@@ -8859,7 +8869,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 } else {
                     if (titleEl) titleEl.textContent = 'Belum dicatat hari ini';
                     if (descEl) descEl.textContent = 'Lakukan skrining singkat 1–2 menit untuk merekam kestabilanmu.';
-                    if (btnText) btnText.textContent = '+ Catat Skrining Mood Baru';
+                    if (btnText) btnText.textContent = 'Catat Skrining Mood';
                 }
 
                 const cutoffDate = typeof addDate === 'function' ? addDate(today, -(chartDaysRange - 1), 'day') : today;
@@ -8893,8 +8903,13 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                         }
                     });
                     const dominantConf = MOOD_LEVELS[dominantScore] || MOOD_LEVELS[0];
-                    if (dominantEl) dominantEl.textContent = `${dominantConf.name} (${dominantScore > 0 ? '+' : ''}${dominantScore})`;
-                    if (dominantBadge) dominantBadge.style.backgroundColor = dominantConf.color;
+                    if (dominantEl) dominantEl.textContent = dominantConf.name;
+                    const dominantScoreEl = document.getElementById('bmKpiDominantScore');
+                    if (dominantScoreEl) {
+                        dominantScoreEl.textContent = (dominantScore > 0 ? '+' : '') + dominantScore;
+                        dominantScoreEl.style.backgroundColor = dominantConf.color + '22';
+                        dominantScoreEl.style.color = dominantConf.color;
+                    }
 
                     // 2. Rata-rata Durasi Tidur
                     const avgSleep = (rangeLogs.reduce((sum, l) => sum + (Number(l.sleepHours) || 0), 0) / rangeLogs.length).toFixed(1);
@@ -9047,7 +9062,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                         }
 
                         html += `
-                            <div class="flex flex-col items-center justify-between min-w-[38px] sm:min-w-[44px] flex-1 p-1 rounded-xl transition ${isToday ? 'bg-indigo-500/10 ring-1 ring-indigo-500/30' : 'hover:bg-slate-800/30'}">
+                            <div class="flex flex-col items-center justify-between min-w-[38px] sm:min-w-[44px] flex-1 p-1 rounded-xl transition ${isToday ? 'bg-indigo-500/5' : 'hover:bg-slate-500/5'}">
                                 <div class="h-5 flex items-center justify-center">${badgeContent}</div>
                                 
                                 <!-- Track Height 90px -->
