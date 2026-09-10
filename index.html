@@ -62,23 +62,152 @@
         }
 
         body.light-mode {
-            --bg-main: #F1F5F9;
+            --bg-main: #F6F8FC;
             --bg-card: #FFFFFF;
             --bg-card-hover: #F8FAFC;
-            --border-card: rgba(0, 0, 0, 0.06);
-            --border-card-hover: rgba(99, 102, 241, 0.25);
-            --text-main: #1E293B;
+            --border-card: rgba(15, 23, 42, 0.08);
+            --border-card-hover: rgba(99, 102, 241, 0.3);
+            --text-main: #0F172A;
             --text-sub: #334155;
             --text-muted: #64748B;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            --header-bg: rgba(241, 245, 249, 0.94);
+            --card-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(15, 23, 42, 0.04);
+            --header-bg: rgba(246, 248, 252, 0.92);
             --modal-bg: rgba(255, 255, 255, 0.98);
-            --modal-overlay: rgba(15, 23, 42, 0.4);
-            --input-bg: #F8FAFC;
+            --modal-overlay: rgba(15, 23, 42, 0.45);
+            --input-bg: #F1F5F9;
 
-            --btn-sec-bg: #E2E8F0;
-            --btn-sec-hover: #CBD5E1;
-            --btn-sec-text: #334155;
+            --btn-sec-bg: #F1F5F9;
+            --btn-sec-hover: #E2E8F0;
+            --btn-sec-text: #0F172A;
+        }
+
+        /* LIGHT MODE SPECIALIZED COMPONENT OVERRIDES */
+        body.light-mode .command-card {
+            background: radial-gradient(circle at 100% 0%, rgba(99,102,241,0.06), transparent 40%), #FFFFFF !important;
+        }
+
+        body.light-mode .action-suggestion {
+            background: rgba(99, 102, 241, 0.05) !important;
+            border-color: rgba(99, 102, 241, 0.18) !important;
+        }
+
+        body.light-mode .energy-btn strong {
+            color: var(--text-main) !important;
+        }
+        body.light-mode .energy-btn small {
+            color: var(--text-muted) !important;
+        }
+        body.light-mode .energy-btn.active {
+            background: rgba(99, 102, 241, 0.12) !important;
+            outline: 1.5px solid rgba(99, 102, 241, 0.5) !important;
+        }
+        body.light-mode .energy-btn.active strong {
+            color: #4F46E5 !important;
+        }
+
+        body.light-mode .settings-nav {
+            background: #F8FAFC !important;
+            border-right-color: rgba(15, 23, 42, 0.07) !important;
+        }
+
+        body.light-mode .settings-nav button {
+            color: #64748B !important;
+        }
+
+        body.light-mode .settings-nav button:hover {
+            background: #F1F5F9 !important;
+            color: #0F172A !important;
+        }
+
+        body.light-mode .settings-nav button.active {
+            color: #4F46E5 !important;
+            background: rgba(99, 102, 241, 0.1) !important;
+        }
+
+        body.light-mode .settings-content {
+            background: #FFFFFF !important;
+        }
+
+        body.light-mode .settings-segment {
+            background: #F1F5F9 !important;
+            border-color: rgba(15, 23, 42, 0.08) !important;
+        }
+
+        body.light-mode .settings-segment button {
+            color: #64748B !important;
+        }
+
+        body.light-mode .settings-segment button.active {
+            color: #FFFFFF !important;
+            background: #4F46E5 !important;
+        }
+
+        body.light-mode .toggle-switch {
+            background: #CBD5E1 !important;
+            border-color: rgba(15, 23, 42, 0.1) !important;
+        }
+
+        body.light-mode .toggle-switch.on {
+            background: #4F46E5 !important;
+        }
+
+        body.light-mode .profile-menu-popover {
+            background: #FFFFFF !important;
+            border-color: rgba(15, 23, 42, 0.08) !important;
+            box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.15) !important;
+        }
+
+        body.light-mode .profile-menu-head {
+            border-bottom-color: rgba(15, 23, 42, 0.07) !important;
+        }
+
+        body.light-mode .profile-menu-list > button:hover {
+            background: #F8FAFC !important;
+        }
+
+        body.light-mode .profile-logout {
+            border-top-color: rgba(15, 23, 42, 0.07) !important;
+        }
+
+        /* Tags in light mode: softer backgrounds with darker readable text */
+        body.light-mode .tag-emerald {
+            background-color: rgba(16, 185, 129, 0.12) !important;
+            color: #047857 !important;
+            border-color: rgba(16, 185, 129, 0.25) !important;
+        }
+        body.light-mode .tag-indigo {
+            background-color: rgba(99, 102, 241, 0.12) !important;
+            color: #4338CA !important;
+            border-color: rgba(99, 102, 241, 0.25) !important;
+        }
+        body.light-mode .tag-purple {
+            background-color: rgba(139, 92, 246, 0.12) !important;
+            color: #6D28D9 !important;
+            border-color: rgba(139, 92, 246, 0.25) !important;
+        }
+        body.light-mode .tag-amber {
+            background-color: rgba(245, 158, 11, 0.12) !important;
+            color: #B45309 !important;
+            border-color: rgba(245, 158, 11, 0.25) !important;
+        }
+        body.light-mode .tag-teal {
+            background-color: rgba(45, 212, 191, 0.12) !important;
+            color: #0F766E !important;
+            border-color: rgba(45, 212, 191, 0.25) !important;
+        }
+        body.light-mode .tag-rose {
+            background-color: rgba(244, 63, 94, 0.12) !important;
+            color: #BE123C !important;
+            border-color: rgba(244, 63, 94, 0.25) !important;
+        }
+
+        body.light-mode .bm-option-card {
+            background: #FFFFFF !important;
+            border-color: rgba(15, 23, 42, 0.08) !important;
+        }
+
+        body.light-mode .bg-slate-800 {
+            background-color: #E2E8F0 !important;
         }
 
         html {
@@ -179,11 +308,15 @@
         .add-cta-icon svg { width: 1rem; height: 1rem; stroke-width: 2.5; }
 
         .theme-card {
+            border-radius: 1.5rem !important;
             background-color: var(--bg-card);
             border: 1px solid var(--border-card);
             box-shadow: var(--card-shadow);
             color: var(--text-main);
-            transition: background-color 0.3s ease, border-color 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .theme-card:hover {
+            border-color: var(--border-card-hover);
         }
         .theme-card:hover { border-color: var(--border-card-hover); }
 
@@ -281,7 +414,7 @@
         .smart-select-option.selected { color: #A5B4FC; background: rgba(91,95,239,.13); }
         .smart-select-option svg { width: .95rem; height: .95rem; }
 
-        .tag-emerald { background-color: rgba(16, 185, 129, 0.16); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.22); }
+        .tag-emerald { background-color: rgba(16, 185, 129, 0.12); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.22); }
         .tag-indigo  { background-color: rgba(99, 102, 241, 0.16); color: #818CF8; border: 1px solid rgba(99, 102, 241, 0.22); }
         .tag-purple  { background-color: rgba(139, 92, 246, 0.16); color: #A78BFA; border: 1px solid rgba(139, 92, 246, 0.22); }
         .tag-amber   { background-color: rgba(245, 158, 11, 0.16); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.22); }
@@ -467,7 +600,7 @@
         }
         .ziel-nav-item svg { width: 1.15rem; height: 1.15rem; }
         .ziel-nav-item:hover { background: var(--btn-sec-bg); color: var(--text-main); }
-        .ziel-nav-item.active { color: #6D72F6; background: rgba(91, 95, 239, .12); }
+        .ziel-nav-item.active { color: #818CF8 !important; background: rgba(99, 102, 241, 0.14) !important; font-weight: 750 !important; border-left: 3px solid #6366F1 !important; }
 
         .page-heading {
             min-height: 3.75rem;
@@ -681,6 +814,1253 @@
     
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* PROFILE MENU POPOVER & MOBILE BOTTOM DRAWER */
+        .profile-menu-popover {
+            position: fixed;
+            z-index: 100;
+            top: 4.5rem;
+            right: 1.25rem;
+            width: min(22rem, calc(100vw - 2.5rem));
+            padding: 1rem;
+            border: 1px solid var(--border-card);
+            border-radius: 1.5rem !important;
+            background: var(--modal-bg);
+            box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            animation: modal-pop-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .profile-menu-head {
+            padding-bottom: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid var(--border-card);
+        }
+
+        .profile-menu-head > div:nth-child(2) {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .profile-menu-head strong {
+            display: block;
+            color: var(--text-main);
+            font-size: 0.875rem;
+            font-weight: 800;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .profile-menu-head small {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            margin-top: 0.15rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .profile-menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            padding: 0.75rem 0;
+        }
+
+        .profile-menu-list > button {
+            width: 100%;
+            padding: 0.65rem 0.75rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-align: left;
+            background: transparent;
+            transition: all 0.15s ease;
+        }
+
+        .profile-menu-list > button:hover {
+            background: var(--btn-sec-bg);
+        }
+
+        .profile-menu-list > button > span:nth-child(2) {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-menu-list strong {
+            display: block;
+            color: var(--text-main);
+            font-size: 0.8rem;
+            font-weight: 750;
+            line-height: 1.25;
+        }
+
+        .profile-menu-list small {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            line-height: 1.35;
+            margin-top: 0.15rem;
+        }
+
+        .profile-menu-list > button > svg {
+            width: 1rem;
+            height: 1rem;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .profile-logout {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.25rem;
+            border-top: 1px solid var(--border-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #FB7185;
+            font-size: 0.75rem;
+            font-weight: 750;
+            border-radius: 0.85rem;
+            transition: all 0.15s ease;
+        }
+
+        .profile-logout:hover {
+            background: rgba(244, 63, 94, 0.1);
+        }
+
+        /* MOBILE BOTTOM SHEET FOR PROFILE MENU */
+        @media (max-width: 639px) {
+            .profile-menu-popover {
+                top: auto !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100% !important;
+                max-width: none !important;
+                border-radius: 1.75rem 1.75rem 0 0 !important;
+                padding: 1.25rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom, 0px)) !important;
+                border-bottom: none !important;
+                box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6) !important;
+                animation: slide-up-sheet 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            }
+
+            @keyframes slide-up-sheet {
+                from { transform: translateY(100%); }
+                to { transform: translateY(0); }
+            }
+        }
+
+        /* MODERN ACTION MENU LIST (FOR 3-DOTS MENUS & ACTION SHEETS) */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .menu-list > button {
+            width: 100%;
+            min-height: 3.5rem;
+            padding: 0.75rem 0.85rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-align: left;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.15s ease;
+        }
+
+        .menu-list > button:hover {
+            background: var(--btn-sec-bg);
+            border-color: var(--border-card);
+        }
+
+        .menu-list > button > span:nth-child(2) {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-list strong {
+            display: block;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 750;
+            line-height: 1.25;
+        }
+
+        .menu-list small {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            line-height: 1.35;
+            margin-top: 0.15rem;
+        }
+
+        .menu-list > button > svg {
+            width: 1.1rem;
+            height: 1.1rem;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .menu-list .danger-menu-item strong,
+        .menu-list .danger-menu-item > svg {
+            color: #FB7185 !important;
+        }
+
+        .menu-list .danger-menu-item .icon-box {
+            color: #FB7185 !important;
+            background: rgba(244, 63, 94, 0.12) !important;
+        }
+
+        /* MODERN SETTINGS MODAL & WORKSPACE CONTROLS */
+        #settingsModal {
+            padding: 0;
+            align-items: center;
+        }
+
+        #settingsModal .glass-modal {
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .settings-shell {
+            display: grid;
+            grid-template-columns: 14rem minmax(0, 1fr);
+            min-height: 34rem;
+            max-height: calc(90vh - 5rem);
+            overflow: hidden;
+        }
+
+        .settings-nav {
+            padding: 1rem;
+            border-right: 1px solid var(--border-card);
+            background: rgba(10, 14, 26, 0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            overflow-y: auto;
+        }
+
+        .settings-nav button {
+            width: 100%;
+            min-height: 2.75rem;
+            padding: 0.65rem 0.85rem;
+            border-radius: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-align: left;
+            background: transparent;
+            transition: all 0.15s ease;
+        }
+
+        .settings-nav button svg {
+            width: 1.1rem;
+            height: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .settings-nav button:hover {
+            background: var(--btn-sec-bg);
+            color: var(--text-main);
+        }
+
+        .settings-nav button.active {
+            color: #818CF8 !important;
+            background: rgba(99, 102, 241, 0.14) !important;
+            font-weight: 750;
+        }
+
+        .settings-content {
+            min-width: 0;
+            padding: 1.5rem;
+            overflow-y: auto;
+            max-height: calc(90vh - 5rem);
+        }
+
+        .settings-section-head {
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-card);
+            margin-bottom: 0.75rem;
+        }
+
+        .settings-section-head h3 {
+            color: var(--text-main);
+            font-size: 1.15rem;
+            font-weight: 850;
+            letter-spacing: -0.02em;
+        }
+
+        .settings-section-head p {
+            margin-top: 0.25rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .setting-group {
+            padding: 0.85rem 0;
+            border-bottom: 1px solid var(--border-card);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .setting-group:last-child {
+            border-bottom: none;
+        }
+
+        .setting-row {
+            min-height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding: 0.35rem 0;
+        }
+
+        .setting-copy {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .setting-copy strong {
+            display: block;
+            color: var(--text-main);
+            font-size: 0.82rem;
+            font-weight: 750;
+            line-height: 1.3;
+        }
+
+        .setting-copy small {
+            display: block;
+            margin-top: 0.2rem;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            line-height: 1.4;
+        }
+
+        .setting-control {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            min-width: 0;
+        }
+
+        .setting-control select,
+        .setting-control input[type="text"],
+        .setting-control input[type="time"],
+        .setting-control input[type="password"] {
+            min-width: 9rem;
+            max-width: 14rem;
+        }
+
+        .settings-segment {
+            padding: 0.25rem;
+            display: inline-flex;
+            gap: 0.25rem;
+            border-radius: 0.85rem;
+            background: var(--input-bg);
+            border: 1px solid var(--border-card);
+        }
+
+        .settings-segment button {
+            padding: 0.45rem 0.75rem;
+            border-radius: 0.65rem;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 750;
+            transition: all 0.15s ease;
+        }
+
+        .settings-segment button.active {
+            color: #FFFFFF !important;
+            background: var(--accent-indigo) !important;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+        }
+
+        /* TOGGLE SWITCH */
+        .toggle-switch {
+            width: 2.85rem;
+            height: 1.6rem;
+            padding: 0.2rem;
+            border-radius: 99px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid var(--border-card);
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .toggle-switch i {
+            width: 1.2rem;
+            height: 1.2rem;
+            display: block;
+            border-radius: 50%;
+            background: #FFFFFF;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .toggle-switch.on {
+            background: var(--accent-indigo) !important;
+            border-color: var(--accent-indigo) !important;
+        }
+
+        .toggle-switch.on i {
+            transform: translateX(1.25rem);
+        }
+
+        /* ACCENT COLOR DOTS */
+        .accent-dot {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.15s ease;
+        }
+
+        .accent-dot:hover {
+            transform: scale(1.1);
+        }
+
+        .accent-dot.active {
+            border-color: var(--text-main) !important;
+            box-shadow: 0 0 0 2px var(--bg-card), 0 0 12px rgba(99, 102, 241, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* MOBILE RESPONSIVE SETTINGS */
+        @media (max-width: 639px) {
+            #settingsModal {
+                padding: 0;
+                align-items: stretch;
+            }
+            #settingsModal > .glass-modal {
+                max-height: none !important;
+                height: 100dvh !important;
+                border-radius: 0 !important;
+            }
+            .settings-shell {
+                grid-template-columns: 1fr !important;
+                display: flex !important;
+                flex-direction: column !important;
+                min-height: 0 !important;
+                height: calc(100dvh - 4.5rem) !important;
+                max-height: none !important;
+            }
+            .settings-nav {
+                display: flex !important;
+                flex-direction: row !important;
+                overflow-x: auto !important;
+                border-right: 0 !important;
+                border-bottom: 1px solid var(--border-card) !important;
+                padding: 0.5rem 0.75rem !important;
+                flex-shrink: 0 !important;
+                gap: 0.35rem !important;
+            }
+            .settings-nav button {
+                width: auto !important;
+                flex: 0 0 auto !important;
+                padding: 0.5rem 0.75rem !important;
+                min-height: 2.25rem !important;
+            }
+            .settings-nav button span {
+                white-space: nowrap !important;
+            }
+            .settings-content {
+                flex: 1 !important;
+                max-height: none !important;
+                padding: 1rem !important;
+                overflow-y: auto !important;
+            }
+            .setting-row {
+                align-items: flex-start !important;
+                flex-direction: column !important;
+                gap: 0.65rem !important;
+                padding: 0.65rem 0 !important;
+            }
+            .setting-control,
+            .setting-control select,
+            .setting-control input {
+                width: 100% !important;
+                max-width: none !important;
+            }
+        }
+
+        /* AUTH MODAL TABS */
+        .auth-tab-btn {
+            position: relative;
+            z-index: 10;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+        .auth-tab-btn.active {
+            color: #FFFFFF !important;
+            font-weight: 800;
+        }
+        .auth-slider-bg {
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            border-radius: 0.85rem;
+            background: var(--primary-gradient);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ENERGY BUTTON TACTILE FEEDBACK & ACTIVE STATE */
+        .energy-btn {
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1.5px solid transparent !important;
+        }
+        .energy-btn:hover {
+            background: var(--btn-sec-hover) !important;
+            transform: translateY(-1px);
+        }
+        .energy-btn.active {
+            background: rgba(99, 102, 241, 0.2) !important;
+            border-color: rgba(99, 102, 241, 0.8) !important;
+            box-shadow: 0 0 16px rgba(99, 102, 241, 0.3), inset 0 0 0 1px rgba(99, 102, 241, 0.5) !important;
+            transform: scale(1.03);
+        }
+        .energy-btn.active strong {
+            color: #818CF8 !important;
+            font-weight: 850 !important;
+        }
+        .energy-btn.active small {
+            color: #A5B4FC !important;
+        }
+        body.light-mode .energy-btn.active {
+            background: rgba(99, 102, 241, 0.12) !important;
+            border-color: #6366F1 !important;
+            box-shadow: 0 2px 10px rgba(99, 102, 241, 0.2) !important;
+        }
+        body.light-mode .energy-btn.active strong {
+            color: #4F46E5 !important;
+        }
+
+        /* GOAL STEPPER IN NEW GOAL MODAL */
+        .goal-stepper {
+            padding: 0.5rem 0.25rem 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .goal-stepper > span {
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: var(--text-muted);
+            background: var(--btn-sec-bg);
+            border: 1.5px solid var(--border-card);
+            font-size: 0.75rem;
+            font-weight: 800;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        .goal-stepper > span strong {
+            position: absolute;
+            top: 2.5rem;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            font-weight: 750;
+            white-space: nowrap;
+            letter-spacing: 0.02em;
+        }
+        .goal-stepper > span.active {
+            color: #FFFFFF !important;
+            background: var(--accent-indigo) !important;
+            border-color: var(--accent-indigo) !important;
+            box-shadow: 0 0 14px rgba(99, 102, 241, 0.4);
+        }
+        .goal-stepper > span.active strong {
+            color: var(--accent-indigo) !important;
+            font-weight: 850;
+        }
+        .goal-stepper > span.complete {
+            color: var(--accent-indigo);
+            background: rgba(99, 102, 241, 0.15);
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+        .goal-stepper > i {
+            width: 3.5rem;
+            height: 2px;
+            margin: 0 0.5rem;
+            background: var(--border-card);
+            flex-shrink: 0;
+        }
+
+        .goal-form-step {
+            min-height: 18rem;
+            padding-top: 0.5rem;
+        }
+        .form-step-title {
+            margin-top: 0.25rem;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            font-weight: 850;
+            letter-spacing: -0.02em;
+        }
+        .form-step-copy {
+            margin-top: 0.25rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        /* AREA GRID IN NEW GOAL MODAL */
+        .area-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.55rem;
+        }
+        .area-option {
+            min-height: 4.75rem;
+            padding: 0.75rem 0.65rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border-card);
+            background: var(--input-bg);
+            color: var(--text-sub);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.4rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.16s ease;
+        }
+        .area-option:hover {
+            border-color: var(--border-card-hover);
+            background: var(--bg-card-hover);
+            transform: translateY(-1px);
+        }
+        .area-option.selected {
+            color: #818CF8;
+            border-color: rgba(99, 102, 241, 0.7) !important;
+            background: rgba(99, 102, 241, 0.12) !important;
+            box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.3);
+        }
+        .area-option .area-emoji {
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+        .area-option strong {
+            font-size: 0.75rem;
+            line-height: 1.25;
+            color: var(--text-main);
+            font-weight: 750;
+        }
+        .area-option.add-area {
+            border-style: dashed;
+            color: var(--accent-indigo);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .inline-area-form {
+            padding: 0.85rem;
+            border: 1px solid var(--border-card);
+            border-radius: 1rem;
+            background: var(--btn-sec-bg);
+        }
+
+        /* DATE FIELD & DURATION CARDS */
+        .date-field-card {
+            width: 100%;
+            min-height: 4.25rem;
+            padding: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-align: left;
+            border-radius: 1rem;
+            border: 1px solid var(--border-card);
+            background: var(--input-bg);
+            cursor: pointer;
+            transition: all 0.16s ease;
+        }
+        .date-field-card:hover {
+            border-color: var(--border-card-hover);
+            background: var(--bg-card-hover);
+        }
+        .date-field-card .date-copy {
+            flex: 1;
+            min-width: 0;
+        }
+        .date-field-card small,
+        .date-field-card strong {
+            display: block;
+        }
+        .date-field-card small {
+            color: var(--text-muted);
+            font-size: 0.68rem;
+        }
+        .date-field-card strong {
+            margin-top: 0.15rem;
+            color: var(--text-main);
+            font-size: 0.82rem;
+            font-weight: 750;
+        }
+
+        .duration-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.5rem;
+        }
+        .duration-option {
+            min-height: 2.75rem;
+            padding: 0.5rem 0.35rem;
+            border-radius: 0.85rem;
+            border: 1px solid var(--border-card);
+            background: var(--input-bg);
+            color: var(--text-sub);
+            font-size: 0.72rem;
+            font-weight: 750;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .duration-option:hover {
+            background: var(--btn-sec-hover);
+        }
+        .duration-option.selected {
+            color: #FFFFFF !important;
+            background: var(--accent-indigo) !important;
+            border-color: var(--accent-indigo) !important;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+        }
+        .time-summary {
+            padding: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            border-radius: 1rem;
+            color: var(--text-sub);
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            font-size: 0.75rem;
+        }
+        .time-summary svg {
+            width: 1rem;
+            height: 1rem;
+            color: var(--accent-indigo);
+            flex-shrink: 0;
+        }
+        .time-summary strong {
+            color: var(--text-main);
+            font-weight: 750;
+        }
+
+        /* PLAN MODE GRID */
+        .plan-mode-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.65rem;
+        }
+        .plan-mode-card {
+            min-height: 6rem;
+            padding: 0.9rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border-card);
+            background: var(--input-bg);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.16s ease;
+        }
+        .plan-mode-card:hover {
+            border-color: var(--border-card-hover);
+        }
+        .plan-mode-card.selected {
+            border-color: rgba(99, 102, 241, 0.7) !important;
+            background: rgba(99, 102, 241, 0.12) !important;
+        }
+        .plan-mode-card strong,
+        .plan-mode-card small {
+            display: block;
+        }
+        .plan-mode-card strong {
+            color: var(--text-main);
+            font-size: 0.82rem;
+            font-weight: 750;
+        }
+        .plan-mode-card small {
+            margin-top: 0.2rem;
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            line-height: 1.45;
+        }
+
+        /* CALENDAR DATE PICKER */
+        .calendar-shell {
+            max-width: 24rem;
+        }
+        .calendar-weekdays,
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.25rem;
+        }
+        .calendar-weekdays span {
+            padding: 0.35rem 0;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            font-weight: 750;
+            text-align: center;
+        }
+        .calendar-day {
+            aspect-ratio: 1;
+            border-radius: 0.75rem;
+            display: grid;
+            place-items: center;
+            color: var(--text-sub);
+            font-size: 0.75rem;
+            font-weight: 650;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .calendar-day:hover {
+            background: var(--btn-sec-bg);
+            color: var(--text-main);
+        }
+        .calendar-day.today {
+            box-shadow: inset 0 0 0 1.5px var(--accent-indigo);
+            color: var(--accent-indigo);
+            font-weight: 850;
+        }
+        .calendar-day.selected {
+            color: #FFFFFF !important;
+            background: var(--accent-indigo) !important;
+            box-shadow: none;
+            font-weight: 850;
+        }
+        .calendar-day.outside {
+            opacity: 0.25;
+        }
+        .quick-date-row {
+            display: flex;
+            gap: 0.4rem;
+            overflow-x: auto;
+        }
+        .quick-date-row button {
+            flex: 0 0 auto;
+        }
+
+        /* PLAN REVIEW TREE */
+        .plan-review-row {
+            transition: all 0.15s ease;
+        }
+        .plan-review-toggle {
+            width: 1.65rem;
+            height: 1.65rem;
+            display: grid;
+            place-items: center;
+        }
+
+        /* LIGHT MODE OVERRIDES FOR AUTH & FORMS */
+        body.light-mode .auth-tab-container {
+            background: #F1F5F9 !important;
+            border-color: rgba(15, 23, 42, 0.08) !important;
+        }
+        body.light-mode .auth-tab-btn {
+            color: #64748B !important;
+        }
+        body.light-mode .auth-tab-btn.active {
+            color: #FFFFFF !important;
+        }
+        body.light-mode #btnGoogleAuth {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            color: #0F172A !important;
+        }
+        body.light-mode #btnGoogleAuth:hover {
+            background: #F8FAFC !important;
+        }
+        body.light-mode .theme-input {
+            background: #FFFFFF !important;
+            border-color: #CBD5E1 !important;
+            color: #0F172A !important;
+        }
+        body.light-mode .theme-input::placeholder {
+            color: #94A3B8 !important;
+        }
+        body.light-mode .area-option {
+            background: #F8FAFC !important;
+            border-color: #E2E8F0 !important;
+        }
+        body.light-mode .area-option:hover {
+            background: #F1F5F9 !important;
+            border-color: #CBD5E1 !important;
+        }
+        body.light-mode .area-option.selected {
+            background: rgba(99, 102, 241, 0.1) !important;
+            border-color: #6366F1 !important;
+        }
+        body.light-mode .date-field-card {
+            background: #F8FAFC !important;
+            border-color: #E2E8F0 !important;
+        }
+        body.light-mode .duration-option {
+            background: #F8FAFC !important;
+            border-color: #E2E8F0 !important;
+            color: #334155 !important;
+        }
+        body.light-mode .plan-mode-card {
+            background: #F8FAFC !important;
+            border-color: #E2E8F0 !important;
+        }
+        body.light-mode .plan-mode-card.selected {
+            background: rgba(99, 102, 241, 0.1) !important;
+            border-color: #6366F1 !important;
+        }
+
+        /* ================= RESTORED SOUNDSCAPE & SPOTIFY UI ================= */
+        .soundscape-choice {
+            min-height: 6.2rem;
+            padding: 0.85rem;
+            border-radius: 1.15rem !important;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            text-align: left;
+            gap: 0.25rem;
+            cursor: pointer;
+            transition: all 0.16s ease;
+        }
+        .soundscape-choice:hover {
+            transform: translateY(-2px);
+        }
+        .soundscape-choice > span { font-size: 1.4rem; line-height: 1; }
+        .soundscape-choice strong { font-size: 0.8rem; font-weight: 750; color: var(--text-main); }
+        .soundscape-choice small { font-size: 0.65rem; color: var(--text-muted); opacity: 0.8; }
+        
+        .spotify-connect-card {
+            padding: 1rem;
+            border: 1px solid rgba(29, 185, 84, 0.28);
+            border-radius: 1.25rem !important;
+            background: rgba(29, 185, 84, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.85rem;
+        }
+        .spotify-brand { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+        .spotify-brand > span {
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 0.9rem;
+            background: #1DB954;
+            color: #07130b;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(29, 185, 84, 0.35);
+        }
+        .spotify-brand svg { width: 1.15rem; height: 1.15rem; }
+        .spotify-brand strong, .spotify-brand small { display: block; }
+        .spotify-brand strong { color: var(--text-main); font-size: 0.82rem; font-weight: 750; }
+        .spotify-brand small { color: var(--text-muted); font-size: 0.68rem; margin-top: 0.15rem; }
+        .spotify-status-pill {
+            padding: 0.35rem 0.65rem;
+            border-radius: 99px;
+            background: var(--btn-sec-bg);
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+        
+        .spotify-now-playing {
+            padding: 1rem;
+            border: 1px solid var(--border-card);
+            border-radius: 1.25rem !important;
+            background: linear-gradient(120deg, rgba(29,185,84,0.12), var(--input-bg));
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+        .spotify-now-playing > img {
+            width: 4.5rem;
+            height: 4.5rem;
+            border-radius: 0.9rem;
+            object-fit: cover;
+            background: var(--btn-sec-bg);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+            flex-shrink: 0;
+        }
+        .spotify-now-playing small { color: #22C55E; font-size: 0.62rem; font-weight: 850; letter-spacing: 0.08em; }
+        .spotify-now-playing strong, .spotify-now-playing p { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .spotify-now-playing strong { color: var(--text-main); font-size: 0.85rem; font-weight: 800; margin-top: 0.2rem; }
+        .spotify-now-playing p { color: var(--text-muted); font-size: 0.68rem; margin-top: 0.1rem; }
+        .now-playing-bars { height: 0.85rem; display: inline-flex; align-items: flex-end; gap: 2px; }
+        .now-playing-bars span { width: 2.5px; height: 30%; border-radius: 2px; background: #22C55E; }
+        .now-playing-bars.is-playing span { animation: ziel-equalizer 0.8s ease-in-out infinite alternate; }
+        .now-playing-bars.is-playing span:nth-child(2) { animation-delay: -0.25s; }
+        .now-playing-bars.is-playing span:nth-child(3) { animation-delay: -0.5s; }
+        .now-playing-bars.is-playing span:nth-child(4) { animation-delay: -0.15s; }
+        @keyframes ziel-equalizer { from { height: 24%; } to { height: 100%; } }
+        .spotify-progress { height: 4px; margin-top: 0.6rem; border-radius: 99px; overflow: hidden; background: var(--btn-sec-bg); }
+        .spotify-progress i { display: block; width: 0; height: 100%; border-radius: inherit; background: #22C55E; transition: width 0.4s ease; }
+        .spotify-empty {
+            min-height: 9rem;
+            padding: 1.25rem;
+            border: 1.5px dashed var(--border-card);
+            border-radius: 1.25rem !important;
+            display: grid;
+            place-items: center;
+            align-content: center;
+            text-align: center;
+            gap: 0.35rem;
+        }
+        .spotify-empty svg { width: 1.5rem; height: 1.5rem; color: var(--text-muted); }
+        .spotify-empty strong { color: var(--text-main); font-size: 0.8rem; font-weight: 750; }
+        .spotify-empty small { color: var(--text-muted); font-size: 0.68rem; max-width: 22rem; }
+        .spotify-connect-button {
+            min-height: 2.85rem;
+            padding: 0.7rem 1.15rem;
+            border-radius: 0.9rem !important;
+            background: #1DB954 !important;
+            color: #06130a !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 850;
+            box-shadow: 0 4px 14px rgba(29, 185, 84, 0.3);
+            transition: all 0.15s ease;
+        }
+        .spotify-connect-button:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+        /* ================= RESTORED RECOMMENDATION MODAL & HERO STRIPS ================= */
+        .today-focus-strip {
+            padding: 1rem 1.15rem;
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 1.25rem !important;
+            background: linear-gradient(115deg, rgba(99,102,241,0.12), rgba(16,185,129,0.05));
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+        .today-focus-icon, .next-step-icon {
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 0.9rem;
+            display: grid;
+            place-items: center;
+            color: #818CF8;
+            background: rgba(99, 102, 241, 0.16);
+            flex-shrink: 0;
+        }
+        .today-focus-icon svg, .next-step-icon svg { width: 1.15rem; height: 1.15rem; }
+        .today-focus-strip strong, .today-focus-strip small { display: block; }
+        .today-focus-strip strong { color: var(--text-main); font-size: 0.85rem; font-weight: 800; }
+        .today-focus-strip small { color: var(--text-muted); font-size: 0.72rem; margin-top: 0.15rem; }
+        
+        .recommendation-sheet { border-radius: 1.75rem !important; }
+        .recommendation-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.55rem; }
+        .recommendation-metrics > div {
+            padding: 0.85rem;
+            border: 1px solid var(--border-card);
+            border-radius: 1rem !important;
+            background: var(--input-bg);
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            min-width: 0;
+        }
+        .recommendation-metrics svg { width: 1.15rem; height: 1.15rem; color: #818CF8; flex-shrink: 0; }
+        .recommendation-metrics span, .recommendation-metrics small, .recommendation-metrics strong { display: block; min-width: 0; }
+        .recommendation-metrics small { color: var(--text-muted); font-size: 0.62rem; font-weight: 700; }
+        .recommendation-metrics strong { color: var(--text-main); font-size: 0.75rem; font-weight: 800; margin-top: 0.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .next-step-card {
+            padding: 0.95rem;
+            border-radius: 1.15rem !important;
+            background: rgba(99, 102, 241, 0.09);
+            border: 1px solid rgba(99, 102, 241, 0.18);
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+        .next-step-card span { color: #818CF8; font-size: 0.65rem; font-weight: 850; text-transform: uppercase; letter-spacing: 0.08em; }
+        .next-step-card p { color: var(--text-main); font-size: 0.82rem; font-weight: 700; margin-top: 0.15rem; }
+
+        /* ================= RESTORED ZEN FOCUS MODE UI ================= */
+        .focus-shell { width: 100%; max-width: 46rem; margin: auto; display: grid; gap: 1rem; }
+        .focus-hero {
+            padding: 1.35rem;
+            border: 1px solid var(--border-card);
+            border-radius: 1.75rem !important;
+            background: linear-gradient(145deg, color-mix(in srgb, var(--bg-card) 92%, var(--accent-indigo) 8%), var(--bg-card));
+            box-shadow: var(--card-shadow);
+        }
+        .focus-mode-switch {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.5rem;
+            padding: 0.35rem;
+            border: 1px solid var(--border-card);
+            border-radius: 1.1rem !important;
+            background: var(--input-bg);
+        }
+        .focus-mode-switch button { min-height: 2.75rem; padding: 0.6rem 0.9rem; font-size: 0.75rem; font-weight: 800; border-radius: 0.85rem !important; }
+        .custom-duration-control { display: flex; align-items: center; justify-content: center; gap: 0.65rem; padding-top: 0.75rem; }
+        .custom-duration-control input { width: 6rem; text-align: center; padding: 0.7rem; border-radius: 0.9rem !important; font-weight: 800; }
+        .pomodoro-status { display: flex; justify-content: center; align-items: center; gap: 0.65rem; margin-top: 0.75rem; color: var(--text-muted); font-size: 0.72rem; font-weight: 750; }
+        .pomodoro-dots { display: inline-flex; gap: 0.35rem; }
+        .pomodoro-dots i { width: 0.5rem; height: 0.5rem; border-radius: 99px; background: var(--border-card); }
+        .pomodoro-dots i.done, .pomodoro-dots i.active { background: #10B981; }
+        .focus-dial { touch-action: none; cursor: crosshair; filter: drop-shadow(0 12px 28px rgba(16,185,129,0.15)); }
+        .focus-dial-handle { fill: #FFFFFF; stroke: #10B981; stroke-width: 5; filter: drop-shadow(0 3px 7px rgba(0,0,0,0.35)); transition: cx 0.08s linear, cy 0.08s linear; }
+        .focus-dial-hint { color: var(--text-muted); font-size: 0.68rem; line-height: 1.5; }
+        #focusModeOverlay[data-timer-mode="custom"] .focus-dial { cursor: grab; }
+        #focusModeOverlay[data-timer-mode="custom"] .focus-dial:active { cursor: grabbing; }
+
+        /* ================= RESTORED GOAL & TIMELINE HIERARCHY ================= */
+        .goal-creator-shell { display: flex; flex-direction: column; }
+        .goal-creator-body { flex: 1; min-height: 0; overflow-y: auto; padding-right: 0.15rem; }
+        .goal-creator-footer {
+            position: sticky;
+            bottom: -0.05rem;
+            z-index: 4;
+            padding-top: 0.85rem;
+            background: linear-gradient(180deg, transparent, var(--modal-bg) 28%);
+        }
+        .goal-detail-panel { align-items: center; }
+        .goal-horizon-row {
+            position: relative;
+            border-left: 1.5px solid var(--border-card);
+        }
+        .goal-horizon-row::before {
+            content: '';
+            position: absolute;
+            left: -1px;
+            top: 1.15rem;
+            width: 0.85rem;
+            border-top: 1.5px solid var(--border-card);
+        }
+        .simple-plan-card { padding: 1rem; border: 1px solid var(--border-card); border-radius: 1.15rem !important; background: var(--input-bg); }
+        .simple-plan-card input { min-height: 3.25rem; }
+        .horizontal-control-zone { overscroll-behavior-x: contain; touch-action: pan-x; }
+
+        .timeline-week-grid {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(8.5rem, 1fr));
+            gap: 0.65rem;
+            min-width: 60rem;
+        }
+        .timeline-month-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(10rem, 1fr));
+            gap: 0.75rem;
+        }
+        @media (max-width: 640px) {
+            .timeline-month-grid { grid-template-columns: 1fr; }
+            .goal-detail-panel { align-items: flex-end !important; padding: 0 !important; }
+            .goal-detail-panel > div { border-radius: 1.75rem 1.75rem 0 0 !important; max-height: 94vh; }
+        }
+
+        /* ================= RESTORED ONBOARDING & FEEDBACK ================= */
+        .onboarding-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+        .onboarding-grid > div {
+            position: relative;
+            min-height: 9.5rem;
+            padding: 1.15rem;
+            border: 1px solid var(--border-card);
+            border-radius: 1.15rem !important;
+            background: var(--input-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-end;
+        }
+        .onboarding-grid > div > span { position: absolute; top: 0.75rem; right: 0.85rem; color: var(--text-muted); font-size: 0.65rem; font-weight: 850; }
+        .onboarding-grid svg { width: 1.4rem; height: 1.4rem; color: #818CF8; margin-bottom: 0.85rem; }
+        .onboarding-grid strong, .onboarding-grid small { display: block; }
+        .onboarding-grid strong { color: var(--text-main); font-size: 0.82rem; font-weight: 750; }
+        .onboarding-grid small { color: var(--text-muted); font-size: 0.68rem; line-height: 1.45; margin-top: 0.25rem; }
+
+        .draft-status { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.35rem; color: var(--text-muted); font-size: 0.65rem; font-weight: 700; }
+        .draft-status::before { content: ''; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: #10B981; box-shadow: 0 0 0 3px rgba(16,185,129,0.15); }
+        .draft-status.saving::before { background: #F59E0B; }
+        .field-error { margin-top: 0.35rem; color: #FB7185; font-size: 0.68rem; font-weight: 700; }
+        .theme-input[aria-invalid="true"] { border-color: rgba(251,113,133,0.8) !important; box-shadow: 0 0 0 3px rgba(251,113,133,0.15) !important; }
+
+        .task-row {
+            border-radius: 1.15rem !important;
+            border: 1px solid var(--border-card);
+            background: var(--bg-card);
+            transition: all 0.16s ease;
+        }
+        .task-row:hover { border-color: var(--border-card-hover); background: var(--bg-card-hover); transform: translateY(-1px); }
+
+        .notification-trigger { overflow: visible !important; isolation: isolate; }
+        .notification-count {
+            z-index: 5;
+            top: -0.28rem !important;
+            right: -0.28rem !important;
+            min-width: 1.15rem !important;
+            height: 1.15rem !important;
+            padding: 0 0.25rem !important;
+            line-height: 1 !important;
+            border: 2px solid var(--bg-main);
+            overflow: visible !important;
+        }
+
+        .plan-skeleton { display: grid; gap: 0.65rem; }
+        .plan-structure-preview {
+            margin-top: 0.65rem;
+            padding: 0.75rem;
+            border-radius: 0.85rem;
+            background: var(--btn-sec-bg);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            line-height: 1.6;
+        }
+        .plan-year-meta { color: var(--text-muted); font-size: 0.68rem; }
+        .goal-review-actions { position: sticky; bottom: -0.1rem; padding: 0.75rem 0 calc(0.25rem + env(safe-area-inset-bottom, 0px)); background: var(--bg-card); }
+        @media (min-width: 1024px) { .desktop-more-menu { display: none !important; } }
+        .timeline-view-btn.active {
+            background: var(--primary-gradient) !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+        }
+        .mood-btn { cursor: pointer; transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease; }
+        .mood-btn:hover { transform: scale(1.15); }
+        .notif-tab-btn { cursor: pointer; transition: all 0.15s ease; }
+        .ambience-track-btn { cursor: pointer; }
 </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
@@ -732,6 +2112,7 @@
     </header>
 
     <!-- PROFILE MENU -->
+    <div id="profileMenuBackdrop" class="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] hidden" onclick="closeProfileMenu()"></div>
     <div id="profileMenu" class="profile-menu-popover hidden" role="menu" aria-label="Menu profil">
         <div class="profile-menu-head">
             <div id="profileMenuAvatar" class="w-11 h-11 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-extrabold">Z</div>
@@ -775,66 +2156,125 @@
             </div>
 
             <div class="grid grid-cols-1 xl:grid-cols-12 gap-4">
-                <section class="theme-card xl:col-span-8 p-5 command-card">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
+                <!-- COMMAND CARD (REDESIGNED: FULL-WIDTH TACTILE 5-COLUMN DECK, ZERO EMPTY VOID) -->
+                <section class="theme-card xl:col-span-8 p-5 sm:p-6 command-card space-y-4">
+                    <div class="flex items-center justify-between gap-3">
                         <div>
-                            <span class="eyebrow text-[10px]">Kapasitas Mental</span>
-                            <h3 class="text-lg sm:text-xl font-black mt-0.5" style="color:var(--text-main)">Level Energi Saat Ini</h3>
-                            <p class="text-xs mt-0.5" style="color:var(--text-muted)">Sesuaikan intensitas tugas dengan energimu</p>
+                            <span class="eyebrow text-[10px] text-indigo-400 font-bold block">Kapasitas Kognitif</span>
+                            <h3 class="text-lg sm:text-xl font-black" style="color:var(--text-main)">Tingkat Energi Saat Ini</h3>
                         </div>
-                        <div class="energy-picker-wrap shrink-0">
-                            <div id="energySelectorGroup" class="energy-control">
-                                <button type="button" onclick="setEnergy(1)" class="energy-btn" data-level="1" title="Sangat rendah"><span>😴</span><small>Istirahat</small></button>
-                                <button type="button" onclick="setEnergy(2)" class="energy-btn" data-level="2" title="Rendah"><span>🥱</span><small>Ringan</small></button>
-                                <button type="button" onclick="setEnergy(3)" class="energy-btn" data-level="3" title="Seimbang"><span>🙂</span><small>Seimbang</small></button>
-                                <button type="button" onclick="setEnergy(4)" class="energy-btn" data-level="4" title="Fokus"><span>⚡</span><small>Fokus</small></button>
-                                <button type="button" onclick="setEnergy(5)" class="energy-btn" data-level="5" title="Puncak"><span>🔥</span><small>Puncak</small></button>
-                            </div>
-                        </div>
+                        <span id="currentEnergyBadgePill" class="px-3 py-1 rounded-full text-xs font-black tag-indigo shrink-0">
+                            <span id="currentEnergyLabel">Energi Seimbang (L3)</span>
+                        </span>
                     </div>
-                    <div class="mt-4 p-3.5 rounded-2xl action-suggestion">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                            <div class="min-w-0">
-                                <span class="text-[10px] uppercase font-bold tracking-wider text-indigo-400 block">Rekomendasi Tindakan • <span id="currentEnergyLabel">Energi Seimbang</span></span>
-                                <p id="homeNextTaskTitle" class="font-black text-sm mt-0.5 truncate" style="color:var(--text-main)">Pilih energi untuk rekomendasi</p>
-                                <p id="homeNextTaskMeta" class="text-xs mt-0.5 truncate" style="color:var(--text-muted)">Satu langkah nyata untuk hari ini</p>
+
+                    <!-- 5-Column Full-Width Energy Toggles -->
+                    <div id="energySelectorGroup" class="grid grid-cols-5 gap-1.5 sm:gap-2 p-1.5 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
+                        <button type="button" onclick="setEnergy(1)" class="energy-btn py-2.5 px-1 sm:px-2 rounded-xl flex flex-col items-center justify-center gap-1 transition-all" data-level="1" title="Sangat rendah">
+                            <span class="text-xl sm:text-2xl">😴</span>
+                            <strong class="text-[10px] sm:text-[11px] font-bold truncate" style="color:var(--text-main)">Istirahat</strong>
+                            <small class="text-[9px] font-mono" style="color:var(--text-muted)">L1</small>
+                        </button>
+                        <button type="button" onclick="setEnergy(2)" class="energy-btn py-2.5 px-1 sm:px-2 rounded-xl flex flex-col items-center justify-center gap-1 transition-all" data-level="2" title="Rendah">
+                            <span class="text-xl sm:text-2xl">🥱</span>
+                            <strong class="text-[10px] sm:text-[11px] font-bold truncate" style="color:var(--text-main)">Ringan</strong>
+                            <small class="text-[9px] font-mono" style="color:var(--text-muted)">L2</small>
+                        </button>
+                        <button type="button" onclick="setEnergy(3)" class="energy-btn py-2.5 px-1 sm:px-2 rounded-xl flex flex-col items-center justify-center gap-1 transition-all active" data-level="3" title="Seimbang">
+                            <span class="text-xl sm:text-2xl">🙂</span>
+                            <strong class="text-[10px] sm:text-[11px] font-bold truncate" style="color:var(--text-main)">Seimbang</strong>
+                            <small class="text-[9px] font-mono" style="color:var(--text-muted)">L3</small>
+                        </button>
+                        <button type="button" onclick="setEnergy(4)" class="energy-btn py-2.5 px-1 sm:px-2 rounded-xl flex flex-col items-center justify-center gap-1 transition-all" data-level="4" title="Fokus">
+                            <span class="text-xl sm:text-2xl">⚡</span>
+                            <strong class="text-[10px] sm:text-[11px] font-bold truncate" style="color:var(--text-main)">Fokus</strong>
+                            <small class="text-[9px] font-mono" style="color:var(--text-muted)">L4</small>
+                        </button>
+                        <button type="button" onclick="setEnergy(5)" class="energy-btn py-2.5 px-1 sm:px-2 rounded-xl flex flex-col items-center justify-center gap-1 transition-all" data-level="5" title="Puncak">
+                            <span class="text-xl sm:text-2xl">🔥</span>
+                            <strong class="text-[10px] sm:text-[11px] font-bold truncate" style="color:var(--text-main)">Puncak</strong>
+                            <small class="text-[9px] font-mono" style="color:var(--text-muted)">L5</small>
+                        </button>
+                    </div>
+
+                    <!-- Action Recommendation Box -->
+                    <div class="p-3.5 sm:p-4 rounded-2xl border border-indigo-500/25 bg-gradient-to-r from-indigo-500/10 via-[var(--input-bg)] to-teal-500/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+                        <div class="min-w-0 space-y-0.5">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+                                <span class="text-[10px] uppercase font-bold tracking-wider text-indigo-400">Rekomendasi Tindakan</span>
                             </div>
-                            <button id="btnWhatShouldIDo" onclick="triggerWhatShouldIDoNow()" class="primary-btn-gradient shrink-0 rounded-xl px-4 py-2.5 font-bold text-xs flex items-center justify-center gap-2">
-                                <i data-lucide="play" class="w-3.5 h-3.5" id="ctaZapIcon"></i><span id="ctaBtnText">Pilih tindakan</span>
-                            </button>
+                            <p id="homeNextTaskTitle" class="font-black text-sm sm:text-base truncate" style="color:var(--text-main)">Pilih energi untuk rekomendasi</p>
+                            <p id="homeNextTaskMeta" class="text-xs text-slate-400 truncate">Satu tindakan nyata untuk memulai momentum</p>
                         </div>
+                        <button id="btnWhatShouldIDo" onclick="triggerWhatShouldIDoNow()" class="primary-btn-gradient px-4 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shrink-0 w-full sm:w-auto shadow-md">
+                            <i data-lucide="play" class="w-3.5 h-3.5 fill-current" id="ctaZapIcon"></i>
+                            <span id="ctaBtnText">Mulai Tindakan</span>
+                        </button>
                     </div>
                 </section>
 
-                <section class="theme-card xl:col-span-4 p-5 sm:p-6">
-                    <div class="flex items-center justify-between"><div><p class="eyebrow">Hari ini</p><h3 class="section-title">Progress ringkas</h3></div><button onclick="navigateApp('insights')" class="text-link">Detail</button></div>
-                    <div class="clean-stat-list mt-4">
-                        <div><span><i data-lucide="check-circle-2"></i>Tindakan selesai</span><strong id="statCompletedToday">0</strong></div>
-                        <div><span><i data-lucide="timer"></i>Waktu fokus</span><strong><span id="statFocusTime">0</span>m</strong></div>
-                        <div><span><i data-lucide="flame"></i>Hari aktif</span><strong id="statStreakDays">1</strong></div>
+                <!-- RIGHT STATS CARD (REDESIGNED: METRIC TILES + AUDIO PLAYER) -->
+                <section class="theme-card xl:col-span-4 p-5 sm:p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="eyebrow text-[10px] text-slate-400 font-bold block">Aktivitas Hari Ini</span>
+                            <h3 class="text-base sm:text-lg font-black" style="color:var(--text-main)">Progress Ringkas</h3>
+                        </div>
+                        <button onclick="navigateApp('insights')" class="text-link text-xs">Detail</button>
                     </div>
-                    <button onclick="openSoundscapeModal()" class="subtle-row mt-4 w-full"><i data-lucide="headphones"></i><span class="flex-1 text-left"><small>Soundscape</small><strong id="statMusicMode">Rain & Water</strong></span><i data-lucide="chevron-right"></i></button>
+
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div class="p-3 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
+                            <span class="text-[10px] text-slate-400 block font-semibold">Tugas</span>
+                            <strong id="statCompletedToday" class="text-base sm:text-lg font-black block mt-0.5" style="color:var(--text-main)">0</strong>
+                        </div>
+                        <div class="p-3 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
+                            <span class="text-[10px] text-slate-400 block font-semibold">Fokus</span>
+                            <strong class="text-base sm:text-lg font-black text-indigo-400 font-mono block mt-0.5"><span id="statFocusTime">0</span>m</strong>
+                        </div>
+                        <div class="p-3 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
+                            <span class="text-[10px] text-slate-400 block font-semibold">Streak</span>
+                            <strong id="statStreakDays" class="text-base sm:text-lg font-black text-amber-400 block mt-0.5">1</strong>
+                        </div>
+                    </div>
+
+                    <button onclick="openSoundscapeModal()" class="w-full flex items-center justify-between p-3 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] hover:border-indigo-500/30 transition text-xs">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <span class="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center text-xs shrink-0">
+                                <i data-lucide="headphones" class="w-4 h-4"></i>
+                            </span>
+                            <div class="text-left min-w-0">
+                                <small class="text-[9px] text-slate-400 uppercase font-bold block">Soundscape</small>
+                                <strong id="statMusicMode" class="text-xs block font-extrabold truncate" style="color:var(--text-main)">Rain & Water</strong>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 shrink-0"></i>
+                    </button>
                 </section>
             </div>
 
-            <!-- BIPOLAR MOOD WIDGET ON HOME -->
-            <div class="theme-card p-3.5 rounded-2xl border border-[var(--border-card)] flex items-center justify-between gap-3 shadow-sm">
-                <div class="flex items-center gap-2.5 min-w-0">
-                    <div id="bmHomeStatusIcon" class="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center shrink-0">
-                        <i data-lucide="activity" class="w-4 h-4"></i>
+            <!-- BIPOLAR MOOD WIDGET ON HOME (ELEGANT INTEGRATED CARD) -->
+            <div class="theme-card p-4 rounded-2xl border border-[var(--border-card)] flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 shadow-sm">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div id="bmHomeStatusIcon" class="w-10 h-10 rounded-2xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center shrink-0 shadow-sm">
+                        <i data-lucide="activity" class="w-5 h-5"></i>
                     </div>
                     <div class="min-w-0 space-y-0.5">
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-indigo-400 block">Keseimbangan Mood Hari Ini</span>
-                        <h4 id="bmHomeStatusTitle" class="text-xs sm:text-sm font-black truncate" style="color:var(--text-main)">
-                            Belum ada catatan
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-indigo-400 block">Keseimbangan Mood Hari Ini</span>
+                            <span id="bmTodayBadgeDot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                        </div>
+                        <h4 id="bmHomeStatusTitle" class="text-sm font-black truncate" style="color:var(--text-main)">
+                            Belum ada catatan hari ini
                         </h4>
-                        <p id="bmHomeStatusSub" class="text-[10px] truncate" style="color:var(--text-muted)">
-                            Skrining 24 jam terakhir
+                        <p id="bmHomeStatusSub" class="text-xs truncate" style="color:var(--text-muted)">
+                            Skrining 24 jam terakhir untuk deteksi dini irama sirkadian
                         </p>
                     </div>
                 </div>
-                <button onclick="BipolarTracker.openModal()" class="btn-secondary px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 flex items-center gap-1">
-                    <span>Tracker</span>
+                <button onclick="BipolarTracker.openModal()" class="btn-secondary px-4 py-2 rounded-xl text-xs font-bold shrink-0 flex items-center justify-center gap-1.5 w-full sm:w-auto">
+                    <span>Buka Dashboard</span>
                     <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                 </button>
             </div>
@@ -863,7 +2303,7 @@
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
                         <div class="flex items-center gap-2">
-                            <i data-lucide="calendar-range" class="w-4 h-4 text-teal-400"></i>
+                            <i data-lucide="calendar-range" class="w-4 h-4 text-indigo-400"></i>
                             <h3 class="section-title">Timeline</h3>
                         </div>
                         <p id="timelinePeriodLabel" class="text-xs mt-1" style="color: var(--text-muted);"></p>
@@ -1492,7 +2932,7 @@
     <!-- CONSOLIDATED MORE MENU -->
     <div id="moreMenuModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
         <div class="glass-modal action-sheet w-full sm:max-w-md p-5 sm:p-6 space-y-4">
-            <div class="flex items-center justify-between"><div><p class="eyebrow">ZIEL</p><h3 class="text-lg font-extrabold">Menu lainnya</h3></div><button onclick="closeModal('moreMenuModal')" class="clean-icon-btn"><i data-lucide="x"></i></button></div>
+            <div class="flex items-center justify-between border-b border-[var(--border-card)] pb-3"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center text-sm font-bold shrink-0"><i data-lucide="ellipsis" class="w-4 h-4"></i></div><div><h3 class="text-base font-black" style="color:var(--text-main)">Menu Lainnya</h3><p class="text-[11px] text-slate-400">Akses cepat alat bantu & integrasi</p></div></div><button onclick="closeModal('moreMenuModal')" class="clean-icon-btn shrink-0" aria-label="Tutup"><i data-lucide="x" class="w-5 h-5"></i></button></div>
             <div class="menu-list">
                 <button onclick="closeModal('moreMenuModal'); BipolarTracker.openHub()"><span class="icon-box"><i data-lucide="activity"></i></span><span><strong>Bipolar Life Chart</strong><small>Pantau mania, depresi, & obat harian</small></span><i data-lucide="chevron-right"></i></button>
                 <button onclick="closeModal('moreMenuModal');openModal('aiCopilotModal')"><span class="icon-box"><i data-lucide="sparkles"></i></span><span><strong>Ask ZIEL</strong><small>Diskusikan strategi atau saat kamu buntu</small></span><i data-lucide="chevron-right"></i></button>
@@ -1507,7 +2947,7 @@
     <!-- CONTEXTUAL TASK ACTIONS -->
     <div id="taskActionsModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
         <div class="glass-modal action-sheet w-full sm:max-w-sm p-5 space-y-4">
-            <div class="flex items-start justify-between gap-3"><div><p class="eyebrow">Tindakan task</p><h3 id="taskActionsTitle" class="text-base font-extrabold mt-1"></h3></div><button onclick="closeModal('taskActionsModal')" class="clean-icon-btn"><i data-lucide="x"></i></button></div>
+            <div class="flex items-center justify-between border-b border-[var(--border-card)] pb-3"><div class="min-w-0"><span class="text-[10px] uppercase font-bold tracking-wider text-indigo-400 block">Tindakan Tugas</span><h3 id="taskActionsTitle" class="text-sm sm:text-base font-black truncate mt-0.5" style="color:var(--text-main)"></h3></div><button onclick="closeModal('taskActionsModal')" class="clean-icon-btn shrink-0" aria-label="Tutup"><i data-lucide="x" class="w-5 h-5"></i></button></div>
             <div class="menu-list">
                 <button onclick="runTaskAction('schedule')"><span class="icon-box"><i data-lucide="calendar-clock"></i></span><span><strong>Jadwalkan di ZIEL</strong><small>Cari slot yang sesuai kapasitas</small></span><i data-lucide="chevron-right"></i></button>
                 <button onclick="runTaskAction('gcal')"><span class="icon-box"><i data-lucide="calendar-plus"></i></span><span><strong>Google Calendar</strong><small>Buka dengan konteks Goal dan Milestone</small></span><i data-lucide="external-link"></i></button>
@@ -1531,7 +2971,7 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-1">
-                    <button onclick="markAllNotifsAsRead()" class="btn-secondary text-[10px] px-2.5 py-1 rounded-xl font-bold hover:text-teal-400">
+                    <button onclick="markAllNotifsAsRead()" class="btn-secondary text-[10px] px-2.5 py-1 rounded-xl font-bold hover:text-indigo-400">
                         Tandai dibaca
                     </button>
                     <button onclick="closeModal('notificationCenterModal')" class="opacity-60 hover:opacity-100 p-1">
@@ -1651,7 +3091,7 @@
                     <p class="text-xs" style="color: var(--text-sub);">Sinkronkan tugas & sasaran Anda secara aman di cloud</p>
                 </div>
 
-                <div class="relative bg-slate-900/60 p-1 rounded-2xl flex items-center border border-[var(--border-card)]">
+                <div class="relative auth-tab-container bg-slate-900/60 p-1 rounded-2xl flex items-center border border-[var(--border-card)]">
                     <div id="authSliderBg" class="auth-slider-bg left-1 w-[calc(50%-4px)]"></div>
                     <button onclick="switchAuthTab('signin')" id="tabBtnSignIn" class="auth-tab-btn active flex-1 py-2 text-xs font-bold text-center rounded-xl">
                         Masuk
@@ -1661,7 +3101,7 @@
                     </button>
                 </div>
 
-                <button onclick="loginWithGoogle()" id="btnGoogleAuth" class="w-full py-3 rounded-2xl bg-white hover:bg-slate-100 text-slate-900 font-extrabold text-xs flex items-center justify-center space-x-3 shadow-md transition transform active:scale-98">
+                <button onclick="loginWithGoogle()" id="btnGoogleAuth" class="w-full py-3 rounded-2xl bg-white hover:bg-slate-100 text-slate-900 font-extrabold text-xs flex items-center justify-center space-x-3 border border-slate-200 shadow-sm transition transform active:scale-98">
                     <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
                     <span id="btnGoogleAuthText">Lanjutkan dengan Google</span>
                 </button>
@@ -1683,7 +3123,7 @@
                     <div>
                         <div class="flex items-center justify-between mb-1">
                             <label class="font-semibold" style="color: var(--text-sub);">Kata Sandi</label>
-                            <button type="button" onclick="openForgotPasswordModal()" class="text-[11px] text-teal-400 hover:underline font-semibold">Lupa Sandi?</button>
+                            <button type="button" onclick="openForgotPasswordModal()" class="text-[11px] text-indigo-400 hover:underline font-semibold">Lupa Sandi?</button>
                         </div>
                         <div class="relative flex items-center">
                             <i data-lucide="lock" class="w-4 h-4 absolute left-3 opacity-50"></i>
@@ -1762,7 +3202,7 @@
                     </div>
                     <div class="overflow-hidden">
                         <h3 class="text-base sm:text-lg font-bold truncate" id="modalProfileNameDisplay">Pengguna ZIEL</h3>
-                        <p class="text-xs font-medium text-teal-400 truncate" id="modalProfileEmailDisplay">user@ziel.space</p>
+                        <p class="text-xs font-medium text-slate-400 truncate" id="modalProfileEmailDisplay">user@ziel.space</p>
                     </div>
                 </div>
 
@@ -1796,7 +3236,7 @@
                             Simpan Profil
                         </button>
                         <button onclick="syncToFirestore()" class="btn-secondary py-2.5 px-3 rounded-xl font-bold text-xs flex items-center space-x-1" title="Sinkronkan Sekarang">
-                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-teal-400"></i>
+                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-indigo-400"></i>
                             <span>Sync</span>
                         </button>
                     </div>
@@ -1817,7 +3257,7 @@
                             <span>Salin Token</span>
                         </button>
                         <button onclick="importSyncToken()" class="btn-secondary flex-1 py-2 rounded-xl font-bold text-[11px] flex items-center justify-center space-x-1">
-                            <i data-lucide="download" class="w-3.5 h-3.5 text-teal-400"></i>
+                            <i data-lucide="download" class="w-3.5 h-3.5 text-indigo-400"></i>
                             <span>Muat Token</span>
                         </button>
                     </div>
@@ -1833,8 +3273,8 @@
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
             <div class="text-center space-y-1">
-                <div class="w-10 h-10 rounded-2xl bg-teal-500/20 text-teal-400 flex items-center justify-center mx-auto mb-2">
-                    <i data-lucide="key-round" class="w-5 h-5"></i>
+                <div class="w-10 h-10 rounded-2xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center mx-auto mb-2">
+                    <i data-lucide="key-round" class="w-5 h-5 text-indigo-400"></i>
                 </div>
                 <h3 class="text-base font-bold" style="color: var(--text-main);">Reset Kata Sandi</h3>
                 <p class="text-xs" style="color: var(--text-sub);">Masukkan email Anda untuk menerima link pemulihan.</p>
@@ -1881,7 +3321,7 @@
                 </button>
                 <div class="grid grid-cols-2 gap-2">
                     <button onclick="addCurrentRecommendationToCalendar()" class="btn-secondary py-2.5 px-3 rounded-xl font-bold text-xs flex items-center justify-center space-x-1.5">
-                        <i data-lucide="calendar-plus" class="w-3.5 h-3.5 text-teal-400"></i>
+                        <i data-lucide="calendar-plus" class="w-3.5 h-3.5 text-indigo-400"></i>
                         <span>Jadwalkan</span>
                     </button>
                     <button onclick="skipAndNextRecommendation()" class="btn-secondary py-2.5 px-3 rounded-xl font-bold text-xs flex items-center justify-center space-x-1">
@@ -1896,7 +3336,7 @@
     <!-- FULLSCREEN ZEN FOCUS MODE -->
     <div id="focusModeOverlay" class="fixed inset-0 z-50 flex flex-col items-center justify-between p-4 sm:p-8 overflow-y-auto hidden" style="background-color: var(--bg-main);">
         <div class="w-full max-w-xl flex items-center justify-between">
-            <div class="flex items-center space-x-2 text-xs font-semibold text-teal-400">
+            <div class="flex items-center space-x-2 text-xs font-semibold text-indigo-400">
                 <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
                 <span>ZEN FOCUS MODE</span>
             </div>
@@ -1906,7 +3346,7 @@
         <div class="focus-shell text-center my-auto py-4">
           <div class="focus-hero space-y-5">
             <div class="space-y-1">
-                <span class="text-xs font-bold uppercase tracking-widest text-teal-400" id="focusCategoryBadge">🎓 THESIS</span>
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400" id="focusCategoryBadge">🎓 THESIS</span>
                 <h2 class="text-xl sm:text-2xl font-black" style="color: var(--text-main);" id="focusTaskTitle">Revisi Bab 3</h2>
             </div>
 
@@ -2407,7 +3847,7 @@
                     <span class="add-cta-icon"><i data-lucide="check"></i></span><span>Simpan agenda</span>
                 </button>
                 <button onclick="saveNewAgenda(true)" class="btn-secondary py-3 px-3.5 rounded-xl font-bold text-xs flex items-center space-x-1.5">
-                    <i data-lucide="calendar-plus" class="w-3.5 h-3.5 text-teal-400"></i>
+                    <i data-lucide="calendar-plus" class="w-3.5 h-3.5 text-indigo-400"></i>
                     <span>Simpan & buka GCal</span>
                 </button>
             </div>
@@ -2521,6 +3961,7 @@
         function toggleProfileMenu(event) {
             if (event) event.stopPropagation();
             const menu = document.getElementById('profileMenu');
+            const backdrop = document.getElementById('profileMenuBackdrop');
             if (!menu) return;
             const willOpen = menu.classList.contains('hidden');
             closeProfileMenu();
@@ -2533,10 +3974,14 @@
             document.getElementById('profileMenuEmail').textContent = email;
             document.getElementById('profileMenuAvatar').textContent = (profile.avatar || name.charAt(0) || 'Z').slice(0, 2).toUpperCase();
             menu.classList.remove('hidden');
+            if (backdrop) backdrop.classList.remove('hidden');
             safeLucideCreateIcons({ root: menu });
         }
 
-        function closeProfileMenu() { document.getElementById('profileMenu')?.classList.add('hidden'); }
+        function closeProfileMenu() {
+            document.getElementById('profileMenu')?.classList.add('hidden');
+            document.getElementById('profileMenuBackdrop')?.classList.add('hidden');
+        }
 
         document.addEventListener('click', function (event) {
             const menu = document.getElementById('profileMenu');
@@ -2689,7 +4134,7 @@
                 clearTimeout(timer);
                 el.classList.remove('toast-show');
                 el.classList.add('toast-hide');
-                setTimeout(() => el.remove(), 300);
+                setTimeout(() => { if (el && typeof el.remove === "function") el.remove(); }, 300);
             }
         }
 
@@ -2988,7 +4433,7 @@
                 formSignUp.classList.add('hidden');
                 heading.textContent = 'Selamat Datang di ZIEL';
             } else {
-                slider.style.left = 'calc(50% - 4px)';
+                slider.style.left = 'calc(50%)';
                 btnSignUp.className = 'auth-tab-btn active flex-1 py-2 text-xs font-bold text-center rounded-xl';
                 btnSignIn.className = 'auth-tab-btn flex-1 py-2 text-xs font-medium text-center rounded-xl text-slate-400';
                 formSignUp.classList.remove('hidden');
@@ -4056,14 +5501,14 @@
             if (!apiKey) {
                 const localReply = buildLocalZielReply(text);
                 copilotChatHistory.push({ role: 'user', text: text }, { role: 'model', text: localReply });
-                botBubble.innerHTML = '<p class="font-bold text-teal-400">✦ ZIEL Local Coach</p><div class="opacity-95 leading-relaxed">' + formatCopilotReply(localReply) + '</div>';
+                botBubble.innerHTML = '<p class="font-bold text-indigo-400">✦ ZIEL Local Coach</p><div class="opacity-95 leading-relaxed">' + formatCopilotReply(localReply) + '</div>';
                 chatLogs.scrollTop = chatLogs.scrollHeight;
                 playChime('success');
                 return;
             }
 
             const fastReply = buildLocalZielReply(text);
-            botBubble.innerHTML = '<p class="font-bold text-teal-400">✦ Jawaban cepat</p><div class="opacity-95 leading-relaxed">' + formatCopilotReply(fastReply) + '</div><p class="mt-2 text-[10px] opacity-55">Memperdalam dengan AI…</p>';
+            botBubble.innerHTML = '<p class="font-bold text-indigo-400">✦ Jawaban cepat</p><div class="opacity-95 leading-relaxed">' + formatCopilotReply(fastReply) + '</div><p class="mt-2 text-[10px] opacity-55">Memperdalam dengan AI…</p>';
             chatLogs.scrollTop = chatLogs.scrollHeight;
 
             copilotChatHistory.push({ role: 'user', text: text });
@@ -4361,6 +5806,24 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
         }
 
         // ================= GEMINI API CALLER =================
+        
+        function updateGeminiStatusUI() {
+            const key = (localStorage.getItem('ZIEL_GEMINI_API_KEY') || '').trim();
+            const badge = document.getElementById('geminiStatusBadge');
+            const input = document.getElementById('geminiApiKeyInput');
+            if (input) input.value = key;
+
+            if (badge) {
+                if (key) {
+                    badge.className = 'hidden lg:inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold tag-emerald';
+                    badge.textContent = '🟢 Gemini Active';
+                } else {
+                    badge.className = 'hidden lg:inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold tag-indigo';
+                    badge.textContent = '⚪ Local AI';
+                }
+            }
+        }
+
         async function callGeminiAPI(promptText) {
             const apiKey = (localStorage.getItem('ZIEL_GEMINI_API_KEY') || '').trim();
             if (!apiKey) return null;
@@ -4489,19 +5952,20 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
 
         function updateEnergyUI() {
             document.querySelectorAll('.energy-btn').forEach(btn => {
-                const lvl = parseInt(btn.dataset.level);
-                btn.classList.toggle('active', lvl === state.currentEnergy);
-                btn.setAttribute('aria-pressed', String(lvl === state.currentEnergy));
+                const lvl = parseInt(btn.dataset.level, 10);
+                const isActive = lvl === state.currentEnergy;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-pressed', String(isActive));
             });
             const energyLabels = {
-                1: 'energi istirahat',
-                2: 'energi ringan',
-                3: 'energi seimbang',
-                4: 'energi fokus',
-                5: 'energi puncak'
+                1: 'Level 1 • Istirahat',
+                2: 'Level 2 • Ringan',
+                3: 'Level 3 • Seimbang',
+                4: 'Level 4 • Fokus',
+                5: 'Level 5 • Puncak'
             };
             const labelEl = document.getElementById('currentEnergyLabel');
-            if (labelEl) labelEl.textContent = energyLabels[state.currentEnergy];
+            if (labelEl) labelEl.textContent = energyLabels[state.currentEnergy] || `Level ${state.currentEnergy}`;
         }
 
         function filterCategory(cat) {
@@ -6609,7 +8073,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     (isToday ? ' ring-1 ring-teal-400' : '') +
                     (isSelected ? ' border-indigo-500 bg-indigo-500/10' : ' hover:border-indigo-400/40') + '">' +
                     '<div class="flex items-center justify-between">' +
-                    '<span class="text-[10px] font-bold ' + (isToday ? 'text-teal-400 font-extrabold' : '') + '">' + cellDate.getDate() + '</span>' +
+                    '<span class="text-[10px] font-bold ' + (isToday ? 'text-indigo-400 font-extrabold' : 'text-slate-200') + '">' + cellDate.getDate() + '</span>' +
                     (isToday ? '<span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>' : '') +
                     '</div>' +
                     '<div class="flex gap-1 mt-1 flex-wrap">' +
@@ -6712,21 +8176,22 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             const pending = state.tasks.filter(function (task) { return task.status !== 'completed'; });
             const todayAgenda = getAgenda().filter(function (item) { return item.date === todayKey(); });
             const completed = Number(state.history?.[todayKey()]?.completed || 0);
+            const span = action.querySelector('span:last-child');
             if (!pending.length && !todayAgenda.length && completed > 0) {
                 title.textContent = 'Hari ini sudah tuntas';
                 copy.textContent = 'Semua tindakan selesai. Lindungi ruang istirahatmu.';
                 action.onclick = function () { openQuickAdd(); };
-                action.querySelector('span:last-child').textContent = 'Siapkan besok';
+                if (span) span.textContent = 'Siapkan besok';
             } else if (!pending.length && !todayAgenda.length) {
                 title.textContent = 'Mulai dari sesuatu yang berarti';
                 copy.textContent = 'Buat Goal pertama atau simpan satu task sederhana.';
                 action.onclick = function () { openQuickAdd(); };
-                action.querySelector('span:last-child').textContent = 'Buat baru';
+                if (span) span.textContent = 'Buat baru';
             } else {
                 title.textContent = 'Mulai dari satu tindakan terbaik';
                 copy.textContent = 'ZIEL mencocokkan prioritas, tenggat, dan kapasitas energimu.';
                 action.onclick = function () { triggerWhatShouldIDoNow(); };
-                action.querySelector('span:last-child').textContent = 'Pilih tindakan';
+                if (span) span.textContent = 'Pilih tindakan';
             }
             safeLucideCreateIcons({ root: action });
         }
@@ -6885,16 +8350,16 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 const agenda = getAgenda().filter(function (item) { return item.date === todayKey(); })
                     .sort(function (a, b) { return a.startTime.localeCompare(b.startTime); }).slice(0, 3);
                 todayContainer.innerHTML = agenda.length ? agenda.map(function (item) {
-                    return '<button onclick="navigateApp(\'timeline\',\'day\')" class="subtle-row w-full"><span class="time-chip">' + escapeHtml(item.startTime) + '</span><span class="flex-1 min-w-0 text-left"><strong class="truncate">' + escapeHtml(item.title) + '</strong><small class="truncate">' + escapeHtml(item.location || 'Agenda ZIEL') + '</small></span><i data-lucide="chevron-right"></i></button>';
-                }).join('') : '<div class="clean-empty"><i data-lucide="calendar-check-2"></i><div><strong>Belum ada agenda hari ini</strong><p>Ruang yang kosong juga bagian dari rencana.</p></div></div>';
+                    return '<button onclick="navigateApp(\'timeline\',\'day\')" class="subtle-row w-full flex items-center gap-3 p-3 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] hover:border-indigo-500/30 transition text-xs"><span class="time-chip font-mono font-bold text-indigo-400 bg-indigo-500/10 px-2 py-1 rounded-lg">' + escapeHtml(item.startTime) + '</span><span class="flex-1 min-w-0 text-left"><strong class="truncate block font-bold" style="color:var(--text-main)"">' + escapeHtml(item.title) + '</strong><small class="truncate block text-slate-400 text-[10px]">' + escapeHtml(item.location || 'Agenda ZIEL') + '</small></span><i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i></button>';
+                }).join('') : '<div class="p-5 rounded-2xl border border-dashed border-[var(--border-card)] text-center space-y-2"><div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mx-auto"><i data-lucide="calendar-plus" class="w-4 h-4"></i></div><strong class="text-xs font-bold block" style="color:var(--text-main)"">Hari Ini Belum Ada Agenda</strong><p class="text-[11px] text-slate-400">Jadwalkan blok waktu untuk menjaga ritme fokusmu.</p><button onclick="prepareAgendaModal()" class="btn-secondary px-3 py-1.5 rounded-xl text-xs font-bold mt-1 inline-flex items-center gap-1">+ Buat Agenda</button></div>';
             }
 
             const goalContainer = document.getElementById('homeGoalPreview');
             if (goalContainer) {
                 const goals = state.goals.filter(function (goal) { return goal.status !== 'completed'; }).slice(0, 3);
                 goalContainer.innerHTML = goals.length ? goals.map(function (goal) {
-                    return '<button onclick="openGoalDetail(\'' + goal.id + '\')" class="goal-preview-row"><div class="flex items-center justify-between gap-2"><strong class="truncate">' + escapeHtml(goal.title) + '</strong><span>' + (goal.progress || 0) + '%</span></div><div class="mini-progress"><i style="width:' + (goal.progress || 0) + '%"></i></div><small>' + escapeHtml(durationLabel(goal)) + ' • ' + escapeHtml((nextGoalAction(goal) || {}).title || 'Belum ada next action') + '</small></button>';
-                }).join('') : '<div class="clean-empty"><i data-lucide="target"></i><div><strong>Belum ada goal</strong><p>Mulai dari sesuatu yang benar-benar berarti.</p></div></div>';
+                    return '<button onclick="openGoalDetail(\'' + goal.id + '\')" class="goal-preview-row w-full p-3 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] hover:border-indigo-500/30 transition text-left space-y-2"><div class="flex items-center justify-between gap-2"><strong class="truncate text-xs font-bold" style="color:var(--text-main)">' + escapeHtml(goal.title) + '</strong><span class="text-xs font-black text-teal-400 font-mono">' + (goal.progress || 0) + '%</span></div><div class="h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-gradient-to-r from-indigo-500 to-teal-400 rounded-full" style="width:' + (goal.progress || 0) + '%"></div></div><small class="text-[10px] text-slate-400 block truncate">' + escapeHtml(durationLabel(goal)) + ' • ' + escapeHtml((nextGoalAction(goal) || {}).title || 'Belum ada tindakan berikutnya') + '</small></button>';
+                }).join('') : '<div class="p-5 rounded-2xl border border-dashed border-[var(--border-card)] text-center space-y-2"><div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mx-auto"><i data-lucide="target" class="w-4 h-4"></i></div><strong class="text-xs font-bold block" style="color:var(--text-main)"">Belum Ada Goal Aktif</strong><p class="text-[11px] text-slate-400">Tentukan satu hasil penting yang ingin kamu capai.</p><button onclick="openModal(\'newGoalModal\')" class="btn-secondary px-3 py-1.5 rounded-xl text-xs font-bold mt-1 inline-flex items-center gap-1">+ Buat Goal</button></div>';
             }
             safeLucideCreateIcons({ root: document.getElementById('homeView') });
         }
@@ -7075,8 +8540,9 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
         // ================= CONFETTI & RIPPLE =================
         function triggerConfetti() {
             const canvas = document.getElementById('confettiCanvas');
-            if (!canvas) return;
+            if (!canvas || typeof canvas.getContext !== 'function') return;
             const ctx = canvas.getContext('2d');
+            if (!ctx) return;
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             const particles = [];
@@ -7500,7 +8966,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                             <div class="grid grid-cols-2 gap-2 text-xs">
                                 <div class="p-3 rounded-xl border border-[var(--border-card)] bg-[var(--input-bg)]">
                                     <span class="text-[10px] text-slate-400 block font-semibold">Durasi Tidur Semalam</span>
-                                    <strong class="block text-xs sm:text-sm mt-0.5 text-white font-mono">🌙 ${todayLog.sleepHours} Jam</strong>
+                                    <strong class="block text-xs sm:text-sm mt-0.5 font-mono" style="color:var(--text-main)">🌙 ${todayLog.sleepHours} Jam</strong>
                                 </div>
                                 <div class="p-3 rounded-xl border border-[var(--border-card)] bg-[var(--input-bg)]">
                                     <span class="text-[10px] text-slate-400 block font-semibold">Kepatuhan Obat</span>
@@ -7595,8 +9061,8 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
 
                                 <!-- Tanggal Bawah -->
                                 <div class="text-center pt-0.5">
-                                    <span class="text-[9px] uppercase font-bold block ${isToday ? 'text-teal-400' : 'text-slate-500'}">${dayName}</span>
-                                    <span class="text-[10px] sm:text-xs font-black font-mono block ${isToday ? 'text-white' : 'text-slate-300'}">${dayNum}</span>
+                                    <span class="text-[9px] uppercase font-bold block ${isToday ? 'text-indigo-400 font-bold' : 'text-slate-500'}">${dayName}</span>
+                                    <span class="text-[10px] sm:text-xs font-black font-mono block font-extrabold" style="color:${isToday ? 'var(--accent-indigo)' : 'var(--text-main)'}"">${dayNum}</span>
                                 </div>
                             </div>
                         `;
@@ -7718,7 +9184,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     html += `
                         <div class="p-2.5 rounded-xl bg-[var(--input-bg)] border border-[var(--border-card)] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
                             <div class="flex items-center gap-2 min-w-[120px]">
-                                <span class="font-bold text-[11px] text-white">${escapeHtml(dStr)}</span>
+                                <span class="font-bold text-[11px]" style="color:var(--text-main)">${escapeHtml(dStr)}</span>
                                 <span class="text-[10px] font-extrabold px-1.5 py-0.2 rounded-md ${conf.class}">${l.moodScore > 0 ? '+' : ''}${l.moodScore}</span>
                             </div>
                             <div class="flex-1 flex items-center gap-3">
@@ -7727,7 +9193,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                                     <div class="absolute left-[70%] top-0 bottom-0 w-0.5 bg-teal-400 z-10" title="Target: 7-8j"></div>
                                     <div class="h-full rounded-full transition-all duration-500 ${isOptimal ? 'bg-teal-400' : (sleep < 6 ? 'bg-amber-400' : 'bg-indigo-400')}" style="width:${pct}%"></div>
                                 </div>
-                                <span class="font-mono font-bold text-xs text-white shrink-0">🌙 ${sleep} jam</span>
+                                <span class="font-mono font-bold text-xs shrink-0" style="color:var(--text-main)">🌙 ${sleep} jam</span>
                             </div>
                         </div>
                     `;
@@ -7744,13 +9210,13 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 insightHtml += '<span class="text-lg shrink-0">💡</span><div class="space-y-1">';
                 if (hypomanicWithShortSleep > 0) {
                     insightHtml += `<strong class="block font-bold text-amber-300">Waspada Pola Sirkadian:</strong>`;
-                    insightHtml += `<p class="leading-relaxed text-indigo-100 text-[11px]">Terdeteksi ${hypomanicWithShortSleep} kali tidur &lt; 6 jam beriringan dengan elevasi mood/hipomania (+1 s/d +3). Dalam manajemen bipolar, menjaga tidur minimal 7 jam adalah pilar utama pencegahan episode manik.</p>`;
+                    insightHtml += `<p class="leading-relaxed text-slate-600 dark:text-indigo-100 text-[11px]">Terdeteksi ${hypomanicWithShortSleep} kali tidur &lt; 6 jam beriringan dengan elevasi mood/hipomania (+1 s/d +3). Dalam manajemen bipolar, menjaga tidur minimal 7 jam adalah pilar utama pencegahan episode manik.</p>`;
                 } else if (shortSleepCount > 0) {
                     insightHtml += `<strong class="block font-bold text-teal-300">Perhatikan Waktu Istirahat:</strong>`;
-                    insightHtml += `<p class="leading-relaxed text-indigo-100 text-[11px]">Ada ${shortSleepCount} hari dengan durasi tidur di bawah 6 jam. Usahakan jam tidur teratur setiap malam untuk menjaga kestabilan suasana hati.</p>`;
+                    insightHtml += `<p class="leading-relaxed text-slate-600 dark:text-indigo-100 text-[11px]">Ada ${shortSleepCount} hari dengan durasi tidur di bawah 6 jam. Usahakan jam tidur teratur setiap malam untuk menjaga kestabilan suasana hati.</p>`;
                 } else {
                     insightHtml += `<strong class="block font-bold text-emerald-300">Irama Tidur Terjaga Optimal:</strong>`;
-                    insightHtml += `<p class="leading-relaxed text-indigo-100 text-[11px]">Durasi tidur konsisten di atas 6.5–8 jam. Pola ini terbukti kuat menjaga fase Euthymic (stabil) dan mencegah disregulasi suasana hati.</p>`;
+                    insightHtml += `<p class="leading-relaxed text-slate-600 dark:text-indigo-100 text-[11px]">Durasi tidur konsisten di atas 6.5–8 jam. Pola ini terbukti kuat menjaga fase Euthymic (stabil) dan mencegah disregulasi suasana hati.</p>`;
                 }
                 insightHtml += '</div></div>';
                 insightEl.innerHTML = insightHtml;
@@ -7787,7 +9253,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                                     <span class="w-7 h-7 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center text-xs font-bold shrink-0">
                                         <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
                                     </span>
-                                    <strong class="text-xs sm:text-sm font-extrabold text-white truncate">${escapeHtml(dateFormatted)}</strong>
+                                    <strong class="text-xs sm:text-sm font-extrabold truncate" style="color:var(--text-main)"">${escapeHtml(dateFormatted)}</strong>
                                 </div>
                                 <div class="flex items-center gap-1 shrink-0">
                                     <button type="button" onclick="BipolarTracker.editLog('${l.id}')" class="btn-secondary px-2.5 py-1 rounded-xl text-indigo-400 hover:bg-indigo-500/15 transition flex items-center gap-1 text-[11px] font-bold" title="Edit catatan">
