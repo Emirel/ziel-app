@@ -28,6 +28,30 @@
 
     <!-- CSS VARIABLES & CALM TECH STYLING -->
     <style>
+                /* BIPOLAR TRACKER RADIO CARDS ACCENT */
+        .bm-option-card {
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bm-option-card:has(input[value="2"]:checked) {
+            border-color: rgba(245, 158, 11, 0.7) !important;
+            background: rgba(245, 158, 11, 0.12) !important;
+        }
+        .bm-option-card:has(input[value="1"]:checked) {
+            border-color: rgba(99, 102, 241, 0.7) !important;
+            background: rgba(99, 102, 241, 0.12) !important;
+        }
+        .bm-option-card:has(input[value="0"]:checked) {
+            border-color: rgba(16, 185, 129, 0.7) !important;
+            background: rgba(16, 185, 129, 0.12) !important;
+        }
+        .bm-option-card:has(input[value="-1"]:checked) {
+            border-color: rgba(59, 130, 246, 0.7) !important;
+            background: rgba(59, 130, 246, 0.12) !important;
+        }
+        .bm-option-card:has(input[value="-2"]:checked) {
+            border-color: rgba(37, 99, 235, 0.8) !important;
+            background: rgba(37, 99, 235, 0.14) !important;
+        }
         :root {
             /* DARK THEME (DEFAULT) */
             --bg-main: #131B2F;
@@ -1451,9 +1475,9 @@
 
     <!-- DESKTOP SIDEBAR -->
     <aside class="ziel-sidebar hidden lg:flex">
-        <button onclick="BipolarTracker.openModal()" class="ziel-nav-item">
+        <button onclick="BipolarTracker.openHub()" class="ziel-nav-item">
             <i data-lucide="activity"></i>
-            <span>Bipolar Tracker</span>
+            <span>Bipolar Life Chart</span>
         </button>
         <nav class="space-y-1">
             <button onclick="navigateApp('home')" data-app-nav="home" class="ziel-nav-item"><i data-lucide="home"></i><span>Beranda</span></button>
@@ -1481,12 +1505,27 @@
 
             <div class="grid grid-cols-1 xl:grid-cols-12 gap-4">
                 <section class="theme-card xl:col-span-8 p-5 sm:p-6 command-card">
-                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                        <div class="min-w-0">
-                            <p class="eyebrow">Energi saat ini</p>
-                            <h3 class="text-xl sm:text-2xl font-extrabold mt-1" style="color:var(--text-main)">Apa yang bisa kamu lakukan sekarang?</h3>
-                            <p class="text-sm mt-2 max-w-xl leading-relaxed" style="color:var(--text-sub)">ZIEL memilih satu tindakan yang sesuai dengan energi, tenggat, dan prioritasmu.</p>
+                    <!-- WIDGET BIPOLAR MOOD (DIDALAM HOMEVIEW) -->
+                <div class="theme-card p-4 rounded-2xl border border-[var(--border-card)] flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <div id="bmHomeStatusIcon" class="w-10 h-10 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center shrink-0">
+                            <i data-lucide="activity" class="w-5 h-5"></i>
                         </div>
+                        <div class="min-w-0">
+                            <p class="eyebrow text-[10px]">Bipolar Mood Hari Ini</p>
+                            <h4 id="bmHomeStatusTitle" class="text-xs sm:text-sm font-extrabold truncate" style="color:var(--text-main)">
+                                Belum ada catatan
+                            </h4>
+                            <p id="bmHomeStatusSub" class="text-[10px]" style="color:var(--text-muted)">
+                                Skrining 24 jam terakhir untuk deteksi dini
+                            </p>
+                        </div>
+                    </div>
+                    <button onclick="BipolarTracker.openHub()" class="btn-secondary px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 flex items-center gap-1.5">
+                        <span>Buka Hub</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
                         <div class="energy-picker-wrap shrink-0">
                             <span class="energy-picker-label">Kapasitasmu sekarang</span>
                             <div id="energySelectorGroup" class="energy-control">
@@ -1731,13 +1770,15 @@
         <div class="glass-modal action-sheet w-full sm:max-w-md p-5 sm:p-6 space-y-4">
             <div class="flex items-center justify-between"><div><p class="eyebrow">Buat baru</p><h3 class="text-lg font-extrabold">Tambahkan ke ZIEL</h3><p class="text-xs mt-1" style="color:var(--text-muted)">Pilih jenis item—detailnya bisa dilengkapi setelah ini.</p></div><button onclick="closeModal('quickAddModal')" class="clean-icon-btn"><i data-lucide="x"></i></button></div>
             <div class="grid grid-cols-2 gap-3">
-                <button onclick="closeModal('quickAddModal'); BipolarTracker.openModal()" class="quick-action-tile">
+                <button onclick="closeModal('quickAddModal'); BipolarTracker.openHub()" class="quick-action-tile">
                     <span class="icon-box"><i data-lucide="activity"></i></span>
                     <span>
                         <strong>Bipolar Mood</strong>
-                        <small>Skrining 2 langkah & tidur.</small>
+                        <small>Life chart & skrining harian</small>
                     </span>
                     <i data-lucide="chevron-right"></i>
+                </button>
+                lucide="chevron-right"></i>
                 </button>
                 <button onclick="closeModal('quickAddModal');openModal('newTaskModal')" class="quick-action-tile"><span class="icon-box"><i data-lucide="circle-check-big"></i></span><span><strong>Task</strong><small>Satu tindakan yang bisa diselesaikan.</small></span><i data-lucide="chevron-right"></i></button>
                 <button onclick="closeModal('quickAddModal');openModal('newGoalModal')" class="quick-action-tile"><span class="icon-box"><i data-lucide="target"></i></span><span><strong>Goal</strong><small>Hasil besar dengan rentang waktu.</small></span><i data-lucide="chevron-right"></i></button>
@@ -8310,420 +8351,9 @@ function renderAll() {
                     1. Bagaimana kebutuhan & kualitas tidurmu semalam?
                 </label>
                 <div class="grid grid-cols-1 gap-1.5">
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-amber-500/50 transition">
-                        <input type="radio" name="bm_q1" value="2" class="mt-0.5 w-4 h-4 accent-amber-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs text-amber-400">Tidur sangat singkat (< 4 jam), sama sekali tidak lelah (+2)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Merasa tubuh tidak butuh tidur dan energi melimpah</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-indigo-500/50 transition">
-                        <input type="radio" name="bm_q1" value="1" class="mt-0.5 w-4 h-4 accent-indigo-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Tidur berkurang (4–6 jam), bangun terasa sangat segar (+1)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Cepat bangun dan antusias memulai hari</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-emerald-500/50 transition">
-                        <input type="radio" name="bm_q1" value="0" class="mt-0.5 w-4 h-4 accent-emerald-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Tidur normal (6–8 jam) & cukup istirahat (0)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Kualitas tidur teratur dan bangun dengan wajar</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-blue-400/50 transition">
-                        <input type="radio" name="bm_q1" value="-1" class="mt-0.5 w-4 h-4 accent-blue-400" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Tidur terganggu / kurang nyenyak, badan agak lesu (-1)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Bangun terasa belum pulih sepenuhnya</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-blue-600/50 transition">
-                        <input type="radio" name="bm_q1" value="-2" class="mt-0.5 w-4 h-4 accent-blue-600" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs text-blue-400">Tidur banyak / sulit bangun, tubuh sangat lemas (-2)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Hipersomnia atau insomnia berat, tubuh terasa seberat timbal</small>
-                        </div>
-                    </label>
-                </div>
-            </div>
-
-            <!-- Pertanyaan 2: Pikiran & Bicara -->
-            <div class="space-y-2">
-                <label class="block font-bold text-xs sm:text-sm" style="color: var(--text-main);">
-                    2. Bagaimana ritme pikiran & gaya bicaramu hari ini?
-                </label>
-                <div class="grid grid-cols-1 gap-1.5">
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-amber-500/50 transition">
-                        <input type="radio" name="bm_q2" value="2" class="mt-0.5 w-4 h-4 accent-amber-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs text-amber-400">Pikiran berpacu kencang & ingin bicara tanpa henti (+2)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Ide melompat liar (racing thoughts), bicara mendesak</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-indigo-500/50 transition">
-                        <input type="radio" name="bm_q2" value="1" class="mt-0.5 w-4 h-4 accent-indigo-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Pikiran tajam, kreatif, & bicara lebih cepat dari biasa (+1)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Banyak gagasan baru dan antusias berdiskusi</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-emerald-500/50 transition">
-                        <input type="radio" name="bm_q2" value="0" class="mt-0.5 w-4 h-4 accent-emerald-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Jernih, teratur, & berbicara dengan ritme wajar (0)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Komunikasi runtut, fokus bekerja tanpa hambatan</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-blue-400/50 transition">
-                        <input type="radio" name="bm_q2" value="-1" class="mt-0.5 w-4 h-4 accent-blue-400" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Pikiran agak lambat, butuh usaha untuk fokus (-1)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Konsentrasi mudah buyar, agak ragu menentukan pilihan</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-blue-600/50 transition">
-                        <input type="radio" name="bm_q2" value="-2" class="mt-0.5 w-4 h-4 accent-blue-600" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs text-blue-400">Brain fog parah, pikiran buntu, enggan diajak bicara (-2)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Sulit menyusun kalimat sederhana, proses berpikir macet</small>
-                        </div>
-                    </label>
-                </div>
-            </div>
-
-            <!-- Pertanyaan 3: Dorongan Energi & Aktivitas -->
-            <div class="space-y-2">
-                <label class="block font-bold text-xs sm:text-sm" style="color: var(--text-main);">
-                    3. Bagaimana tingkat energimu untuk bertindak?
-                </label>
-                <div class="grid grid-cols-1 gap-1.5">
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-amber-500/50 transition">
-                        <input type="radio" name="bm_q3" value="2" class="mt-0.5 w-4 h-4 accent-amber-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs text-amber-400">Gelisah jika diam, ingin borong banyak proyek sekaligus (+2)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Hiperaktif, memulai banyak hal tanpa memikirkan kapasitas</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-indigo-500/50 transition">
-                        <input type="radio" name="bm_q3" value="1" class="mt-0.5 w-4 h-4 accent-indigo-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Energi tinggi, produktif, & antusias mengeksekusi (+1)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Dorongan bertindak lebih giat dari hari biasanya</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-emerald-500/50 transition">
-                        <input type="radio" name="bm_q3" value="0" class="mt-0.5 w-4 h-4 accent-emerald-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Energi seimbang dan terkendali (0)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Menjalankan rutinitas dengan nyaman dan proporsional</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-blue-400/50 transition">
-                        <input type="radio" name="bm_q3" value="-1" class="mt-0.5 w-4 h-4 accent-blue-400" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Mudah lelah, cenderung menunda pekerjaan (-1)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Daya tahan fisik berkurang, butuh dorongan ekstra untuk mulai</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-blue-600/50 transition">
-                        <input type="radio" name="bm_q3" value="-2" class="mt-0.5 w-4 h-4 accent-blue-600" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs text-blue-400">Lumpuh motivasi, tugas dasar terasa sangat berat (-2)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Mandi atau makan terasa membutuhkan tenaga yang tak sanggup dipenuhi</small>
-                        </div>
-                    </label>
-                </div>
-            </div>
-
-            <!-- Pertanyaan 4: Suasana Hati & Emosi -->
-            <div class="space-y-2">
-                <label class="block font-bold text-xs sm:text-sm" style="color: var(--text-main);">
-                    4. Bagaimana suasana hati & stabilitas emosimu?
-                </label>
-                <div class="grid grid-cols-1 gap-1.5">
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-amber-500/50 transition">
-                        <input type="radio" name="bm_q4" value="2" class="mt-0.5 w-4 h-4 accent-amber-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs text-amber-400">Euforia ekstrem / sangat mudah meledak jika dibantah (+2)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Merasa superior atau sangat tersinggung terhadap hal sepele</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-indigo-500/50 transition">
-                        <input type="radio" name="bm_q4" value="1" class="mt-0.5 w-4 h-4 accent-indigo-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Sangat gembira, optimisme tinggi, percaya diri (+1)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Perasaan bahagia dan percaya diri meningkat nyata</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-emerald-500/50 transition">
-                        <input type="radio" name="bm_q4" value="0" class="mt-0.5 w-4 h-4 accent-emerald-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Tenang, damai, & emosi stabil proporsional (0)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Merespons peristiwa sehari-hari dengan kepala dingin</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-blue-400/50 transition">
-                        <input type="radio" name="bm_q4" value="-1" class="mt-0.5 w-4 h-4 accent-blue-400" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Suasana hati murung, mudah cemas / tersentuh (-1)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Perasaan berat atau tidak bersemangat</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-blue-600/50 transition">
-                        <input type="radio" name="bm_q4" value="-2" class="mt-0.5 w-4 h-4 accent-blue-600" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs text-blue-400">Hampa total, anhedonia parah, atau putus asa mendalam (-2)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Kehilangan kemampuan merasa senang, rasa bersalah berlebih</small>
-                        </div>
-                    </label>
-                </div>
-            </div>
-
-            <!-- Pertanyaan 5: Kontrol Impuls & Interaksi Sosial -->
-            <div class="space-y-2">
-                <label class="block font-bold text-xs sm:text-sm" style="color: var(--text-main);">
-                    5. Bagaimana kontrol impuls & interaksi sosialmu?
-                </label>
-                <div class="grid grid-cols-1 gap-1.5">
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-amber-500/50 transition">
-                        <input type="radio" name="bm_q5" value="2" class="mt-0.5 w-4 h-4 accent-amber-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs text-amber-400">Sangat impulsif, belanja kalap / perilaku berisiko (+2)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Mengambil keputusan berisiko tinggi tanpa pertimbangan rasional</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-indigo-500/50 transition">
-                        <input type="radio" name="bm_q5" value="1" class="mt-0.5 w-4 h-4 accent-indigo-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Lebih berani mengambil risiko & senang bergaul (+1)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Ekspansif dan spontan berbelanja, namun masih dalam batas kendali</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-emerald-500/50 transition">
-                        <input type="radio" name="bm_q5" value="0" class="mt-0.5 w-4 h-4 accent-emerald-500" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Rasional & impuls terkendali baik (0)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Menimbang konsekuensi finansial dan sosial secara seimbang</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-blue-400/50 transition">
-                        <input type="radio" name="bm_q5" value="-1" class="mt-0.5 w-4 h-4 accent-blue-400" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs" style="color: var(--text-main);">Mulai enggan berinteraksi, memilih menyendiri (-1)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Menghindari keramaian dan percakapan yang tidak perlu</small>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] cursor-pointer hover:border-blue-600/50 transition">
-                        <input type="radio" name="bm_q5" value="-2" class="mt-0.5 w-4 h-4 accent-blue-600" onchange="BipolarTracker.validateStep1()">
-                        <div class="flex-1 leading-snug">
-                            <strong class="block text-xs text-blue-400">Isolasi diri total, mengabaikan dunia luar (-2)</strong>
-                            <small class="block text-[11px] opacity-75" style="color: var(--text-sub);">Menutup kontak sepenuhnya, mengabaikan pesan dan tanggung jawab</small>
-                        </div>
-                    </label>
-                </div>
-            </div>
-
-            <!-- Tombol Navigasi Step 1 -->
-            <div class="pt-2">
-                <button type="button" id="bmBtnGoStep2" disabled onclick="BipolarTracker.goToStep2()" 
-                        class="primary-btn-gradient w-full py-3.5 rounded-xl font-extrabold text-xs flex items-center justify-center gap-2 opacity-50 cursor-not-allowed transition">
-                    <span>Lanjutkan ke Kalibrasi Mood (Step 2)</span>
-                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- ================= STEP 2: SCORING & METADATA ================= -->
-        <div id="bmStep2Panel" class="space-y-5 text-xs hidden">
-            
-            <!-- AI / System Recommendation Badge -->
-            <div class="p-3.5 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] space-y-1.5">
-                <div class="flex items-center justify-between">
-                    <span class="text-[10px] uppercase font-bold tracking-wider text-indigo-400 flex items-center gap-1">
-                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-                        Estimasi Poin Skrining
-                    </span>
-                    <span id="bmRecBadge" class="text-xs font-black px-2.5 py-0.5 rounded-full tag-indigo">
-                        Skor: 0
-                    </span>
-                </div>
-                <p class="text-[11px] leading-relaxed" style="color: var(--text-sub);">
-                    Rekomendasi sistem: <strong id="bmRecTextScore" class="text-indigo-400">0</strong>. Kamu tetap memegang kendali penuh untuk menggeser slider sesuai perasaan subjektifmu.
-                </p>
-            </div>
-
-            <!-- Mood Slider Section -->
-            <div class="theme-card p-4 sm:p-5 rounded-2xl space-y-3.5 border border-[var(--border-card)]">
-                <div class="flex items-center justify-between">
-                    <span class="font-bold text-xs" style="color: var(--text-sub);">Skala Mood Bipolar (-4 s/d +4)</span>
-                    <span id="bmCurrentScoreDisplay" class="text-lg font-black font-mono px-3 py-1 rounded-xl tag-emerald">
-                        0
-                    </span>
-                </div>
-
-                <!-- Range Slider -->
-                <div class="relative py-2">
-                    <input type="range" id="bmMoodSlider" min="-4" max="4" step="1" value="0"
-                           oninput="BipolarTracker.onSliderChange(this.value)"
-                           class="w-full h-2.5 rounded-lg appearance-none cursor-pointer bg-slate-700 accent-indigo-500">
-                    <div class="flex justify-between text-[10px] font-mono font-bold mt-1.5 px-1" style="color: var(--text-muted);">
-                        <span>-4</span>
-                        <span>-2</span>
-                        <span>0</span>
-                        <span>+2</span>
-                        <span>+4</span>
-                    </div>
-                </div>
-
-                <!-- Dynamic Label & State Description -->
-                <div id="bmMoodStateCard" class="p-3 rounded-xl tag-emerald transition-all text-center space-y-0.5">
-                    <h4 id="bmMoodStateTitle" class="text-xs sm:text-sm font-extrabold">Euthymic (Stabil / Netral)</h4>
-                    <p id="bmMoodStateDesc" class="text-[11px] opacity-85">Kondisi stabil, suasana hati terkendali tanpa gejala depresi maupun mania.</p>
-                </div>
-            </div>
-
-            <!-- Metadata Tambahan: Tidur & Obat -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div class="p-3 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] space-y-1">
-                    <label class="block font-semibold text-[11px]" style="color: var(--text-sub);">
-                        <i data-lucide="moon" class="w-3.5 h-3.5 inline text-indigo-400 mr-1"></i>
-                        Durasi Tidur Nyata (Jam)
-                    </label>
-                    <input type="number" id="bmSleepHours" min="0" max="24" step="0.5" value="7.5"
-                           class="w-full theme-input rounded-xl p-2.5 text-xs font-bold font-mono">
-                </div>
-                
-                <div class="p-3 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] flex items-center justify-between">
-                    <div>
-                        <strong class="block text-xs" style="color: var(--text-main);">Minum Obat Harian</strong>
-                        <small class="text-[10px]" style="color: var(--text-muted);">Sesuai resep psikiater</small>
-                    </div>
-                    <input type="checkbox" id="bmMedicationTaken" checked 
-                           class="w-5 h-5 rounded text-indigo-600 focus:ring-0 cursor-pointer">
-                </div>
-            </div>
-
-            <!-- Quick Tag Triggers (Multi-select) -->
-            <div class="space-y-2">
-                <label class="block font-semibold text-[11px]" style="color: var(--text-sub);">
-                    Faktor Pemicu / Konteks (Pilih yang relevan):
-                </label>
-                <div class="flex flex-wrap gap-1.5" id="bmTriggerPillsContainer">
-                    <!-- Pills di-generate via JS -->
-                </div>
-            </div>
-
-            <!-- Emergency Safety Plan Alert (Conditionally shown if -4 or +4) -->
-            <div id="bmSafetyPlanBanner" class="hidden p-4 rounded-2xl border border-rose-500/40 bg-rose-500/10 space-y-2.5 animate-pulse">
-                <div class="flex items-start gap-2.5 text-rose-400">
-                    <i data-lucide="shield-alert" class="w-5 h-5 shrink-0 mt-0.5"></i>
-                    <div>
-                        <h4 class="font-extrabold text-xs text-rose-300">Protokol Keselamatan (Safety Plan Alert)</h4>
-                        <p class="text-[11px] leading-relaxed text-rose-200/90 mt-0.5">
-                            Skor berada pada titik ekstrim. Jangan hadapi ini sendirian. Istirahat sejenak, hubungi psikiater, atau hubungi kontak pendamping terdekatmu.
-                        </p>
-                    </div>
-                </div>
-                <div class="flex flex-wrap gap-2 pt-1 text-[10px]">
-                    <a href="tel:119" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-extrabold inline-flex items-center gap-1 transition">
-                        <i data-lucide="phone" class="w-3 h-3"></i> Hotline Jiwa 119 (Ext 8)
-                    </a>
-                    <button type="button" onclick="BipolarTracker.openEmergencyContacts()" class="px-3 py-1.5 rounded-lg btn-secondary font-bold text-rose-300">
-                        Lihat Kontak Pendamping
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tombol Navigasi Step 2 -->
-            <div class="flex gap-2 pt-2">
-                <button type="button" onclick="BipolarTracker.goToStep1()" 
-                        class="btn-secondary px-4 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-1">
-                    <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-                    <span>Kembali</span>
-                </button>
-                <button type="button" id="bmBtnSaveLog" onclick="BipolarTracker.saveLog()" 
-                        class="primary-btn-gradient flex-1 py-3 rounded-xl font-extrabold text-xs flex items-center justify-center gap-2">
-                    <i data-lucide="check" class="w-4 h-4"></i>
-                    <span>Simpan Catatan Mood</span>
-                </button>
-            </div>
-        </div>
-
-    </div>
-</div>
-    <!-- 2-MINUTE QUICK WIN MODAL -->
-    <div id="quickWinModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/80 backdrop-blur-sm transition-opacity">
-        <div class="theme-card w-full max-w-sm p-8 rounded-3xl shadow-2xl text-center transform scale-95 transition-transform duration-300">
-            <div class="mx-auto flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 mb-4">
-                <i data-lucide="zap" class="w-6 h-6 fill-current"></i>
-            </div>
-            <h3 class="text-lg font-extrabold mb-1" style="color: var(--text-main);" id="qwTaskTitle">Mulai Melangkah</h3>
-            <p class="text-xs mb-6" style="color: var(--text-muted);">Hanya 2 menit. Buka dokumen atau eksekusi satu aksi terkecil sekarang.</p>
-            
-            <div class="text-6xl font-black tabular-nums tracking-tight mb-8 text-amber-400 drop-shadow-md" id="qwTimerDisplay">02:00</div>
-            
-            <div class="flex space-x-3">
-                <button onclick="stopQuickWin()" class="flex-1 py-3 rounded-xl font-bold text-xs border border-[var(--border-card)] hover:bg-slate-500/10 transition" style="color: var(--text-main);">Batal</button>
-                <button onclick="completeQuickWin()" id="qwDoneBtn" class="flex-1 py-3 rounded-xl font-bold text-xs bg-gradient-to-r from-amber-500 to-orange-400 text-slate-950 shadow-lg shadow-amber-500/20 hidden transition">Selesai!</button>
-            </div>
-        </div>
-    </div>
-<script>
-  window.addEventListener('load', () => {
-    const splash = document.getElementById('splash-screen');
-    if (splash) {
-      setTimeout(() => {
-        splash.style.opacity = '0';
-        splash.style.pointerEvents = 'none'; // Mencegah klik saat memudar
-        setTimeout(() => splash.remove(), 800);
-      }, 2500); 
-    }
-  });
-    // ================= QUICK WIN (2-MINUTE) SYSTEM =================
-        let quickWinInterval = null;
-        let quickWinSeconds = 120; // 120 detik = 2 menit
-
-        // Panggil fungsi ini jika Anda ingin menampilkan modal Quick Win dari suatu tombol
-        function triggerQuickWin(title = "Mulai Melangkah") {
-            document.getElementById('qwTaskTitle').textContent = title;
-            document.getElementById('qwTimerDisplay').textContent = "02:00";
-            document.getElementById('qwDoneBtn').classList.add('hidden');
-            document.getElementById('quickWinModal').classList.remove('hidden');
-            
-            quickWinSeconds = 120;
-            clearInterval(quickWinInterval);
-            
-            quickWinInterval = setInterval(() => {
-                if (quickWinSeconds > 0) {
-                    quickWinSeconds--;
-                    const mins = Math.floor(quickWinSeconds / 60);
-                    const secs = quickWinSeconds % 60;
-                    document.getElementById('qwTimerDisplay').textContent = 
-                        `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-                } else {
-                    clearInterval(quickWinInterval);
-                    document.getElementById('qwDoneBtn').classList.remove('hidden');
-                    playChime('notif'); 
-                }
-            }, 1000);
-        }
-
-        function stopQuickWin() {
-            clearInterval(quickWinInterval);
-            document.getElementById('quickWinModal').classList.add('hidden');
-        }
-
-        function completeQuickWin() {
-            stopQuickWin();
-            recordCompletion(2);
-            saveState();
-            checkAchievements();
-            showToast({ type: 'success', title: 'Quick Win Berhasil!', message: 'Langkah terkecil telah diselesaikan. Pertahankan momentum!' });
-            triggerConfetti();
-        }
+                    <!-- WIDGET BIPOLAR MOOD (DIDALAM HOMEVIEW) -->
 // =========================================================================
-// BIPOLAR LIFE CHART & ANALYTICS ENGINE
+// BIPOLAR LIFE CHART & MOOD TRACKER ENGINE (STANDAR SENIOR ENGINEER)
 // =========================================================================
 const BipolarTracker = (() => {
     const STORAGE_KEY = 'ZIEL_BIPOLAR_LOGS';
@@ -8734,7 +8364,7 @@ const BipolarTracker = (() => {
         3: { title: '+3: Moderate Mania', class: 'tag-amber', color: '#FB923C', name: 'Manik Sedang' },
         2: { title: '+2: Hypomania', class: 'tag-amber', color: '#FBBF24', name: 'Hipomania' },
         1: { title: '+1: Mild Elevation', class: 'tag-teal', color: '#2DD4BF', name: 'Elevasi Ringan' },
-        0: { title: '0: Euthymic (Stabil)', class: 'tag-emerald', color: '#10B981', name: 'Stabil' },
+        0: { title: '0: Euthymic (Stabil)', class: 'tag-emerald', color: '#10B981', name: 'Stabil / Netral' },
         '-1': { title: '-1: Mild Depression', class: 'tag-indigo', color: '#818CF8', name: 'Depresi Ringan' },
         '-2': { title: '-2: Moderate Depression', class: 'tag-purple', color: '#A78BFA', name: 'Depresi Sedang' },
         '-3': { title: '-3: Severe Depression', class: 'tag-rose', color: '#C084FC', name: 'Depresi Berat' },
@@ -8765,7 +8395,7 @@ const BipolarTracker = (() => {
         updateHomeWidget();
     }
 
-    // ================= HUB / ANALYTICS CONTROLLER =================
+    // ================= CONTROLLER: HUB & LIFE CHART =================
     function openHub() {
         renderHubAnalytics();
         openModal('bipolarHubModal');
@@ -8774,8 +8404,10 @@ const BipolarTracker = (() => {
 
     function setChartRange(days) {
         chartDaysRange = days;
-        document.getElementById('bmFilter7Btn').className = (days === 7 ? 'primary-btn-gradient font-bold' : 'btn-secondary font-medium') + ' px-2.5 py-1 rounded-lg';
-        document.getElementById('bmFilter30Btn').className = (days === 30 ? 'primary-btn-gradient font-bold' : 'btn-secondary font-medium') + ' px-2.5 py-1 rounded-lg';
+        const btn7 = document.getElementById('bmFilter7Btn');
+        const btn30 = document.getElementById('bmFilter30Btn');
+        if (btn7) btn7.className = (days === 7 ? 'primary-btn-gradient font-bold' : 'btn-secondary font-medium') + ' px-2.5 py-1 rounded-lg';
+        if (btn30) btn30.className = (days === 30 ? 'primary-btn-gradient font-bold' : 'btn-secondary font-medium') + ' px-2.5 py-1 rounded-lg';
         renderHubAnalytics();
         playChime('click');
     }
@@ -8792,7 +8424,7 @@ const BipolarTracker = (() => {
         const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
         const todayLog = logs.find(l => l.date === today);
 
-        // 1. Update Status Banner Hari Ini
+        // 1. Status Banner Hari Ini
         const titleEl = document.getElementById('bmHubTodayScoreTitle');
         const descEl = document.getElementById('bmHubTodayScoreDesc');
         const btnText = document.getElementById('bmHubTodayBtnText');
@@ -8800,7 +8432,7 @@ const BipolarTracker = (() => {
         if (todayLog) {
             const conf = MOOD_LEVELS[todayLog.moodScore] || MOOD_LEVELS[0];
             titleEl.textContent = `${conf.title} (Skor: ${todayLog.moodScore > 0 ? '+' : ''}${todayLog.moodScore})`;
-            descEl.textContent = `Tidur ${todayLog.sleepHours} jam • Obat: ${todayLog.medicationTaken ? 'Sudah diminum ✓' : 'Belum ✗'}`;
+            descEl.textContent = `Tidur: ${todayLog.sleepHours} jam • Obat: ${todayLog.medicationTaken ? 'Diminum ✓' : 'Terlewat ✗'}`;
             btnText.textContent = 'Perbarui Catatan Hari Ini';
         } else {
             titleEl.textContent = 'Belum ada catatan hari ini';
@@ -8808,16 +8440,16 @@ const BipolarTracker = (() => {
             btnText.textContent = 'Catat Mood Hari Ini';
         }
 
-        // 2. Hitung KPI Ringkas
+        // 2. Metrik KPI Ringkas
         const rangeLogs = logs.slice(0, chartDaysRange);
         if (rangeLogs.length > 0) {
             const avgSleep = (rangeLogs.reduce((acc, l) => acc + (l.sleepHours || 0), 0) / rangeLogs.length).toFixed(1);
             const medCompliance = Math.round((rangeLogs.filter(l => l.medicationTaken).length / rangeLogs.length) * 100);
             
-            // Cari fase terbanyak
             let manicCount = rangeLogs.filter(l => l.moodScore > 0).length;
             let deprCount = rangeLogs.filter(l => l.moodScore < 0).length;
             let euthCount = rangeLogs.filter(l => l.moodScore === 0).length;
+            
             let dominant = 'Stabil (0)';
             if (manicCount > deprCount && manicCount > euthCount) dominant = 'Elevasi / Manik';
             else if (deprCount > manicCount && deprCount > euthCount) dominant = 'Depresi';
@@ -8831,7 +8463,7 @@ const BipolarTracker = (() => {
             document.getElementById('bmKpiDominant').textContent = '-';
         }
 
-        // 3. Render Life Chart (SVG)
+        // 3. Render Life Chart SVG
         renderSvgLifeChart(logs, chartDaysRange);
 
         // 4. Render Riwayat List
@@ -8842,65 +8474,63 @@ const BipolarTracker = (() => {
         const container = document.getElementById('bmChartContainer');
         if (!container) return;
 
-        // Siapkan array tanggal mundur sebanyak daysCount
         const dayKeys = [];
         for (let i = daysCount - 1; i >= 0; i--) {
             const d = new Date(Date.now() - i * 86400000);
             dayKeys.push(d.toISOString().slice(0, 10));
         }
 
-        const width = container.clientWidth || 520;
-        const height = 160;
-        const padX = 25;
-        const padY = 20;
-        const chartW = width - padX * 2;
-        const chartH = height - padY * 2;
+        // Gunakan virtual width 500x160 agar stabil & responsif via viewBox
+        const vw = 500;
+        const vh = 160;
+        const padX = 35;
+        const padY = 22;
+        const chartW = vw - padX * 2;
+        const chartH = vh - padY * 2;
 
-        // Titik Y: Skor 4 di padY, 0 di tengah, -4 di height - padY
-        const getY = (score) => {
-            const normalized = (4 - score) / 8; // 4 -> 0, 0 -> 0.5, -4 -> 1
-            return padY + normalized * chartH;
-        };
-
-        const getX = (idx) => padX + (idx / (daysCount - 1)) * chartW;
+        const getY = (score) => padY + ((4 - score) / 8) * chartH;
+        const getX = (idx) => padX + (idx / Math.max(1, daysCount - 1)) * chartW;
 
         const points = [];
         dayKeys.forEach((key, idx) => {
             const found = logs.find(l => l.date === key);
             if (found) {
-                points.push({ x: getX(idx), y: getY(found.moodScore), score: found.moodScore, date: key });
+                points.push({ x: getX(idx), y: getY(found.moodScore), score: found.moodScore, date: key, sleep: found.sleepHours });
             }
         });
 
         const zeroY = getY(0);
 
-        // Susun SVG
-        let svg = `<svg viewBox="0 0 ${width} ${height}" class="w-full h-full overflow-visible">`;
+        let svg = `<svg viewBox="0 0 ${vw} ${vh}" class="w-full h-full overflow-visible">`;
 
-        // Garis Grid Panduan (0: Euthymic)
-        svg += `<line x1="${padX}" y1="${zeroY}" x2="${width - padX}" y2="${zeroY}" stroke="var(--border-card)" stroke-dasharray="3,3" stroke-width="1.5" />`;
+        // Garis Referensi Euthymic (0)
+        svg += `<line x1="${padX}" y1="${zeroY}" x2="${vw - padX}" y2="${zeroY}" stroke="var(--border-card)" stroke-dasharray="4,4" stroke-width="1.5" />`;
 
-        // Garis penghubung titik
+        // Garis Penghubung
         if (points.length > 1) {
             let pathD = `M ${points[0].x} ${points[0].y}`;
-            for (let i = 1; i < points.length; i++) {
-                pathD += ` L ${points[i].x} ${points[i].y}`;
-            }
+            for (let i = 1; i < points.length; i++) pathD += ` L ${points[i].x} ${points[i].y}`;
             svg += `<path d="${pathD}" fill="none" stroke="#6366F1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />`;
         }
 
-        // Titik data
+        // Titik Data
         points.forEach(p => {
             const conf = MOOD_LEVELS[p.score] || MOOD_LEVELS[0];
             svg += `
-                <circle cx="${p.x}" cy="${p.y}" r="4.5" fill="${conf.color}" stroke="var(--bg-card)" stroke-width="2" />
-                <title>${p.date}: ${conf.title}</title>
+                <circle cx="${p.x}" cy="${p.y}" r="5" fill="${conf.color}" stroke="var(--bg-card)" stroke-width="2">
+                    <title>${p.date}: ${conf.title} | Tidur: ${p.sleep}j</title>
+                </circle>
             `;
         });
 
-        // Jika data kosong
+        // Tanggal Awal & Akhir di Bawah Grafik
+        if (dayKeys.length > 0) {
+            svg += `<text x="${padX}" y="${vh - 4}" fill="var(--text-muted)" font-size="9" font-family="monospace">${dayKeys[0].slice(5)}</text>`;
+            svg += `<text x="${vw - padX}" y="${vh - 4}" text-anchor="end" fill="var(--text-muted)" font-size="9" font-family="monospace">${dayKeys[dayKeys.length - 1].slice(5)}</text>`;
+        }
+
         if (points.length === 0) {
-            svg += `<text x="${width/2}" y="${height/2}" text-anchor="middle" fill="var(--text-muted)" font-size="11">Belum ada data rekaman mood pada periode ini</text>`;
+            svg += `<text x="${vw/2}" y="${vh/2}" text-anchor="middle" fill="var(--text-muted)" font-size="11">Belum ada data rekaman mood pada periode ini</text>`;
         }
 
         svg += `</svg>`;
@@ -8916,7 +8546,7 @@ const BipolarTracker = (() => {
             return;
         }
 
-        container.innerHTML = logs.slice(0, 10).map(l => {
+        container.innerHTML = logs.slice(0, 8).map(l => {
             const conf = MOOD_LEVELS[l.moodScore] || MOOD_LEVELS[0];
             return `
                 <div class="theme-card p-2.5 rounded-xl border border-[var(--border-card)] flex items-center justify-between text-xs">
@@ -8926,7 +8556,7 @@ const BipolarTracker = (() => {
                             <span class="px-2 py-0.2 rounded-full text-[9px] font-extrabold ${conf.class}">${conf.name} (${l.moodScore > 0 ? '+' : ''}${l.moodScore})</span>
                         </div>
                         <p class="text-[10px] mt-0.5" style="color:var(--text-muted)">
-                            Tidur: ${l.sleepHours} jam • Obat: ${l.medicationTaken ? 'Diminum' : 'Terlewat'}
+                            Tidur: ${l.sleepHours}j • Obat: ${l.medicationTaken ? 'Diminum' : 'Terlewat'}
                             ${l.triggers && l.triggers.length ? ` • Pemicu: ${l.triggers.join(', ')}` : ''}
                         </p>
                     </div>
@@ -8947,16 +8577,21 @@ const BipolarTracker = (() => {
         if (todayLog) {
             const conf = MOOD_LEVELS[todayLog.moodScore] || MOOD_LEVELS[0];
             if (title) title.textContent = `${conf.name} (${todayLog.moodScore > 0 ? '+' : ''}${todayLog.moodScore})`;
-            if (sub) sub.textContent = `Tidur: ${todayLog.sleepHours}j • Obat: ${todayLog.medicationTaken ? 'Diminum' : 'Tidak'}`;
-            if (badgeDot) badgeDot.classList.add('hidden'); // Sudah isi, hilangkan dot pengingat
+            if (sub) sub.textContent = `Tidur: ${todayLog.sleepHours}j • Obat: ${todayLog.medicationTaken ? 'Sudah diminum ✓' : 'Terlewat ✗'}`;
+            if (badgeDot) badgeDot.classList.add('hidden');
         } else {
             if (title) title.textContent = 'Belum ada catatan hari ini';
-            if (sub) sub.textContent = 'Lakukan skrining singkat 24 jam terakhir';
-            if (badgeDot) badgeDot.classList.remove('hidden'); // Pengingat belum isi
+            if (sub) sub.textContent = 'Skrining 24 jam terakhir untuk deteksi dini';
+            if (badgeDot) badgeDot.classList.remove('hidden');
         }
     }
 
-    // ================= FORM & STEP QUIZ CONTROLLER =================
+    // ================= CONTROLLER: 2-STEP QUESTIONNAIRE =================
+    function closeModal() {
+        const modal = document.getElementById('bipolarTrackerModal');
+        if (modal) modal.classList.add('hidden');
+    }
+
     function resetForm() {
         state.step = 1;
         state.answers = { q1: null, q2: null, q3: null, q4: null, q5: null };
@@ -9022,6 +8657,7 @@ const BipolarTracker = (() => {
     function calculateRecommendation() {
         const { q1, q2, q3, q4, q5 } = state.answers;
         const total = (q1 || 0) + (q2 || 0) + (q3 || 0) + (q4 || 0) + (q5 || 0);
+        // Total -10 s/d +10 diskalakan ke rentang -4 s/d +4
         const scaledScore = Math.round((total / 10) * 4);
         const clampedScore = Math.max(-4, Math.min(4, scaledScore));
         state.recommendedScore = clampedScore;
@@ -9082,8 +8718,11 @@ const BipolarTracker = (() => {
         if (card && title && desc) {
             card.className = `p-3.5 rounded-xl transition-all text-center space-y-0.5 ${config.class}`;
             title.textContent = config.title;
-            desc.textContent = 'Fase ' + config.name;
+            desc.textContent = config.desc;
         }
+
+        const slider = document.getElementById('bmMoodSlider');
+        if (slider) slider.style.accentColor = config.color;
 
         const safetyBanner = document.getElementById('bmSafetyPlanBanner');
         if (safetyBanner) {
@@ -9112,8 +8751,7 @@ const BipolarTracker = (() => {
 
         try {
             let logs = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            // Hapus log hari yang sama jika sudah ada (update mode)
-            logs = logs.filter(l => l.date !== dateStr);
+            logs = logs.filter(l => l.date !== dateStr); // Update jika tanggal sama
             logs.unshift(logEntry);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
         } catch (e) {
@@ -9122,9 +8760,9 @@ const BipolarTracker = (() => {
 
         playChime('success');
         triggerHaptic('success');
-        closeModal('bipolarTrackerModal');
+        closeModal();
 
-        // Buka kembali Hub agar pengguna langsung melihat grafiknya terupdate
+        // Buka kembali Hub & update Home widget realtime
         openHub();
         updateHomeWidget();
 
@@ -9139,6 +8777,16 @@ const BipolarTracker = (() => {
         if (typeof triggerCloudSync === 'function') triggerCloudSync();
     }
 
+    function openEmergencyContacts() {
+        if (typeof showToast === 'function') {
+            showToast({
+                type: 'info',
+                title: 'Bantuan Darurat Kesehatan Jiwa',
+                message: 'Kemenkes Sejiwa: 119 (ext 8) | Darurat Medis: 112 | Hubungi pendamping keluarga terdekat.'
+            });
+        }
+    }
+
     function getHistory() {
         try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
         catch (e) { return []; }
@@ -9149,16 +8797,20 @@ const BipolarTracker = (() => {
         openHub,
         setChartRange,
         startCheckIn,
+        closeModal,
         validateStep1,
         goToStep1,
         goToStep2,
         onSliderChange,
         toggleTrigger,
         saveLog,
+        openEmergencyContacts,
+        updateHomeWidget,
         getHistory
     };
 })();
 
+// Inisialisasi otomatis
 window.addEventListener('DOMContentLoaded', () => {
     BipolarTracker.init();
 });
