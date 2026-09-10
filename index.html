@@ -771,7 +771,7 @@
         <!-- HOME -->
         <section id="homeView" class="app-view space-y-5">
             <div class="page-heading">
-                <div><p class="eyebrow">Ruang fokusmu</p><h2 id="homeGreeting">Selamat datang kembali</h2><p>Mulai dari satu hal yang paling berarti.</p></div>
+                <div><p class="eyebrow flex items-center gap-1.5"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i> Ruang Fokus & Keseimbangan</p><h2 id="homeGreeting" class="text-2xl sm:text-3xl font-black mt-1" style="color:var(--text-main)">Selamat datang kembali</h2><p id="homeDateSubtitle" class="text-xs sm:text-sm mt-1" style="color:var(--text-muted)">Fokus pada satu hal yang paling bermakna hari ini.</p></div>
             </div>
 
             <div class="grid grid-cols-1 xl:grid-cols-12 gap-4">
@@ -6894,7 +6894,10 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             const greeting = document.getElementById('homeGreeting');
             const hour = new Date().getHours();
             const profileName = (document.getElementById('navProfileName')?.textContent || 'ZIEL Space').split(' ')[0];
+            const dateFormatted = new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
             if (greeting) greeting.textContent = (hour < 11 ? 'Selamat pagi' : hour < 15 ? 'Selamat siang' : hour < 19 ? 'Selamat sore' : 'Selamat malam') + ', ' + profileName;
+            const dateEl = document.getElementById('homeDateSubtitle');
+            if (dateEl) dateEl.textContent = dateFormatted + ' • Fokus pada satu hal yang paling bermakna.';
 
             const task = recommendedHomeTask();
             const taskTitle = document.getElementById('homeNextTaskTitle');
