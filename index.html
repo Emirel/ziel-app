@@ -2187,6 +2187,7 @@
         </nav>
         <div class="mt-auto space-y-1">
             <p class="eyebrow px-3 pb-1">Tools</p>
+            <button onclick="FinanceTracker.openModal()" class="ziel-nav-item"><i data-lucide="wallet"></i><span>Keuangan & Alur Kas</span></button>
             <button onclick="BipolarTracker.openHub()" class="ziel-nav-item"><i data-lucide="activity"></i><span>Bipolar Life Chart</span></button>
             <button onclick="openModal('aiCopilotModal')" class="ziel-nav-item"><i data-lucide="sparkles"></i><span>Ask ZIEL</span></button>
             <button onclick="openModal('brainDumpModal')" class="ziel-nav-item"><i data-lucide="brain"></i><span>Brain Dump</span></button>
@@ -2202,7 +2203,7 @@
         <section id="homeView" class="app-view space-y-4 sm:space-y-5">
             
             <!-- Top Search / Ask AI Pill Bar -->
-            <div class="flex items-center justify-between p-2.5 sm:p-3 rounded-2xl bg-white dark:bg-[#111726] border border-slate-200/90 dark:border-white/10 shadow-sm cursor-pointer hover:border-indigo-500/40 transition" onclick="openModal('aiCopilotModal')">
+            <div class="flex items-center justify-between p-2.5 sm:p-3 rounded-2xl shadow-sm cursor-pointer hover:border-indigo-500/40 transition" style="background:var(--bg-card); border:1px solid var(--border-card); box-shadow:var(--card-shadow);" onclick="openModal('aiCopilotModal')">
                 <div class="flex items-center gap-2.5 min-w-0">
                     <div class="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
                         <i data-lucide="search" class="w-4 h-4"></i>
@@ -2234,7 +2235,7 @@
                             </div>
                             <div class="min-w-0">
                                 <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Kapasitas Eksekusi</span>
-                                <h3 id="currentEnergyLabel" class="text-base sm:text-lg font-black truncate" style="color:var(--text-main)">Level 3 • Seimbang</h3>
+                                <h3 id="currentEnergyLabel" class="text-base sm:text-lg font-black truncate font-mono" style="color:var(--text-main)">Level 3</h3>
                             </div>
                         </div>
                         <span class="px-3 py-1 rounded-full text-[11px] font-black tag-indigo shrink-0">
@@ -2271,17 +2272,17 @@
                         </button>
                     </div>
 
-                    <!-- Action Recommendation Box Inside Card -->
-                    <div class="p-3.5 sm:p-4 rounded-2xl border border-indigo-500/20 bg-gradient-to-r from-indigo-500/10 via-[var(--input-bg)] to-teal-500/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+                    <!-- Action Recommendation Box (Sleek, Modern, Clean) -->
+                    <div class="p-3.5 sm:p-4 rounded-2xl border border-indigo-500/20 bg-gradient-to-r from-indigo-500/8 via-[var(--input-bg)] to-emerald-500/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
                         <div class="min-w-0 space-y-0.5">
                             <div class="flex items-center gap-1.5">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                <span class="text-[10px] uppercase font-bold tracking-wider text-indigo-500 dark:text-indigo-400">Rekomendasi Tindakan</span>
+                                <span class="text-[10px] uppercase font-bold tracking-wider text-indigo-500 dark:text-indigo-400">Rekomendasi Hari Ini</span>
                             </div>
-                            <p id="homeNextTaskTitle" class="font-black text-sm sm:text-base truncate" style="color:var(--text-main)">Pilih energi untuk rekomendasi</p>
-                            <p id="homeNextTaskMeta" class="text-xs truncate" style="color:var(--text-muted)">Satu langkah nyata untuk hari ini</p>
+                            <h4 id="homeNextTaskTitle" class="text-base sm:text-lg font-black tracking-tight truncate" style="color:var(--text-main)">Pilih tindakan</h4>
+                            <p id="homeNextTaskMeta" class="text-xs font-medium truncate" style="color:var(--text-muted)">Langkah prioritas untuk momentum fokusmu</p>
                         </div>
-                        <button id="btnWhatShouldIDo" onclick="triggerWhatShouldIDoNow()" class="primary-btn-gradient px-4 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shrink-0 w-full sm:w-auto shadow-md">
+                        <button id="btnWhatShouldIDo" onclick="openFocusModeFromTask()" class="primary-btn-gradient px-5 py-2.5 rounded-xl font-black text-xs flex items-center justify-center gap-2 shrink-0 w-full sm:w-auto shadow-md transition transform hover:scale-102">
                             <i data-lucide="play" class="w-3.5 h-3.5 fill-current" id="ctaZapIcon"></i>
                             <span id="ctaBtnText">Mulai Fokus</span>
                         </button>
@@ -2352,6 +2353,13 @@
                         </div>
                         <strong>Agenda</strong>
                     </div>
+                    <div onclick="FinanceTracker.openModal()" class="service-tile">
+                        <div class="service-tile-icon bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25">
+                            <i data-lucide="wallet" class="w-6 h-6"></i>
+                            <span class="service-tile-badge bg-amber-600 text-white">Kas</span>
+                        </div>
+                        <strong>Keuangan</strong>
+                    </div>
                     <div onclick="BipolarTracker.openModal()" class="service-tile">
                         <div class="service-tile-icon bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
                             <i data-lucide="activity" class="w-6 h-6"></i>
@@ -2367,18 +2375,11 @@
                         <strong>Fokus</strong>
                     </div>
                     <div onclick="openModal('brainDumpModal')" class="service-tile">
-                        <div class="service-tile-icon bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25">
+                        <div class="service-tile-icon bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/25">
                             <i data-lucide="brain" class="w-6 h-6"></i>
-                            <span class="service-tile-badge bg-amber-600 text-white">AI NLP</span>
+                            <span class="service-tile-badge bg-purple-600 text-white">AI NLP</span>
                         </div>
                         <strong>Dump</strong>
-                    </div>
-                    <div onclick="openSoundscapeModal()" class="service-tile">
-                        <div class="service-tile-icon bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/25">
-                            <i data-lucide="headphones" class="w-6 h-6"></i>
-                            <span class="service-tile-badge bg-rose-600 text-white">Audio</span>
-                        </div>
-                        <strong>Suasana</strong>
                     </div>
                     <div onclick="openModal('aiCopilotModal')" class="service-tile">
                         <div class="service-tile-icon bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/25">
@@ -2506,6 +2507,198 @@
     </footer>
 
     <!-- ==================== MODALS ==================== -->
+
+        <!-- PERSONAL FINANCE & CASH FLOW DASHBOARD MODAL -->
+    <div id="financeModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+        <div class="glass-modal action-sheet w-full sm:max-w-3xl p-4 sm:p-6 space-y-4 sm:space-y-5 relative max-h-[94vh] overflow-y-auto custom-scrollbar">
+            
+            <!-- Header Keuangan -->
+            <div class="flex items-start justify-between border-b border-[var(--border-card)] pb-3">
+                <div class="space-y-0.5">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-500 dark:text-amber-400 border border-amber-500/20 uppercase tracking-wider">
+                        <i data-lucide="wallet" class="w-3 h-3"></i>
+                        Personal Cash Flow Manager
+                    </span>
+                    <h3 class="text-base sm:text-xl font-black" style="color: var(--text-main);">
+                        Catatan Keuangan & Alur Kas
+                    </h3>
+                    <p class="text-xs" style="color: var(--text-muted);">
+                        Pantau saldo bersih, kendalikan pengeluaran, dan atur pos anggaran
+                    </p>
+                </div>
+                <button type="button" onclick="closeModal('financeModal')" class="clean-icon-btn shrink-0" aria-label="Tutup">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- HERO CASH FLOW CARD (GOPAY / LUXURY CARD STYLE) -->
+            <div class="p-4 sm:p-5 rounded-3xl border border-amber-500/25 bg-gradient-to-br from-amber-500/10 via-[var(--input-bg)] to-indigo-500/5 shadow-md space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Total Saldo Kas Tersedia</span>
+                        <div class="flex items-center gap-2.5 mt-0.5">
+                            <strong id="fnTotalBalance" class="text-2xl sm:text-3xl font-black font-mono" style="color:var(--text-main)">Rp 0</strong>
+                            <button type="button" onclick="FinanceTracker.toggleBalanceVisibility()" class="text-slate-400 hover:text-slate-200 p-1 transition" title="Sembunyikan / Tampilkan saldo">
+                                <i data-lucide="eye" class="w-4 h-4" id="fnEyeIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="FinanceTracker.startNewTransaction('income')" class="px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm bg-emerald-600 hover:bg-emerald-500 text-white transition">
+                            <i data-lucide="arrow-down-left" class="w-3.5 h-3.5"></i>
+                            <span>+ Pemasukan</span>
+                        </button>
+                        <button type="button" onclick="FinanceTracker.startNewTransaction('expense')" class="btn-secondary px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-rose-500/25 text-rose-400 hover:bg-rose-500/10 transition">
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-rose-400"></i>
+                            <span>- Pengeluaran</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Split Ringkasan Bulan Ini -->
+                <div class="grid grid-cols-3 gap-2 pt-3 border-t border-[var(--border-card)] text-xs">
+                    <div>
+                        <span class="text-[10px] text-slate-400 block font-semibold">Pemasukan Bulan Ini</span>
+                        <strong id="fnMonthlyIncome" class="text-xs sm:text-sm font-black font-mono text-emerald-500 block mt-0.5">+ Rp 0</strong>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-slate-400 block font-semibold">Pengeluaran Bulan Ini</span>
+                        <strong id="fnMonthlyExpense" class="text-xs sm:text-sm font-black font-mono text-rose-400 block mt-0.5">- Rp 0</strong>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-slate-400 block font-semibold">Arus Kas Bersih</span>
+                        <strong id="fnNetCashFlow" class="text-xs sm:text-sm font-black font-mono text-teal-300 block mt-0.5">Rp 0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ANGGARAN & GUARDRAIL PENGELUARAN BULANAN -->
+            <div class="theme-card p-4 rounded-2xl border border-[var(--border-card)] space-y-2.5">
+                <div id="fnBudgetDisplayRow" class="flex items-center justify-between">
+                    <div>
+                        <h4 class="text-xs sm:text-sm font-bold" style="color:var(--text-main)">Batas Anggaran Bulanan</h4>
+                        <p id="fnBudgetSummaryText" class="text-[10px]" style="color:var(--text-muted)">Pengeluaran terpakai 0% dari batas</p>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <strong id="fnBudgetLimitDisplay" class="text-xs sm:text-sm font-black font-mono text-amber-500">Rp 5.000.000</strong>
+                        <button type="button" onclick="FinanceTracker.toggleBudgetEdit(true)" class="btn-secondary px-2.5 py-1 rounded-lg text-[10px] font-bold">Ubah</button>
+                    </div>
+                </div>
+                <!-- Inline Budget Editor (Seamless, No Browser Prompt!) -->
+                <div id="fnBudgetEditRow" class="hidden p-3 rounded-xl bg-[var(--input-bg)] border border-[var(--border-card)] space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold" style="color:var(--text-main)">Atur Batas Belanja Bulanan</span>
+                        <button type="button" onclick="FinanceTracker.toggleBudgetEdit(false)" class="text-slate-400 hover:text-white text-xs font-bold">✕</button>
+                    </div>
+                    <div class="flex gap-2">
+                        <div class="relative flex-1 flex items-center">
+                            <span class="absolute left-3 font-mono font-bold text-slate-400 text-xs">Rp</span>
+                            <input type="number" id="fnBudgetEditInput" min="0" step="100000" class="theme-input w-full rounded-xl p-2 pl-9 text-xs font-mono font-bold" placeholder="5000000">
+                        </div>
+                        <button type="button" onclick="FinanceTracker.saveBudgetLimit()" class="primary-btn-gradient px-4 py-2 rounded-xl text-xs font-bold">Simpan</button>
+                    </div>
+                </div>
+                <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden relative">
+                    <div id="fnBudgetProgressBar" class="h-full rounded-full bg-gradient-to-r from-indigo-500 to-teal-400 transition-all duration-500 w-0"></div>
+                </div>
+            </div>
+
+            <!-- ALOKASI POS PENGELUARAN BULAN INI -->
+            <div class="space-y-2">
+                <h4 class="text-xs sm:text-sm font-bold" style="color:var(--text-main)">Alokasi Pos Pengeluaran</h4>
+                <div id="fnCategoryBreakdown" class="theme-card p-3.5 rounded-2xl border border-[var(--border-card)] space-y-2 text-xs"></div>
+            </div>
+
+            <!-- RIWAYAT TRANSAKSI DENGAN FILTER & CRUD -->
+            <div class="space-y-2.5">
+                <div class="flex items-center justify-between gap-2 flex-wrap">
+                    <div class="flex items-center gap-1.5">
+                        <h4 class="text-xs sm:text-sm font-bold" style="color:var(--text-main)">Riwayat Transaksi</h4>
+                        <span id="fnTxCount" class="text-[10px] font-bold text-indigo-400">0 transaksi</span>
+                    </div>
+                    <div class="flex gap-1 bg-[var(--input-bg)] p-1 rounded-xl border border-[var(--border-card)] text-[10px]">
+                        <button id="fnFilterAllBtn" onclick="FinanceTracker.setFilterType('all')" class="px-2.5 py-1 rounded-lg font-bold primary-btn-gradient">Semua</button>
+                        <button id="fnFilterExpenseBtn" onclick="FinanceTracker.setFilterType('expense')" class="px-2.5 py-1 rounded-lg font-medium btn-secondary">Pengeluaran</button>
+                        <button id="fnFilterIncomeBtn" onclick="FinanceTracker.setFilterType('income')" class="px-2.5 py-1 rounded-lg font-medium btn-secondary">Pemasukan</button>
+                        <button id="fnFilterImpulsiveBtn" onclick="FinanceTracker.setFilterType('impulsive')" class="px-2.5 py-1 rounded-lg font-medium btn-secondary">⚡ Impulsif</button>
+                    </div>
+                </div>
+                <div id="fnTransactionList" class="space-y-2 max-h-64 overflow-y-auto custom-scrollbar pr-1"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL FORM TRANSAKSI KEUANGAN -->
+    <div id="financeTransactionModal" class="fixed inset-0 z-[70] modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+        <div class="glass-modal action-sheet w-full sm:max-w-md p-5 sm:p-6 space-y-4 relative">
+            <div class="flex items-start justify-between border-b border-[var(--border-card)] pb-3">
+                <div>
+                    <h3 id="fnFormHeading" class="text-base font-extrabold" style="color:var(--text-main)">Catat Transaksi Baru</h3>
+                    <p class="text-xs" style="color:var(--text-muted)">Rekam alur kas masuk atau keluar</p>
+                </div>
+                <button type="button" onclick="closeModal('financeTransactionModal')" class="clean-icon-btn"><i data-lucide="x"></i></button>
+            </div>
+
+            <!-- Switcher Pemasukan vs Pengeluaran -->
+            <div class="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
+                <button type="button" id="fnTypeExpenseBtn" onclick="FinanceTracker.setFormType('expense')" class="py-2 rounded-xl text-xs font-bold transition-all primary-btn-gradient">
+                    💸 Pengeluaran
+                </button>
+                <button type="button" id="fnTypeIncomeBtn" onclick="FinanceTracker.setFormType('income')" class="py-2 rounded-xl text-xs font-semibold btn-secondary transition-all">
+                    💰 Pemasukan
+                </button>
+            </div>
+
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-semibold mb-1" style="color:var(--text-sub)">Nominal (Rupiah)</label>
+                    <div class="relative flex items-center">
+                        <span class="absolute left-3 font-mono font-bold text-slate-400">Rp</span>
+                        <input type="number" id="fnTxAmount" min="0" step="1000" placeholder="100000" class="w-full theme-input rounded-xl p-2.5 pl-10 text-xs font-mono font-bold" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-1" style="color:var(--text-sub)">Pos Kategori</label>
+                    <select id="fnTxCategory" class="w-full theme-input rounded-xl p-2.5 text-xs font-bold"></select>
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-1" style="color:var(--text-sub)">Tanggal Transaksi</label>
+                    <button type="button" onclick="openCustomDatePicker('fnTxDate', 'Tanggal Transaksi')" class="w-full p-2.5 rounded-xl border border-[var(--border-card)] bg-[var(--input-bg)] flex items-center justify-between text-xs cursor-pointer hover:border-indigo-500/40 transition">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="calendar" class="w-4 h-4 text-indigo-400"></i>
+                            <span id="fnTxDateDisplay" class="font-mono font-bold" style="color:var(--text-main)">Hari Ini</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
+                    </button>
+                    <input type="hidden" id="fnTxDate" value="">
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-1" style="color:var(--text-sub)">Catatan / Keterangan (opsional)</label>
+                    <input type="text" id="fnTxNote" placeholder="Contoh: Makan siang, bayar kos, honor..." class="w-full theme-input rounded-xl p-2.5 text-xs">
+                </div>
+
+                <div id="fnImpulsiveCheckboxWrapper" class="p-3 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] flex items-center justify-between">
+                    <div>
+                        <strong class="block text-xs" style="color:var(--text-main)">Tandai Pengeluaran Impulsif</strong>
+                        <small class="text-[10px]" style="color:var(--text-muted)">Pengeluaran emosional di luar rencana</small>
+                    </div>
+                    <input type="checkbox" id="fnTxIsImpulsive" class="w-5 h-5 rounded text-indigo-600 focus:ring-0 cursor-pointer">
+                </div>
+            </div>
+
+            <div class="flex gap-2 pt-2">
+                <button type="button" onclick="closeModal('financeTransactionModal')" class="btn-secondary flex-1 py-3 rounded-xl text-xs font-bold">Batal</button>
+                <button type="button" onclick="FinanceTracker.saveTransaction()" class="primary-btn-gradient flex-1 py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
+                    <i data-lucide="check" class="w-4 h-4"></i>
+                    <span>Simpan Transaksi</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- 1. BIPOLAR LIFE CHART & ANALYTICS HUB MODAL -->
         <!-- 1. BIPOLAR LIFE CHART & ANALYTICS HUB MODAL -->
@@ -2657,18 +2850,22 @@
                 <div id="bmProgressBar" class="h-full bg-indigo-500 transition-all duration-300 w-1/2"></div>
             </div>
 
-            <!-- Pemilih Tanggal Skrining (Hari ini atau Hari Sebelumnya) -->
+            <!-- Pemilih Tanggal Skrining Universal -->
             <div class="p-3 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] flex items-center justify-between gap-3 shadow-sm">
                 <div class="flex items-center gap-2.5 min-w-0">
                     <div class="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center shrink-0">
                         <i data-lucide="calendar" class="w-4 h-4"></i>
                     </div>
                     <div class="min-w-0">
-                        <label for="bmLogDate" class="block font-bold text-xs truncate" style="color: var(--text-main);">Tanggal Skrining Mood</label>
+                        <label class="block font-bold text-xs truncate" style="color: var(--text-main);">Tanggal Skrining Mood</label>
                         <small id="bmLogDateHint" class="text-[10px] block truncate" style="color: var(--text-muted);">Hari ini atau pilih hari sebelumnya</small>
                     </div>
                 </div>
-                <input type="date" id="bmLogDate" class="theme-input rounded-xl px-2.5 py-1.5 text-xs font-bold font-mono shrink-0 cursor-pointer" onchange="BipolarTracker.onDateChange(this.value)">
+                <button type="button" onclick="openCustomDatePicker('bmLogDate', 'Tanggal Skrining', function(d){ BipolarTracker.onDateChange(d); })" class="px-3 py-1.5 rounded-xl border border-[var(--border-card)] bg-[var(--bg-card)] flex items-center gap-1.5 text-xs cursor-pointer hover:border-indigo-500/40 transition shrink-0">
+                    <span id="bmLogDateDisplay" class="font-mono font-bold text-xs" style="color:var(--text-main)">Hari Ini</span>
+                    <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
+                </button>
+                <input type="hidden" id="bmLogDate" value="">
             </div>
 
             <!-- STEP 1: 5 PERTANYAAN x 5 PILIHAN -->
@@ -3025,6 +3222,14 @@
         <div class="glass-modal action-sheet w-full sm:max-w-md p-5 sm:p-6 space-y-4">
             <div class="flex items-center justify-between"><div><p class="eyebrow">Buat baru</p><h3 class="text-lg font-extrabold">Tambahkan ke ZIEL</h3><p class="text-xs mt-1" style="color:var(--text-muted)">Pilih jenis item—detailnya bisa dilengkapi setelah ini.</p></div><button onclick="closeModal('quickAddModal')" class="clean-icon-btn"><i data-lucide="x"></i></button></div>
             <div class="grid grid-cols-2 gap-3">
+                <button onclick="closeModal('quickAddModal'); FinanceTracker.startNewTransaction()" class="quick-action-tile">
+                    <span class="icon-box text-amber-500 bg-amber-500/15"><i data-lucide="wallet"></i></span>
+                    <span>
+                        <strong>Catatan Keuangan</strong>
+                        <small>Pemasukan / pengeluaran kas baru</small>
+                    </span>
+                    <i data-lucide="chevron-right"></i>
+                </button>
                 <button onclick="closeModal('quickAddModal'); BipolarTracker.openHub()" class="quick-action-tile">
                     <span class="icon-box"><i data-lucide="activity"></i></span>
                     <span>
@@ -3462,102 +3667,106 @@
     </div>
 
     <!-- FULLSCREEN ZEN FOCUS MODE -->
-    <div id="focusModeOverlay" class="fixed inset-0 z-50 flex flex-col items-center justify-between p-4 sm:p-8 overflow-y-auto hidden" style="background-color: var(--bg-main);">
+    <!-- 3. FULLSCREEN ZEN FOCUS MODE (MINIMALIST & CINEMATIC) -->
+    <div id="focusModeOverlay" class="fixed inset-0 z-[90] flex flex-col items-center justify-between p-4 sm:p-8 overflow-y-auto hidden" style="background: radial-gradient(circle at 50% 30%, rgba(99,102,241,0.08) 0%, transparent 60%), var(--bg-main);">
+        
+        <!-- Minimalist Header -->
         <div class="w-full max-w-xl flex items-center justify-between">
-            <div class="flex items-center space-x-2 text-xs font-semibold text-indigo-400">
-                <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
-                <span>ZEN FOCUS MODE</span>
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-xs font-black tracking-wider uppercase" style="color:var(--text-main)">Zen Focus Sanctuary</span>
             </div>
-            <button onclick="exitFocusMode()" class="btn-secondary text-xs px-3.5 py-1.5 rounded-xl font-bold">Tutup Sesi (Esc)</button>
+            <button type="button" onclick="exitFocusMode()" class="btn-secondary text-xs px-3.5 py-1.5 rounded-xl font-bold hover:bg-rose-500/10 hover:text-rose-400 transition">
+                Tutup (Esc)
+            </button>
         </div>
 
-        <div class="focus-shell text-center my-auto py-4">
-          <div class="focus-hero space-y-5">
+        <!-- Central Minimalist Focus Canvas -->
+        <div class="w-full max-w-md my-auto py-6 flex flex-col items-center text-center space-y-6">
+            
+            <!-- Task Title & Category -->
             <div class="space-y-1">
-                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400" id="focusCategoryBadge">🎓 THESIS</span>
-                <h2 class="text-xl sm:text-2xl font-black" style="color: var(--text-main);" id="focusTaskTitle">Revisi Bab 3</h2>
+                <span id="focusCategoryBadge" class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold tag-indigo uppercase tracking-wider">
+                    Fokus
+                </span>
+                <h2 id="focusTaskTitle" class="text-xl sm:text-2xl font-black tracking-tight" style="color:var(--text-main)">
+                    Revisi Bab 3
+                </h2>
             </div>
 
-            <div id="focusDialWrap" class="relative w-52 h-52 sm:w-60 sm:h-60 mx-auto flex items-center justify-center">
-                <svg id="focusDial" class="focus-dial w-full h-full" viewBox="0 0 240 240" role="slider" aria-label="Durasi fokus custom" aria-valuemin="1" aria-valuemax="180" aria-valuenow="25" tabindex="0">
-                    <circle cx="50%" cy="50%" r="90" stroke="var(--border-card)" stroke-width="8" fill="transparent" />
-                    <circle id="timerProgressRing" cx="50%" cy="50%" r="90" stroke="#2DD4BF" stroke-width="8" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 120 120)" class="transition-all duration-1000" />
-                    <circle id="focusDialHandle" class="focus-dial-handle" cx="120" cy="30" r="7" />
+            <!-- Minimalist Circular Hairline Timer -->
+            <div id="focusDialWrap" class="relative w-56 h-56 sm:w-64 sm:h-64 flex items-center justify-center select-none">
+                <svg id="focusDial" class="focus-dial w-full h-full" viewBox="0 0 240 240" role="slider" aria-label="Timer Fokus" aria-valuemin="1" aria-valuemax="180" aria-valuenow="25" tabindex="0">
+                    <circle cx="120" cy="120" r="92" stroke="var(--border-card)" stroke-width="5" fill="none" opacity="0.6" />
+                    <circle id="timerProgressRing" cx="120" cy="120" r="92" stroke="#6366F1" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="0" transform="rotate(-90 120 120)" class="transition-all duration-1000" />
+                    <circle id="focusDialHandle" class="focus-dial-handle" cx="120" cy="28" r="6" />
                 </svg>
-                <div class="absolute flex flex-col items-center">
-                    <span class="text-4xl sm:text-5xl font-black tracking-tighter font-mono" style="color: var(--text-main);" id="focusTimerDisplay">25:00</span>
-                    <span class="text-[10px] uppercase font-semibold mt-1" style="color: var(--text-muted);" id="focusPhaseLabel">Fokus · sesi 1 dari 4</span>
+                <div class="absolute flex flex-col items-center pointer-events-none">
+                    <span id="focusTimerDisplay" class="text-5xl sm:text-6xl font-black tracking-tight font-mono" style="color:var(--text-main)">25:00</span>
+                    <span id="focusPhaseLabel" class="text-xs font-semibold text-slate-400 mt-1">Sesi 1 • 25 Menit</span>
                 </div>
             </div>
 
-            <div>
-                <div class="focus-mode-switch">
-                    <button type="button" onclick="setFocusTimerMode('custom')" id="focusModeCustom" class="btn-secondary">Custom</button>
-                    <button type="button" onclick="setFocusTimerMode('pomodoro')" id="focusModePomodoro" class="primary-btn-gradient">Pomodoro</button>
+            <!-- Minimalist Mode Switcher & Pomodoro Dots -->
+            <div class="space-y-2">
+                <div class="flex items-center gap-1 p-1 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
+                    <button type="button" onclick="setFocusTimerMode('pomodoro')" id="focusModePomodoro" class="px-4 py-1.5 rounded-xl text-xs font-bold primary-btn-gradient transition-all">Pomodoro (25m)</button>
+                    <button type="button" onclick="setFocusTimerMode('custom')" id="focusModeCustom" class="px-4 py-1.5 rounded-xl text-xs font-semibold btn-secondary transition-all">Kustom</button>
                 </div>
                 <div id="customDurationControl" class="custom-duration-control hidden">
-                    <input id="customFocusMinutes" type="number" min="1" max="180" value="25" class="theme-input" oninput="applyCustomFocusDuration(this.value)" aria-label="Durasi fokus dalam menit">
-                    <span class="text-xs font-bold" style="color:var(--text-muted)">menit fokus</span>
+                    <input id="customFocusMinutes" type="number" min="1" max="180" value="25" class="theme-input text-center font-bold text-sm" oninput="applyCustomFocusDuration(this.value)" aria-label="Durasi fokus menit">
+                    <span class="text-xs text-slate-400 font-semibold">menit</span>
                 </div>
-                <p id="customDialHint" class="focus-dial-hint hidden mt-2">Geser titik pada lingkaran · ½ putaran = 90 menit</p>
-                <div id="pomodoroStatus" class="pomodoro-status"><span>25 menit fokus · 5 menit jeda</span><span class="pomodoro-dots" id="pomodoroDots"><i class="active"></i><i></i><i></i><i></i></span></div>
+                <div id="pomodoroStatus" class="flex items-center justify-center gap-2 text-xs text-slate-400">
+                    <span>25m fokus • 5m jeda</span>
+                    <span class="pomodoro-dots" id="pomodoroDots"><i class="active"></i><i></i><i></i><i></i></span>
+                </div>
             </div>
 
-            <div class="theme-card rounded-2xl p-3.5 text-left space-y-3">
-                <div class="flex items-center justify-between border-b border-[var(--border-card)] pb-2">
-                    <div class="flex items-center space-x-2">
-                        <button onclick="switchMusicSource('ambient')" id="tabMusicAmbient" class="px-2.5 py-1 rounded-lg text-xs font-bold primary-btn-gradient">
-                            🌿 Alam & Air
-                        </button>
-                        <button onclick="switchMusicSource('spotify')" id="tabMusicSpotify" class="px-2.5 py-1 rounded-lg text-xs font-bold btn-secondary">
-                            🟢 Spotify Player
-                        </button>
+            <!-- Sleek Horizontal Audio Ambience Strip (Replacing 8 Bulky Emoji Buttons) -->
+            <div class="w-full theme-card p-3 rounded-2xl border border-[var(--border-card)] space-y-2.5 text-xs">
+                <div class="flex items-center justify-between px-1">
+                    <div class="flex items-center gap-1.5">
+                        <i data-lucide="headphones" class="w-3.5 h-3.5 text-indigo-400"></i>
+                        <span class="font-bold" style="color:var(--text-main)">Suasana Fokus</span>
                     </div>
-                    <div id="ambientVolumeControl" class="flex items-center space-x-1.5">
-                        <i data-lucide="volume-2" class="w-3.5 h-3.5 opacity-60"></i>
-                        <input type="range" id="ambienceVolume" min="0" max="1" step="0.05" value="0.4" onchange="setAmbienceVolume(this.value)" class="w-16 sm:w-20 h-1.5 bg-slate-700 rounded-lg cursor-pointer accent-teal-400">
+                    <div id="ambientVolumeControl" class="flex items-center gap-1.5">
+                        <i data-lucide="volume-2" class="w-3.5 h-3.5 text-slate-400"></i>
+                        <input type="range" id="ambienceVolume" min="0" max="1" step="0.05" value="0.4" onchange="setAmbienceVolume(this.value)" class="w-16 h-1.5 bg-slate-700 rounded-lg cursor-pointer accent-indigo-500">
                     </div>
                 </div>
-
-                <div id="ambientSoundsPanel" class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-xs">
-                    <button onclick="setAmbienceTrack('rain')" class="ambience-track-btn p-2 rounded-xl primary-btn-gradient font-bold text-[11px] flex items-center justify-center space-x-1" data-track="rain">
-                        <span>🌧️ Hujan & Air</span>
+                <!-- Clean Minimalist Audio Chips -->
+                <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                    <button type="button" onclick="setAmbienceTrack('rain')" class="ambience-track-btn px-3 py-1.5 rounded-xl text-xs font-bold primary-btn-gradient shrink-0" data-track="rain">Hujan</button>
+                    <button type="button" onclick="setAmbienceTrack('waves')" class="ambience-track-btn px-3 py-1.5 rounded-xl text-xs font-medium btn-secondary shrink-0" data-track="waves">Ombak</button>
+                    <button type="button" onclick="setAmbienceTrack('birds')" class="ambience-track-btn px-3 py-1.5 rounded-xl text-xs font-medium btn-secondary shrink-0" data-track="birds">Hutan</button>
+                    <button type="button" onclick="setAmbienceTrack('coffee')" class="ambience-track-btn px-3 py-1.5 rounded-xl text-xs font-medium btn-secondary shrink-0" data-track="coffee">Kafe</button>
+                    <button type="button" onclick="setAmbienceTrack('brown')" class="ambience-track-btn px-3 py-1.5 rounded-xl text-xs font-medium btn-secondary shrink-0" data-track="brown">White Noise</button>
+                    <button type="button" onclick="setAmbienceTrack('fire')" class="ambience-track-btn px-3 py-1.5 rounded-xl text-xs font-medium btn-secondary shrink-0" data-track="fire">Perapian</button>
+                    <button type="button" onclick="setAmbienceTrack('night')" class="ambience-track-btn px-3 py-1.5 rounded-xl text-xs font-medium btn-secondary shrink-0" data-track="night">Malam</button>
+                    <button type="button" onclick="setAmbienceTrack('alpha')" class="ambience-track-btn px-3 py-1.5 rounded-xl text-xs font-medium btn-secondary shrink-0" data-track="alpha">Binaural 10Hz</button>
+                    <button type="button" onclick="openSpotifyApp()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-[#1DB954]/20 text-[#1DB954] border border-[#1DB954]/30 shrink-0 flex items-center gap-1">
+                        <i data-lucide="music-2" class="w-3 h-3"></i> Spotify
                     </button>
-                    <button onclick="setAmbienceTrack('birds')" class="ambience-track-btn p-2 rounded-xl btn-secondary font-bold text-[11px] flex items-center justify-center space-x-1" data-track="birds">
-                        <span>🐦 Kicau Burung</span>
-                    </button>
-                    <button onclick="setAmbienceTrack('waves')" class="ambience-track-btn p-2 rounded-xl btn-secondary font-bold text-[11px] flex items-center justify-center space-x-1" data-track="waves">
-                        <span>🌊 Ombak Laut</span>
-                    </button>
-                    <button onclick="setAmbienceTrack('alpha')" class="ambience-track-btn p-2 rounded-xl btn-secondary font-bold text-[11px] flex items-center justify-center space-x-1" data-track="alpha">
-                        <span>🧘 Alpha Focus</span>
-                    </button>
-                    <button onclick="setAmbienceTrack('coffee')" class="ambience-track-btn p-2 rounded-xl btn-secondary font-bold text-[11px] flex items-center justify-center space-x-1" data-track="coffee"><span>☕ Kafe</span></button>
-                    <button onclick="setAmbienceTrack('brown')" class="ambience-track-btn p-2 rounded-xl btn-secondary font-bold text-[11px] flex items-center justify-center space-x-1" data-track="brown"><span>🟤 Brown Noise</span></button>
-                    <button onclick="setAmbienceTrack('fire')" class="ambience-track-btn p-2 rounded-xl btn-secondary font-bold text-[11px] flex items-center justify-center space-x-1" data-track="fire"><span>🔥 Perapian</span></button>
-                    <button onclick="setAmbienceTrack('night')" class="ambience-track-btn p-2 rounded-xl btn-secondary font-bold text-[11px] flex items-center justify-center space-x-1" data-track="night"><span>🌙 Malam</span></button>
-                </div>
-
-                <div id="spotifySoundsPanel" class="hidden space-y-2">
-                    <div class="p-3 rounded-xl border border-[var(--border-card)] flex items-center gap-3"><span class="w-9 h-9 rounded-xl bg-[#1DB954] text-slate-950 grid place-items-center"><i data-lucide="music-2" class="w-4 h-4"></i></span><span class="flex-1"><strong class="block text-xs">Buka Spotify</strong><small class="block mt-0.5" style="color:var(--text-muted)">Pilih musik langsung dari aplikasi Spotify.</small></span><button onclick="openSpotifyApp()" class="spotify-connect-button px-3 py-2 rounded-xl text-xs font-bold">Buka app <i data-lucide="external-link"></i></button></div>
                 </div>
             </div>
 
-          </div>
-            <div class="theme-card rounded-2xl p-3.5 text-left space-y-1.5">
-                <p class="text-[11px] font-bold uppercase tracking-wider" style="color: var(--text-muted);">Langkah Eksekusi Tunggal:</p>
-                <div id="focusMicroActionList" class="space-y-1 text-xs"></div>
+            <!-- Single Micro Action Step -->
+            <div id="focusMicroActionWrap" class="w-full">
+                <div id="focusMicroActionList" class="p-3 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] text-xs text-left"></div>
             </div>
 
-            <div class="flex items-center justify-center space-x-4 pt-1">
-                <button id="toggleTimerBtn" onclick="toggleTimer()" class="w-14 h-14 rounded-full primary-btn-gradient flex items-center justify-center transition">
+            <!-- Play / Pause & Complete Buttons -->
+            <div class="flex items-center justify-center gap-4 pt-2">
+                <button type="button" id="toggleTimerBtn" onclick="toggleTimer()" class="w-16 h-16 rounded-full primary-btn-gradient flex items-center justify-center transition shadow-lg shadow-indigo-500/30">
                     <i data-lucide="play" class="w-6 h-6 fill-current ml-0.5" id="timerIcon"></i>
                 </button>
-                <button onclick="completeFocusTask()" class="px-6 py-3.5 rounded-2xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center space-x-2 shadow-lg shadow-teal-500/30 transition">
+                <button type="button" onclick="completeFocusTask()" class="px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs tracking-wider flex items-center gap-1.5 shadow-md transition">
                     <i data-lucide="check" class="w-4 h-4"></i>
                     <span>Selesai & Catat</span>
                 </button>
             </div>
+
         </div>
     </div>
 
@@ -4739,6 +4948,7 @@
                     agenda: getAgenda(),
                     categories: getCategories(),
                     bipolarLogs: BipolarTracker.getHistory(),
+                    financeTransactions: FinanceTracker.getTransactions(),
                     lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
                 }, { merge: true });
 
@@ -5515,6 +5725,7 @@
                 agenda: getAgenda(),
                 categories: getCategories(),
                 bipolarLogs: BipolarTracker.getHistory(),
+                    financeTransactions: FinanceTracker.getTransactions(),
                 geminiKey: localStorage.getItem('ZIEL_GEMINI_API_KEY')
             };
             const token = btoa(unescape(encodeURIComponent(JSON.stringify(fullPayload))));
@@ -6085,15 +6296,8 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 btn.classList.toggle('active', isActive);
                 btn.setAttribute('aria-pressed', String(isActive));
             });
-            const energyLabels = {
-                1: 'Level 1 • Istirahat',
-                2: 'Level 2 • Ringan',
-                3: 'Level 3 • Seimbang',
-                4: 'Level 4 • Fokus',
-                5: 'Level 5 • Puncak'
-            };
             const labelEl = document.getElementById('currentEnergyLabel');
-            if (labelEl) labelEl.textContent = energyLabels[state.currentEnergy] || `Level ${state.currentEnergy}`;
+            if (labelEl) labelEl.textContent = `Level ${state.currentEnergy || 3}`;
         }
 
         function filterCategory(cat) {
@@ -6216,6 +6420,27 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
         let pomodoroSession = 1;
         let sessionFocusedSeconds = 0;
         let focusDialDragging = false;
+
+        
+        function openFocusModeFromTask(taskId) {
+            let task = null;
+            if (taskId) {
+                task = state.tasks.find(function (t) { return t.id === taskId; });
+            }
+            if (!task) {
+                task = recommendedHomeTask() || state.tasks.find(function (t) { return t.status !== 'completed'; });
+            }
+            if (!task) {
+                task = {
+                    id: 'focus-' + Date.now(),
+                    title: 'Sesi Fokus Mandiri',
+                    category: 'personal',
+                    estimatedMinutes: 25,
+                    energyRequired: state.currentEnergy || 3
+                };
+            }
+            openFocusMode(task);
+        }
 
         function openFocusMode(task) {
             focusTask = task;
@@ -6912,12 +7137,31 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             if (type === 'custom') openGoalDatePicker('end');
         }
 
+        let universalDatePickerTargetId = null;
+        let universalDatePickerCallback = null;
+
+        function openCustomDatePicker(targetId, titleLabel, callback) {
+            universalDatePickerTargetId = targetId;
+            universalDatePickerCallback = callback || null;
+            const currentVal = document.getElementById(targetId)?.value || todayKey();
+            goalCalendarCursor = parseLocalDate(currentVal);
+            const eyebrow = document.getElementById('goalCalendarEyebrow');
+            const title = document.getElementById('goalCalendarTitle');
+            if (eyebrow) eyebrow.textContent = 'Pemilih Tanggal';
+            if (title) title.textContent = titleLabel || 'Pilih Tanggal';
+            renderGoalCalendar();
+            openModal('goalDatePickerModal');
+        }
+
         function openGoalDatePicker(mode) {
+            universalDatePickerTargetId = null;
             goalCalendarMode = mode === 'end' ? 'end' : 'start';
             const key = document.getElementById(goalCalendarMode === 'start' ? 'newGoalStartDate' : 'newGoalEndDate')?.value || todayKey();
             goalCalendarCursor = parseLocalDate(key);
             const eyebrow = document.getElementById('goalCalendarEyebrow');
+            const title = document.getElementById('goalCalendarTitle');
             if (eyebrow) eyebrow.textContent = goalCalendarMode === 'start' ? 'Tanggal mulai' : 'Tanggal selesai';
+            if (title) title.textContent = 'Pilih Tanggal';
             renderGoalCalendar();
             openModal('goalDatePickerModal');
         }
@@ -6951,15 +7195,34 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
         }
 
         function selectGoalCalendarDate(key) {
+            if (universalDatePickerTargetId) {
+                const input = document.getElementById(universalDatePickerTargetId);
+                if (input) {
+                    input.value = key;
+                    input.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+                const displayEl = document.getElementById(universalDatePickerTargetId + 'Display');
+                if (displayEl) {
+                    displayEl.textContent = formatDateId(key, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+                }
+                if (typeof universalDatePickerCallback === 'function') {
+                    universalDatePickerCallback(key);
+                }
+                universalDatePickerTargetId = null;
+                universalDatePickerCallback = null;
+                closeModal('goalDatePickerModal');
+                playChime('click');
+                return;
+            }
             const start = document.getElementById('newGoalStartDate');
             const end = document.getElementById('newGoalEndDate');
             const type = document.getElementById('newGoalDurationType');
             if (goalCalendarMode === 'start') {
-                start.value = key;
-                if (type.value === 'custom' && (!end.value || end.value < key)) end.value = addDate(key, 1, 'month');
+                if (start) start.value = key;
+                if (type && type.value === 'custom' && (!end.value || end.value < key)) end.value = addDate(key, 1, 'month');
             } else {
-                end.value = key;
-                type.value = 'custom';
+                if (end) end.value = key;
+                if (type) type.value = 'custom';
             }
             closeModal('goalDatePickerModal');
             updateGoalDurationUI();
@@ -8473,16 +8736,17 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             if (task) {
                 if (taskTitle) taskTitle.textContent = task.title;
                 const path = taskPath(task);
-                if (taskMeta) taskMeta.textContent = `${task.estimatedMinutes} menit • Energi L${task.energyRequired}${path ? ' • ' + path : ''}`;
+                // Hilangkan 25 menit dan Energi L3 sesuai instruksi
+                if (taskMeta) taskMeta.textContent = path ? `Jalur: ${path}` : 'Langkah prioritas berikutnya untuk momentum fokusmu';
                 if (ctaBtn) {
-                    ctaBtn.onclick = () => openFocusModeFromTask(task.id);
+                    ctaBtn.onclick = function() { openFocusModeFromTask(task.id); };
                 }
                 if (ctaText) ctaText.textContent = 'Mulai Fokus';
             } else {
                 if (taskTitle) taskTitle.textContent = 'Semua tindakan sudah selesai';
                 if (taskMeta) taskMeta.textContent = 'Nikmati ruang yang lapang atau buat langkah baru.';
                 if (ctaBtn) {
-                    ctaBtn.onclick = () => openModal('newTaskModal');
+                    ctaBtn.onclick = function() { openModal('newTaskModal'); };
                 }
                 if (ctaText) ctaText.textContent = '+ Buat Task';
             }
@@ -8763,7 +9027,517 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             triggerConfetti();
         }
 
-                        // ================= BIPOLAR LIFE CHART & ANALYTICS ENGINE =================
+                        
+        // ================= PERSONAL FINANCE & CASH FLOW ENGINE =================
+        const FinanceTracker = (() => {
+            const STORAGE_KEY_TX = 'ZIEL_FINANCE_TRANSACTIONS';
+            const STORAGE_KEY_BUDGET = 'ZIEL_FINANCE_MONTHLY_BUDGET';
+            const STORAGE_KEY_HIDE_BAL = 'ZIEL_FINANCE_HIDE_BAL';
+
+            const CATEGORIES = {
+                expense: [
+                    { id: 'makanan', name: 'Makanan & Minuman', icon: 'utensils', color: 'amber' },
+                    { id: 'tagihan', name: 'Tagihan & Utilitas', icon: 'zap', color: 'blue' },
+                    { id: 'kos', name: 'Tempat Tinggal / Kos', icon: 'home', color: 'indigo' },
+                    { id: 'transport', name: 'Transportasi', icon: 'navigation', color: 'cyan' },
+                    { id: 'kesehatan', name: 'Kesehatan & Obat', icon: 'heart-pulse', color: 'rose' },
+                    { id: 'pendidikan', name: 'Buku & Kuliah', icon: 'graduation-cap', color: 'purple' },
+                    { id: 'belanja', name: 'Belanja Kebutuhan', icon: 'shopping-bag', color: 'pink' },
+                    { id: 'impulsif', name: 'Belanja Impulsif', icon: 'flame', color: 'orange' },
+                    { id: 'tabungan', name: 'Tabungan / Investasi', icon: 'piggy-bank', color: 'emerald' },
+                    { id: 'lainnya', name: 'Lainnya', icon: 'package', color: 'slate' }
+                ],
+                income: [
+                    { id: 'gaji', name: 'Gaji & Honor Pokok', icon: 'briefcase', color: 'emerald' },
+                    { id: 'freelance', name: 'Proyek Freelance', icon: 'rocket', color: 'teal' },
+                    { id: 'transfer', name: 'Uang Saku / Transferan', icon: 'send', color: 'cyan' },
+                    { id: 'usaha', name: 'Bisnis / Usaha', icon: 'store', color: 'indigo' },
+                    { id: 'investasi', name: 'Hasil Investasi', icon: 'trending-up', color: 'purple' },
+                    { id: 'lainnya', name: 'Pemasukan Lainnya', icon: 'plus-circle', color: 'slate' }
+                ]
+            };
+
+            let activeFilter = 'all';
+            let editingTxId = null;
+            let currentFormType = 'expense';
+
+            function init() {
+                const current = getTransactions();
+                if (!current || current.length === 0) {
+                    const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
+                    const initialSamples = [
+                        {
+                            id: 'tx-sample-1',
+                            type: 'income',
+                            amount: 7500000,
+                            category: 'gaji',
+                            date: today,
+                            note: 'Gaji & Honor Pokok Bulanan',
+                            isImpulsive: false,
+                            createdAt: new Date().toISOString()
+                        },
+                        {
+                            id: 'tx-sample-2',
+                            type: 'expense',
+                            amount: 850000,
+                            category: 'makanan',
+                            date: today,
+                            note: 'Belanja Kebutuhan Dapur & Makan',
+                            isImpulsive: false,
+                            createdAt: new Date().toISOString()
+                        },
+                        {
+                            id: 'tx-sample-3',
+                            type: 'expense',
+                            amount: 450000,
+                            category: 'kesehatan',
+                            date: today,
+                            note: 'Konsultasi & Resep Obat Psikiater',
+                            isImpulsive: false,
+                            createdAt: new Date().toISOString()
+                        },
+                        {
+                            id: 'tx-sample-4',
+                            type: 'expense',
+                            amount: 350000,
+                            category: 'tagihan',
+                            date: today,
+                            note: 'Tagihan Listrik & Internet Rumah',
+                            isImpulsive: false,
+                            createdAt: new Date().toISOString()
+                        }
+                    ];
+                    localStorage.setItem(STORAGE_KEY_TX, JSON.stringify(initialSamples));
+                }
+                if (!getMonthlyBudgetLimit()) {
+                    localStorage.setItem(STORAGE_KEY_BUDGET, '5000000');
+                }
+            }
+
+            function formatRupiah(amount) {
+                const num = Math.round(Number(amount) || 0);
+                return 'Rp ' + num.toLocaleString('id-ID');
+            }
+
+            function getMonthlyBudgetLimit() {
+                return parseFloat(localStorage.getItem(STORAGE_KEY_BUDGET) || '5000000');
+            }
+
+            function getTransactions() {
+                try {
+                    return JSON.parse(localStorage.getItem(STORAGE_KEY_TX) || '[]');
+                } catch (e) {
+                    return [];
+                }
+            }
+
+            function openModal() {
+                renderDashboard();
+                const modal = document.getElementById('financeModal');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    safeLucideCreateIcons({ root: modal });
+                }
+            }
+
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId || 'financeModal');
+                if (modal) modal.classList.add('hidden');
+            }
+
+            function toggleBalanceVisibility() {
+                const isHidden = localStorage.getItem(STORAGE_KEY_HIDE_BAL) === 'true';
+                localStorage.setItem(STORAGE_KEY_HIDE_BAL, isHidden ? 'false' : 'true');
+                renderDashboard();
+                playChime('click');
+            }
+
+            function toggleBudgetEdit(show) {
+                const editRow = document.getElementById('fnBudgetEditRow');
+                const input = document.getElementById('fnBudgetEditInput');
+                if (editRow) editRow.classList.toggle('hidden', !show);
+                if (show && input) {
+                    input.value = getMonthlyBudgetLimit();
+                    setTimeout(() => input.focus?.(), 50);
+                }
+            }
+
+            function saveBudgetLimit() {
+                const input = document.getElementById('fnBudgetEditInput');
+                const raw = parseFloat(input?.value || '0');
+                if (!isNaN(raw) && raw > 0) {
+                    localStorage.setItem(STORAGE_KEY_BUDGET, String(Math.round(raw)));
+                    toggleBudgetEdit(false);
+                    renderDashboard();
+                    showToast({ type: 'success', title: 'Anggaran Diperbarui', message: `Batas belanja bulanan diatur ke ${formatRupiah(raw)}.` });
+                    if (typeof triggerCloudSync === 'function') triggerCloudSync();
+                } else {
+                    showToast({ type: 'warning', title: 'Nominal Tidak Valid', message: 'Masukkan batas anggaran yang valid.' });
+                }
+            }
+
+            function promptSetBudget() {
+                toggleBudgetEdit(true);
+            }
+
+            function startNewTransaction(type = 'expense') {
+                editingTxId = null;
+                const modal = document.getElementById('financeTransactionModal');
+                if (!modal) return;
+
+                document.getElementById('fnFormHeading').textContent = 'Catat Transaksi Baru';
+                document.getElementById('fnTxAmount').value = '';
+                document.getElementById('fnTxNote').value = '';
+                document.getElementById('fnTxIsImpulsive').checked = false;
+
+                const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
+                const dateInput = document.getElementById('fnTxDate');
+                if (dateInput) {
+                    dateInput.value = today;
+                    dateInput.max = today;
+                }
+
+                setFormType(type);
+                modal.classList.remove('hidden');
+                safeLucideCreateIcons({ root: modal });
+                setTimeout(() => document.getElementById('fnTxAmount')?.focus?.(), 80);
+            }
+
+            function setFormType(type) {
+                currentFormType = type;
+                const btnExp = document.getElementById('fnTypeExpenseBtn');
+                const btnInc = document.getElementById('fnTypeIncomeBtn');
+                const impWrap = document.getElementById('fnImpulsiveCheckboxWrapper');
+
+                if (type === 'expense') {
+                    if (btnExp) btnExp.className = 'py-2 rounded-xl text-xs font-bold transition-all primary-btn-gradient';
+                    if (btnInc) btnInc.className = 'py-2 rounded-xl text-xs font-semibold btn-secondary transition-all';
+                    if (impWrap) impWrap.classList.remove('hidden');
+                } else {
+                    if (btnInc) btnInc.className = 'py-2 rounded-xl text-xs font-bold transition-all bg-emerald-600 text-white shadow-sm';
+                    if (btnExp) btnExp.className = 'py-2 rounded-xl text-xs font-semibold btn-secondary transition-all';
+                    if (impWrap) impWrap.classList.add('hidden');
+                }
+
+                // Render options for category select
+                const selectEl = document.getElementById('fnTxCategory');
+                if (selectEl) {
+                    const list = CATEGORIES[type] || CATEGORIES.expense;
+                    selectEl.innerHTML = list.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+                }
+            }
+
+            function editTransaction(id) {
+                const tx = getTransactions().find(t => t.id === id);
+                if (!tx) return;
+                editingTxId = id;
+
+                const modal = document.getElementById('financeTransactionModal');
+                if (!modal) return;
+
+                document.getElementById('fnFormHeading').textContent = 'Edit Transaksi';
+                document.getElementById('fnTxAmount').value = tx.amount;
+                document.getElementById('fnTxNote').value = tx.note || '';
+                document.getElementById('fnTxDate').value = tx.date;
+                document.getElementById('fnTxIsImpulsive').checked = Boolean(tx.isImpulsive);
+
+                setFormType(tx.type);
+                const selectEl = document.getElementById('fnTxCategory');
+                if (selectEl) selectEl.value = tx.category;
+
+                modal.classList.remove('hidden');
+                safeLucideCreateIcons({ root: modal });
+            }
+
+            function saveTransaction() {
+                const amountInput = document.getElementById('fnTxAmount');
+                const rawAmount = parseFloat(amountInput?.value || '0');
+                if (isNaN(rawAmount) || rawAmount <= 0) {
+                    showToast({ type: 'warning', title: 'Nominal Kosong', message: 'Masukkan jumlah nominal uang yang valid.' });
+                    amountInput?.focus();
+                    return;
+                }
+
+                const category = document.getElementById('fnTxCategory')?.value || 'lainnya';
+                const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
+                const date = document.getElementById('fnTxDate')?.value || today;
+                const note = document.getElementById('fnTxNote')?.value.trim() || '';
+                const isImpulsive = currentFormType === 'expense' && Boolean(document.getElementById('fnTxIsImpulsive')?.checked);
+
+                const txEntry = {
+                    id: editingTxId || ('tx-' + Date.now()),
+                    type: currentFormType,
+                    amount: Math.round(rawAmount),
+                    category: category,
+                    date: date,
+                    note: note,
+                    isImpulsive: isImpulsive,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                };
+
+                let list = getTransactions();
+                if (editingTxId) {
+                    list = list.map(t => t.id === editingTxId ? txEntry : t);
+                } else {
+                    list.unshift(txEntry);
+                }
+                list.sort((a, b) => b.date.localeCompare(a.date));
+                localStorage.setItem(STORAGE_KEY_TX, JSON.stringify(list));
+
+                playChime('success');
+                triggerHaptic('success');
+                closeModal('financeTransactionModal');
+
+                renderDashboard();
+                if (typeof triggerCloudSync === 'function') triggerCloudSync();
+
+                showToast({
+                    type: currentFormType === 'income' ? 'success' : 'info',
+                    title: editingTxId ? 'Transaksi Diperbarui' : (currentFormType === 'income' ? 'Pemasukan Dicatat 💰' : 'Pengeluaran Dicatat 💸'),
+                    message: `${formatRupiah(txEntry.amount)} (${getCategoryName(currentFormType, category)})${note ? ' • ' + note : ''}`
+                });
+                editingTxId = null;
+            }
+
+            function deleteTransaction(id) {
+                const tx = getTransactions().find(t => t.id === id);
+                if (!tx) return;
+
+                const performDelete = () => {
+                    let list = getTransactions().filter(t => t.id !== id);
+                    localStorage.setItem(STORAGE_KEY_TX, JSON.stringify(list));
+                    renderDashboard();
+                    if (typeof triggerCloudSync === 'function') triggerCloudSync();
+                    showToast({ type: 'info', title: 'Transaksi Dihapus', message: `${formatRupiah(tx.amount)} telah dihapus dari catatan kas.` });
+                    playChime('click');
+                };
+
+                if (typeof openConfirmModal === 'function') {
+                    openConfirmModal(
+                        'Hapus Transaksi?',
+                        `Yakin ingin menghapus catatan ${formatRupiah(tx.amount)} (${tx.note || getCategoryName(tx.type, tx.category)})?`,
+                        performDelete
+                    );
+                } else {
+                    performDelete();
+                }
+            }
+
+            function setFilterType(filter) {
+                activeFilter = filter;
+                ['all', 'expense', 'income', 'impulsive'].forEach(f => {
+                    const btn = document.getElementById('fnFilter' + f.charAt(0).toUpperCase() + f.slice(1) + 'Btn');
+                    if (btn) {
+                        btn.className = (f === filter) ? 'px-2.5 py-1 rounded-lg font-bold primary-btn-gradient' : 'px-2.5 py-1 rounded-lg font-medium btn-secondary';
+                    }
+                });
+                renderTransactionList();
+                playChime('click');
+            }
+
+            function getCategoryName(type, catId) {
+                const list = CATEGORIES[type] || [];
+                const found = list.find(c => c.id === catId);
+                return found ? found.name : catId;
+            }
+
+            function renderDashboard() {
+                const transactions = getTransactions();
+                const now = new Date();
+                const currentMonthPrefix = now.toISOString().slice(0, 7); // 'YYYY-MM'
+
+                // 1. Hitung Total Saldo Kas Tersedia
+                let totalBalance = 0;
+                let monthlyIncome = 0;
+                let monthlyExpense = 0;
+                let monthlyExpensesByCategory = {};
+                let impulsiveCount = 0;
+                let impulsiveTotal = 0;
+
+                transactions.forEach(t => {
+                    const amt = Number(t.amount) || 0;
+                    if (t.type === 'income') {
+                        totalBalance += amt;
+                        if (t.date && t.date.startsWith(currentMonthPrefix)) {
+                            monthlyIncome += amt;
+                        }
+                    } else {
+                        totalBalance -= amt;
+                        if (t.date && t.date.startsWith(currentMonthPrefix)) {
+                            monthlyExpense += amt;
+                            monthlyExpensesByCategory[t.category] = (monthlyExpensesByCategory[t.category] || 0) + amt;
+                            if (t.isImpulsive) {
+                                impulsiveCount++;
+                                impulsiveTotal += amt;
+                            }
+                        }
+                    }
+                });
+
+                const netCashFlow = monthlyIncome - monthlyExpense;
+                const isHidden = localStorage.getItem(STORAGE_KEY_HIDE_BAL) === 'true';
+
+                // Update Hero Card Elements
+                const totalBalEl = document.getElementById('fnTotalBalance');
+                const eyeIcon = document.getElementById('fnEyeIcon');
+                if (totalBalEl) {
+                    totalBalEl.textContent = isHidden ? 'Rp ••••••••' : formatRupiah(totalBalance);
+                }
+                if (eyeIcon) {
+                    eyeIcon.setAttribute('data-lucide', isHidden ? 'eye-off' : 'eye');
+                }
+
+                const incomeEl = document.getElementById('fnMonthlyIncome');
+                const expenseEl = document.getElementById('fnMonthlyExpense');
+                const netFlowEl = document.getElementById('fnNetCashFlow');
+
+                if (incomeEl) incomeEl.textContent = '+ ' + formatRupiah(monthlyIncome);
+                if (expenseEl) expenseEl.textContent = '- ' + formatRupiah(monthlyExpense);
+                if (netFlowEl) {
+                    const prefix = netCashFlow >= 0 ? '+ ' : '- ';
+                    netFlowEl.textContent = prefix + formatRupiah(Math.abs(netCashFlow)) + (netCashFlow >= 0 ? ' (Surplus)' : ' (Defisit)');
+                    netFlowEl.className = `text-xs sm:text-sm font-black font-mono block mt-0.5 ${netCashFlow >= 0 ? 'text-teal-400' : 'text-rose-400'}`;
+                }
+
+                // 2. Update Anggaran & Guardrail Bar
+                const budgetLimit = getMonthlyBudgetLimit();
+                const usagePct = budgetLimit > 0 ? Math.min(100, Math.round((monthlyExpense / budgetLimit) * 100)) : 0;
+                const remainingBudget = Math.max(0, budgetLimit - monthlyExpense);
+
+                const budgetLimitEl = document.getElementById('fnBudgetLimitDisplay');
+                const budgetSummaryEl = document.getElementById('fnBudgetSummaryText');
+                const budgetBarEl = document.getElementById('fnBudgetProgressBar');
+
+                if (budgetLimitEl) budgetLimitEl.textContent = formatRupiah(budgetLimit);
+                if (budgetSummaryEl) {
+                    budgetSummaryEl.textContent = `Terpakai ${usagePct}% (${formatRupiah(monthlyExpense)}) • Sisa ${formatRupiah(remainingBudget)}`;
+                }
+                if (budgetBarEl) {
+                    budgetBarEl.style.width = usagePct + '%';
+                    if (usagePct > 90) {
+                        budgetBarEl.className = 'h-full rounded-full bg-rose-500 transition-all duration-500';
+                    } else if (usagePct > 70) {
+                        budgetBarEl.className = 'h-full rounded-full bg-amber-400 transition-all duration-500';
+                    } else {
+                        budgetBarEl.className = 'h-full rounded-full bg-gradient-to-r from-indigo-500 to-teal-400 transition-all duration-500';
+                    }
+                }
+
+                // 3. Render Breakdown Alokasi Pos Pengeluaran
+                renderCategoryBreakdown(monthlyExpensesByCategory, monthlyExpense);
+
+                // 4. Render Riwayat Transaksi
+                renderTransactionList();
+            }
+
+            function renderCategoryBreakdown(expensesByCat, totalExpense) {
+                const container = document.getElementById('fnCategoryBreakdown');
+                if (!container) return;
+
+                const entries = Object.entries(expensesByCat).sort((a, b) => b[1] - a[1]);
+                if (entries.length === 0 || totalExpense <= 0) {
+                    container.innerHTML = '<p class="text-xs text-center py-3 text-slate-400">Belum ada pos pengeluaran bulan ini.</p>';
+                    return;
+                }
+
+                container.innerHTML = entries.map(([catId, amount]) => {
+                    const name = getCategoryName('expense', catId);
+                    const pct = Math.round((amount / totalExpense) * 100);
+                    return `
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between text-[11px]">
+                                <strong style="color:var(--text-main)">${escapeHtml(name)}</strong>
+                                <span class="font-mono text-slate-400">${formatRupiah(amount)} (${pct}%)</span>
+                            </div>
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                                <div class="h-full rounded-full bg-indigo-500" style="width:${pct}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            function renderTransactionList() {
+                const container = document.getElementById('fnTransactionList');
+                const countEl = document.getElementById('fnTxCount');
+                if (!container) return;
+
+                let list = getTransactions();
+                if (activeFilter === 'expense') list = list.filter(t => t.type === 'expense');
+                else if (activeFilter === 'income') list = list.filter(t => t.type === 'income');
+                else if (activeFilter === 'impulsive') list = list.filter(t => t.isImpulsive);
+
+                if (countEl) countEl.textContent = `${list.length} transaksi`;
+
+                if (list.length === 0) {
+                    container.innerHTML = '<p class="text-xs text-center py-5 text-slate-400">Belum ada transaksi yang sesuai filter ini.</p>';
+                    return;
+                }
+
+                container.innerHTML = list.map(t => {
+                    const isIncome = t.type === 'income';
+                    const catName = getCategoryName(t.type, t.category);
+                    const dateFormatted = typeof formatDateId === 'function' ? formatDateId(t.date, { weekday: 'short', day: 'numeric', month: 'short' }) : t.date;
+
+                    return `
+                        <div class="theme-card p-3 sm:p-3.5 rounded-2xl border border-[var(--border-card)] flex items-center justify-between gap-2.5 text-xs hover:border-indigo-500/30 transition">
+                            <div class="flex items-center gap-2.5 min-w-0">
+                                <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${isIncome ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/25' : 'bg-rose-500/15 text-rose-400 border border-rose-500/25'}">
+                                    <i data-lucide="${isIncome ? 'arrow-down-left' : 'arrow-up-right'}" class="w-4 h-4"></i>
+                                </div>
+                                <div class="min-w-0 space-y-0.5">
+                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                        <strong class="text-xs font-bold text-white truncate">${escapeHtml(t.note || catName)}</strong>
+                                        ${t.isImpulsive ? '<span class="px-1.5 py-0.2 rounded tag-amber text-[9px] font-black">⚡ Impulsif</span>' : ''}
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 truncate">
+                                        ${escapeHtml(dateFormatted)} • <span class="tag-indigo px-1.5 py-0.2 rounded text-[9px] font-semibold">${escapeHtml(catName)}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 shrink-0">
+                                <span class="font-mono font-black text-xs sm:text-sm ${isIncome ? 'text-emerald-400' : 'text-rose-400'}">
+                                    ${isIncome ? '+' : '-'} ${formatRupiah(t.amount)}
+                                </span>
+                                <div class="flex items-center gap-1">
+                                    <button type="button" onclick="FinanceTracker.editTransaction('${t.id}')" class="p-1 rounded-lg text-indigo-400 hover:bg-indigo-500/15 transition" title="Edit transaksi">
+                                        <i data-lucide="pencil" class="w-3 h-3"></i>
+                                    </button>
+                                    <button type="button" onclick="FinanceTracker.deleteTransaction('${t.id}')" class="p-1 rounded-lg text-rose-400 hover:bg-rose-500/15 transition" title="Hapus transaksi">
+                                        <i data-lucide="trash-2" class="w-3 h-3"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                safeLucideCreateIcons({ root: container });
+            }
+
+            return {
+                init,
+                openModal,
+                closeModal,
+                formatRupiah,
+                startNewTransaction,
+                setFormType,
+                editTransaction,
+                saveTransaction,
+                deleteTransaction,
+                setFilterType,
+                toggleBalanceVisibility,
+                promptSetBudget,
+                toggleBudgetEdit,
+                saveBudgetLimit,
+                getTransactions
+            };
+        })();
+
+        window.FinanceTracker = FinanceTracker;
+
+
+        // ================= BIPOLAR LIFE CHART & ANALYTICS ENGINE =================
         const BipolarTracker = (() => {
             const STORAGE_KEY = 'ZIEL_BIPOLAR_LOGS';
             let chartDaysRange = 7;
@@ -9779,6 +10553,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             initTheme();
             initFocusDial();
             checkSpotifyAuthRedirect();
+            FinanceTracker.init();
             BipolarTracker.init();
             renderAll();
             if (!new URLSearchParams(window.location.search).has('code')) window.setTimeout(restoreSpotifyReturnContext, 120);
