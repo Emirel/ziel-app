@@ -983,6 +983,7 @@
                 <div class="flex gap-1 bg-[var(--input-bg)] p-1 rounded-xl border border-[var(--border-card)] text-[10px] overflow-x-auto">
                     <button id="bmFilter1Btn" onclick="BipolarTracker.setChartRange(1)" class="px-3 py-1.5 rounded-lg font-medium btn-secondary whitespace-nowrap">1 Hari (Hari ini)</button>
                     <button id="bmFilter7Btn" onclick="BipolarTracker.setChartRange(7)" class="px-3 py-1.5 rounded-lg font-bold primary-btn-gradient whitespace-nowrap">1 Minggu (7 Hari)</button>
+                    <button id="bmFilter14Btn" onclick="BipolarTracker.setChartRange(14)" class="px-3 py-1.5 rounded-lg font-medium btn-secondary whitespace-nowrap">2 Minggu (14 Hari)</button>
                     <button id="bmFilter30Btn" onclick="BipolarTracker.setChartRange(30)" class="px-3 py-1.5 rounded-lg font-medium btn-secondary whitespace-nowrap">1 Bulan (30 Hari)</button>
                     <button id="bmFilter90Btn" onclick="BipolarTracker.setChartRange(90)" class="px-3 py-1.5 rounded-lg font-medium btn-secondary whitespace-nowrap">3 Bulan (90 Hari)</button>
                 </div>
@@ -1111,6 +1112,20 @@
             <!-- Progress Bar Stepper -->
             <div class="w-full bg-[var(--input-bg)] h-1.5 rounded-full overflow-hidden border border-[var(--border-card)]">
                 <div id="bmProgressBar" class="h-full bg-indigo-500 transition-all duration-300 w-1/2"></div>
+            </div>
+
+            <!-- Pemilih Tanggal Skrining (Hari ini atau Hari Sebelumnya) -->
+            <div class="p-3 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] flex items-center justify-between gap-3 shadow-sm">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center shrink-0">
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <label for="bmLogDate" class="block font-bold text-xs truncate" style="color: var(--text-main);">Tanggal Skrining Mood</label>
+                        <small id="bmLogDateHint" class="text-[10px] block truncate" style="color: var(--text-muted);">Hari ini atau pilih hari sebelumnya</small>
+                    </div>
+                </div>
+                <input type="date" id="bmLogDate" class="theme-input rounded-xl px-2.5 py-1.5 text-xs font-bold font-mono shrink-0 cursor-pointer" onchange="BipolarTracker.onDateChange(this.value)">
             </div>
 
             <!-- STEP 1: 5 PERTANYAAN x 5 PILIHAN -->
@@ -7162,7 +7177,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             triggerConfetti();
         }
 
-        // ================= BIPOLAR LIFE CHART & ANALYTICS ENGINE =================
+                // ================= BIPOLAR LIFE CHART & ANALYTICS ENGINE =================
         const BipolarTracker = (() => {
             const STORAGE_KEY = 'ZIEL_BIPOLAR_LOGS';
             let chartDaysRange = 7;
@@ -7192,6 +7207,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
 
             let state = {
                 step: 1,
+                editingLogId: null,
                 answers: { q1: null, q2: null, q3: null, q4: null, q5: null },
                 recommendedScore: 0,
                 selectedMoodScore: 0,
@@ -7216,21 +7232,34 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             const openHub = openModal;
 
             // Tombol CTA "+ Catat Skrining Mood Baru" membuka formulir skrining
-            function startCheckIn() {
+            function startCheckIn(targetDate) {
+                state.editingLogId = null;
                 closeModal('bipolarHubModal');
                 const modal = document.getElementById('bipolarTrackerModal');
                 if (modal) {
                     modal.classList.remove('hidden');
                     resetForm();
-                    goToStep1();
+                    const dateInput = document.getElementById('bmLogDate');
+                    const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
+                    const chosenDate = targetDate || today;
+                    if (dateInput) {
+                        dateInput.value = chosenDate;
+                        dateInput.max = today;
+                    }
+                    const existing = getHistory().find(l => l.date === chosenDate);
+                    if (existing) {
+                        onDateChange(chosenDate);
+                    } else {
+                        goToStep1();
+                    }
                     safeLucideCreateIcons({ root: modal });
                 }
             }
 
-            // Tab Filter Periode: 1 Hari, 1 Minggu (7 Hari), 1 Bulan (30 Hari), 3 Bulan (90 Hari)
+            // Tab Filter Periode: 1 Hari, 1 Minggu (7 Hari), 2 Minggu (14 Hari), 1 Bulan (30 Hari), 3 Bulan (90 Hari)
             function setChartRange(days) {
                 chartDaysRange = days;
-                [1, 7, 30, 90].forEach(d => {
+                [1, 7, 14, 30, 90].forEach(d => {
                     const btn = document.getElementById('bmFilter' + d + 'Btn');
                     if (btn) {
                         if (d === days) {
@@ -7241,6 +7270,129 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     }
                 });
                 renderHubAnalytics();
+                playChime('click');
+            }
+
+            // Penanganan perubahan tanggal pada pemilih tanggal skrining
+            function onDateChange(val) {
+                const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
+                if (!val) val = today;
+                if (val > today) {
+                    if (typeof showToast === 'function') {
+                        showToast({
+                            type: 'warning',
+                            title: 'Tanggal Masa Depan',
+                            message: 'Pencatatan hanya untuk hari ini atau hari sebelumnya.'
+                        });
+                    }
+                    val = today;
+                    const dateInput = document.getElementById('bmLogDate');
+                    if (dateInput) dateInput.value = today;
+                }
+
+                const dateHint = document.getElementById('bmLogDateHint');
+                const existing = getHistory().find(l => l.date === val);
+                if (existing) {
+                    state.editingLogId = existing.id;
+                    if (dateHint) dateHint.textContent = 'Memuat catatan tanggal ini (mode perbarui/edit)';
+                    if (Array.isArray(existing.answers) && existing.answers.length >= 5) {
+                        state.answers.q1 = existing.answers[0];
+                        state.answers.q2 = existing.answers[1];
+                        state.answers.q3 = existing.answers[2];
+                        state.answers.q4 = existing.answers[3];
+                        state.answers.q5 = existing.answers[4];
+                        for (let i = 1; i <= 5; i++) {
+                            const radio = document.querySelector(`input[name="bm_q${i}"][value="${existing.answers[i - 1]}"]`);
+                            if (radio) radio.checked = true;
+                        }
+                    }
+                    state.recommendedScore = existing.recommendedScore ?? existing.moodScore;
+                    state.selectedMoodScore = existing.moodScore;
+                    state.selectedTriggers = new Set(existing.triggers || []);
+                    const sleepEl = document.getElementById('bmSleepHours');
+                    if (sleepEl) sleepEl.value = existing.sleepHours ?? 7.5;
+                    const medEl = document.getElementById('bmMedicationTaken');
+                    if (medEl) medEl.checked = existing.medicationTaken ?? true;
+                    renderTriggerPills();
+                    validateStep1();
+                } else {
+                    state.editingLogId = null;
+                    const dateLabel = typeof formatDateId === 'function' ? formatDateId(val, { day: 'numeric', month: 'short', year: 'numeric' }) : val;
+                    if (dateHint) dateHint.textContent = 'Catatan baru untuk ' + dateLabel;
+                    resetFormKeepDate(val);
+                }
+            }
+
+            function resetFormKeepDate(date) {
+                state.step = 1;
+                state.answers = { q1: null, q2: null, q3: null, q4: null, q5: null };
+                state.recommendedScore = 0;
+                state.selectedMoodScore = 0;
+                state.selectedTriggers.clear();
+
+                document.querySelectorAll('input[name^="bm_q"]').forEach(el => el.checked = false);
+                const sleepEl = document.getElementById('bmSleepHours');
+                if (sleepEl) sleepEl.value = '7.5';
+                const medEl = document.getElementById('bmMedicationTaken');
+                if (medEl) medEl.checked = true;
+
+                renderTriggerPills();
+                validateStep1();
+                goToStep1();
+            }
+
+            // Fitur Edit: Membuka formulir dengan data entri yang sudah ada
+            function editLog(logId) {
+                const log = getHistory().find(l => l.id === logId);
+                if (!log) return;
+                state.editingLogId = log.id;
+
+                closeModal('bipolarHubModal');
+                const modal = document.getElementById('bipolarTrackerModal');
+                if (!modal) return;
+                modal.classList.remove('hidden');
+
+                const dateInput = document.getElementById('bmLogDate');
+                const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
+                if (dateInput) {
+                    dateInput.value = log.date;
+                    dateInput.max = today;
+                }
+                const dateHint = document.getElementById('bmLogDateHint');
+                if (dateHint) dateHint.textContent = 'Mengedit catatan tanggal ' + log.date;
+
+                if (Array.isArray(log.answers) && log.answers.length >= 5) {
+                    state.answers.q1 = log.answers[0];
+                    state.answers.q2 = log.answers[1];
+                    state.answers.q3 = log.answers[2];
+                    state.answers.q4 = log.answers[3];
+                    state.answers.q5 = log.answers[4];
+                    for (let i = 1; i <= 5; i++) {
+                        const radio = document.querySelector(`input[name="bm_q${i}"][value="${log.answers[i - 1]}"]`);
+                        if (radio) radio.checked = true;
+                    }
+                } else {
+                    document.querySelectorAll('input[name^="bm_q"]').forEach(el => el.checked = false);
+                }
+
+                state.recommendedScore = log.recommendedScore ?? log.moodScore;
+                state.selectedMoodScore = log.moodScore;
+                state.selectedTriggers = new Set(log.triggers || []);
+
+                const sleepEl = document.getElementById('bmSleepHours');
+                if (sleepEl) sleepEl.value = log.sleepHours ?? 7.5;
+                const medEl = document.getElementById('bmMedicationTaken');
+                if (medEl) medEl.checked = log.medicationTaken ?? true;
+
+                renderTriggerPills();
+                validateStep1();
+                goToStep1();
+
+                const dateDisplay = typeof formatDateId === 'function' ? formatDateId(log.date, { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' }) : log.date;
+                const subtitle = document.getElementById('bmStepSubtitle');
+                if (subtitle) subtitle.textContent = `Mengedit catatan skrining tanggal ${dateDisplay}`;
+
+                safeLucideCreateIcons({ root: modal });
                 playChime('click');
             }
 
@@ -7264,13 +7416,12 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     if (btnText) btnText.textContent = '+ Catat Skrining Mood Baru';
                 }
 
-                // Filter rentang hari
                 const cutoffDate = typeof addDate === 'function' ? addDate(today, -(chartDaysRange - 1), 'day') : today;
                 const rangeLogs = logs.filter(l => l.date >= cutoffDate && l.date <= today);
 
                 const periodSub = document.getElementById('bmChartPeriodSub');
                 if (periodSub) {
-                    const labelMap = { 1: 'Hari Ini', 7: '7 Hari Terakhir', 30: '30 Hari Terakhir', 90: '3 Bulan (90 Hari)' };
+                    const labelMap = { 1: 'Hari Ini', 7: '7 Hari Terakhir', 14: '2 Minggu (14 Hari)', 30: '30 Hari Terakhir', 90: '3 Bulan (90 Hari)' };
                     periodSub.textContent = labelMap[chartDaysRange] || (chartDaysRange + ' Hari');
                 }
 
@@ -7320,7 +7471,6 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     if (medEl) medEl.textContent = '-';
                 }
 
-                // Render Chart Spektrum, Korelasi Tidur & Riwayat
                 renderSvgLifeChart(logs, chartDaysRange);
                 renderSleepCorrelation(rangeLogs, chartDaysRange);
                 renderHistoryList(rangeLogs);
@@ -7333,7 +7483,6 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
 
                 const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
 
-                // Jika 1 Hari (Hari ini), buat kartu spektrum detail
                 if (daysCount === 1) {
                     const todayLog = logs.find(l => l.date === today);
                     if (!todayLog) {
@@ -7382,7 +7531,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     return;
                 }
 
-                // Untuk 7, 30, atau 90 hari: SVG Spectrum Chart
+                // Untuk 7, 14, 30, atau 90 hari: SVG Spectrum Chart
                 const dayKeys = [];
                 for (let i = daysCount - 1; i >= 0; i--) {
                     const d = typeof addDate === 'function' ? addDate(today, -i, 'day') : new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
@@ -7396,8 +7545,6 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 const chartW = vw - padX * 2;
                 const chartH = vh - padY * 2;
 
-                // Koordinat Y: Level dari +3 (atas) ke -3 (bawah). Rentang 6 unit
-                // Range [-3, +3] -> Y = padY + ((3 - score) / 6) * chartH
                 const getY = (score) => {
                     const clamped = Math.max(-3, Math.min(3, score));
                     return padY + ((3 - clamped) / 6) * chartH;
@@ -7423,7 +7570,6 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
 
                 let svg = `<svg viewBox="0 0 ${vw} ${vh}" class="w-full h-full overflow-visible select-none">`;
 
-                // Garis acuan spektrum (+3, +2, +1, 0, -1, -2, -3)
                 const spectrumLevels = [
                     { val: 3, label: '+3 Mania', color: 'rgba(244,63,94,0.3)' },
                     { val: 2, label: '+2', color: 'rgba(251,146,60,0.2)' },
@@ -7454,7 +7600,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     `;
                 });
 
-                // Garis penghubung tren (smooth line)
+                // Garis penghubung tren
                 if (points.length > 1) {
                     let pathD = `M ${points[0].x} ${points[0].y}`;
                     for (let i = 1; i < points.length; i++) {
@@ -7463,7 +7609,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     svg += `<path d="${pathD}" fill="none" stroke="#6366F1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />`;
                 }
 
-                // Titik-titik data (Data Points)
+                // Titik-titik data
                 points.forEach(p => {
                     const conf = MOOD_LEVELS[p.score] || MOOD_LEVELS[0];
                     const tooltipText = `${p.date}: ${conf.title} | Tidur: ${p.sleep}j | Obat: ${p.med ? 'Ya' : 'Tidak'}`;
@@ -7479,7 +7625,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     const firstDate = typeof formatDateId === 'function' ? formatDateId(dayKeys[0], { day: 'numeric', month: 'short' }) : dayKeys[0];
                     const lastDate = typeof formatDateId === 'function' ? formatDateId(dayKeys[dayKeys.length - 1], { day: 'numeric', month: 'short' }) : dayKeys[dayKeys.length - 1];
                     svg += `<text x="${padX}" y="${vh - 3}" fill="var(--text-muted)" font-size="9" font-family="monospace">${escapeHtml(firstDate)}</text>`;
-                    if (dayKeys.length > 14) {
+                    if (dayKeys.length > 10) {
                         const midIdx = Math.floor(dayKeys.length / 2);
                         const midDate = typeof formatDateId === 'function' ? formatDateId(dayKeys[midIdx], { day: 'numeric', month: 'short' }) : dayKeys[midIdx];
                         svg += `<text x="${vw / 2}" y="${vh - 3}" text-anchor="middle" fill="var(--text-muted)" font-size="9" font-family="monospace">${escapeHtml(midDate)}</text>`;
@@ -7507,7 +7653,6 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     return;
                 }
 
-                // Buat chart mini perbandingan durasi tidur vs mood
                 const vw = 500;
                 const vh = 100;
                 const padX = 30;
@@ -7515,11 +7660,10 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 const chartW = vw - padX * 2;
                 const chartH = vh - padY * 2;
 
-                const sortedLogs = rangeLogs.slice().reverse(); // Urut tanggal
+                const sortedLogs = rangeLogs.slice().reverse();
                 const barWidth = Math.max(4, Math.min(18, chartW / sortedLogs.length * 0.65));
 
                 let svg = `<svg viewBox="0 0 ${vw} ${vh}" class="w-full h-full overflow-visible select-none">`;
-                // Garis target tidur 7-8 jam
                 const targetY = padY + (1 - 7.5 / 12) * chartH;
                 svg += `<line x1="${padX}" y1="${targetY}" x2="${vw - padX}" y2="${targetY}" stroke="rgba(45,212,191,0.4)" stroke-dasharray="3,3" stroke-width="1.2" />`;
                 svg += `<text x="${padX - 4}" y="${targetY + 3}" fill="#2DD4BF" font-size="7.5" font-family="monospace" text-anchor="end">7.5j</text>`;
@@ -7531,12 +7675,10 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     const y = padY + chartH - h;
                     const conf = MOOD_LEVELS[l.moodScore] || MOOD_LEVELS[0];
 
-                    // Batang tidur
                     svg += `<rect x="${x - barWidth / 2}" y="${y}" width="${barWidth}" height="${h}" rx="2" fill="#38BDF8" opacity="0.45">
                         <title>${l.date}: Tidur ${l.sleepHours} jam | Mood: ${l.moodScore}</title>
                     </rect>`;
 
-                    // Titik mood di atas batang
                     svg += `<circle cx="${x}" cy="${y - 4}" r="3" fill="${conf.color}">
                         <title>Mood: ${conf.title}</title>
                     </circle>`;
@@ -7545,11 +7687,8 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 svg += `</svg>`;
                 chartEl.innerHTML = svg;
 
-                // Analisis Insight Berdasarkan Data Pengguna
                 const shortSleepCount = rangeLogs.filter(l => l.sleepHours < 6).length;
                 const hypomanicWithShortSleep = rangeLogs.filter(l => l.sleepHours < 6 && l.moodScore > 0).length;
-                const depressedLogs = rangeLogs.filter(l => l.moodScore < 0);
-                const avgDepressedSleep = depressedLogs.length ? (depressedLogs.reduce((s, l) => s + (l.sleepHours || 0), 0) / depressedLogs.length).toFixed(1) : null;
 
                 let insightHtml = '<div class="flex items-start gap-2">';
                 insightHtml += '<span class="text-base shrink-0">💡</span><div>';
@@ -7567,7 +7706,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 insightEl.innerHTML = insightHtml;
             }
 
-            // Riwayat Log Entri
+            // Riwayat Log Entri dengan Tombol Edit dan Hapus
             function renderHistoryList(rangeLogs) {
                 const container = document.getElementById('bmHistoryList');
                 const countEl = document.getElementById('bmHistoryCount');
@@ -7603,35 +7742,46 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                                     </div>
                                 ` : ''}
                             </div>
-                            <button type="button" onclick="BipolarTracker.deleteLog('${l.id}')" class="btn-secondary self-end sm:self-center p-1.5 rounded-xl text-rose-400 hover:bg-rose-500/10 transition" title="Hapus catatan">
-                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                            </button>
+                            <div class="flex items-center gap-1.5 self-end sm:self-center shrink-0">
+                                <button type="button" onclick="BipolarTracker.editLog('${l.id}')" class="btn-secondary p-1.5 rounded-xl text-indigo-400 hover:bg-indigo-500/10 transition flex items-center gap-1 text-[10px] font-bold" title="Edit catatan">
+                                    <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                                    <span>Edit</span>
+                                </button>
+                                <button type="button" onclick="BipolarTracker.deleteLog('${l.id}')" class="btn-secondary p-1.5 rounded-xl text-rose-400 hover:bg-rose-500/10 transition" title="Hapus catatan">
+                                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                                </button>
+                            </div>
                         </div>
                     `;
                 }).join('');
                 safeLucideCreateIcons({ root: container });
             }
 
+            // Fitur Hapus: Menghapus catatan dengan dialog konfirmasi dan auto-recalculate
             function deleteLog(logId) {
-                if (typeof openConfirmModal === 'function') {
-                    openConfirmModal(
-                        'Hapus Catatan Mood?',
-                        'Catatan skrining mood ini akan dihapus dari histori.',
-                        () => {
-                            let logs = getHistory().filter(l => l.id !== logId);
-                            localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
-                            renderHubAnalytics();
-                            updateHomeWidget();
-                            if (typeof triggerCloudSync === 'function') triggerCloudSync();
-                            if (typeof showToast === 'function') showToast({ type: 'info', title: 'Catatan Dihapus', message: 'Entri mood telah dihapus.' });
-                        }
-                    );
-                } else {
+                const targetLog = getHistory().find(l => l.id === logId);
+                const dateLabel = targetLog ? (typeof formatDateId === 'function' ? formatDateId(targetLog.date, { day: 'numeric', month: 'short', year: 'numeric' }) : targetLog.date) : 'ini';
+
+                const performDelete = () => {
                     let logs = getHistory().filter(l => l.id !== logId);
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
                     renderHubAnalytics();
                     updateHomeWidget();
                     if (typeof triggerCloudSync === 'function') triggerCloudSync();
+                    if (typeof showToast === 'function') {
+                        showToast({ type: 'info', title: 'Catatan Dihapus', message: `Entri mood tanggal ${dateLabel} telah dihapus.` });
+                    }
+                    playChime('click');
+                };
+
+                if (typeof openConfirmModal === 'function') {
+                    openConfirmModal(
+                        'Hapus Catatan Mood?',
+                        `Yakin ingin menghapus catatan skrining mood tanggal ${dateLabel}? Data yang dihapus tidak bisa dikembalikan.`,
+                        performDelete
+                    );
+                } else {
+                    performDelete();
                 }
             }
 
@@ -7659,6 +7809,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             function closeModal(modalId) {
                 const target = document.getElementById(modalId || 'bipolarTrackerModal');
                 if (target) target.classList.add('hidden');
+                state.editingLogId = null;
             }
 
             function resetForm() {
@@ -7799,14 +7950,30 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 }
             }
 
+            // Simpan Log: Menyimpan entri baru ataupun update entri yang sedang diedit
             function saveLog() {
+                const dateInput = document.getElementById('bmLogDate');
+                const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
+                let dateStr = (dateInput && dateInput.value) ? dateInput.value : today;
+
+                // Proteksi masa depan
+                if (dateStr > today) {
+                    if (typeof showToast === 'function') {
+                        showToast({
+                            type: 'error',
+                            title: 'Tanggal Tidak Valid',
+                            message: 'Pencatatan hanya berlaku untuk hari ini atau hari sebelumnya.'
+                        });
+                    }
+                    return;
+                }
+
                 const sleepHours = parseFloat(document.getElementById('bmSleepHours')?.value || '0');
                 const medicationTaken = document.getElementById('bmMedicationTaken')?.checked ?? true;
                 const now = new Date();
-                const dateStr = typeof localDateKey === 'function' ? localDateKey(now) : now.toISOString().slice(0, 10);
 
                 const logEntry = {
-                    id: 'bm-' + Date.now(),
+                    id: state.editingLogId || ('bm-' + Date.now()),
                     date: dateStr,
                     answers: [state.answers.q1, state.answers.q2, state.answers.q3, state.answers.q4, state.answers.q5],
                     recommendedScore: state.recommendedScore,
@@ -7814,31 +7981,37 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     sleepHours: isNaN(sleepHours) ? 0 : sleepHours,
                     medicationTaken: Boolean(medicationTaken),
                     triggers: Array.from(state.selectedTriggers),
-                    createdAt: now.toISOString()
+                    createdAt: now.toISOString(),
+                    updatedAt: now.toISOString()
                 };
 
                 try {
                     let logs = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-                    logs = logs.filter(l => l.date !== dateStr);
+                    // Hapus entri lama dengan tanggal yang sama agar 1 hari = 1 catatan resmi
+                    logs = logs.filter(l => l.date !== dateStr && l.id !== logEntry.id);
                     logs.unshift(logEntry);
+                    logs.sort((a, b) => b.date.localeCompare(a.date));
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
                 } catch (e) {
                     console.error('Gagal menyimpan log mood:', e);
                 }
 
+                const isEdit = Boolean(state.editingLogId);
+                state.editingLogId = null;
+
                 playChime('success');
                 triggerHaptic('success');
                 closeModal('bipolarTrackerModal');
 
-                // Buka kembali modal dashboard setelah mencatat mood
                 openModal();
                 updateHomeWidget();
 
                 if (typeof showToast === 'function') {
+                    const dateDisplay = typeof formatDateId === 'function' ? formatDateId(dateStr, { day: 'numeric', month: 'short' }) : dateStr;
                     showToast({
                         type: 'success',
-                        title: 'Catatan Mood Tersimpan',
-                        message: `Skor: ${state.selectedMoodScore > 0 ? '+' : ''}${state.selectedMoodScore} (${MOOD_LEVELS[state.selectedMoodScore].name}).`
+                        title: isEdit ? 'Catatan Mood Diperbarui' : 'Catatan Mood Tersimpan',
+                        message: `${dateDisplay}: Skor ${state.selectedMoodScore > 0 ? '+' : ''}${state.selectedMoodScore} (${MOOD_LEVELS[state.selectedMoodScore].name}).`
                     });
                 }
 
@@ -7866,6 +8039,9 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 openHub,
                 setChartRange,
                 startCheckIn,
+                onDateChange,
+                editLog,
+                deleteLog,
                 closeModal,
                 validateStep1,
                 goToStep1,
@@ -7873,7 +8049,6 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 onSliderChange,
                 toggleTrigger,
                 saveLog,
-                deleteLog,
                 openEmergencyContacts,
                 updateHomeWidget,
                 getHistory
@@ -7882,7 +8057,6 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
 
         // Pastikan terpasang di window global sesuai spesifikasi
         window.BipolarTracker = BipolarTracker;
-
 
         function renderAll() {
             ensureStateShape();
@@ -7955,4 +8129,3 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
     </script>
 </body>
 </html>
-
