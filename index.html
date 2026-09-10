@@ -678,7 +678,10 @@
         .logo-text { color: #ffffff; font-size: 4.5rem; font-weight: 800; margin: 0; font-family: system-ui, -apple-system, sans-serif; letter-spacing: -1px; }
         .logo-dot { color: #81D4FA; }
         @keyframes slideFadeIn { 0% { opacity: 0; transform: translateY(30px) scale(0.95); } 100% { opacity: 1; transform: translateY(0); } }
-    </style>
+    
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
 <div id="splash-screen">
@@ -939,94 +942,96 @@
 
     <!-- 1. BIPOLAR LIFE CHART & ANALYTICS HUB MODAL -->
         <!-- 1. BIPOLAR LIFE CHART & ANALYTICS HUB MODAL -->
+        <!-- 1. BIPOLAR LIFE CHART & ANALYTICS HUB MODAL -->
     <div id="bipolarHubModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
-        <div class="glass-modal action-sheet w-full sm:max-w-3xl p-5 sm:p-7 space-y-5 relative max-h-[92vh] overflow-y-auto custom-scrollbar">
+        <div class="glass-modal action-sheet w-full sm:max-w-3xl p-4 sm:p-6 space-y-4 sm:space-y-5 relative max-h-[94vh] overflow-y-auto custom-scrollbar">
             
             <!-- Header Hub -->
-            <div class="flex items-start justify-between border-b border-[var(--border-card)] pb-3.5">
-                <div>
-                    <span class="eyebrow flex items-center gap-1.5 text-indigo-400">
-                        <i data-lucide="activity" class="w-3.5 h-3.5"></i>
+            <div class="flex items-start justify-between border-b border-[var(--border-card)] pb-3">
+                <div class="space-y-0.5">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/15 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">
+                        <i data-lucide="activity" class="w-3 h-3"></i>
                         Bipolar Mood Tracker & Analytics
                     </span>
-                    <h3 class="text-base sm:text-lg font-extrabold mt-0.5" style="color: var(--text-main);">
-                        Dashboard Statistik & Tren Bipolar
+                    <h3 class="text-base sm:text-xl font-extrabold" style="color: var(--text-main);">
+                        Dashboard Keseimbangan Mood
                     </h3>
                     <p class="text-xs" style="color: var(--text-muted);">
-                        Visualisasi spektrum mood, stabilitas emosi, kepatuhan obat, dan korelasi tidur
+                        Pantau kestabilan mood, irama tidur, dan kepatuhan obat harian
                     </p>
                 </div>
-                <button type="button" onclick="closeModal('bipolarHubModal')" class="clean-icon-btn" aria-label="Tutup">
+                <button type="button" onclick="closeModal('bipolarHubModal')" class="clean-icon-btn shrink-0" aria-label="Tutup">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
 
-            <!-- Today's Status Banner & Primary CTA Button -->
-            <div id="bmHubTodayCard" class="p-4 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
-                <div class="min-w-0">
-                    <span class="text-[10px] uppercase font-bold tracking-wider" style="color:var(--text-muted)">Status Hari Ini</span>
-                    <h4 id="bmHubTodayScoreTitle" class="text-sm sm:text-base font-extrabold mt-0.5" style="color:var(--text-main)">Belum dicatat</h4>
-                    <p id="bmHubTodayScoreDesc" class="text-xs mt-0.5" style="color:var(--text-sub)">Lakukan skrining singkat 1-2 menit untuk merekam kestabilanmu.</p>
+            <!-- Status Hari Ini & CTA Card -->
+            <div id="bmHubTodayCard" class="p-3.5 sm:p-4 rounded-2xl border border-indigo-500/25 bg-gradient-to-br from-indigo-500/10 via-[var(--input-bg)] to-teal-500/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+                <div class="min-w-0 space-y-1">
+                    <span class="text-[10px] uppercase font-bold tracking-wider text-indigo-400 block">Status Hari Ini</span>
+                    <h4 id="bmHubTodayScoreTitle" class="text-sm sm:text-base font-black" style="color:var(--text-main)">Belum dicatat</h4>
+                    <p id="bmHubTodayScoreDesc" class="text-xs leading-relaxed" style="color:var(--text-sub)">Lakukan skrining singkat 1–2 menit untuk merekam kestabilanmu.</p>
                 </div>
-                <button onclick="BipolarTracker.startCheckIn()" id="bmHubTodayBtn" class="primary-btn-gradient add-cta px-4 py-2.5 rounded-xl text-xs font-bold shrink-0 justify-center flex items-center gap-2">
+                <button onclick="BipolarTracker.startCheckIn()" id="bmHubTodayBtn" class="primary-btn-gradient add-cta px-4 py-2.5 rounded-xl text-xs font-bold shrink-0 justify-center flex items-center gap-2 w-full sm:w-auto">
                     <span class="add-cta-icon"><i data-lucide="plus"></i></span>
                     <span id="bmHubTodayBtnText">+ Catat Skrining Mood Baru</span>
                 </button>
             </div>
 
-            <!-- Period Filter Tabs -->
-            <div class="flex items-center justify-between gap-2 flex-wrap">
-                <div class="flex items-center gap-1.5 text-xs font-bold" style="color: var(--text-muted);">
-                    <i data-lucide="calendar" class="w-3.5 h-3.5 text-indigo-400"></i>
-                    <span>Filter Periode Tren:</span>
+            <!-- Period Filter Segmented Tabs -->
+            <div class="space-y-1.5">
+                <div class="flex items-center justify-between text-xs font-bold px-0.5" style="color: var(--text-muted);">
+                    <span>Rentang Waktu Tren</span>
+                    <span id="bmChartPeriodSub" class="text-indigo-400 font-mono text-[11px]">7 Hari Terakhir</span>
                 </div>
-                <div class="flex gap-1 bg-[var(--input-bg)] p-1 rounded-xl border border-[var(--border-card)] text-[10px] overflow-x-auto">
-                    <button id="bmFilter1Btn" onclick="BipolarTracker.setChartRange(1)" class="px-3 py-1.5 rounded-lg font-medium btn-secondary whitespace-nowrap">1 Hari (Hari ini)</button>
-                    <button id="bmFilter7Btn" onclick="BipolarTracker.setChartRange(7)" class="px-3 py-1.5 rounded-lg font-bold primary-btn-gradient whitespace-nowrap">1 Minggu (7 Hari)</button>
-                    <button id="bmFilter14Btn" onclick="BipolarTracker.setChartRange(14)" class="px-3 py-1.5 rounded-lg font-medium btn-secondary whitespace-nowrap">2 Minggu (14 Hari)</button>
-                    <button id="bmFilter30Btn" onclick="BipolarTracker.setChartRange(30)" class="px-3 py-1.5 rounded-lg font-medium btn-secondary whitespace-nowrap">1 Bulan (30 Hari)</button>
-                    <button id="bmFilter90Btn" onclick="BipolarTracker.setChartRange(90)" class="px-3 py-1.5 rounded-lg font-medium btn-secondary whitespace-nowrap">3 Bulan (90 Hari)</button>
+                <div class="flex items-center gap-1 p-1 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] overflow-x-auto no-scrollbar">
+                    <button id="bmFilter1Btn" onclick="BipolarTracker.setChartRange(1)" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-xl text-xs font-semibold btn-secondary whitespace-nowrap transition-all">Hari ini</button>
+                    <button id="bmFilter7Btn" onclick="BipolarTracker.setChartRange(7)" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-xl text-xs font-bold primary-btn-gradient whitespace-nowrap transition-all">7 Hari</button>
+                    <button id="bmFilter14Btn" onclick="BipolarTracker.setChartRange(14)" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-xl text-xs font-semibold btn-secondary whitespace-nowrap transition-all">14 Hari</button>
+                    <button id="bmFilter30Btn" onclick="BipolarTracker.setChartRange(30)" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-xl text-xs font-semibold btn-secondary whitespace-nowrap transition-all">30 Hari</button>
+                    <button id="bmFilter90Btn" onclick="BipolarTracker.setChartRange(90)" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-xl text-xs font-semibold btn-secondary whitespace-nowrap transition-all">90 Hari</button>
                 </div>
             </div>
 
             <!-- 4 Kartu Ringkasan (KPI Summary Cards) -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
-                <div class="theme-card p-3 rounded-2xl border border-[var(--border-card)] flex flex-col justify-between">
+                <div class="theme-card p-3 rounded-2xl border border-[var(--border-card)] flex flex-col justify-between min-h-[76px]">
                     <div>
                         <span class="text-[10px] block font-bold uppercase tracking-wider" style="color:var(--text-muted)">Mood Dominan</span>
-                        <div class="mt-1 flex items-center gap-1.5">
+                        <div class="mt-1 flex items-center gap-1.5 min-w-0">
                             <span id="bmKpiDominantBadge" class="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0"></span>
-                            <strong id="bmKpiDominant" class="text-xs font-bold text-teal-400 truncate">-</strong>
+                            <strong id="bmKpiDominant" class="text-xs sm:text-sm font-black text-teal-300 truncate">-</strong>
                         </div>
                     </div>
-                    <small class="text-[9px] mt-2 block opacity-70" style="color:var(--text-muted)">Fase dominan periode</small>
+                    <small class="text-[9px] mt-1.5 block opacity-70" style="color:var(--text-muted)">Fase paling sering</small>
                 </div>
-                <div class="theme-card p-3 rounded-2xl border border-[var(--border-card)] flex flex-col justify-between">
+                <div class="theme-card p-3 rounded-2xl border border-[var(--border-card)] flex flex-col justify-between min-h-[76px]">
                     <div>
                         <span class="text-[10px] block font-bold uppercase tracking-wider" style="color:var(--text-muted)">Rata-rata Tidur</span>
                         <div class="mt-1">
-                            <strong id="bmKpiSleep" class="text-sm sm:text-base font-mono font-extrabold text-indigo-400">-</strong>
+                            <strong id="bmKpiSleep" class="text-sm sm:text-base font-black font-mono text-indigo-300">-</strong>
                         </div>
                     </div>
-                    <small class="text-[9px] mt-2 block opacity-70" style="color:var(--text-muted)">Target: 7–8 jam/malam</small>
+                    <small class="text-[9px] mt-1.5 block opacity-70" style="color:var(--text-muted)">Target: 7–8 jam/malam</small>
                 </div>
-                <div class="theme-card p-3 rounded-2xl border border-[var(--border-card)] flex flex-col justify-between">
+                <div class="theme-card p-3 rounded-2xl border border-[var(--border-card)] flex flex-col justify-between min-h-[76px]">
                     <div>
                         <span class="text-[10px] block font-bold uppercase tracking-wider" style="color:var(--text-muted)">Stabilitas Emosi</span>
-                        <div class="mt-1">
-                            <strong id="bmKpiStability" class="text-sm sm:text-base font-mono font-extrabold text-teal-300">-</strong>
+                        <div class="mt-1 flex items-baseline gap-1.5">
+                            <strong id="bmKpiStability" class="text-sm sm:text-base font-black font-mono text-teal-300">-</strong>
+                            <span id="bmKpiStabilityBadge" class="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-teal-500/15 text-teal-300"></span>
                         </div>
                     </div>
-                    <small class="text-[9px] mt-2 block opacity-70" style="color:var(--text-muted)">Indeks konsistensi</small>
+                    <small class="text-[9px] mt-1.5 block opacity-70" style="color:var(--text-muted)">Konsistensi fase euthymic</small>
                 </div>
-                <div class="theme-card p-3 rounded-2xl border border-[var(--border-card)] flex flex-col justify-between">
+                <div class="theme-card p-3 rounded-2xl border border-[var(--border-card)] flex flex-col justify-between min-h-[76px]">
                     <div>
                         <span class="text-[10px] block font-bold uppercase tracking-wider" style="color:var(--text-muted)">Kepatuhan Obat</span>
                         <div class="mt-1">
-                            <strong id="bmKpiMedication" class="text-sm sm:text-base font-mono font-extrabold text-emerald-400">-</strong>
+                            <strong id="bmKpiMedication" class="text-sm sm:text-base font-black font-mono text-emerald-400">-</strong>
                         </div>
                     </div>
-                    <small class="text-[9px] mt-2 block opacity-70" style="color:var(--text-muted)">Sesuai resep psikiater</small>
+                    <small class="text-[9px] mt-1.5 block opacity-70" style="color:var(--text-muted)">Sesuai resep dokter</small>
                 </div>
             </div>
 
@@ -1035,41 +1040,39 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <h4 class="text-xs sm:text-sm font-bold" style="color:var(--text-main)">Bipolar Spectrum Mood Chart</h4>
-                        <p class="text-[10px]" style="color:var(--text-muted)">Visualisasi level mood per hari dari depresi berat hingga mania akut</p>
+                        <p class="text-[10px]" style="color:var(--text-muted)">Skala spektrum -3 (Depresi Berat) hingga +3 (Mania Akut)</p>
                     </div>
-                    <span id="bmChartPeriodSub" class="text-[10px] font-mono font-bold text-indigo-400">7 Hari Terakhir</span>
                 </div>
 
-                <!-- Legend Spektrum Mood -->
-                <div class="flex items-center justify-between text-[9px] font-mono py-1.5 px-2.5 rounded-xl bg-[var(--input-bg)] border border-[var(--border-card)] flex-wrap gap-1.5" style="color:var(--text-muted)">
-                    <span class="flex items-center gap-1 text-rose-400 font-bold"><span class="w-2 h-2 rounded-full bg-rose-500"></span>+3 Mania Akut</span>
-                    <span class="flex items-center gap-1 text-amber-400"><span class="w-2 h-2 rounded-full bg-amber-500"></span>+2 Mania</span>
-                    <span class="flex items-center gap-1 text-yellow-300"><span class="w-2 h-2 rounded-full bg-yellow-400"></span>+1 Hipomania</span>
-                    <span class="flex items-center gap-1 text-emerald-400 font-bold"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>0 Euthymic (Stabil)</span>
-                    <span class="flex items-center gap-1 text-indigo-300"><span class="w-2 h-2 rounded-full bg-indigo-400"></span>-1 Depresi Ringan</span>
-                    <span class="flex items-center gap-1 text-purple-300"><span class="w-2 h-2 rounded-full bg-purple-500"></span>-2 Depresi Sedang</span>
-                    <span class="flex items-center gap-1 text-indigo-400 font-bold"><span class="w-2 h-2 rounded-full bg-indigo-600"></span>-3 Depresi Berat</span>
+                <!-- Sleek Minimal Spectrum Legend Bar -->
+                <div class="p-2 rounded-xl bg-[var(--input-bg)] border border-[var(--border-card)] space-y-1">
+                    <div class="h-1.5 w-full rounded-full bg-gradient-to-r from-indigo-600 via-emerald-400 via-amber-400 to-rose-500"></div>
+                    <div class="flex items-center justify-between text-[9px] font-mono text-slate-400 px-0.5">
+                        <span class="text-indigo-400 font-bold">-3 Depresi Berat</span>
+                        <span class="text-purple-300">-1 Depresi Ringan</span>
+                        <span class="text-emerald-400 font-bold">0 Stabil (Euthymic)</span>
+                        <span class="text-amber-300">+1 Hipomania</span>
+                        <span class="text-rose-400 font-bold">+3 Mania Akut</span>
+                    </div>
                 </div>
 
-                <!-- Visual Life Chart Container -->
-                <div class="theme-card p-4 rounded-2xl border border-[var(--border-card)]">
+                <!-- Visual Spectrum Chart Container -->
+                <div class="theme-card p-3 sm:p-4 rounded-2xl border border-[var(--border-card)] overflow-hidden">
                     <div id="bmChartContainer" class="w-full min-h-[170px] flex items-center justify-center"></div>
                 </div>
             </div>
 
             <!-- Sleep & Energy Correlation -->
             <div class="space-y-2">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h4 class="text-xs sm:text-sm font-bold flex items-center gap-1.5" style="color:var(--text-main)">
-                            <i data-lucide="moon-star" class="w-3.5 h-3.5 text-indigo-400"></i>
-                            Korelasi Durasi Tidur & Fluktuasi Mood / Energi
-                        </h4>
-                        <p class="text-[10px]" style="color:var(--text-muted)">Perbandingan durasi tidur terhadap pola manik dan depresi</p>
-                    </div>
+                <div>
+                    <h4 class="text-xs sm:text-sm font-bold flex items-center gap-1.5" style="color:var(--text-main)">
+                        <i data-lucide="moon-star" class="w-3.5 h-3.5 text-indigo-400"></i>
+                        Korelasi Durasi Tidur & Fluktuasi Mood
+                    </h4>
+                    <p class="text-[10px]" style="color:var(--text-muted)">Perbandingan durasi tidur terhadap pola manik dan depresi</p>
                 </div>
-                <div class="theme-card p-4 rounded-2xl border border-[var(--border-card)] space-y-3">
-                    <div id="bmCorrelationChart" class="w-full min-h-[120px]"></div>
+                <div class="theme-card p-3.5 sm:p-4 rounded-2xl border border-[var(--border-card)] space-y-3">
+                    <div id="bmCorrelationChart" class="w-full"></div>
                     <div id="bmCorrelationInsight" class="p-3 rounded-xl tag-indigo text-xs space-y-1"></div>
                 </div>
             </div>
@@ -1080,7 +1083,7 @@
                     <h4 class="text-xs sm:text-sm font-bold" style="color:var(--text-main)">Riwayat Catatan Skrining Mood</h4>
                     <span id="bmHistoryCount" class="text-[10px] text-indigo-400 font-bold">0 entri</span>
                 </div>
-                <div id="bmHistoryList" class="space-y-2 max-h-56 overflow-y-auto custom-scrollbar pr-1"></div>
+                <div id="bmHistoryList" class="space-y-2 max-h-64 overflow-y-auto custom-scrollbar pr-1"></div>
             </div>
 
         </div>
@@ -7177,7 +7180,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             triggerConfetti();
         }
 
-                // ================= BIPOLAR LIFE CHART & ANALYTICS ENGINE =================
+                        // ================= BIPOLAR LIFE CHART & ANALYTICS ENGINE =================
         const BipolarTracker = (() => {
             const STORAGE_KEY = 'ZIEL_BIPOLAR_LOGS';
             let chartDaysRange = 7;
@@ -7263,9 +7266,9 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     const btn = document.getElementById('bmFilter' + d + 'Btn');
                     if (btn) {
                         if (d === days) {
-                            btn.className = 'px-3 py-1.5 rounded-lg font-bold primary-btn-gradient whitespace-nowrap';
+                            btn.className = 'flex-1 sm:flex-none text-center px-3 py-1.5 rounded-xl text-xs font-bold primary-btn-gradient whitespace-nowrap transition-all';
                         } else {
-                            btn.className = 'px-3 py-1.5 rounded-lg font-medium btn-secondary whitespace-nowrap';
+                            btn.className = 'flex-1 sm:flex-none text-center px-3 py-1.5 rounded-xl text-xs font-semibold btn-secondary whitespace-nowrap transition-all';
                         }
                     }
                 });
@@ -7273,7 +7276,6 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 playChime('click');
             }
 
-            // Penanganan perubahan tanggal pada pemilih tanggal skrining
             function onDateChange(val) {
                 const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
                 if (!val) val = today;
@@ -7294,7 +7296,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 const existing = getHistory().find(l => l.date === val);
                 if (existing) {
                     state.editingLogId = existing.id;
-                    if (dateHint) dateHint.textContent = 'Memuat catatan tanggal ini (mode perbarui/edit)';
+                    if (dateHint) dateHint.textContent = 'Memuat catatan tanggal ini (mode edit/perbarui)';
                     if (Array.isArray(existing.answers) && existing.answers.length >= 5) {
                         state.answers.q1 = existing.answers[0];
                         state.answers.q2 = existing.answers[1];
@@ -7341,7 +7343,6 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 goToStep1();
             }
 
-            // Fitur Edit: Membuka formulir dengan data entri yang sudah ada
             function editLog(logId) {
                 const log = getHistory().find(l => l.id === logId);
                 if (!log) return;
@@ -7390,7 +7391,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
 
                 const dateDisplay = typeof formatDateId === 'function' ? formatDateId(log.date, { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' }) : log.date;
                 const subtitle = document.getElementById('bmStepSubtitle');
-                if (subtitle) subtitle.textContent = `Mengedit catatan skrining tanggal ${dateDisplay}`;
+                if (subtitle) subtitle.textContent = `Mengedit catatan tanggal ${dateDisplay}`;
 
                 safeLucideCreateIcons({ root: modal });
                 playChime('click');
@@ -7407,12 +7408,16 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
 
                 if (todayLog) {
                     const conf = MOOD_LEVELS[todayLog.moodScore] || MOOD_LEVELS[0];
-                    if (titleEl) titleEl.textContent = `${conf.title} (Skor: ${todayLog.moodScore > 0 ? '+' : ''}${todayLog.moodScore})`;
-                    if (descEl) descEl.textContent = `Tidur: ${todayLog.sleepHours} jam • Obat: ${todayLog.medicationTaken ? 'Diminum ✓' : 'Terlewat ✗'}${todayLog.triggers && todayLog.triggers.length ? ' • Pemicu: ' + todayLog.triggers.join(', ') : ''}`;
-                    if (btnText) btnText.textContent = 'Perbarui Catatan Hari Ini';
+                    if (titleEl) {
+                        titleEl.innerHTML = `<span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background-color:${conf.color}"></span><span>${conf.title} (Skor: ${todayLog.moodScore > 0 ? '+' : ''}${todayLog.moodScore})</span></span>`;
+                    }
+                    if (descEl) {
+                        descEl.innerHTML = `<span class="inline-flex items-center gap-2 flex-wrap"><span>🌙 Tidur: <strong>${todayLog.sleepHours} jam</strong></span><span>•</span><span class="${todayLog.medicationTaken ? 'text-emerald-400' : 'text-rose-400'}">💊 ${todayLog.medicationTaken ? 'Obat Diminum ✓' : 'Obat Terlewat ✗'}</span>${todayLog.triggers && todayLog.triggers.length ? '<span>•</span><span>⚡ ' + todayLog.triggers.join(', ') + '</span>' : ''}</span>`;
+                    }
+                    if (btnText) btnText.textContent = 'Edit Catatan Hari Ini';
                 } else {
                     if (titleEl) titleEl.textContent = 'Belum dicatat hari ini';
-                    if (descEl) descEl.textContent = 'Lakukan skrining singkat 1–2 menit untuk memantau keseimbangan dirimu.';
+                    if (descEl) descEl.textContent = 'Lakukan skrining singkat 1–2 menit untuk merekam kestabilanmu.';
                     if (btnText) btnText.textContent = '+ Catat Skrining Mood Baru';
                 }
 
@@ -7421,15 +7426,16 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
 
                 const periodSub = document.getElementById('bmChartPeriodSub');
                 if (periodSub) {
-                    const labelMap = { 1: 'Hari Ini', 7: '7 Hari Terakhir', 14: '2 Minggu (14 Hari)', 30: '30 Hari Terakhir', 90: '3 Bulan (90 Hari)' };
+                    const labelMap = { 1: 'Hari Ini', 7: '7 Hari Terakhir', 14: '14 Hari Terakhir', 30: '30 Hari Terakhir', 90: '90 Hari (3 Bulan)' };
                     periodSub.textContent = labelMap[chartDaysRange] || (chartDaysRange + ' Hari');
                 }
 
-                // 4 Kartu Ringkasan
+                // 4 Kartu Ringkasan (KPI Cards)
                 const dominantEl = document.getElementById('bmKpiDominant');
                 const dominantBadge = document.getElementById('bmKpiDominantBadge');
                 const sleepEl = document.getElementById('bmKpiSleep');
                 const stabilityEl = document.getElementById('bmKpiStability');
+                const stabilityBadge = document.getElementById('bmKpiStabilityBadge');
                 const medEl = document.getElementById('bmKpiMedication');
 
                 if (rangeLogs.length > 0) {
@@ -7453,11 +7459,15 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     const avgSleep = (rangeLogs.reduce((sum, l) => sum + (Number(l.sleepHours) || 0), 0) / rangeLogs.length).toFixed(1);
                     if (sleepEl) sleepEl.textContent = avgSleep + ' jam';
 
-                    // 3. Indeks Stabilitas Emosi (% hari stabil di rentang -1 s/d +1)
+                    // 3. Indeks Stabilitas Emosi
                     const stableDays = rangeLogs.filter(l => Math.abs(l.moodScore) <= 1).length;
                     const stabilityPct = Math.round((stableDays / rangeLogs.length) * 100);
-                    const stabilityRating = stabilityPct >= 80 ? 'Tinggi' : (stabilityPct >= 50 ? 'Sedang' : 'Fluktuatif');
-                    if (stabilityEl) stabilityEl.textContent = `${stabilityPct}% (${stabilityRating})`;
+                    const stabilityRating = stabilityPct >= 80 ? 'Stabil' : (stabilityPct >= 50 ? 'Sedang' : 'Fluktuatif');
+                    if (stabilityEl) stabilityEl.textContent = `${stabilityPct}%`;
+                    if (stabilityBadge) {
+                        stabilityBadge.textContent = stabilityRating;
+                        stabilityBadge.className = `text-[9px] font-bold px-1.5 py-0.5 rounded-full ${stabilityPct >= 80 ? 'bg-emerald-500/15 text-emerald-400' : (stabilityPct >= 50 ? 'bg-amber-500/15 text-amber-400' : 'bg-rose-500/15 text-rose-400')}`;
+                    }
 
                     // 4. Kepatuhan Obat (Medication Adherence)
                     const medDays = rangeLogs.filter(l => l.medicationTaken).length;
@@ -7468,6 +7478,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     if (dominantBadge) dominantBadge.style.backgroundColor = '#10B981';
                     if (sleepEl) sleepEl.textContent = '-';
                     if (stabilityEl) stabilityEl.textContent = '-';
+                    if (stabilityBadge) stabilityBadge.textContent = '';
                     if (medEl) medEl.textContent = '-';
                 }
 
@@ -7476,13 +7487,14 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 renderHistoryList(rangeLogs);
             }
 
-            // Bipolar Spectrum Bar / Line Chart (-3 s/d +3, plus -4 s/d +4)
+            // Redesigned Bipolar Spectrum Visualization: Responsive Day Columns for 7 & 14 days, SVG for 30/90
             function renderSvgLifeChart(logs, daysCount) {
                 const container = document.getElementById('bmChartContainer');
                 if (!container) return;
 
                 const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
 
+                // KASUS 1: 1 Hari (Hari Ini Snapshot Card)
                 if (daysCount === 1) {
                     const todayLog = logs.find(l => l.date === today);
                     if (!todayLog) {
@@ -7501,28 +7513,29 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
 
                     const conf = MOOD_LEVELS[todayLog.moodScore] || MOOD_LEVELS[0];
                     container.innerHTML = `
-                        <div class="w-full space-y-4 py-2">
-                            <div class="flex items-center justify-between p-3.5 rounded-xl ${conf.class}">
-                                <div>
-                                    <span class="text-[10px] uppercase font-mono font-bold tracking-widest block opacity-75">Level Spektrum Hari Ini</span>
-                                    <strong class="text-sm sm:text-base font-extrabold">${conf.title}</strong>
+                        <div class="w-full space-y-3 py-1">
+                            <div class="flex items-center justify-between p-3.5 rounded-2xl ${conf.class}">
+                                <div class="space-y-0.5">
+                                    <span class="text-[10px] uppercase font-mono font-bold tracking-wider opacity-80 block">Posisi Spektrum Hari Ini</span>
+                                    <strong class="text-sm sm:text-base font-black">${conf.title}</strong>
+                                    <p class="text-[11px] opacity-90">${conf.name}</p>
                                 </div>
-                                <span class="text-xl font-black font-mono px-3 py-1 rounded-xl bg-black/20">${todayLog.moodScore > 0 ? '+' : ''}${todayLog.moodScore}</span>
+                                <span class="text-2xl font-black font-mono px-3.5 py-1.5 rounded-xl bg-black/25 text-white shadow-inner">${todayLog.moodScore > 0 ? '+' : ''}${todayLog.moodScore}</span>
                             </div>
                             <div class="grid grid-cols-2 gap-2 text-xs">
-                                <div class="p-2.5 rounded-xl border border-[var(--border-card)] bg-[var(--input-bg)]">
-                                    <span class="text-[10px]" style="color:var(--text-muted)">Durasi Tidur Semalam</span>
-                                    <strong class="block text-xs mt-0.5" style="color:var(--text-main)">🌙 ${todayLog.sleepHours} Jam</strong>
+                                <div class="p-3 rounded-xl border border-[var(--border-card)] bg-[var(--input-bg)]">
+                                    <span class="text-[10px] text-slate-400 block font-semibold">Durasi Tidur Semalam</span>
+                                    <strong class="block text-xs sm:text-sm mt-0.5 text-white font-mono">🌙 ${todayLog.sleepHours} Jam</strong>
                                 </div>
-                                <div class="p-2.5 rounded-xl border border-[var(--border-card)] bg-[var(--input-bg)]">
-                                    <span class="text-[10px]" style="color:var(--text-muted)">Kepatuhan Obat</span>
-                                    <strong class="block text-xs mt-0.5 ${todayLog.medicationTaken ? 'text-emerald-400' : 'text-rose-400'}">💊 ${todayLog.medicationTaken ? 'Diminum ✓' : 'Terlewat ✗'}</strong>
+                                <div class="p-3 rounded-xl border border-[var(--border-card)] bg-[var(--input-bg)]">
+                                    <span class="text-[10px] text-slate-400 block font-semibold">Kepatuhan Obat</span>
+                                    <strong class="block text-xs sm:text-sm mt-0.5 font-mono ${todayLog.medicationTaken ? 'text-emerald-400' : 'text-rose-400'}">💊 ${todayLog.medicationTaken ? 'Diminum ✓' : 'Terlewat ✗'}</strong>
                                 </div>
                             </div>
                             ${todayLog.triggers && todayLog.triggers.length ? `
-                                <div class="text-[11px] flex items-center gap-1.5 flex-wrap">
-                                    <span style="color:var(--text-muted)">Pemicu:</span>
-                                    ${todayLog.triggers.map(t => `<span class="px-2 py-0.5 rounded-lg tag-indigo text-[10px] font-semibold">${escapeHtml(t)}</span>`).join('')}
+                                <div class="p-2.5 rounded-xl bg-[var(--input-bg)] border border-[var(--border-card)] flex items-center gap-1.5 flex-wrap text-xs">
+                                    <span class="text-[10px] text-slate-400 font-semibold">Pemicu Terdeteksi:</span>
+                                    ${todayLog.triggers.map(t => `<span class="px-2 py-0.5 rounded-lg tag-indigo text-[10px] font-bold">${escapeHtml(t)}</span>`).join('')}
                                 </div>
                             ` : ''}
                         </div>
@@ -7531,7 +7544,97 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     return;
                 }
 
-                // Untuk 7, 14, 30, atau 90 hari: SVG Spectrum Chart
+                // KASUS 2: 7 Hari atau 14 Hari (Responsive Day Columns - Bebas SVG Scaling Blur!)
+                if (daysCount === 7 || daysCount === 14) {
+                    const dayKeys = [];
+                    for (let i = daysCount - 1; i >= 0; i--) {
+                        const d = typeof addDate === 'function' ? addDate(today, -i, 'day') : new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
+                        dayKeys.push(d);
+                    }
+
+                    const dayShortNames = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+
+                    let html = `<div class="w-full space-y-2">`;
+                    html += `<div class="flex items-stretch gap-1.5 sm:gap-2 ${daysCount === 14 ? 'overflow-x-auto custom-scrollbar pb-2' : ''} justify-between">`;
+
+                    dayKeys.forEach(dateKey => {
+                        const log = logs.find(l => l.date === dateKey);
+                        const dObj = parseLocalDate(dateKey);
+                        const dayName = dayShortNames[dObj.getDay()];
+                        const dayNum = dObj.getDate();
+                        const isToday = dateKey === today;
+
+                        let trackContent = '';
+                        let badgeContent = '<span class="text-[9px] font-bold text-slate-600 block h-4">—</span>';
+
+                        if (log) {
+                            const score = Math.max(-3, Math.min(3, log.moodScore));
+                            const conf = MOOD_LEVELS[log.moodScore] || MOOD_LEVELS[0];
+                            const scoreText = (score > 0 ? '+' : '') + score;
+                            badgeContent = `<span class="text-[9px] sm:text-[10px] font-black font-mono px-1.5 py-0.5 rounded ${conf.class} block shadow-sm">${scoreText}</span>`;
+
+                            // Height calculation: track height 90px, center at 45px
+                            if (score > 0) {
+                                const barH = Math.max(8, (score / 3) * 40);
+                                trackContent = `
+                                    <div class="absolute left-1/2 -translate-x-1/2 w-2 sm:w-2.5 rounded-t-md transition-all duration-300"
+                                         style="bottom:45px; height:${barH}px; background-color:${conf.color}; box-shadow:0 0 10px ${conf.color}55">
+                                    </div>
+                                    <div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-2 border-[var(--bg-card)] transition-transform hover:scale-125"
+                                         style="bottom:${45 + barH - 4}px; background-color:${conf.color}"
+                                         title="${dateKey}: ${conf.title} | Tidur: ${log.sleepHours}j">
+                                    </div>
+                                `;
+                            } else if (score < 0) {
+                                const barH = Math.max(8, (Math.abs(score) / 3) * 40);
+                                trackContent = `
+                                    <div class="absolute left-1/2 -translate-x-1/2 w-2 sm:w-2.5 rounded-b-md transition-all duration-300"
+                                         style="top:45px; height:${barH}px; background-color:${conf.color}; box-shadow:0 0 10px ${conf.color}55">
+                                    </div>
+                                    <div class="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-2 border-[var(--bg-card)] transition-transform hover:scale-125"
+                                         style="top:${45 + barH - 4}px; background-color:${conf.color}"
+                                         title="${dateKey}: ${conf.title} | Tidur: ${log.sleepHours}j">
+                                    </div>
+                                `;
+                            } else {
+                                trackContent = `
+                                    <div class="absolute left-1/2 -translate-x-1/2 top-[42px] w-3 h-3 rounded-full border-2 border-[var(--bg-card)] bg-emerald-400 shadow-sm shadow-emerald-400/50"
+                                         title="${dateKey}: Euthymic (Stabil 0) | Tidur: ${log.sleepHours}j">
+                                    </div>
+                                `;
+                            }
+                        }
+
+                        html += `
+                            <div class="flex flex-col items-center justify-between min-w-[38px] sm:min-w-[44px] flex-1 p-1 rounded-xl transition ${isToday ? 'bg-indigo-500/10 ring-1 ring-indigo-500/30' : 'hover:bg-slate-800/30'}">
+                                <div class="h-5 flex items-center justify-center">${badgeContent}</div>
+                                
+                                <!-- Track Height 90px -->
+                                <div class="relative w-full h-[90px] my-1 flex items-center justify-center">
+                                    <!-- Garis vertikal samar -->
+                                    <div class="w-[1.5px] h-full ${log ? 'bg-slate-700/60' : 'bg-slate-800/40 border-dashed'}"></div>
+                                    <!-- Garis zero baseline horizontal -->
+                                    <div class="absolute w-full h-[1.5px] bg-emerald-500/30 top-[45px]"></div>
+                                    ${trackContent}
+                                </div>
+
+                                <!-- Tanggal Bawah -->
+                                <div class="text-center pt-0.5">
+                                    <span class="text-[9px] uppercase font-bold block ${isToday ? 'text-teal-400' : 'text-slate-500'}">${dayName}</span>
+                                    <span class="text-[10px] sm:text-xs font-black font-mono block ${isToday ? 'text-white' : 'text-slate-300'}">${dayNum}</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    html += `</div>`;
+                    html += `</div>`;
+                    container.innerHTML = html;
+                    safeLucideCreateIcons({ root: container });
+                    return;
+                }
+
+                // KASUS 3: 30 Hari atau 90 Hari (Responsive Clean SVG)
                 const dayKeys = [];
                 for (let i = daysCount - 1; i >= 0; i--) {
                     const d = typeof addDate === 'function' ? addDate(today, -i, 'day') : new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
@@ -7539,8 +7642,8 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 }
 
                 const vw = 640;
-                const vh = 180;
-                const padX = 42;
+                const vh = 160;
+                const padX = 40;
                 const padY = 20;
                 const chartW = vw - padX * 2;
                 const chartH = vh - padY * 2;
@@ -7562,45 +7665,24 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                             score: found.moodScore,
                             date: key,
                             sleep: found.sleepHours,
-                            med: found.medicationTaken,
-                            triggers: found.triggers || []
+                            med: found.medicationTaken
                         });
                     }
                 });
 
                 let svg = `<svg viewBox="0 0 ${vw} ${vh}" class="w-full h-full overflow-visible select-none">`;
 
-                const spectrumLevels = [
-                    { val: 3, label: '+3 Mania', color: 'rgba(244,63,94,0.3)' },
-                    { val: 2, label: '+2', color: 'rgba(251,146,60,0.2)' },
-                    { val: 1, label: '+1', color: 'rgba(251,191,36,0.2)' },
-                    { val: 0, label: '0 Euthymic', color: 'rgba(16,185,129,0.55)', isZero: true },
-                    { val: -1, label: '-1', color: 'rgba(129,140,248,0.2)' },
-                    { val: -2, label: '-2', color: 'rgba(167,139,250,0.2)' },
-                    { val: -3, label: '-3 Depresi', color: 'rgba(99,102,241,0.35)' }
-                ];
+                // Garis acuan spektrum +3, 0, -3
+                svg += `<line x1="${padX}" y1="${getY(3)}" x2="${vw - padX}" y2="${getY(3)}" stroke="rgba(244,63,94,0.3)" stroke-dasharray="3,3" stroke-width="1" />`;
+                svg += `<text x="${padX - 6}" y="${getY(3) + 3}" fill="#FB7185" font-size="9" font-family="monospace" text-anchor="end">+3 Mania</text>`;
 
-                spectrumLevels.forEach(lvl => {
-                    const y = getY(lvl.val);
-                    svg += `<line x1="${padX}" y1="${y}" x2="${vw - padX}" y2="${y}" stroke="${lvl.color}" stroke-dasharray="${lvl.isZero ? 'none' : '3,3'}" stroke-width="${lvl.isZero ? '1.75' : '1'}" />`;
-                    svg += `<text x="${padX - 6}" y="${y + 3}" fill="var(--text-muted)" font-size="8" font-family="monospace" text-anchor="end" font-weight="${lvl.isZero ? 'bold' : 'normal'}">${lvl.label}</text>`;
-                });
+                svg += `<line x1="${padX}" y1="${zeroY}" x2="${vw - padX}" y2="${zeroY}" stroke="rgba(16,185,129,0.6)" stroke-width="1.5" />`;
+                svg += `<text x="${padX - 6}" y="${zeroY + 3}" fill="#34D399" font-size="9" font-family="monospace" font-weight="bold" text-anchor="end">0 Stabil</text>`;
 
-                // Area / Bar batang spektrum
-                points.forEach(p => {
-                    const barWidth = Math.max(3, Math.min(14, chartW / daysCount * 0.55));
-                    const conf = MOOD_LEVELS[p.score] || MOOD_LEVELS[0];
-                    const yTop = Math.min(p.y, zeroY);
-                    const barH = Math.max(3, Math.abs(p.y - zeroY));
+                svg += `<line x1="${padX}" y1="${getY(-3)}" x2="${vw - padX}" y2="${getY(-3)}" stroke="rgba(99,102,241,0.3)" stroke-dasharray="3,3" stroke-width="1" />`;
+                svg += `<text x="${padX - 6}" y="${getY(-3) + 3}" fill="#818CF8" font-size="9" font-family="monospace" text-anchor="end">-3 Depresi</text>`;
 
-                    svg += `
-                        <rect x="${p.x - barWidth / 2}" y="${yTop}" width="${barWidth}" height="${barH}" rx="2"
-                              fill="${conf.color}" opacity="0.35">
-                        </rect>
-                    `;
-                });
-
-                // Garis penghubung tren
+                // Garis kurva tren
                 if (points.length > 1) {
                     let pathD = `M ${points[0].x} ${points[0].y}`;
                     for (let i = 1; i < points.length; i++) {
@@ -7609,28 +7691,22 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     svg += `<path d="${pathD}" fill="none" stroke="#6366F1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />`;
                 }
 
-                // Titik-titik data
+                // Titik data
                 points.forEach(p => {
                     const conf = MOOD_LEVELS[p.score] || MOOD_LEVELS[0];
-                    const tooltipText = `${p.date}: ${conf.title} | Tidur: ${p.sleep}j | Obat: ${p.med ? 'Ya' : 'Tidak'}`;
                     svg += `
-                        <circle cx="${p.x}" cy="${p.y}" r="4.5" fill="${conf.color}" stroke="var(--bg-card)" stroke-width="2" class="cursor-pointer transition-transform hover:scale-125">
-                            <title>${escapeHtml(tooltipText)}</title>
+                        <circle cx="${p.x}" cy="${p.y}" r="4" fill="${conf.color}" stroke="var(--bg-card)" stroke-width="2" class="cursor-pointer transition-transform hover:scale-125">
+                            <title>${p.date}: ${conf.title} | Tidur: ${p.sleep}j</title>
                         </circle>
                     `;
                 });
 
-                // Label Tanggal Bawah
+                // Tanggal label
                 if (dayKeys.length > 0) {
                     const firstDate = typeof formatDateId === 'function' ? formatDateId(dayKeys[0], { day: 'numeric', month: 'short' }) : dayKeys[0];
                     const lastDate = typeof formatDateId === 'function' ? formatDateId(dayKeys[dayKeys.length - 1], { day: 'numeric', month: 'short' }) : dayKeys[dayKeys.length - 1];
-                    svg += `<text x="${padX}" y="${vh - 3}" fill="var(--text-muted)" font-size="9" font-family="monospace">${escapeHtml(firstDate)}</text>`;
-                    if (dayKeys.length > 10) {
-                        const midIdx = Math.floor(dayKeys.length / 2);
-                        const midDate = typeof formatDateId === 'function' ? formatDateId(dayKeys[midIdx], { day: 'numeric', month: 'short' }) : dayKeys[midIdx];
-                        svg += `<text x="${vw / 2}" y="${vh - 3}" text-anchor="middle" fill="var(--text-muted)" font-size="9" font-family="monospace">${escapeHtml(midDate)}</text>`;
-                    }
-                    svg += `<text x="${vw - padX}" y="${vh - 3}" text-anchor="end" fill="var(--text-muted)" font-size="9" font-family="monospace">${escapeHtml(lastDate)}</text>`;
+                    svg += `<text x="${padX}" y="${vh - 4}" fill="var(--text-muted)" font-size="10" font-family="monospace">${escapeHtml(firstDate)}</text>`;
+                    svg += `<text x="${vw - padX}" y="${vh - 4}" text-anchor="end" fill="var(--text-muted)" font-size="10" font-family="monospace">${escapeHtml(lastDate)}</text>`;
                 }
 
                 if (points.length === 0) {
@@ -7641,7 +7717,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 container.innerHTML = svg;
             }
 
-            // Sleep & Energy Correlation Section
+            // Sleep & Energy Correlation Section (Redesigned with Daily Progress Comparison + Insight Card)
             function renderSleepCorrelation(rangeLogs, daysCount) {
                 const chartEl = document.getElementById('bmCorrelationChart');
                 const insightEl = document.getElementById('bmCorrelationInsight');
@@ -7653,60 +7729,59 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     return;
                 }
 
-                const vw = 500;
-                const vh = 100;
-                const padX = 30;
-                const padY = 15;
-                const chartW = vw - padX * 2;
-                const chartH = vh - padY * 2;
+                // Render perbandingan hari demi hari (maks 7 entri terakhir)
+                const displayLogs = rangeLogs.slice(0, 7);
+                let html = `<div class="space-y-2">`;
 
-                const sortedLogs = rangeLogs.slice().reverse();
-                const barWidth = Math.max(4, Math.min(18, chartW / sortedLogs.length * 0.65));
-
-                let svg = `<svg viewBox="0 0 ${vw} ${vh}" class="w-full h-full overflow-visible select-none">`;
-                const targetY = padY + (1 - 7.5 / 12) * chartH;
-                svg += `<line x1="${padX}" y1="${targetY}" x2="${vw - padX}" y2="${targetY}" stroke="rgba(45,212,191,0.4)" stroke-dasharray="3,3" stroke-width="1.2" />`;
-                svg += `<text x="${padX - 4}" y="${targetY + 3}" fill="#2DD4BF" font-size="7.5" font-family="monospace" text-anchor="end">7.5j</text>`;
-
-                sortedLogs.forEach((l, idx) => {
-                    const x = padX + (idx / Math.max(1, sortedLogs.length - 1)) * chartW;
-                    const sleep = Math.min(12, Math.max(0, l.sleepHours || 0));
-                    const h = (sleep / 12) * chartH;
-                    const y = padY + chartH - h;
+                displayLogs.forEach(l => {
                     const conf = MOOD_LEVELS[l.moodScore] || MOOD_LEVELS[0];
+                    const dStr = typeof formatDateId === 'function' ? formatDateId(l.date, { weekday: 'short', day: 'numeric', month: 'short' }) : l.date;
+                    const sleep = Number(l.sleepHours) || 0;
+                    const pct = Math.min(100, Math.round((sleep / 10) * 100));
+                    const isOptimal = sleep >= 6.5 && sleep <= 8.5;
 
-                    svg += `<rect x="${x - barWidth / 2}" y="${y}" width="${barWidth}" height="${h}" rx="2" fill="#38BDF8" opacity="0.45">
-                        <title>${l.date}: Tidur ${l.sleepHours} jam | Mood: ${l.moodScore}</title>
-                    </rect>`;
-
-                    svg += `<circle cx="${x}" cy="${y - 4}" r="3" fill="${conf.color}">
-                        <title>Mood: ${conf.title}</title>
-                    </circle>`;
+                    html += `
+                        <div class="p-2.5 rounded-xl bg-[var(--input-bg)] border border-[var(--border-card)] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                            <div class="flex items-center gap-2 min-w-[120px]">
+                                <span class="font-bold text-[11px] text-white">${escapeHtml(dStr)}</span>
+                                <span class="text-[10px] font-extrabold px-1.5 py-0.2 rounded-md ${conf.class}">${l.moodScore > 0 ? '+' : ''}${l.moodScore}</span>
+                            </div>
+                            <div class="flex-1 flex items-center gap-3">
+                                <div class="flex-1 bg-slate-800 h-2 rounded-full overflow-hidden relative">
+                                    <!-- Marker 7-8h -->
+                                    <div class="absolute left-[70%] top-0 bottom-0 w-0.5 bg-teal-400 z-10" title="Target: 7-8j"></div>
+                                    <div class="h-full rounded-full transition-all duration-500 ${isOptimal ? 'bg-teal-400' : (sleep < 6 ? 'bg-amber-400' : 'bg-indigo-400')}" style="width:${pct}%"></div>
+                                </div>
+                                <span class="font-mono font-bold text-xs text-white shrink-0">🌙 ${sleep} jam</span>
+                            </div>
+                        </div>
+                    `;
                 });
 
-                svg += `</svg>`;
-                chartEl.innerHTML = svg;
+                html += `</div>`;
+                chartEl.innerHTML = html;
 
+                // Analisis Klinis Sirkadian
                 const shortSleepCount = rangeLogs.filter(l => l.sleepHours < 6).length;
                 const hypomanicWithShortSleep = rangeLogs.filter(l => l.sleepHours < 6 && l.moodScore > 0).length;
 
-                let insightHtml = '<div class="flex items-start gap-2">';
-                insightHtml += '<span class="text-base shrink-0">💡</span><div>';
+                let insightHtml = '<div class="flex items-start gap-2.5">';
+                insightHtml += '<span class="text-lg shrink-0">💡</span><div class="space-y-1">';
                 if (hypomanicWithShortSleep > 0) {
-                    insightHtml += `<strong class="block font-bold text-amber-300">Pola Waspada Sirkadian:</strong>`;
-                    insightHtml += `<p class="mt-0.5 leading-relaxed text-indigo-100">Ditemukan ${hypomanicWithShortSleep} hari dengan tidur &lt; 6 jam yang beriringan dengan elevasi mood/hipomania (+1 s/d +3). Dalam tata kelola bipolar, menjaga waktu tidur tetap di atas 7 jam adalah jangkar utama pencegahan episode manik.</p>`;
+                    insightHtml += `<strong class="block font-bold text-amber-300">Waspada Pola Sirkadian:</strong>`;
+                    insightHtml += `<p class="leading-relaxed text-indigo-100 text-[11px]">Terdeteksi ${hypomanicWithShortSleep} kali tidur &lt; 6 jam beriringan dengan elevasi mood/hipomania (+1 s/d +3). Dalam manajemen bipolar, menjaga tidur minimal 7 jam adalah pilar utama pencegahan episode manik.</p>`;
                 } else if (shortSleepCount > 0) {
-                    insightHtml += `<strong class="block font-bold text-teal-300">Pantauan Waktu Istirahat:</strong>`;
-                    insightHtml += `<p class="mt-0.5 leading-relaxed text-indigo-100">Ada ${shortSleepCount} hari dengan tidur di bawah 6 jam. Pertahankan jam tidur teratur setiap malam untuk menjaga stabilitas mood jangka panjang.</p>`;
+                    insightHtml += `<strong class="block font-bold text-teal-300">Perhatikan Waktu Istirahat:</strong>`;
+                    insightHtml += `<p class="leading-relaxed text-indigo-100 text-[11px]">Ada ${shortSleepCount} hari dengan durasi tidur di bawah 6 jam. Usahakan jam tidur teratur setiap malam untuk menjaga kestabilan suasana hati.</p>`;
                 } else {
-                    insightHtml += `<strong class="block font-bold text-emerald-300">Irama Tidur Terjaga Baik:</strong>`;
-                    insightHtml += `<p class="mt-0.5 leading-relaxed text-indigo-100">Durasi tidur konsisten di atas 6.5–8 jam. Pola ini terbukti kuat menjaga fase Euthymic (stabil) dan mencegah disregulasi suasana hati.</p>`;
+                    insightHtml += `<strong class="block font-bold text-emerald-300">Irama Tidur Terjaga Optimal:</strong>`;
+                    insightHtml += `<p class="leading-relaxed text-indigo-100 text-[11px]">Durasi tidur konsisten di atas 6.5–8 jam. Pola ini terbukti kuat menjaga fase Euthymic (stabil) dan mencegah disregulasi suasana hati.</p>`;
                 }
                 insightHtml += '</div></div>';
                 insightEl.innerHTML = insightHtml;
             }
 
-            // Riwayat Log Entri dengan Tombol Edit dan Hapus
+            // Riwayat Log Entri dengan Layout Bersih & Anti-Menumpuk
             function renderHistoryList(rangeLogs) {
                 const container = document.getElementById('bmHistoryList');
                 const countEl = document.getElementById('bmHistoryCount');
@@ -7715,49 +7790,62 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 if (countEl) countEl.textContent = `${rangeLogs.length} entri`;
 
                 if (rangeLogs.length === 0) {
-                    container.innerHTML = '<p class="text-xs text-center py-4 text-slate-400">Belum ada riwayat catatan mood pada periode ini.</p>';
+                    container.innerHTML = '<p class="text-xs text-center py-5 text-slate-400">Belum ada riwayat catatan mood pada periode ini.</p>';
                     return;
                 }
 
                 container.innerHTML = rangeLogs.map(l => {
                     const conf = MOOD_LEVELS[l.moodScore] || MOOD_LEVELS[0];
-                    const dateFormatted = typeof formatDateId === 'function' ? formatDateId(l.date, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }) : l.date;
+                    const dateFormatted = typeof formatDateId === 'function' ? formatDateId(l.date, { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' }) : l.date;
+                    const triggersHtml = (l.triggers && l.triggers.length) ? `
+                        <div class="flex items-center gap-1.5 flex-wrap pt-0.5">
+                            <span class="text-[10px] text-slate-400 font-semibold">Pemicu:</span>
+                            ${l.triggers.map(t => `<span class="px-2 py-0.5 rounded-md tag-indigo text-[10px] font-bold">${escapeHtml(t)}</span>`).join('')}
+                        </div>
+                    ` : '';
+
                     return `
-                        <div class="theme-card p-3 rounded-2xl border border-[var(--border-card)] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
-                            <div class="min-w-0 space-y-1">
-                                <div class="flex items-center gap-2 flex-wrap">
-                                    <strong class="text-xs font-bold" style="color:var(--text-main)">${escapeHtml(dateFormatted)}</strong>
-                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold ${conf.class}">
-                                        ${conf.name} (${l.moodScore > 0 ? '+' : ''}${l.moodScore})
+                        <div class="theme-card p-3.5 sm:p-4 rounded-2xl border border-[var(--border-card)] hover:border-indigo-500/30 transition space-y-2.5">
+                            <!-- Baris 1: Tanggal & Tombol Aksi -->
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <span class="w-7 h-7 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center text-xs font-bold shrink-0">
+                                        <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
                                     </span>
-                                    <span class="text-[10px] px-2 py-0.5 rounded-full tag-teal">🌙 ${l.sleepHours} jam</span>
-                                    <span class="text-[10px] px-2 py-0.5 rounded-full ${l.medicationTaken ? 'tag-emerald' : 'tag-rose'}">
-                                        💊 ${l.medicationTaken ? 'Obat Diminum ✓' : 'Obat Terlewat ✗'}
-                                    </span>
+                                    <strong class="text-xs sm:text-sm font-extrabold text-white truncate">${escapeHtml(dateFormatted)}</strong>
                                 </div>
-                                ${l.triggers && l.triggers.length ? `
-                                    <div class="flex items-center gap-1 flex-wrap pt-0.5">
-                                        <span class="text-[10px]" style="color:var(--text-muted)">Pemicu:</span>
-                                        ${l.triggers.map(t => `<span class="px-1.5 py-0.2 rounded tag-indigo text-[9px] font-medium">${escapeHtml(t)}</span>`).join('')}
-                                    </div>
-                                ` : ''}
+                                <div class="flex items-center gap-1 shrink-0">
+                                    <button type="button" onclick="BipolarTracker.editLog('${l.id}')" class="btn-secondary px-2.5 py-1 rounded-xl text-indigo-400 hover:bg-indigo-500/15 transition flex items-center gap-1 text-[11px] font-bold" title="Edit catatan">
+                                        <i data-lucide="pencil" class="w-3 h-3"></i>
+                                        <span>Edit</span>
+                                    </button>
+                                    <button type="button" onclick="BipolarTracker.deleteLog('${l.id}')" class="btn-secondary p-1.5 rounded-xl text-rose-400 hover:bg-rose-500/15 transition" title="Hapus catatan">
+                                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-1.5 self-end sm:self-center shrink-0">
-                                <button type="button" onclick="BipolarTracker.editLog('${l.id}')" class="btn-secondary p-1.5 rounded-xl text-indigo-400 hover:bg-indigo-500/10 transition flex items-center gap-1 text-[10px] font-bold" title="Edit catatan">
-                                    <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
-                                    <span>Edit</span>
-                                </button>
-                                <button type="button" onclick="BipolarTracker.deleteLog('${l.id}')" class="btn-secondary p-1.5 rounded-xl text-rose-400 hover:bg-rose-500/10 transition" title="Hapus catatan">
-                                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                                </button>
+
+                            <!-- Baris 2: Lencana Spektrum, Jam Tidur & Status Obat -->
+                            <div class="flex items-center gap-1.5 flex-wrap text-xs">
+                                <span class="px-2.5 py-1 rounded-xl font-black text-[10px] sm:text-[11px] ${conf.class} shadow-sm">
+                                    ${conf.name} (${l.moodScore > 0 ? '+' : ''}${l.moodScore})
+                                </span>
+                                <span class="px-2.5 py-1 rounded-xl text-[10px] sm:text-[11px] font-semibold bg-sky-500/10 text-sky-300 border border-sky-500/20">
+                                    🌙 ${l.sleepHours} jam tidur
+                                </span>
+                                <span class="px-2.5 py-1 rounded-xl text-[10px] sm:text-[11px] font-semibold ${l.medicationTaken ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-300 border border-rose-500/20'}">
+                                    ${l.medicationTaken ? '💊 Obat Diminum ✓' : '⚠️ Obat Terlewat ✗'}
+                                </span>
                             </div>
+
+                            <!-- Baris 3: Pemicu (Jika Ada) -->
+                            ${triggersHtml}
                         </div>
                     `;
                 }).join('');
                 safeLucideCreateIcons({ root: container });
             }
 
-            // Fitur Hapus: Menghapus catatan dengan dialog konfirmasi dan auto-recalculate
             function deleteLog(logId) {
                 const targetLog = getHistory().find(l => l.id === logId);
                 const dateLabel = targetLog ? (typeof formatDateId === 'function' ? formatDateId(targetLog.date, { day: 'numeric', month: 'short', year: 'numeric' }) : targetLog.date) : 'ini';
@@ -7836,7 +7924,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                     const isSelected = state.selectedTriggers.has(t.id);
                     return `
                         <button type="button" onclick="BipolarTracker.toggleTrigger('${t.id}')"
-                                class="px-2.5 py-1 rounded-full text-[11px] font-semibold transition ${isSelected ? 'primary-btn-gradient text-white' : 'btn-secondary'}">
+                                class="px-2.5 py-1 rounded-xl text-[11px] font-semibold transition ${isSelected ? 'primary-btn-gradient text-white shadow-sm' : 'btn-secondary'}">
                             ${t.label} ${isSelected ? '✓' : ''}
                         </button>
                     `;
@@ -7935,7 +8023,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 const title = document.getElementById('bmMoodStateTitle');
                 const desc = document.getElementById('bmMoodStateDesc');
                 if (card && title && desc) {
-                    card.className = `p-3.5 rounded-xl transition-all text-center space-y-0.5 ${config.class}`;
+                    card.className = `p-3.5 rounded-2xl transition-all text-center space-y-0.5 ${config.class}`;
                     title.textContent = config.title;
                     desc.textContent = 'Fase ' + config.name;
                 }
@@ -7950,13 +8038,11 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
                 }
             }
 
-            // Simpan Log: Menyimpan entri baru ataupun update entri yang sedang diedit
             function saveLog() {
                 const dateInput = document.getElementById('bmLogDate');
                 const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
                 let dateStr = (dateInput && dateInput.value) ? dateInput.value : today;
 
-                // Proteksi masa depan
                 if (dateStr > today) {
                     if (typeof showToast === 'function') {
                         showToast({
@@ -7987,7 +8073,6 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
 
                 try {
                     let logs = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-                    // Hapus entri lama dengan tanggal yang sama agar 1 hari = 1 catatan resmi
                     logs = logs.filter(l => l.date !== dateStr && l.id !== logEntry.id);
                     logs.unshift(logEntry);
                     logs.sort((a, b) => b.date.localeCompare(a.date));
