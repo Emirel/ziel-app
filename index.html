@@ -1411,11 +1411,6 @@
                     <i data-lucide="bell" class="w-4 h-4"></i>
                     <span id="notifBadgeCount" class="notification-count absolute bg-rose-500 text-white rounded-full text-[10px] font-black flex items-center justify-center hidden">0</span>
                 </button>
-                <!-- QUICK ACCESS BIPOLAR TRACKER DI HEADER -->
-                <button onclick="BipolarTracker.openHub()" class="clean-icon-btn relative text-indigo-400" title="Bipolar Mood & Life Chart">
-                    <i data-lucide="activity" class="w-4 h-4"></i>
-                    <span id="bmTodayBadgeDot" class="absolute top-1 right-1 w-2 h-2 rounded-full bg-amber-400"></span>
-                </button>
                 <button id="themeToggleButton" onclick="toggleTheme()" class="clean-icon-btn" title="Ganti tema terang/gelap" aria-label="Ganti tema terang atau gelap">
                     <i data-lucide="sun" id="themeHeaderSun" class="w-4 h-4 hidden"></i>
                     <i data-lucide="moon" id="themeHeaderMoon" class="w-4 h-4"></i>
@@ -1534,27 +1529,7 @@
                 </section>
             </div>
         </section>
-        <!-- HOME WIDGET: BIPOLAR MOOD SUMMARY -->
-        <div class="theme-card p-4 rounded-2xl border border-[var(--border-card)] flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3 min-w-0">
-                <div id="bmHomeStatusIcon" class="w-10 h-10 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center shrink-0">
-                    <i data-lucide="activity" class="w-5 h-5"></i>
-                </div>
-                <div class="min-w-0">
-                    <p class="eyebrow text-[10px]">Bipolar Mood Hari Ini</p>
-                    <h4 id="bmHomeStatusTitle" class="text-xs sm:text-sm font-extrabold truncate" style="color:var(--text-main)">
-                        Belum ada catatan
-                    </h4>
-                    <p id="bmHomeStatusSub" class="text-[10px]" style="color:var(--text-muted)">
-                        Skrining 24 jam terakhir untuk deteksi dini
-                    </p>
-                </div>
-            </div>
-            <button onclick="BipolarTracker.openHub()" class="btn-secondary px-3 py-2 rounded-xl text-xs font-bold shrink-0 flex items-center gap-1.5">
-                <span>Buka Hub</span>
-                <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-            </button>
-        </div>
+
         <!-- TODAY / TIMELINE -->
         <section id="timelineView" class="app-view hidden space-y-5">
             <div class="page-heading"><div><p class="eyebrow">Eksekusi hari ini</p><h2>Hari Ini</h2><p>Pilih satu tindakan, atur kapasitas, lalu kerjakan dengan tenang.</p></div><button onclick="prepareAgendaModal()" class="primary-btn-gradient add-cta text-sm"><span class="add-cta-icon"><i data-lucide="plus"></i></span><span>Agenda</span></button></div>
@@ -1643,89 +1618,6 @@
 
     <!-- ==================== MODALS ==================== -->
 
-        <!-- BIPOLAR LIFE CHART & ANALYTICS HUB MODAL -->
-    <div id="bipolarHubModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
-        <div class="glass-modal action-sheet w-full sm:max-w-2xl p-5 sm:p-7 space-y-5 relative max-h-[92vh] overflow-y-auto custom-scrollbar">
-            
-            <!-- Header -->
-            <div class="flex items-start justify-between border-b border-[var(--border-card)] pb-3.5">
-                <div>
-                    <span class="eyebrow flex items-center gap-1.5 text-indigo-400">
-                        <i data-lucide="activity" class="w-3.5 h-3.5"></i>
-                        Bipolar Life Chart & Analytics
-                    </span>
-                    <h3 class="text-base sm:text-lg font-extrabold mt-0.5" style="color: var(--text-main);">
-                        Tren Suasana Hati & Irama Sirkadian
-                    </h3>
-                    <p class="text-xs" style="color: var(--text-muted);">
-                        Pantau pola osilasi depresi (-4), stabil (0), dan manik (+4).
-                    </p>
-                </div>
-                <button type="button" onclick="closeModal('bipolarHubModal')" class="clean-icon-btn" aria-label="Tutup">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-    
-            <!-- Today's Status Banner & Action CTA -->
-            <div id="bmHubTodayCard" class="p-4 rounded-2xl border border-[var(--border-card)] bg-[var(--input-bg)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div class="min-w-0">
-                    <span class="text-[10px] uppercase font-bold tracking-wider" style="color:var(--text-muted)">Kondisi Hari Ini</span>
-                    <h4 id="bmHubTodayScoreTitle" class="text-sm font-extrabold mt-0.5" style="color:var(--text-main)">Belum dicatat</h4>
-                    <p id="bmHubTodayScoreDesc" class="text-xs mt-0.5" style="color:var(--text-sub)">Lakukan skrining singkat 1 menit hari ini.</p>
-                </div>
-                <button onclick="BipolarTracker.startCheckIn()" id="bmHubTodayBtn" class="primary-btn-gradient add-cta px-4 py-2.5 rounded-xl text-xs font-bold shrink-0 justify-center">
-                    <span class="add-cta-icon"><i data-lucide="plus"></i></span>
-                    <span id="bmHubTodayBtnText">Catat Mood Hari Ini</span>
-                </button>
-            </div>
-    
-            <!-- KPI Ringkas: Tidur, Obat, Fase Dominan -->
-            <div class="grid grid-cols-3 gap-2 text-center text-xs">
-                <div class="theme-card p-3 rounded-xl">
-                    <span class="text-[10px] block" style="color:var(--text-muted)">Rata-rata Tidur</span>
-                    <strong id="bmKpiSleep" class="text-sm font-mono font-extrabold text-indigo-400">-</strong>
-                </div>
-                <div class="theme-card p-3 rounded-xl">
-                    <span class="text-[10px] block" style="color:var(--text-muted)">Kepatuhan Obat</span>
-                    <strong id="bmKpiMedication" class="text-sm font-mono font-extrabold text-emerald-400">-</strong>
-                </div>
-                <div class="theme-card p-3 rounded-xl">
-                    <span class="text-[10px] block" style="color:var(--text-muted)">Fase Dominan</span>
-                    <strong id="bmKpiDominant" class="text-xs font-bold text-teal-400">-</strong>
-                </div>
-            </div>
-    
-            <!-- Filter Tab Waktu (7 Hari vs 30 Hari) -->
-            <div class="space-y-3">
-                <div class="flex items-center justify-between">
-                    <h4 class="text-xs font-bold" style="color:var(--text-main)">Grafik Fluktuasi Mood</h4>
-                    <div class="flex gap-1 bg-[var(--input-bg)] p-1 rounded-xl border border-[var(--border-card)] text-[10px]">
-                        <button id="bmFilter7Btn" onclick="BipolarTracker.setChartRange(7)" class="px-2.5 py-1 rounded-lg font-bold primary-btn-gradient">7 Hari</button>
-                        <button id="bmFilter30Btn" onclick="BipolarTracker.setChartRange(30)" class="px-2.5 py-1 rounded-lg font-medium btn-secondary">30 Hari</button>
-                    </div>
-                </div>
-    
-                <!-- Visual Life Chart Canvas / SVG Container -->
-                <div class="theme-card p-4 rounded-2xl border border-[var(--border-card)]">
-                    <div class="flex justify-between text-[9px] font-mono pb-1 border-b border-[var(--border-card)] mb-2" style="color:var(--text-muted)">
-                        <span class="text-rose-400">+4 Mania</span>
-                        <span class="text-emerald-400 font-bold">0 Euthymic</span>
-                        <span class="text-blue-400">-4 Depresi</span>
-                    </div>
-                    <!-- Dynamic SVG Chart -->
-                    <div id="bmChartContainer" class="w-full h-44 flex items-center justify-center"></div>
-                </div>
-            </div>
-    
-            <!-- Riwayat Pencatatan Terakhir -->
-            <div class="space-y-2">
-                <h4 class="text-xs font-bold" style="color:var(--text-main)">Riwayat Entri Terakhir</h4>
-                <div id="bmHistoryList" class="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar"></div>
-            </div>
-    
-        </div>
-    </div>
-        
     <!-- GLOBAL QUICK ADD -->
     <div id="quickAddModal" class="fixed inset-0 z-50 modal-backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
         <div class="glass-modal action-sheet w-full sm:max-w-md p-5 sm:p-6 space-y-4">
@@ -8722,23 +8614,77 @@ function renderAll() {
             showToast({ type: 'success', title: 'Quick Win Berhasil!', message: 'Langkah terkecil telah diselesaikan. Pertahankan momentum!' });
             triggerConfetti();
         }
-// =========================================================================
-// BIPOLAR LIFE CHART & ANALYTICS ENGINE
+ // =========================================================================
+// BIPOLAR MOOD TRACKER ENGINE (5 PERTANYAAN x 4 PILIHAN)
 // =========================================================================
 const BipolarTracker = (() => {
     const STORAGE_KEY = 'ZIEL_BIPOLAR_LOGS';
-    let chartDaysRange = 7;
-
+    
+    // Konfigurasi 9 skala mood: Positif = Fase Manic, Negatif = Fase Depresi
     const MOOD_LEVELS = {
-        4: { title: '+4: Severe Mania', class: 'tag-rose', color: '#F43F5E', name: 'Manik Berat' },
-        3: { title: '+3: Moderate Mania', class: 'tag-amber', color: '#FB923C', name: 'Manik Sedang' },
-        2: { title: '+2: Hypomania', class: 'tag-amber', color: '#FBBF24', name: 'Hipomania' },
-        1: { title: '+1: Mild Elevation', class: 'tag-teal', color: '#2DD4BF', name: 'Elevasi Ringan' },
-        0: { title: '0: Euthymic (Stabil)', class: 'tag-emerald', color: '#10B981', name: 'Stabil' },
-        '-1': { title: '-1: Mild Depression', class: 'tag-indigo', color: '#818CF8', name: 'Depresi Ringan' },
-        '-2': { title: '-2: Moderate Depression', class: 'tag-purple', color: '#A78BFA', name: 'Depresi Sedang' },
-        '-3': { title: '-3: Severe Depression', class: 'tag-rose', color: '#C084FC', name: 'Depresi Berat' },
-        '-4': { title: '-4: Incapacitating Depr.', class: 'tag-rose', color: '#38BDF8', name: 'Depresi Melumpuhkan' }
+        4: {
+            title: '+4: Severe Mania',
+            desc: 'Dorongan impulsif berbahaya, kebutuhan tidur nihil, agitasi psikomotorik tinggi, rasa tak terkalahkan.',
+            class: 'tag-rose',
+            badgeClass: 'bg-rose-600 text-white',
+            isExtreme: true
+        },
+        3: {
+            title: '+3: Moderate Mania',
+            desc: 'Euforia berlebihan, pembicaraan sangat cepat & sulit dipotong, rencana belanja/proyek berisiko.',
+            class: 'tag-amber',
+            badgeClass: 'bg-amber-600 text-white',
+            isExtreme: false
+        },
+        2: {
+            title: '+2: Hypomania',
+            desc: 'Energi tinggi & kreativitas melonjak, tidur singkat tanpa lelah, sangat produktif namun mulai labil.',
+            class: 'tag-amber',
+            badgeClass: 'bg-amber-500/20 text-amber-400 border border-amber-500/30',
+            isExtreme: false
+        },
+        1: {
+            title: '+1: Mild Elevation',
+            desc: 'Suasana hati cerah, optimisme dan energi sedikit di atas rata-rata normal, terkontrol.',
+            class: 'tag-teal',
+            badgeClass: 'tag-teal',
+            isExtreme: false
+        },
+        0: {
+            title: '0: Euthymic (Stabil / Netral)',
+            desc: 'Suasana hati seimbang dan tenang. Fungsi sosial dan kerja berjalan wajar tanpa disregulasi.',
+            class: 'tag-emerald',
+            badgeClass: 'tag-emerald',
+            isExtreme: false
+        },
+        '-1': {
+            title: '-1: Mild Depression',
+            desc: 'Kemurungan ringan, energi menurun sedikit, butuh upaya ekstra untuk memulai tugas rutin.',
+            class: 'tag-indigo',
+            badgeClass: 'tag-indigo',
+            isExtreme: false
+        },
+        '-2': {
+            title: '-2: Moderate Depression',
+            desc: 'Penarikan diri sosial, hilangnya minat (anhedonia), tubuh terasa lesu, konsentrasi tumpul.',
+            class: 'tag-purple',
+            badgeClass: 'tag-purple',
+            isExtreme: false
+        },
+        '-3': {
+            title: '-3: Severe Depression',
+            desc: 'Keputusasaan intens, tugas harian terasa mustahil, rasa bersalah berlebih, isolasi mendalam.',
+            class: 'tag-rose',
+            badgeClass: 'bg-purple-900/80 text-purple-200 border border-purple-500/40',
+            isExtreme: false
+        },
+        '-4': {
+            title: '-4: Incapacitating Depression',
+            desc: 'Lumpuh aktivitas total, retardasi psikomotorik parah, ketiadaan harapan hidup sama sekali.',
+            class: 'tag-rose',
+            badgeClass: 'bg-rose-950 text-rose-300 border border-rose-600',
+            isExtreme: true
+        }
     };
 
     const AVAILABLE_TRIGGERS = [
@@ -8749,7 +8695,7 @@ const BipolarTracker = (() => {
         { id: 'kurang_tidur', label: '😴 Kurang Tidur' },
         { id: 'alkohol', label: '🍷 Alkohol' },
         { id: 'perjalanan', label: '✈️ Perjalanan' },
-        { id: 'finansial', label: '💸 Finansial' }
+        { id: 'finansial', label: '💸 Tekanan Finansial' }
     ];
 
     let state = {
@@ -8762,201 +8708,23 @@ const BipolarTracker = (() => {
 
     function init() {
         renderTriggerPills();
-        updateHomeWidget();
     }
 
-    // ================= HUB / ANALYTICS CONTROLLER =================
-    function openHub() {
-        renderHubAnalytics();
-        openModal('bipolarHubModal');
-        safeLucideCreateIcons({ root: document.getElementById('bipolarHubModal') });
-    }
-
-    function setChartRange(days) {
-        chartDaysRange = days;
-        document.getElementById('bmFilter7Btn').className = (days === 7 ? 'primary-btn-gradient font-bold' : 'btn-secondary font-medium') + ' px-2.5 py-1 rounded-lg';
-        document.getElementById('bmFilter30Btn').className = (days === 30 ? 'primary-btn-gradient font-bold' : 'btn-secondary font-medium') + ' px-2.5 py-1 rounded-lg';
-        renderHubAnalytics();
-        playChime('click');
-    }
-
-    function startCheckIn() {
-        closeModal('bipolarHubModal');
-        openModal('bipolarTrackerModal');
+    function openModal() {
         resetForm();
         goToStep1();
-    }
-
-    function renderHubAnalytics() {
-        const logs = getHistory();
-        const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
-        const todayLog = logs.find(l => l.date === today);
-
-        // 1. Update Status Banner Hari Ini
-        const titleEl = document.getElementById('bmHubTodayScoreTitle');
-        const descEl = document.getElementById('bmHubTodayScoreDesc');
-        const btnText = document.getElementById('bmHubTodayBtnText');
-
-        if (todayLog) {
-            const conf = MOOD_LEVELS[todayLog.moodScore] || MOOD_LEVELS[0];
-            titleEl.textContent = `${conf.title} (Skor: ${todayLog.moodScore > 0 ? '+' : ''}${todayLog.moodScore})`;
-            descEl.textContent = `Tidur ${todayLog.sleepHours} jam • Obat: ${todayLog.medicationTaken ? 'Sudah diminum ✓' : 'Belum ✗'}`;
-            btnText.textContent = 'Perbarui Catatan Hari Ini';
-        } else {
-            titleEl.textContent = 'Belum ada catatan hari ini';
-            descEl.textContent = 'Cek ritme tidur, pikiran, dan energimu sekarang.';
-            btnText.textContent = 'Catat Mood Hari Ini';
-        }
-
-        // 2. Hitung KPI Ringkas
-        const rangeLogs = logs.slice(0, chartDaysRange);
-        if (rangeLogs.length > 0) {
-            const avgSleep = (rangeLogs.reduce((acc, l) => acc + (l.sleepHours || 0), 0) / rangeLogs.length).toFixed(1);
-            const medCompliance = Math.round((rangeLogs.filter(l => l.medicationTaken).length / rangeLogs.length) * 100);
-            
-            // Cari fase terbanyak
-            let manicCount = rangeLogs.filter(l => l.moodScore > 0).length;
-            let deprCount = rangeLogs.filter(l => l.moodScore < 0).length;
-            let euthCount = rangeLogs.filter(l => l.moodScore === 0).length;
-            let dominant = 'Stabil (0)';
-            if (manicCount > deprCount && manicCount > euthCount) dominant = 'Elevasi / Manik';
-            else if (deprCount > manicCount && deprCount > euthCount) dominant = 'Depresi';
-
-            document.getElementById('bmKpiSleep').textContent = avgSleep + ' jam';
-            document.getElementById('bmKpiMedication').textContent = medCompliance + '%';
-            document.getElementById('bmKpiDominant').textContent = dominant;
-        } else {
-            document.getElementById('bmKpiSleep').textContent = '-';
-            document.getElementById('bmKpiMedication').textContent = '-';
-            document.getElementById('bmKpiDominant').textContent = '-';
-        }
-
-        // 3. Render Life Chart (SVG)
-        renderSvgLifeChart(logs, chartDaysRange);
-
-        // 4. Render Riwayat List
-        renderHistoryList(logs);
-    }
-
-    function renderSvgLifeChart(logs, daysCount) {
-        const container = document.getElementById('bmChartContainer');
-        if (!container) return;
-
-        // Siapkan array tanggal mundur sebanyak daysCount
-        const dayKeys = [];
-        for (let i = daysCount - 1; i >= 0; i--) {
-            const d = new Date(Date.now() - i * 86400000);
-            dayKeys.push(d.toISOString().slice(0, 10));
-        }
-
-        const width = container.clientWidth || 520;
-        const height = 160;
-        const padX = 25;
-        const padY = 20;
-        const chartW = width - padX * 2;
-        const chartH = height - padY * 2;
-
-        // Titik Y: Skor 4 di padY, 0 di tengah, -4 di height - padY
-        const getY = (score) => {
-            const normalized = (4 - score) / 8; // 4 -> 0, 0 -> 0.5, -4 -> 1
-            return padY + normalized * chartH;
-        };
-
-        const getX = (idx) => padX + (idx / (daysCount - 1)) * chartW;
-
-        const points = [];
-        dayKeys.forEach((key, idx) => {
-            const found = logs.find(l => l.date === key);
-            if (found) {
-                points.push({ x: getX(idx), y: getY(found.moodScore), score: found.moodScore, date: key });
-            }
-        });
-
-        const zeroY = getY(0);
-
-        // Susun SVG
-        let svg = `<svg viewBox="0 0 ${width} ${height}" class="w-full h-full overflow-visible">`;
-
-        // Garis Grid Panduan (0: Euthymic)
-        svg += `<line x1="${padX}" y1="${zeroY}" x2="${width - padX}" y2="${zeroY}" stroke="var(--border-card)" stroke-dasharray="3,3" stroke-width="1.5" />`;
-
-        // Garis penghubung titik
-        if (points.length > 1) {
-            let pathD = `M ${points[0].x} ${points[0].y}`;
-            for (let i = 1; i < points.length; i++) {
-                pathD += ` L ${points[i].x} ${points[i].y}`;
-            }
-            svg += `<path d="${pathD}" fill="none" stroke="#6366F1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />`;
-        }
-
-        // Titik data
-        points.forEach(p => {
-            const conf = MOOD_LEVELS[p.score] || MOOD_LEVELS[0];
-            svg += `
-                <circle cx="${p.x}" cy="${p.y}" r="4.5" fill="${conf.color}" stroke="var(--bg-card)" stroke-width="2" />
-                <title>${p.date}: ${conf.title}</title>
-            `;
-        });
-
-        // Jika data kosong
-        if (points.length === 0) {
-            svg += `<text x="${width/2}" y="${height/2}" text-anchor="middle" fill="var(--text-muted)" font-size="11">Belum ada data rekaman mood pada periode ini</text>`;
-        }
-
-        svg += `</svg>`;
-        container.innerHTML = svg;
-    }
-
-    function renderHistoryList(logs) {
-        const container = document.getElementById('bmHistoryList');
-        if (!container) return;
-
-        if (logs.length === 0) {
-            container.innerHTML = '<p class="text-xs text-center py-3 opacity-60">Belum ada riwayat catatan mood.</p>';
-            return;
-        }
-
-        container.innerHTML = logs.slice(0, 10).map(l => {
-            const conf = MOOD_LEVELS[l.moodScore] || MOOD_LEVELS[0];
-            return `
-                <div class="theme-card p-2.5 rounded-xl border border-[var(--border-card)] flex items-center justify-between text-xs">
-                    <div class="min-w-0">
-                        <div class="flex items-center gap-1.5">
-                            <span class="font-bold text-[11px]" style="color:var(--text-main)">${l.date}</span>
-                            <span class="px-2 py-0.2 rounded-full text-[9px] font-extrabold ${conf.class}">${conf.name} (${l.moodScore > 0 ? '+' : ''}${l.moodScore})</span>
-                        </div>
-                        <p class="text-[10px] mt-0.5" style="color:var(--text-muted)">
-                            Tidur: ${l.sleepHours} jam • Obat: ${l.medicationTaken ? 'Diminum' : 'Terlewat'}
-                            ${l.triggers && l.triggers.length ? ` • Pemicu: ${l.triggers.join(', ')}` : ''}
-                        </p>
-                    </div>
-                </div>
-            `;
-        }).join('');
-    }
-
-    function updateHomeWidget() {
-        const logs = getHistory();
-        const today = typeof todayKey === 'function' ? todayKey() : new Date().toISOString().slice(0, 10);
-        const todayLog = logs.find(l => l.date === today);
-
-        const title = document.getElementById('bmHomeStatusTitle');
-        const sub = document.getElementById('bmHomeStatusSub');
-        const badgeDot = document.getElementById('bmTodayBadgeDot');
-
-        if (todayLog) {
-            const conf = MOOD_LEVELS[todayLog.moodScore] || MOOD_LEVELS[0];
-            if (title) title.textContent = `${conf.name} (${todayLog.moodScore > 0 ? '+' : ''}${todayLog.moodScore})`;
-            if (sub) sub.textContent = `Tidur: ${todayLog.sleepHours}j • Obat: ${todayLog.medicationTaken ? 'Diminum' : 'Tidak'}`;
-            if (badgeDot) badgeDot.classList.add('hidden'); // Sudah isi, hilangkan dot pengingat
-        } else {
-            if (title) title.textContent = 'Belum ada catatan hari ini';
-            if (sub) sub.textContent = 'Lakukan skrining singkat 24 jam terakhir';
-            if (badgeDot) badgeDot.classList.remove('hidden'); // Pengingat belum isi
+        const modal = document.getElementById('bipolarTrackerModal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            safeLucideCreateIcons({ root: modal });
         }
     }
 
-    // ================= FORM & STEP QUIZ CONTROLLER =================
+    function closeModal() {
+        const modal = document.getElementById('bipolarTrackerModal');
+        if (modal) modal.classList.add('hidden');
+    }
+
     function resetForm() {
         state.step = 1;
         state.answers = { q1: null, q2: null, q3: null, q4: null, q5: null };
@@ -8965,6 +8733,7 @@ const BipolarTracker = (() => {
         state.selectedTriggers.clear();
 
         document.querySelectorAll('input[name^="bm_q"]').forEach(el => el.checked = false);
+
         const sleepEl = document.getElementById('bmSleepHours');
         if (sleepEl) sleepEl.value = '7.5';
         const medEl = document.getElementById('bmMedicationTaken');
@@ -8989,8 +8758,11 @@ const BipolarTracker = (() => {
     }
 
     function toggleTrigger(triggerId) {
-        if (state.selectedTriggers.has(triggerId)) state.selectedTriggers.delete(triggerId);
-        else state.selectedTriggers.add(triggerId);
+        if (state.selectedTriggers.has(triggerId)) {
+            state.selectedTriggers.delete(triggerId);
+        } else {
+            state.selectedTriggers.add(triggerId);
+        }
         playChime('click');
         renderTriggerPills();
     }
@@ -9001,9 +8773,11 @@ const BipolarTracker = (() => {
         const q3 = document.querySelector('input[name="bm_q3"]:checked');
         const q4 = document.querySelector('input[name="bm_q4"]:checked');
         const q5 = document.querySelector('input[name="bm_q5"]:checked');
+
         const btn = document.getElementById('bmBtnGoStep2');
         if (!btn) return;
 
+        // Tombol aktif jika kelima pertanyaan telah dipilih salah satu dari 5 opsi
         if (q1 && q2 && q3 && q4 && q5) {
             state.answers.q1 = parseInt(q1.value, 10);
             state.answers.q2 = parseInt(q2.value, 10);
@@ -9021,9 +8795,13 @@ const BipolarTracker = (() => {
 
     function calculateRecommendation() {
         const { q1, q2, q3, q4, q5 } = state.answers;
+        // Total poin berkisar dari -10 (5 x -2) hingga +10 (5 x +2)
         const total = (q1 || 0) + (q2 || 0) + (q3 || 0) + (q4 || 0) + (q5 || 0);
+
+        // Skalakan ke [-4, +4] secara matematis
         const scaledScore = Math.round((total / 10) * 4);
         const clampedScore = Math.max(-4, Math.min(4, scaledScore));
+
         state.recommendedScore = clampedScore;
         state.selectedMoodScore = clampedScore;
     }
@@ -9070,25 +8848,34 @@ const BipolarTracker = (() => {
 
     function updateMoodDisplay(score) {
         const config = MOOD_LEVELS[score] || MOOD_LEVELS[0];
+        
+        // Display Angka
         const scoreDisplay = document.getElementById('bmCurrentScoreDisplay');
         if (scoreDisplay) {
             scoreDisplay.textContent = (score > 0 ? '+' : '') + score;
-            scoreDisplay.className = `text-lg font-black font-mono px-3 py-1 rounded-xl transition ${config.class}`;
+            scoreDisplay.className = `text-lg font-black font-mono px-3 py-1 rounded-xl transition ${config.badgeClass}`;
         }
 
+        // Card Keterangan Status Mood
         const card = document.getElementById('bmMoodStateCard');
         const title = document.getElementById('bmMoodStateTitle');
         const desc = document.getElementById('bmMoodStateDesc');
+
         if (card && title && desc) {
             card.className = `p-3.5 rounded-xl transition-all text-center space-y-0.5 ${config.class}`;
             title.textContent = config.title;
-            desc.textContent = 'Fase ' + config.name;
+            desc.textContent = config.desc;
         }
 
+        // Emergency Safety Plan Banner jika -4 atau +4
         const safetyBanner = document.getElementById('bmSafetyPlanBanner');
         if (safetyBanner) {
-            if (Math.abs(score) === 4) safetyBanner.classList.remove('hidden');
-            else safetyBanner.classList.add('hidden');
+            if (config.isExtreme) {
+                safetyBanner.classList.remove('hidden');
+                triggerHaptic('error');
+            } else {
+                safetyBanner.classList.add('hidden');
+            }
         }
     }
 
@@ -9101,7 +8888,13 @@ const BipolarTracker = (() => {
         const logEntry = {
             id: 'bm-' + Date.now(),
             date: dateStr,
-            answers: [state.answers.q1, state.answers.q2, state.answers.q3, state.answers.q4, state.answers.q5],
+            answers: [
+                state.answers.q1,
+                state.answers.q2,
+                state.answers.q3,
+                state.answers.q4,
+                state.answers.q5
+            ],
             recommendedScore: state.recommendedScore,
             moodScore: state.selectedMoodScore,
             sleepHours: isNaN(sleepHours) ? 0 : sleepHours,
@@ -9110,55 +8903,83 @@ const BipolarTracker = (() => {
             createdAt: now.toISOString()
         };
 
+        // 1. Simpan ke LocalStorage
         try {
             let logs = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            // Hapus log hari yang sama jika sudah ada (update mode)
-            logs = logs.filter(l => l.date !== dateStr);
+            if (!Array.isArray(logs)) logs = [];
             logs.unshift(logEntry);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
         } catch (e) {
-            console.error('Gagal menyimpan log mood:', e);
+            console.error('Gagal menyimpan bipolar log ke localStorage:', e);
         }
 
+        // 2. Notifikasi & Haptic
+        const isExtreme = Math.abs(state.selectedMoodScore) === 4;
         playChime('success');
         triggerHaptic('success');
-        closeModal('bipolarTrackerModal');
-
-        // Buka kembali Hub agar pengguna langsung melihat grafiknya terupdate
-        openHub();
-        updateHomeWidget();
+        closeModal();
 
         if (typeof showToast === 'function') {
-            showToast({
-                type: 'success',
-                title: 'Catatan Mood Tersimpan',
-                message: `Skor: ${state.selectedMoodScore > 0 ? '+' : ''}${state.selectedMoodScore} (${MOOD_LEVELS[state.selectedMoodScore].name}).`
-            });
+            if (isExtreme) {
+                showToast({
+                    type: 'warning',
+                    title: 'Catatan Mood Tersimpan (Perhatian Khusus)',
+                    message: `Skor ${state.selectedMoodScore > 0 ? '+4' : '-4'} tercatat. Jaga keselamatan diri dan utamakan istirahat.`
+                });
+            } else {
+                showToast({
+                    type: 'success',
+                    title: 'Mood Berhasil Dicatat',
+                    message: `Skor: ${state.selectedMoodScore > 0 ? '+' : ''}${state.selectedMoodScore} (${MOOD_LEVELS[state.selectedMoodScore].title}).`
+                });
+            }
         }
 
-        if (typeof triggerCloudSync === 'function') triggerCloudSync();
+        // 3. Sinkronisasi Otomatis ke Cloud Firestore jika terhubung
+        if (typeof triggerCloudSync === 'function') {
+            triggerCloudSync();
+        }
+    }
+
+    function openEmergencyContacts() {
+        if (typeof showToast === 'function') {
+            showToast({
+                type: 'info',
+                title: 'Kontak Darurat Kesehatan Jiwa',
+                message: 'Kemenkes Sejiwa: 119 (ext 8) | Darurat Medis: 112 | Hubungi keluarga terdekat.'
+            });
+        }
     }
 
     function getHistory() {
-        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
-        catch (e) { return []; }
+        try {
+            return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        } catch (e) {
+            return [];
+        }
     }
 
     return {
         init,
-        openHub,
-        setChartRange,
-        startCheckIn,
+        openModal,
+        closeModal,
         validateStep1,
         goToStep1,
         goToStep2,
         onSliderChange,
         toggleTrigger,
         saveLog,
+        openEmergencyContacts,
         getHistory
     };
 })();
 
+// Inisialisasi event listener
+window.addEventListener('DOMContentLoaded', () => {
+    BipolarTracker.init();
+});
+
+// Inisialisasi saat window dimuat
 window.addEventListener('DOMContentLoaded', () => {
     BipolarTracker.init();
 });
