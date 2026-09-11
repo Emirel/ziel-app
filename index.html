@@ -2200,6 +2200,40 @@
             letter-spacing: -0.03em;
         }
 </style>
+
+<style id="ziel-pro-upgrade">
+/* ZIEL PRO UX UPGRADE */
+:root{
+ --pro-radius:22px;
+}
+*{scrollbar-width:thin;}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+.theme-card,.glass-modal,.quick-action-tile,.service-tile-icon,.smart-select-menu{
+ transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease,border-color .22s ease!important;
+}
+.theme-card:hover{
+ transform:translateY(-2px);
+ box-shadow:0 18px 45px rgba(0,0,0,.18),0 0 0 1px rgba(99,102,241,.18);
+}
+.primary-btn-gradient{
+ background:linear-gradient(135deg,#6366f1,#06b6d4)!important;
+}
+.service-tile strong{letter-spacing:-.02em}
+.app-view{animation:zielFade .28s ease both}
+@keyframes zielFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+button,input,textarea,select{outline:none}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{
+ box-shadow:0 0 0 3px rgba(99,102,241,.3)!important;
+}
+/* desktop dashboard breathing space */
+@media(min-width:1280px){
+ .ziel-main{max-width:1500px!important}
+}
+/* premium modal */
+.glass-modal{border-radius:28px!important}
+/* reduce visual fatigue */
+.text-slate-400{opacity:.92}
+</style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
 <div id="splash-screen">
@@ -10816,5 +10850,21 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
         }
     
     </script>
+
+<script id="ziel-pro-upgrade-js">
+// ZIEL Professional Runtime Enhancements
+(function(){
+ const boot=()=>{
+   document.documentElement.dataset.ziel='professional';
+   try{
+    const observer=new MutationObserver(()=>{
+      if(window.safeLucideCreateIcons) window.safeLucideCreateIcons();
+    });
+    observer.observe(document.body,{childList:true,subtree:true});
+   }catch(e){}
+ };
+ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+})();
+</script>
 </body>
 </html>
