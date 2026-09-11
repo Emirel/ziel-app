@@ -1360,63 +1360,20 @@
 
                         <!-- Hidden or accessible soundscape mode indicator for JS sync -->
             <span id="statMusicMode" class="hidden">Rain & Water</span>
-<!-- ROW 2: GOJEK / ONE UI CASH FLOW BAR & 8-TILE SUPER-APP GRID (IMAGE 4) -->
-            <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
+<!-- ROW 2: GOJEK / ONE UI CASH FLOW BAR & 8-TILE SUPER-APP GRID (SWAPPED: LAYANAN CEPAT KIRI, CASH FLOW KANAN) -->
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 items-stretch">
                 
-                <!-- Floating Cash Flow Card (Gojek / One UI Style - Image 4) -->
-                <div class="theme-card xl:col-span-5 p-5 sm:p-6 rounded-[32px] border border-[var(--border-card)] space-y-4 flex flex-col justify-between">
+                <!-- 8-Tile Super-App Icon Grid & Energy Selector (KIRI: xl:col-span-7) -->
+                <div class="theme-card xl:col-span-7 p-5 sm:p-6 rounded-[32px] border border-[var(--border-card)] space-y-3.5 flex flex-col justify-between">
                     <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2.5">
-                            <div class="w-9 h-9 rounded-2xl bg-amber-500/15 text-amber-500 flex items-center justify-center font-bold text-sm shrink-0">
-                                <i data-lucide="wallet" class="w-4.5 h-4.5"></i>
-                            </div>
-                            <div>
-                                <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Personal Cash Flow</span>
-                                <h3 class="text-sm sm:text-base font-extrabold" style="color:var(--text-main)">Saldo Kas Tersedia</h3>
-                            </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse"></span>
+                            <span class="text-xs sm:text-sm font-extrabold" style="color:var(--text-main)">Layanan Cepat Eksekusi</span>
                         </div>
-                        <button onclick="FinanceTracker.toggleBalanceVisibility()" class="text-slate-400 hover:text-slate-200 p-1.5 rounded-xl hover:bg-slate-500/10 transition" title="Sembunyikan / Tampilkan saldo">
-                            <i data-lucide="eye" class="w-4 h-4" id="fnEyeIconMain"></i>
-                        </button>
+                        <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20">One UI Grid</span>
                     </div>
 
-                    <!-- Balance Row -->
-                    <div class="flex items-baseline justify-between gap-2">
-                        <strong id="fnTotalBalanceMain" class="text-2xl sm:text-3xl font-black font-mono tracking-tight" style="color:var(--text-main)">Rp 7.500.000</strong>
-                        <span class="text-[11px] font-bold px-2 py-0.5 rounded-full tag-emerald">Surplus +24%</span>
-                    </div>
-
-                    <!-- Quick Gojek-Style Action Buttons: Bayar, Top Up, Kas -->
-                    <div class="grid grid-cols-3 gap-2 pt-1">
-                        <button onclick="FinanceTracker.startNewTransaction('expense')" class="btn-secondary py-2.5 px-3 rounded-2xl text-xs font-bold flex flex-col items-center justify-center gap-1 hover:border-rose-500/30 transition">
-                            <div class="w-7 h-7 rounded-xl bg-rose-500/15 text-rose-500 flex items-center justify-center">
-                                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
-                            </div>
-                            <span>Bayar</span>
-                        </button>
-                        <button onclick="FinanceTracker.startNewTransaction('income')" class="btn-secondary py-2.5 px-3 rounded-2xl text-xs font-bold flex flex-col items-center justify-center gap-1 hover:border-emerald-500/30 transition">
-                            <div class="w-7 h-7 rounded-xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center">
-                                <i data-lucide="arrow-down-left" class="w-3.5 h-3.5"></i>
-                            </div>
-                            <span>Pemasukan</span>
-                        </button>
-                        <button onclick="FinanceTracker.openModal()" class="btn-secondary py-2.5 px-3 rounded-2xl text-xs font-bold flex flex-col items-center justify-center gap-1 hover:border-indigo-500/30 transition">
-                            <div class="w-7 h-7 rounded-xl bg-indigo-500/15 text-indigo-500 flex items-center justify-center">
-                                <i data-lucide="pie-chart" class="w-3.5 h-3.5"></i>
-                            </div>
-                            <span>Detail Kas</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 8-Tile Super-App Icon Grid (Gojek / One UI Style - Image 4) -->
-                <div class="theme-card xl:col-span-7 p-5 sm:p-6 rounded-[32px] border border-[var(--border-card)] space-y-3 flex flex-col justify-between">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block font-mono">Layanan Cepat Eksekusi</span>
-                        <span class="text-[11px] font-bold text-indigo-500 dark:text-indigo-400">One UI Grid</span>
-                    </div>
-
-                    <div class="grid grid-cols-4 sm:grid-cols-8 gap-2 sm:gap-3">
+                    <div class="grid grid-cols-4 sm:grid-cols-8 gap-2 sm:gap-2.5">
                         <div onclick="openModal('newTaskModal')" class="service-tile">
                             <div class="service-tile-icon bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/25">
                                 <i data-lucide="circle-check-big" class="w-5 h-5"></i>
@@ -1475,7 +1432,7 @@
                         </div>
                     </div>
 
-                    <!-- 5-Level Tactile Energy Selector (Integrated smoothly) -->
+                    <!-- 5-Level Tactile Energy Selector -->
                     <div class="flex items-center justify-between gap-1.5 p-2 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
                         <button type="button" onclick="setEnergy(1)" class="energy-btn flex-1 py-1.5 rounded-xl flex flex-col items-center justify-center transition-all" data-level="1" title="Level 1: Istirahat">
                             <span class="text-base sm:text-lg">😴</span>
@@ -1496,6 +1453,52 @@
                         <button type="button" onclick="setEnergy(5)" class="energy-btn flex-1 py-1.5 rounded-xl flex flex-col items-center justify-center transition-all" data-level="5" title="Level 5: Puncak">
                             <span class="text-base sm:text-lg">🔥</span>
                             <span class="text-[9px] font-bold text-slate-400 mt-0.5">L5</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Floating Cash Flow Card (KANAN: xl:col-span-5) -->
+                <div class="theme-card xl:col-span-5 p-5 sm:p-6 rounded-[32px] border border-[var(--border-card)] space-y-4 flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-9 h-9 rounded-2xl bg-amber-500/15 text-amber-500 flex items-center justify-center font-bold text-sm shrink-0">
+                                <i data-lucide="wallet" class="w-4.5 h-4.5"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block font-mono">Personal Cash Flow</span>
+                                <h3 class="text-sm sm:text-base font-extrabold" style="color:var(--text-main)">Saldo Kas Tersedia</h3>
+                            </div>
+                        </div>
+                        <button onclick="FinanceTracker.toggleBalanceVisibility()" class="text-slate-400 hover:text-slate-200 p-1.5 rounded-xl hover:bg-slate-500/10 transition" title="Sembunyikan / Tampilkan saldo">
+                            <i data-lucide="eye" class="w-4 h-4" id="fnEyeIconMain"></i>
+                        </button>
+                    </div>
+
+                    <!-- Balance Row -->
+                    <div class="flex items-baseline justify-between gap-2">
+                        <strong id="fnTotalBalanceMain" class="text-2xl sm:text-3xl font-black font-mono tracking-tight" style="color:var(--text-main)">Rp 7.500.000</strong>
+                        <span class="text-[11px] font-bold px-2 py-0.5 rounded-full tag-emerald">Surplus +24%</span>
+                    </div>
+
+                    <!-- Quick Action Buttons: Bayar, Pemasukan, Detail Kas -->
+                    <div class="grid grid-cols-3 gap-2 pt-1">
+                        <button onclick="FinanceTracker.startNewTransaction('expense')" class="btn-secondary py-2.5 px-3 rounded-2xl text-xs font-bold flex flex-col items-center justify-center gap-1 hover:border-rose-500/30 transition">
+                            <div class="w-7 h-7 rounded-xl bg-rose-500/15 text-rose-500 flex items-center justify-center">
+                                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                            </div>
+                            <span>Bayar</span>
+                        </button>
+                        <button onclick="FinanceTracker.startNewTransaction('income')" class="btn-secondary py-2.5 px-3 rounded-2xl text-xs font-bold flex flex-col items-center justify-center gap-1 hover:border-emerald-500/30 transition">
+                            <div class="w-7 h-7 rounded-xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center">
+                                <i data-lucide="arrow-down-left" class="w-3.5 h-3.5"></i>
+                            </div>
+                            <span>Pemasukan</span>
+                        </button>
+                        <button onclick="FinanceTracker.openModal()" class="btn-secondary py-2.5 px-3 rounded-2xl text-xs font-bold flex flex-col items-center justify-center gap-1 hover:border-indigo-500/30 transition">
+                            <div class="w-7 h-7 rounded-xl bg-indigo-500/15 text-indigo-500 flex items-center justify-center">
+                                <i data-lucide="pie-chart" class="w-3.5 h-3.5"></i>
+                            </div>
+                            <span>Detail Kas</span>
                         </button>
                     </div>
                 </div>
