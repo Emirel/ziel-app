@@ -1331,37 +1331,46 @@
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ENERGY BUTTON TACTILE FEEDBACK & ACTIVE STATE */
+        /* MODERN MINIMALIST CIRCULAR ENERGY SELECTOR */
         .energy-btn {
             cursor: pointer;
             position: relative;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-            border: 1.5px solid transparent !important;
+            border-radius: 9999px !important;
+            border: 2px solid var(--border-card) !important;
+            background: var(--bg-card) !important;
+            color: var(--text-main);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            user-select: none;
         }
         .energy-btn:hover {
-            background: var(--btn-sec-hover) !important;
-            transform: translateY(-1px);
+            border-color: var(--accent-indigo) !important;
+            transform: translateY(-2px) scale(1.08);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.25);
         }
         .energy-btn.active {
-            background: rgba(99, 102, 241, 0.2) !important;
-            border-color: rgba(99, 102, 241, 0.8) !important;
-            box-shadow: 0 0 16px rgba(99, 102, 241, 0.3), inset 0 0 0 1px rgba(99, 102, 241, 0.5) !important;
-            transform: scale(1.03);
+            background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%) !important;
+            border-color: #FFFFFF !important;
+            box-shadow: 0 0 0 3.5px rgba(99, 102, 241, 0.35), 0 8px 24px -2px rgba(99, 102, 241, 0.5) !important;
+            transform: scale(1.12);
         }
-        .energy-btn.active strong {
-            color: #818CF8 !important;
-            font-weight: 850 !important;
+        body.light-mode .energy-btn {
+            background: #FFFFFF !important;
+            border-color: rgba(15, 23, 42, 0.1) !important;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
         }
-        .energy-btn.active small {
-            color: #A5B4FC !important;
+        body.light-mode .energy-btn:hover {
+            border-color: #6366F1 !important;
+            background: #F8FAFC !important;
         }
         body.light-mode .energy-btn.active {
-            background: rgba(99, 102, 241, 0.12) !important;
-            border-color: #6366F1 !important;
-            box-shadow: 0 2px 10px rgba(99, 102, 241, 0.2) !important;
-        }
-        body.light-mode .energy-btn.active strong {
-            color: #4F46E5 !important;
+            background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%) !important;
+            border-color: #FFFFFF !important;
+            box-shadow: 0 0 0 3.5px rgba(99, 102, 241, 0.25), 0 8px 20px -2px rgba(99, 102, 241, 0.4) !important;
+            transform: scale(1.12);
         }
 
         /* GOAL STEPPER IN NEW GOAL MODAL */
@@ -2216,11 +2225,31 @@
                 </span>
             </div>
 
-            <!-- Main Greeting & Status Heading -->
-            <div class="flex items-start justify-between gap-3">
-                <div>
-                    <h2 id="homeGreeting" class="text-2xl sm:text-3xl font-black tracking-tight" style="color:var(--text-main)">Selamat datang</h2>
-                    <p id="homeDateSubtitle" class="text-xs sm:text-sm font-medium mt-0.5" style="color:var(--text-muted)">Jumat, 11 September 2026 • Fokus pada tindakan bermakna.</p>
+            <!-- Main Greeting & Modern Status Heading -->
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pt-1 pb-1">
+                <div class="space-y-1.5 min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20">
+                            <i data-lucide="sparkle" class="w-3 h-3"></i>
+                            Zen Execution Space
+                        </span>
+                        <span id="homeLiveClock" class="text-[11px] font-mono font-bold text-slate-400"></span>
+                    </div>
+                    <h2 id="homeGreeting" class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight" style="color:var(--text-main)">Selamat datang</h2>
+                    
+                    <!-- Modern Sleek Date & Motto Presentation -->
+                    <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap pt-0.5">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[var(--bg-card)] border border-[var(--border-card)] shadow-xs transition hover:border-indigo-500/35">
+                            <span class="w-5 h-5 rounded-lg bg-indigo-500/15 text-indigo-500 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                            </span>
+                            <span id="homeDatePill" class="text-xs font-bold tracking-tight font-mono" style="color:var(--text-main)">Jumat, 11 September 2026</span>
+                        </div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+                            <span id="homeDateSubtitle">Fokus pada satu hal yang paling bermakna hari ini.</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -2238,38 +2267,58 @@
                                 <h3 id="currentEnergyLabel" class="text-base sm:text-lg font-black truncate font-mono" style="color:var(--text-main)">Level 3</h3>
                             </div>
                         </div>
-                        <span class="px-3 py-1 rounded-full text-[11px] font-black tag-indigo shrink-0">
+                        <span id="energyCapacityStatusBadge" class="px-3 py-1 rounded-full text-[11px] font-black tag-indigo shrink-0">
                             Fokus Siap
                         </span>
                     </div>
 
-                    <!-- 5-Column Tactile Energy Toggles -->
-                    <div id="energySelectorGroup" class="grid grid-cols-5 gap-1.5 sm:gap-2 p-1.5 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
-                        <button type="button" onclick="setEnergy(1)" class="energy-btn py-2.5 px-1 sm:px-2 rounded-xl flex flex-col items-center justify-center gap-1 transition-all" data-level="1" title="Sangat rendah">
-                            <span class="text-xl sm:text-2xl">😴</span>
-                            <strong class="text-[10px] sm:text-[11px] font-bold truncate">Istirahat</strong>
-                            <small class="text-[9px] font-mono">L1</small>
-                        </button>
-                        <button type="button" onclick="setEnergy(2)" class="energy-btn py-2.5 px-1 sm:px-2 rounded-xl flex flex-col items-center justify-center gap-1 transition-all" data-level="2" title="Rendah">
-                            <span class="text-xl sm:text-2xl">🥱</span>
-                            <strong class="text-[10px] sm:text-[11px] font-bold truncate">Ringan</strong>
-                            <small class="text-[9px] font-mono">L2</small>
-                        </button>
-                        <button type="button" onclick="setEnergy(3)" class="energy-btn py-2.5 px-1 sm:px-2 rounded-xl flex flex-col items-center justify-center gap-1 transition-all active" data-level="3" title="Seimbang">
-                            <span class="text-xl sm:text-2xl">🙂</span>
-                            <strong class="text-[10px] sm:text-[11px] font-bold truncate">Seimbang</strong>
-                            <small class="text-[9px] font-mono">L3</small>
-                        </button>
-                        <button type="button" onclick="setEnergy(4)" class="energy-btn py-2.5 px-1 sm:px-2 rounded-xl flex flex-col items-center justify-center gap-1 transition-all" data-level="4" title="Fokus">
-                            <span class="text-xl sm:text-2xl">⚡</span>
-                            <strong class="text-[10px] sm:text-[11px] font-bold truncate">Fokus</strong>
-                            <small class="text-[9px] font-mono">L4</small>
-                        </button>
-                        <button type="button" onclick="setEnergy(5)" class="energy-btn py-2.5 px-1 sm:px-2 rounded-xl flex flex-col items-center justify-center gap-1 transition-all" data-level="5" title="Puncak">
-                            <span class="text-xl sm:text-2xl">🔥</span>
-                            <strong class="text-[10px] sm:text-[11px] font-bold truncate">Puncak</strong>
-                            <small class="text-[9px] font-mono">L5</small>
-                        </button>
+                    <!-- 5-Column Tactile Circular Energy Toggles -->
+                    <div id="energySelectorGroup" class="flex items-center justify-between sm:justify-around gap-2 p-3 sm:p-4 rounded-3xl bg-[var(--input-bg)] border border-[var(--border-card)]">
+                        <div class="flex flex-col items-center gap-1.5 flex-1 min-w-0">
+                            <button type="button" onclick="setEnergy(1)" class="energy-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-xl sm:text-2xl transition-all group" data-level="1" title="Level 1: Istirahat (Sangat Rendah)">
+                                <span>😴</span>
+                            </button>
+                            <div class="text-center min-w-0">
+                                <strong class="block text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-300 truncate energy-label-text">Istirahat</strong>
+                                <small class="text-[9px] font-mono text-slate-500 dark:text-slate-400 font-bold">L1</small>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-1.5 flex-1 min-w-0">
+                            <button type="button" onclick="setEnergy(2)" class="energy-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-xl sm:text-2xl transition-all group" data-level="2" title="Level 2: Ringan (Rendah)">
+                                <span>🥱</span>
+                            </button>
+                            <div class="text-center min-w-0">
+                                <strong class="block text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-300 truncate energy-label-text">Ringan</strong>
+                                <small class="text-[9px] font-mono text-slate-500 dark:text-slate-400 font-bold">L2</small>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-1.5 flex-1 min-w-0">
+                            <button type="button" onclick="setEnergy(3)" class="energy-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-xl sm:text-2xl transition-all group active" data-level="3" title="Level 3: Seimbang (Sedang)">
+                                <span>🙂</span>
+                            </button>
+                            <div class="text-center min-w-0">
+                                <strong class="block text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-300 truncate energy-label-text">Seimbang</strong>
+                                <small class="text-[9px] font-mono text-slate-500 dark:text-slate-400 font-bold">L3</small>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-1.5 flex-1 min-w-0">
+                            <button type="button" onclick="setEnergy(4)" class="energy-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-xl sm:text-2xl transition-all group" data-level="4" title="Level 4: Fokus (Tinggi)">
+                                <span>⚡</span>
+                            </button>
+                            <div class="text-center min-w-0">
+                                <strong class="block text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-300 truncate energy-label-text">Fokus</strong>
+                                <small class="text-[9px] font-mono text-slate-500 dark:text-slate-400 font-bold">L4</small>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-1.5 flex-1 min-w-0">
+                            <button type="button" onclick="setEnergy(5)" class="energy-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-xl sm:text-2xl transition-all group" data-level="5" title="Level 5: Puncak (Maksimal)">
+                                <span>🔥</span>
+                            </button>
+                            <div class="text-center min-w-0">
+                                <strong class="block text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-300 truncate energy-label-text">Puncak</strong>
+                                <small class="text-[9px] font-mono text-slate-500 dark:text-slate-400 font-bold">L5</small>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Action Recommendation Box (Sleek, Modern, Clean) -->
@@ -2367,7 +2416,7 @@
                         </div>
                         <strong>Bipolar</strong>
                     </div>
-                    <div onclick="triggerWhatShouldIDoNow()" class="service-tile">
+                    <div onclick="openFocusModeFromTask()" class="service-tile">
                         <div class="service-tile-icon bg-teal-500/15 text-teal-600 dark:text-teal-400 border border-teal-500/25">
                             <i data-lucide="play" class="w-6 h-6 fill-current"></i>
                             <span class="service-tile-badge bg-teal-600 text-white">Focus</span>
@@ -3713,6 +3762,7 @@
                     <button type="button" onclick="setFocusTimerMode('pomodoro')" id="focusModePomodoro" class="px-4 py-1.5 rounded-xl text-xs font-bold primary-btn-gradient transition-all">Pomodoro (25m)</button>
                     <button type="button" onclick="setFocusTimerMode('custom')" id="focusModeCustom" class="px-4 py-1.5 rounded-xl text-xs font-semibold btn-secondary transition-all">Kustom</button>
                 </div>
+                <p id="customDialHint" class="focus-dial-hint hidden text-center text-xs text-slate-400 mt-1">Putar dial atau ketik menit untuk durasi fokus</p>
                 <div id="customDurationControl" class="custom-duration-control hidden">
                     <input id="customFocusMinutes" type="number" min="1" max="180" value="25" class="theme-input text-center font-bold text-sm" oninput="applyCustomFocusDuration(this.value)" aria-label="Durasi fokus menit">
                     <span class="text-xs text-slate-400 font-semibold">menit</span>
@@ -6290,14 +6340,44 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
         }
 
         function updateEnergyUI() {
+            const energyConfig = {
+                1: { label: 'Level 1 • Istirahat', status: 'Mode Pemulihan', badgeClass: 'tag-teal' },
+                2: { label: 'Level 2 • Ringan', status: 'Tugas Ringan', badgeClass: 'tag-teal' },
+                3: { label: 'Level 3 • Seimbang', status: 'Fokus Siap', badgeClass: 'tag-indigo' },
+                4: { label: 'Level 4 • Fokus', status: 'Deep Work', badgeClass: 'tag-amber' },
+                5: { label: 'Level 5 • Puncak', status: 'Sprint Maksimal', badgeClass: 'tag-rose' }
+            };
+            const currentConf = energyConfig[state.currentEnergy] || energyConfig[3];
+
             document.querySelectorAll('.energy-btn').forEach(btn => {
                 const lvl = parseInt(btn.dataset.level, 10);
                 const isActive = lvl === state.currentEnergy;
                 btn.classList.toggle('active', isActive);
                 btn.setAttribute('aria-pressed', String(isActive));
+
+                const parent = btn.parentElement;
+                if (parent) {
+                    const labelText = parent.querySelector('.energy-label-text');
+                    if (labelText) {
+                        if (isActive) {
+                            labelText.classList.add('text-indigo-600', 'dark:text-indigo-400', 'font-black');
+                            labelText.classList.remove('text-slate-400', 'dark:text-slate-300');
+                        } else {
+                            labelText.classList.remove('text-indigo-600', 'dark:text-indigo-400', 'font-black');
+                            labelText.classList.add('text-slate-400', 'dark:text-slate-300');
+                        }
+                    }
+                }
             });
+
             const labelEl = document.getElementById('currentEnergyLabel');
-            if (labelEl) labelEl.textContent = `Level ${state.currentEnergy || 3}`;
+            if (labelEl) labelEl.textContent = currentConf.label;
+
+            const badgeEl = document.getElementById('energyCapacityStatusBadge');
+            if (badgeEl) {
+                badgeEl.textContent = currentConf.status;
+                badgeEl.className = `px-3 py-1 rounded-full text-[11px] font-black shrink-0 ${currentConf.badgeClass}`;
+            }
         }
 
         function filterCategory(cat) {
@@ -6503,7 +6583,8 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             document.getElementById('focusModeCustom').className = focusTimerMode === 'custom' ? 'primary-btn-gradient' : 'btn-secondary';
             document.getElementById('focusModePomodoro').className = focusTimerMode === 'pomodoro' ? 'primary-btn-gradient' : 'btn-secondary';
             document.getElementById('customDurationControl').classList.toggle('hidden', focusTimerMode !== 'custom');
-            document.getElementById('customDialHint').classList.toggle('hidden', focusTimerMode !== 'custom');
+            const customDialHintEl = document.getElementById('customDialHint');
+            if (customDialHintEl) customDialHintEl.classList.toggle('hidden', focusTimerMode !== 'custom');
             document.getElementById('focusModeOverlay').dataset.timerMode = focusTimerMode;
             document.getElementById('pomodoroStatus').classList.toggle('hidden', focusTimerMode !== 'pomodoro');
             if (focusTimerMode === 'pomodoro') setFocusDuration(25);
@@ -8723,9 +8804,19 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             const hour = new Date().getHours();
             const profileName = (document.getElementById('navProfileName')?.textContent || 'ZIEL Space').split(' ')[0];
             const dateFormatted = new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-            if (greeting) greeting.textContent = (hour < 11 ? 'Selamat pagi' : hour < 15 ? 'Selamat siang' : hour < 19 ? 'Selamat sore' : 'Selamat malam') + ', ' + profileName;
+            if (greeting) greeting.textContent = (hour < 11 ? 'Selamat pagi' : hour < 15 ? 'Selamat siang' : hour < 19 ? 'Selamat sore' : 'Selamat malam') + ', ' + (profileName || 'ZIEL');
+            
+            const datePill = document.getElementById('homeDatePill');
+            if (datePill) datePill.textContent = dateFormatted;
+
             const dateEl = document.getElementById('homeDateSubtitle');
-            if (dateEl) dateEl.textContent = dateFormatted + ' • Fokus pada satu hal yang paling bermakna.';
+            if (dateEl) dateEl.textContent = 'Fokus pada satu hal yang paling bermakna hari ini.';
+
+            const clockEl = document.getElementById('homeLiveClock');
+            if (clockEl) {
+                const now = new Date();
+                clockEl.textContent = '• ' + String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0') + ' WIB';
+            }
 
             const task = recommendedHomeTask();
             const taskTitle = document.getElementById('homeNextTaskTitle');
@@ -10577,3 +10668,4 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
     </script>
 </body>
 </html>
+
