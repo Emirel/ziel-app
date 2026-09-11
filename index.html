@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ZIEL — Zen Execution Space Pro</title>
+    <title>ZIEL — From Goal to Action (Zen Execution Space Pro)</title>
 
     <!-- PWA & Mobile Standalone Tags -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -63,7 +63,7 @@
 
         body.light-mode {
             /* MODERN LIGHT LUXURY (APPLE / LINEAR / GOJEK HIGH CONTRAST) */
-            --bg-main: #F4F6FB;
+            --bg-main: #EBF2F9;
             --bg-card: #FFFFFF;
             --bg-card-hover: #F8FAFC;
             --border-card: rgba(15, 23, 42, 0.08);
@@ -116,7 +116,7 @@
         }
 
         body.light-mode {
-            background: #F4F6FB !important;
+            background: #EBF2F9 !important;
         }
 
         @media (min-width: 1024px) {
@@ -190,7 +190,7 @@
         .add-cta-icon svg { width: 1rem; height: 1rem; stroke-width: 2.5; }
 
         .theme-card {
-            border-radius: 1.5rem !important;
+            border-radius: 1.75rem !important;
             background-color: var(--bg-card);
             border: 1px solid var(--border-card);
             box-shadow: var(--card-shadow);
@@ -622,23 +622,53 @@
 
     <!-- CLEAN APP HEADER -->
     <header class="glass-header sticky top-0 z-30 transition-all">
-        <div class="px-4 sm:px-6 top-bar-inner">
+        <div class="px-4 sm:px-6 top-bar-inner max-w-[92rem] mx-auto">
+            <!-- Left: Logo & Subtitle (Matching Image 1) -->
             <div class="flex items-center gap-3 min-w-0">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center font-black text-white shadow-md shadow-sky-500/25">Z</div>
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-sky-400 flex items-center justify-center font-black text-white shadow-md shadow-indigo-500/25 shrink-0 text-base">
+                    ZI
+                </div>
                 <div class="min-w-0">
-                    <h1 class="text-sm font-extrabold tracking-tight" style="color:var(--text-main)">ZIEL</h1>
-                    <p id="appPageTitle" class="text-xs truncate" style="color:var(--text-muted)">Beranda</p>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-base font-extrabold tracking-tight" style="color:var(--text-main)">ZIEL</h1>
+                        <span class="hidden sm:inline-block text-[10px] uppercase font-mono font-bold px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20">Pro</span>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 truncate -mt-0.5">From Goal to Action</p>
                 </div>
             </div>
-            <div class="flex items-center gap-2">
-                <button onclick="openQuickAdd()" class="primary-btn-gradient add-cta hidden sm:flex text-xs">
-                    <span class="add-cta-icon"><i data-lucide="plus"></i></span><span>Buat baru</span>
+
+            <!-- Center: Search Pill (Matching Image 1) -->
+            <div class="hidden md:flex items-center flex-1 max-w-md mx-6">
+                <div onclick="openModal('aiCopilotModal')" class="w-full flex items-center gap-2.5 px-4 py-2 rounded-full bg-[var(--input-bg)] border border-[var(--border-card)] shadow-xs hover:border-indigo-500/40 cursor-pointer transition text-xs text-slate-400 dark:text-slate-400">
+                    <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
+                    <span class="truncate">Cari goal, task, insight, atau catatan...</span>
+                    <span class="ml-auto font-mono text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-500 font-bold">⌘K</span>
+                </div>
+            </div>
+
+            <!-- Right: Status Chips & Actions (Matching Image 1) -->
+            <div class="flex items-center gap-2 sm:gap-2.5">
+                <div class="hidden xl:flex items-center gap-2 text-xs">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--input-bg)] border border-[var(--border-card)] font-bold text-slate-600 dark:text-slate-300">
+                        <span class="text-amber-500">🔥</span> Streak <span id="headerStreakDays">18</span> hari
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--input-bg)] border border-[var(--border-card)] font-bold text-slate-600 dark:text-slate-300">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Energy stabil
+                    </span>
+                </div>
+
+                <button onclick="openInsightsModal('analytics')" class="hidden sm:inline-flex btn-secondary px-3.5 py-1.5 rounded-full text-xs font-bold items-center gap-1.5">
+                    <span>Weekly Review</span>
                 </button>
+                <button onclick="openFocusModeFromTask()" class="primary-btn-gradient px-4 py-1.5 rounded-full text-xs font-extrabold flex items-center gap-1.5 shadow-md shadow-indigo-500/25 shrink-0">
+                    <i data-lucide="play" class="w-3 h-3 fill-current"></i>
+                    <span>Start Focus Session</span>
+                </button>
+
                 <button onclick="openModal('notificationCenterModal')" class="clean-icon-btn relative notification-trigger" title="Notifikasi">
                     <i data-lucide="bell" class="w-4 h-4"></i>
                     <span id="notifBadgeCount" class="notification-count absolute bg-rose-500 text-white rounded-full text-[10px] font-black flex items-center justify-center hidden">0</span>
                 </button>
-                <!-- QUICK ACCESS BIPOLAR TRACKER DI HEADER -->
                 <button onclick="BipolarTracker.openHub()" class="clean-icon-btn relative text-indigo-400" title="Bipolar Mood & Life Chart">
                     <i data-lucide="activity" class="w-4 h-4"></i>
                     <span id="bmTodayBadgeDot" class="absolute top-1 right-1 w-2 h-2 rounded-full bg-amber-400"></span>
@@ -648,8 +678,8 @@
                     <i data-lucide="moon" id="themeHeaderMoon" class="w-4 h-4"></i>
                 </button>
                 <button onclick="openModal('moreMenuModal')" class="clean-icon-btn desktop-more-menu" title="Menu lainnya"><i data-lucide="ellipsis" class="w-5 h-5"></i></button>
-                <button onclick="toggleProfileMenu(event)" class="relative" title="Profil dan pengaturan" aria-label="Buka menu profil">
-                    <div id="navAvatarDisplay" class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-extrabold">Z</div>
+                <button onclick="toggleProfileMenu(event)" class="relative ml-0.5" title="Profil dan pengaturan" aria-label="Buka menu profil">
+                    <div id="navAvatarDisplay" class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-extrabold text-xs shadow-xs">Z</div>
                     <span id="navStatusDot" class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-[var(--bg-main)] rounded-full"></span>
                 </button>
                 <span id="navProfileName" class="hidden">ZIEL Space</span>
@@ -679,20 +709,49 @@
 
     <!-- DESKTOP SIDEBAR -->
     <aside class="ziel-sidebar hidden lg:flex">
-        <nav class="space-y-1">
-            <button onclick="navigateApp('home')" data-app-nav="home" class="ziel-nav-item"><i data-lucide="home"></i><span>Beranda</span></button>
-            <button onclick="navigateApp('timeline','day')" data-app-nav="timeline" class="ziel-nav-item"><i data-lucide="calendar-days"></i><span>Hari Ini</span></button>
-            <button onclick="navigateApp('goals')" data-app-nav="goals" class="ziel-nav-item"><i data-lucide="target"></i><span>Goals</span></button>
-            <button onclick="navigateApp('tasks')" data-app-nav="tasks" class="ziel-nav-item"><i data-lucide="circle-check-big"></i><span>Tasks</span></button>
-            <button onclick="navigateApp('insights')" data-app-nav="insights" class="ziel-nav-item"><i data-lucide="chart-no-axes-combined"></i><span>Insights</span></button>
+        <nav class="space-y-1.5">
+            <button onclick="navigateApp('home')" data-app-nav="home" class="ziel-nav-item active">
+                <i data-lucide="layout-dashboard"></i>
+                <span>Dashboard</span>
+                <span class="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-600 dark:text-indigo-400">Today</span>
+            </button>
+            <button onclick="navigateApp('goals')" data-app-nav="goals" class="ziel-nav-item">
+                <i data-lucide="target"></i>
+                <span>Goals</span>
+                <span id="sidebarGoalCountBadge" class="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200/60 dark:bg-slate-800 text-slate-600 dark:text-slate-400">3</span>
+            </button>
+            <button onclick="navigateApp('tasks')" data-app-nav="tasks" class="ziel-nav-item">
+                <i data-lucide="circle-check-big"></i>
+                <span>Tasks</span>
+                <span id="sidebarTaskCountBadge" class="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200/60 dark:bg-slate-800 text-slate-600 dark:text-slate-400">4</span>
+            </button>
+            <button onclick="FinanceTracker.openModal()" class="ziel-nav-item">
+                <i data-lucide="wallet"></i>
+                <span>Finance</span>
+                <span class="ml-auto text-xs font-bold text-slate-400">↗</span>
+            </button>
+            <button onclick="BipolarTracker.openHub()" class="ziel-nav-item">
+                <i data-lucide="activity"></i>
+                <span>Mood Tracker</span>
+                <span class="ml-auto w-2 h-2 rounded-full bg-emerald-400"></span>
+            </button>
+            <button onclick="openFocusModeFromTask()" class="ziel-nav-item">
+                <i data-lucide="play-circle"></i>
+                <span>Focus Mode</span>
+                <span class="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 font-mono">90m</span>
+            </button>
+            <button onclick="openModal('aiCopilotModal')" class="ziel-nav-item">
+                <i data-lucide="bot"></i>
+                <span>AI Assistant</span>
+                <span class="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-600 dark:text-purple-400">New</span>
+            </button>
         </nav>
-        <div class="mt-auto space-y-1">
-            <p class="eyebrow px-3 pb-1">Tools</p>
-            <button onclick="FinanceTracker.openModal()" class="ziel-nav-item"><i data-lucide="wallet"></i><span>Keuangan & Alur Kas</span></button>
-            <button onclick="BipolarTracker.openHub()" class="ziel-nav-item"><i data-lucide="activity"></i><span>Bipolar Life Chart</span></button>
-            <button onclick="openModal('aiCopilotModal')" class="ziel-nav-item"><i data-lucide="sparkles"></i><span>Ask ZIEL</span></button>
-            <button onclick="openModal('brainDumpModal')" class="ziel-nav-item"><i data-lucide="brain"></i><span>Brain Dump</span></button>
+        <div class="mt-auto space-y-1 pt-4 border-t border-[var(--border-card)]">
+            <p class="eyebrow px-3 pb-1 text-[10px] text-slate-400 font-bold uppercase tracking-wider">Workspace Tools</p>
+            <button onclick="navigateApp('timeline','day')" data-app-nav="timeline" class="ziel-nav-item"><i data-lucide="calendar-days"></i><span>Timeline & Agenda</span></button>
+            <button onclick="openModal('brainDumpModal')" class="ziel-nav-item"><i data-lucide="brain"></i><span>Brain Dump AI</span></button>
             <button onclick="openSoundscapeModal()" class="ziel-nav-item"><i data-lucide="headphones"></i><span>Soundscape</span></button>
+            <button onclick="navigateApp('insights')" data-app-nav="insights" class="ziel-nav-item"><i data-lucide="chart-no-axes-combined"></i><span>Insights</span></button>
             <button onclick="openModal('settingsModal')" class="ziel-nav-item"><i data-lucide="settings"></i><span>Pengaturan</span></button>
         </div>
     </aside>
@@ -701,272 +760,422 @@
     <main class="ziel-main flex-1 w-full px-4 sm:px-6 py-6">
         <!-- HOME -->
                 <!-- HOME (MODERN HIGH-CONTRAST SUPER-APP DASHBOARD) -->
-        <section id="homeView" class="app-view space-y-4 sm:space-y-5">
+        <section id="homeView" class="app-view space-y-6">
             
-            <!-- Top Search / Ask AI Pill Bar -->
-            <div class="flex items-center justify-between p-2.5 sm:p-3 rounded-2xl shadow-sm cursor-pointer hover:border-indigo-500/40 transition" style="background:var(--bg-card); border:1px solid var(--border-card); box-shadow:var(--card-shadow);" onclick="openModal('aiCopilotModal')">
-                <div class="flex items-center gap-2.5 min-w-0">
-                    <div class="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
-                        <i data-lucide="search" class="w-4 h-4"></i>
-                    </div>
-                    <span class="text-xs sm:text-sm font-medium text-slate-400 dark:text-slate-400 truncate">Cari tugas, goal, atau tanya Ask ZIEL...</span>
-                </div>
-                <span class="px-3 py-1 rounded-xl text-xs font-black bg-indigo-600 text-white flex items-center gap-1.5 shrink-0 shadow-xs">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-                    <span>Ask AI</span>
-                </span>
-            </div>
+            <!-- ROW 1: THE ICONIC DUAL HERO SECTION (MATCHING IMAGE 1) -->
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 items-stretch">
+                
+                <!-- Left Hero Card: "Tenang di tampilan, tajam di eksekusi" (Image 1) -->
+                <div class="theme-card xl:col-span-8 p-7 sm:p-9 flex flex-col justify-between rounded-[32px] border border-[var(--border-card)] relative overflow-hidden group">
+                    <div class="space-y-4">
+                        <!-- Small Pill Tag -->
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>Sistem eksekusi personal berbasis AI</span>
+                        </div>
 
-            <!-- Main Greeting & Modern Status Heading -->
-            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pt-1 pb-1">
-                <div class="space-y-1.5 min-w-0">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20">
-                            <i data-lucide="sparkle" class="w-3 h-3"></i>
-                            Zen Execution Space
-                        </span>
-                        <span id="homeLiveClock" class="text-[11px] font-mono font-bold text-slate-400"></span>
-                    </div>
-                    <h2 id="homeGreeting" class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight" style="color:var(--text-main)">Selamat datang</h2>
-                    
-                    <!-- Modern Sleek Date & Motto Presentation -->
-                    <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap pt-0.5">
-                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[var(--bg-card)] border border-[var(--border-card)] shadow-xs transition hover:border-indigo-500/35">
-                            <span class="w-5 h-5 rounded-lg bg-indigo-500/15 text-indigo-500 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                        <!-- Huge Bold Heading (Exact match from Image 1) -->
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.15]" style="color:var(--text-main)">
+                            Tenang di<br>
+                            tampilan,<br>
+                            tajam di<br>
+                            eksekusi.
+                        </h2>
+
+                        <!-- Subtitle Paragraph -->
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl font-medium">
+                            ZIEL membantu mengubah tujuan menjadi langkah harian yang lebih jelas melalui dashboard yang fokus, task orchestration yang rapi, pemantauan mood, serta insight finansial yang mudah dibaca.
+                        </p>
+
+                        <!-- Action Button Pills -->
+                        <div class="flex items-center gap-3 pt-2 flex-wrap">
+                            <button onclick="navigateApp('timeline','day')" class="primary-btn-gradient px-6 py-3 rounded-2xl text-xs font-extrabold flex items-center gap-2 shadow-md shadow-indigo-500/20 transition hover:scale-102">
                                 <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
-                            </span>
-                            <span id="homeDatePill" class="text-xs font-bold tracking-tight font-mono" style="color:var(--text-main)">Jumat, 11 September 2026</span>
+                                <span>Rancang minggu ini</span>
+                            </button>
+                            <button onclick="navigateApp('goals')" class="btn-secondary px-5 py-3 rounded-2xl text-xs font-extrabold transition hover:border-indigo-500/30">
+                                <span>Lihat roadmap goals</span>
+                            </button>
                         </div>
-                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
-                            <span id="homeDateSubtitle">Fokus pada satu hal yang paling bermakna hari ini.</span>
+                    </div>
+
+                    <!-- 3 Metric Cards at Bottom of Hero (Image 1) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6 mt-6 border-t border-[var(--border-card)]">
+                        <div class="p-3.5 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
+                            <strong class="text-2xl font-black font-mono block text-indigo-500 dark:text-indigo-400">78%</strong>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug font-medium">
+                                Weekly execution rate naik 12% dari minggu lalu
+                            </p>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
+                            <strong class="text-2xl font-black font-mono block text-teal-500 dark:text-teal-400" id="heroActivePriorityCount">4</strong>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug font-medium">
+                                Prioritas aktif dengan beban kerja yang masih sehat
+                            </p>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
+                            <strong class="text-2xl font-black font-mono block text-amber-500" id="heroCashRunwayDisplay">Rp 7.5jt</strong>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug font-medium">
+                                Cash runway aman untuk 21 hari operasional personal
+                            </p>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- BENTO ROW: EXECUTION CAPACITY CARD + RIGHT STATS -->
-            <div class="grid grid-cols-1 xl:grid-cols-12 gap-4">
-                <!-- FLOATING EXECUTION BALANCE SUPER-CARD (GOPAY STYLE) -->
-                <section class="theme-card xl:col-span-8 p-5 sm:p-6 space-y-4">
-                    <div class="flex items-center justify-between gap-3">
-                        <div class="flex items-center gap-3 min-w-0">
-                            <div class="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/30 shrink-0">
-                                <i data-lucide="zap" class="w-5 h-5 fill-current"></i>
-                            </div>
-                            <div class="min-w-0">
-                                <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Kapasitas Eksekusi</span>
-                                <h3 id="currentEnergyLabel" class="text-base sm:text-lg font-black truncate font-mono" style="color:var(--text-main)">Level 3</h3>
-                            </div>
-                        </div>
-                        <span id="energyCapacityStatusBadge" class="px-3 py-1 rounded-full text-[11px] font-black tag-indigo shrink-0">
-                            Fokus Siap
-                        </span>
-                    </div>
+                <!-- Right Hero Card: "Focus readiness" (High-Contrast Dark Card - Image 1) -->
+                <div class="xl:col-span-4 p-7 sm:p-8 rounded-[32px] bg-[#0A1020] text-white flex flex-col justify-between shadow-2xl border border-indigo-500/20 relative overflow-hidden">
+                    <!-- Subtle Glow in background -->
+                    <div class="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none"></div>
+                    <div class="absolute -bottom-12 -left-12 w-48 h-48 rounded-full bg-teal-500/15 blur-3xl pointer-events-none"></div>
 
-                    <!-- 5-Column Tactile Circular Energy Toggles -->
-                    <div id="energySelectorGroup" class="flex items-center justify-between sm:justify-around gap-2 p-3 sm:p-4 rounded-3xl bg-[var(--input-bg)] border border-[var(--border-card)]">
-                        <div class="flex flex-col items-center gap-1.5 flex-1 min-w-0">
-                            <button type="button" onclick="setEnergy(1)" class="energy-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-xl sm:text-2xl transition-all group" data-level="1" title="Level 1: Istirahat (Sangat Rendah)">
-                                <span>😴</span>
-                            </button>
-                            <div class="text-center min-w-0">
-                                <strong class="block text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-300 truncate energy-label-text">Istirahat</strong>
-                                <small class="text-[9px] font-mono text-slate-500 dark:text-slate-400 font-bold">L1</small>
+                    <div class="space-y-4 relative z-10">
+                        <div>
+                            <span class="text-[11px] uppercase font-bold tracking-widest text-slate-400 block font-mono">Focus readiness</span>
+                            <h3 class="text-xl sm:text-2xl font-black mt-1 text-white leading-tight">Deep work mode siap dimulai</h3>
+                        </div>
+
+                        <!-- Radial Donut Progress Ring: 71% clarity (Image 1) -->
+                        <div class="py-2 flex items-center justify-center">
+                            <div class="relative w-36 h-36 flex items-center justify-center select-none">
+                                <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.08)" stroke-width="8" fill="none"></circle>
+                                    <circle cx="50" cy="50" r="40" stroke="url(#clarityGrad)" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="72.8" stroke-linecap="round" fill="none" class="transition-all duration-1000"></circle>
+                                    <defs>
+                                        <linearGradient id="clarityGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#38BDF8"></stop>
+                                            <stop offset="100%" stop-color="#2DD4BF"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div class="absolute flex flex-col items-center justify-center text-center">
+                                    <span class="text-3xl font-black font-mono tracking-tight text-white">71%</span>
+                                    <span class="text-[10px] uppercase font-bold text-slate-400 font-mono tracking-wider">clarity</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex flex-col items-center gap-1.5 flex-1 min-w-0">
-                            <button type="button" onclick="setEnergy(2)" class="energy-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-xl sm:text-2xl transition-all group" data-level="2" title="Level 2: Ringan (Rendah)">
-                                <span>🥱</span>
-                            </button>
-                            <div class="text-center min-w-0">
-                                <strong class="block text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-300 truncate energy-label-text">Ringan</strong>
-                                <small class="text-[9px] font-mono text-slate-500 dark:text-slate-400 font-bold">L2</small>
-                            </div>
-                        </div>
-                        <div class="flex flex-col items-center gap-1.5 flex-1 min-w-0">
-                            <button type="button" onclick="setEnergy(3)" class="energy-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-xl sm:text-2xl transition-all group active" data-level="3" title="Level 3: Seimbang (Sedang)">
-                                <span>🙂</span>
-                            </button>
-                            <div class="text-center min-w-0">
-                                <strong class="block text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-300 truncate energy-label-text">Seimbang</strong>
-                                <small class="text-[9px] font-mono text-slate-500 dark:text-slate-400 font-bold">L3</small>
-                            </div>
-                        </div>
-                        <div class="flex flex-col items-center gap-1.5 flex-1 min-w-0">
-                            <button type="button" onclick="setEnergy(4)" class="energy-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-xl sm:text-2xl transition-all group" data-level="4" title="Level 4: Fokus (Tinggi)">
-                                <span>⚡</span>
-                            </button>
-                            <div class="text-center min-w-0">
-                                <strong class="block text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-300 truncate energy-label-text">Fokus</strong>
-                                <small class="text-[9px] font-mono text-slate-500 dark:text-slate-400 font-bold">L4</small>
-                            </div>
-                        </div>
-                        <div class="flex flex-col items-center gap-1.5 flex-1 min-w-0">
-                            <button type="button" onclick="setEnergy(5)" class="energy-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-xl sm:text-2xl transition-all group" data-level="5" title="Level 5: Puncak (Maksimal)">
-                                <span>🔥</span>
-                            </button>
-                            <div class="text-center min-w-0">
-                                <strong class="block text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-300 truncate energy-label-text">Puncak</strong>
-                                <small class="text-[9px] font-mono text-slate-500 dark:text-slate-400 font-bold">L5</small>
-                            </div>
+
+                        <!-- Waktu terbaik Anda berikutnya (Image 1) -->
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+                            <span class="text-[11px] text-slate-400 block font-medium">Waktu terbaik Anda berikutnya</span>
+                            <strong class="text-2xl font-black font-mono block text-white tracking-tight">09:30–11:00</strong>
+                            <p class="text-[11px] text-slate-400 leading-snug pt-1">
+                                Soundscape lembut, notifikasi minimum, dan daftar tugas sudah difilter otomatis.
+                            </p>
                         </div>
                     </div>
 
-                    <!-- Action Recommendation Box (Sleek, Modern, Clean, Clickable) -->
-                    <div class="p-3.5 sm:p-4 rounded-3xl border border-sky-500/25 bg-gradient-to-r from-sky-500/10 via-[var(--input-bg)] to-indigo-500/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
-                        <div class="min-w-0 space-y-0.5">
-                            <div class="flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                <span class="text-[10px] uppercase font-bold tracking-wider text-indigo-500 dark:text-indigo-400">Rekomendasi Hari Ini</span>
-                            </div>
-                            <h4 id="homeNextTaskTitle" class="text-base sm:text-lg font-black tracking-tight truncate" style="color:var(--text-main)">Pilih tindakan</h4>
-                            <p id="homeNextTaskMeta" class="text-xs font-medium truncate" style="color:var(--text-muted)">Langkah prioritas untuk momentum fokusmu</p>
-                        </div>
-                        <button id="btnWhatShouldIDo" onclick="openFocusModeFromTask()" class="primary-btn-gradient px-5 py-2.5 rounded-xl font-black text-xs flex items-center justify-center gap-2 shrink-0 w-full sm:w-auto shadow-md transition transform hover:scale-102">
-                            <i data-lucide="play" class="w-3.5 h-3.5 fill-current" id="ctaZapIcon"></i>
-                            <span id="ctaBtnText">Mulai Fokus</span>
+                    <!-- Bottom Action Button: Masuk Focus Room (Image 1) -->
+                    <div class="pt-5 relative z-10">
+                        <button onclick="openFocusModeFromTask()" class="w-full py-3.5 px-5 rounded-full bg-white hover:bg-slate-100 text-slate-950 font-black text-xs tracking-wide transition shadow-lg shadow-white/10 flex items-center justify-center gap-2 transform active:scale-98">
+                            <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                            <span>Masuk Focus Room</span>
                         </button>
                     </div>
-                </section>
+                </div>
 
-                <!-- RIGHT STATS CARD -->
-                <section class="theme-card xl:col-span-4 p-5 sm:p-6 space-y-4">
+            </div>
+
+            <!-- ROW 2: GOJEK / ONE UI CASH FLOW BAR & 8-TILE SUPER-APP GRID (IMAGE 4) -->
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
+                
+                <!-- Floating Cash Flow Card (Gojek / One UI Style - Image 4) -->
+                <div class="theme-card xl:col-span-5 p-5 sm:p-6 rounded-[32px] border border-[var(--border-card)] space-y-4 flex flex-col justify-between">
                     <div class="flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Aktivitas Hari Ini</span>
-                            <h3 class="text-base sm:text-lg font-black" style="color:var(--text-main)">Progress Ringkas</h3>
-                        </div>
-                        <button onclick="navigateApp('insights')" class="text-link text-xs">Detail</button>
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-2 text-center">
-                        <div class="p-3 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
-                            <span class="text-[10px] text-slate-400 block font-semibold">Tugas</span>
-                            <strong id="statCompletedToday" class="text-base sm:text-lg font-black block mt-0.5" style="color:var(--text-main)">0</strong>
-                        </div>
-                        <div class="p-3 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
-                            <span class="text-[10px] text-slate-400 block font-semibold">Fokus</span>
-                            <strong id="statFocusTime" class="text-base sm:text-lg font-black font-mono block mt-0.5" style="color:var(--accent-indigo)">0m</strong>
-                        </div>
-                        <div class="p-3 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
-                            <span class="text-[10px] text-slate-400 block font-semibold">Streak</span>
-                            <strong id="statStreakDays" class="text-base sm:text-lg font-black text-amber-500 block mt-0.5">1</strong>
-                        </div>
-                    </div>
-
-                    <button onclick="openSoundscapeModal()" class="w-full flex items-center justify-between p-3 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] hover:border-indigo-500/30 transition text-xs">
-                        <div class="flex items-center gap-2.5 min-w-0">
-                            <span class="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xs shrink-0">
-                                <i data-lucide="headphones" class="w-4 h-4"></i>
-                            </span>
-                            <div class="text-left min-w-0">
-                                <small class="text-[9px] text-slate-400 uppercase font-bold block">Soundscape</small>
-                                <strong id="statMusicMode" class="text-xs block font-extrabold truncate" style="color:var(--text-main)">Rain & Water</strong>
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-9 h-9 rounded-2xl bg-amber-500/15 text-amber-500 flex items-center justify-center font-bold text-sm shrink-0">
+                                <i data-lucide="wallet" class="w-4.5 h-4.5"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Personal Cash Flow</span>
+                                <h3 class="text-sm sm:text-base font-extrabold" style="color:var(--text-main)">Saldo Kas Tersedia</h3>
                             </div>
                         </div>
-                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 shrink-0"></i>
+                        <button onclick="FinanceTracker.toggleBalanceVisibility()" class="text-slate-400 hover:text-slate-200 p-1.5 rounded-xl hover:bg-slate-500/10 transition" title="Sembunyikan / Tampilkan saldo">
+                            <i data-lucide="eye" class="w-4 h-4" id="fnEyeIconMain"></i>
+                        </button>
+                    </div>
+
+                    <!-- Balance Row -->
+                    <div class="flex items-baseline justify-between gap-2">
+                        <strong id="fnTotalBalanceMain" class="text-2xl sm:text-3xl font-black font-mono tracking-tight" style="color:var(--text-main)">Rp 7.500.000</strong>
+                        <span class="text-[11px] font-bold px-2 py-0.5 rounded-full tag-emerald">Surplus +24%</span>
+                    </div>
+
+                    <!-- Quick Gojek-Style Action Buttons: Bayar, Top Up, Kas -->
+                    <div class="grid grid-cols-3 gap-2 pt-1">
+                        <button onclick="FinanceTracker.startNewTransaction('expense')" class="btn-secondary py-2.5 px-3 rounded-2xl text-xs font-bold flex flex-col items-center justify-center gap-1 hover:border-rose-500/30 transition">
+                            <div class="w-7 h-7 rounded-xl bg-rose-500/15 text-rose-500 flex items-center justify-center">
+                                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                            </div>
+                            <span>Bayar</span>
+                        </button>
+                        <button onclick="FinanceTracker.startNewTransaction('income')" class="btn-secondary py-2.5 px-3 rounded-2xl text-xs font-bold flex flex-col items-center justify-center gap-1 hover:border-emerald-500/30 transition">
+                            <div class="w-7 h-7 rounded-xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center">
+                                <i data-lucide="arrow-down-left" class="w-3.5 h-3.5"></i>
+                            </div>
+                            <span>Pemasukan</span>
+                        </button>
+                        <button onclick="FinanceTracker.openModal()" class="btn-secondary py-2.5 px-3 rounded-2xl text-xs font-bold flex flex-col items-center justify-center gap-1 hover:border-indigo-500/30 transition">
+                            <div class="w-7 h-7 rounded-xl bg-indigo-500/15 text-indigo-500 flex items-center justify-center">
+                                <i data-lucide="pie-chart" class="w-3.5 h-3.5"></i>
+                            </div>
+                            <span>Detail Kas</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 8-Tile Super-App Icon Grid (Gojek / One UI Style - Image 4) -->
+                <div class="theme-card xl:col-span-7 p-5 sm:p-6 rounded-[32px] border border-[var(--border-card)] space-y-3 flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block font-mono">Layanan Cepat Eksekusi</span>
+                        <span class="text-[11px] font-bold text-indigo-500 dark:text-indigo-400">One UI Grid</span>
+                    </div>
+
+                    <div class="grid grid-cols-4 sm:grid-cols-8 gap-2 sm:gap-3">
+                        <div onclick="openModal('newTaskModal')" class="service-tile">
+                            <div class="service-tile-icon bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/25">
+                                <i data-lucide="circle-check-big" class="w-5 h-5"></i>
+                                <span class="service-tile-badge bg-indigo-600 text-white">+Task</span>
+                            </div>
+                            <strong>Task</strong>
+                        </div>
+                        <div onclick="openModal('newGoalModal')" class="service-tile">
+                            <div class="service-tile-icon bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/25">
+                                <i data-lucide="target" class="w-5 h-5"></i>
+                                <span class="service-tile-badge bg-purple-600 text-white">Goal</span>
+                            </div>
+                            <strong>Goal</strong>
+                        </div>
+                        <div onclick="prepareAgendaModal()" class="service-tile">
+                            <div class="service-tile-icon bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/25">
+                                <i data-lucide="calendar-plus" class="w-5 h-5"></i>
+                                <span class="service-tile-badge bg-sky-600 text-white">Agenda</span>
+                            </div>
+                            <strong>Agenda</strong>
+                        </div>
+                        <div onclick="FinanceTracker.openModal()" class="service-tile">
+                            <div class="service-tile-icon bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25">
+                                <i data-lucide="wallet" class="w-5 h-5"></i>
+                                <span class="service-tile-badge bg-amber-600 text-white">Kas</span>
+                            </div>
+                            <strong>Keuangan</strong>
+                        </div>
+                        <div onclick="BipolarTracker.openModal()" class="service-tile">
+                            <div class="service-tile-icon bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
+                                <i data-lucide="activity" class="w-5 h-5"></i>
+                                <span class="service-tile-badge bg-emerald-600 text-white">Mood</span>
+                            </div>
+                            <strong>Bipolar</strong>
+                        </div>
+                        <div onclick="openFocusModeFromTask()" class="service-tile">
+                            <div class="service-tile-icon bg-teal-500/15 text-teal-600 dark:text-teal-400 border border-teal-500/25">
+                                <i data-lucide="play" class="w-5 h-5 fill-current"></i>
+                                <span class="service-tile-badge bg-teal-600 text-white">Focus</span>
+                            </div>
+                            <strong>Fokus</strong>
+                        </div>
+                        <div onclick="openModal('brainDumpModal')" class="service-tile">
+                            <div class="service-tile-icon bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/25">
+                                <i data-lucide="brain" class="w-5 h-5"></i>
+                                <span class="service-tile-badge bg-purple-600 text-white">NLP</span>
+                            </div>
+                            <strong>Dump</strong>
+                        </div>
+                        <div onclick="openModal('aiCopilotModal')" class="service-tile">
+                            <div class="service-tile-icon bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/25">
+                                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                                <span class="service-tile-badge bg-blue-600 text-white">AI</span>
+                            </div>
+                            <strong>Copilot</strong>
+                        </div>
+                    </div>
+
+                    <!-- 5-Level Tactile Energy Selector (Integrated smoothly) -->
+                    <div class="flex items-center justify-between gap-1.5 p-2 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)]">
+                        <button type="button" onclick="setEnergy(1)" class="energy-btn flex-1 py-1.5 rounded-xl flex flex-col items-center justify-center transition-all" data-level="1" title="Level 1: Istirahat">
+                            <span class="text-base sm:text-lg">😴</span>
+                            <span class="text-[9px] font-bold text-slate-400 mt-0.5">L1</span>
+                        </button>
+                        <button type="button" onclick="setEnergy(2)" class="energy-btn flex-1 py-1.5 rounded-xl flex flex-col items-center justify-center transition-all" data-level="2" title="Level 2: Ringan">
+                            <span class="text-base sm:text-lg">🥱</span>
+                            <span class="text-[9px] font-bold text-slate-400 mt-0.5">L2</span>
+                        </button>
+                        <button type="button" onclick="setEnergy(3)" class="energy-btn flex-1 py-1.5 rounded-xl flex flex-col items-center justify-center transition-all active" data-level="3" title="Level 3: Seimbang">
+                            <span class="text-base sm:text-lg">🙂</span>
+                            <span class="text-[9px] font-bold text-indigo-400 mt-0.5">L3</span>
+                        </button>
+                        <button type="button" onclick="setEnergy(4)" class="energy-btn flex-1 py-1.5 rounded-xl flex flex-col items-center justify-center transition-all" data-level="4" title="Level 4: Fokus">
+                            <span class="text-base sm:text-lg">⚡</span>
+                            <span class="text-[9px] font-bold text-slate-400 mt-0.5">L4</span>
+                        </button>
+                        <button type="button" onclick="setEnergy(5)" class="energy-btn flex-1 py-1.5 rounded-xl flex flex-col items-center justify-center transition-all" data-level="5" title="Level 5: Puncak">
+                            <span class="text-base sm:text-lg">🔥</span>
+                            <span class="text-[9px] font-bold text-slate-400 mt-0.5">L5</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ROW 3: GOAL PIPELINE (EXACT MATCH FROM IMAGE 2) -->
+            <div class="theme-card p-6 sm:p-8 rounded-[32px] border border-[var(--border-card)] space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-xl sm:text-2xl font-black tracking-tight" style="color:var(--text-main)">Goal pipeline</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">Setiap goal dibagi menjadi outcome, momentum, dan risiko.</p>
+                    </div>
+                    <button onclick="openModal('newGoalModal')" class="btn-secondary px-4 py-2 rounded-full text-xs font-bold hover:border-indigo-500/40 transition">
+                        Tambah goal
                     </button>
-                </section>
-            </div>
+                </div>
 
-            <!-- 8-TILE QUICK ACTION SERVICE GRID (GOJEK / SUPER-APP LUXURY STYLE) -->
-            <div class="theme-card p-4 sm:p-5 rounded-3xl border border-[var(--border-card)]">
-                <div class="grid grid-cols-4 sm:grid-cols-8 gap-3 sm:gap-4">
-                    <div onclick="openModal('newTaskModal')" class="service-tile">
-                        <div class="service-tile-icon bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/25">
-                            <i data-lucide="circle-check-big" class="w-6 h-6"></i>
-                            <span class="service-tile-badge bg-indigo-600 text-white">+Task</span>
+                <!-- Goal Items List (Matching Image 2) -->
+                <div class="space-y-3" id="homeGoalPipelineList">
+                    <!-- Item 1 -->
+                    <div onclick="openGoalDetail('goal-ziel-web')" class="p-4 sm:p-5 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] hover:border-indigo-500/30 transition cursor-pointer space-y-2.5">
+                        <div class="flex items-center justify-between gap-3">
+                            <div>
+                                <strong class="text-sm sm:text-base font-extrabold block" style="color:var(--text-main)">Launch ZIEL v2</strong>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Outcome: onboarding lebih cepat dan retention lebih baik</p>
+                            </div>
+                            <span class="text-xs font-black font-mono text-slate-600 dark:text-slate-300">74%</span>
                         </div>
-                        <strong>Task</strong>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-blue-500 to-emerald-400 rounded-full transition-all duration-500" style="width:74%"></div>
+                        </div>
                     </div>
-                    <div onclick="openModal('newGoalModal')" class="service-tile">
-                        <div class="service-tile-icon bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/25">
-                            <i data-lucide="target" class="w-6 h-6"></i>
-                            <span class="service-tile-badge bg-purple-600 text-white">Goal</span>
+
+                    <!-- Item 2 -->
+                    <div onclick="FinanceTracker.openModal()" class="p-4 sm:p-5 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] hover:border-indigo-500/30 transition cursor-pointer space-y-2.5">
+                        <div class="flex items-center justify-between gap-3">
+                            <div>
+                                <strong class="text-sm sm:text-base font-extrabold block" style="color:var(--text-main)">Stabilkan personal cashflow</strong>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Outcome: runway > 60 hari, spending lebih sadar</p>
+                            </div>
+                            <span class="text-xs font-black font-mono text-slate-600 dark:text-slate-300">58%</span>
                         </div>
-                        <strong>Goal</strong>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-blue-500 to-emerald-400 rounded-full transition-all duration-500" style="width:58%"></div>
+                        </div>
                     </div>
-                    <div onclick="prepareAgendaModal()" class="service-tile">
-                        <div class="service-tile-icon bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/25">
-                            <i data-lucide="calendar-plus" class="w-6 h-6"></i>
-                            <span class="service-tile-badge bg-sky-600 text-white">Agenda</span>
+
+                    <!-- Item 3 -->
+                    <div onclick="BipolarTracker.openHub()" class="p-4 sm:p-5 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] hover:border-indigo-500/30 transition cursor-pointer space-y-2.5">
+                        <div class="flex items-center justify-between gap-3">
+                            <div>
+                                <strong class="text-sm sm:text-base font-extrabold block" style="color:var(--text-main)">Bangun ritme kerja yang sustainable</strong>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Outcome: fokus tinggi tanpa burnout dan mood swing</p>
+                            </div>
+                            <span class="text-xs font-black font-mono text-slate-600 dark:text-slate-300">83%</span>
                         </div>
-                        <strong>Agenda</strong>
-                    </div>
-                    <div onclick="FinanceTracker.openModal()" class="service-tile">
-                        <div class="service-tile-icon bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25">
-                            <i data-lucide="wallet" class="w-6 h-6"></i>
-                            <span class="service-tile-badge bg-amber-600 text-white">Kas</span>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-blue-500 to-emerald-400 rounded-full transition-all duration-500" style="width:83%"></div>
                         </div>
-                        <strong>Keuangan</strong>
-                    </div>
-                    <div onclick="BipolarTracker.openModal()" class="service-tile">
-                        <div class="service-tile-icon bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
-                            <i data-lucide="activity" class="w-6 h-6"></i>
-                            <span class="service-tile-badge bg-emerald-600 text-white">Mood</span>
-                        </div>
-                        <strong>Bipolar</strong>
-                    </div>
-                    <div onclick="openFocusModeFromTask()" class="service-tile">
-                        <div class="service-tile-icon bg-teal-500/15 text-teal-600 dark:text-teal-400 border border-teal-500/25">
-                            <i data-lucide="play" class="w-6 h-6 fill-current"></i>
-                            <span class="service-tile-badge bg-teal-600 text-white">Focus</span>
-                        </div>
-                        <strong>Fokus</strong>
-                    </div>
-                    <div onclick="openModal('brainDumpModal')" class="service-tile">
-                        <div class="service-tile-icon bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/25">
-                            <i data-lucide="brain" class="w-6 h-6"></i>
-                            <span class="service-tile-badge bg-purple-600 text-white">AI NLP</span>
-                        </div>
-                        <strong>Dump</strong>
-                    </div>
-                    <div onclick="openModal('aiCopilotModal')" class="service-tile">
-                        <div class="service-tile-icon bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/25">
-                            <i data-lucide="sparkles" class="w-6 h-6"></i>
-                            <span class="service-tile-badge bg-blue-600 text-white">Copilot</span>
-                        </div>
-                        <strong>Ask AI</strong>
                     </div>
                 </div>
             </div>
 
-            <!-- HIGH-CONTRAST STATUS BANNER (GOJEK PLUS PILL BANNER STYLE) -->
-            <div onclick="BipolarTracker.openModal()" class="cursor-pointer p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 text-white flex items-center justify-between gap-3 shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5">
-                <div class="flex items-center gap-3 min-w-0">
-                    <span class="w-9 h-9 rounded-xl bg-white/20 text-white flex items-center justify-center shrink-0">
-                        <i data-lucide="activity" class="w-5 h-5"></i>
-                    </span>
-                    <div class="min-w-0">
-                        <div class="flex items-center gap-2">
-                            <strong class="text-xs sm:text-sm font-black truncate text-white" id="bmHomeStatusTitle">Keseimbangan Mood Hari Ini</strong>
-                            <span class="px-2 py-0.2 rounded-full text-[9px] font-black bg-white/25 text-white shrink-0">Spektrum</span>
+            <!-- ROW 4: AGENDA UTAMA HARI INI & AI EXECUTIVE ASSISTANT (EXACT MATCH FROM IMAGE 3) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+                
+                <!-- Left Column: "Agenda utama hari ini" (Image 3) -->
+                <div class="theme-card lg:col-span-7 p-6 sm:p-7 rounded-[32px] border border-[var(--border-card)] space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl sm:text-2xl font-black tracking-tight" style="color:var(--text-main)">Agenda utama hari ini</h3>
+                            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">Tugas ditata berdasarkan leverage, bukan hanya urutan waktu.</p>
                         </div>
-                        <p class="text-xs text-white/90 truncate mt-0.5" id="bmHomeStatusSub">Pantau kestabilan suasana hati, tidur, dan obat harian</p>
+                        <button onclick="aiReplan()" class="px-3.5 py-1.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 text-xs font-bold hover:bg-indigo-500/20 transition">
+                            Optimalkan otomatis
+                        </button>
+                    </div>
+
+                    <!-- Agenda Items with Badges (Matching Image 3) -->
+                    <div class="space-y-2.5" id="homeExecutiveAgendaList">
+                        <!-- Task 1: Done -->
+                        <div class="p-3.5 sm:p-4 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] flex items-center justify-between gap-3 transition">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div class="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
+                                    ✓
+                                </div>
+                                <div class="min-w-0">
+                                    <strong class="text-xs sm:text-sm font-bold line-through opacity-60 block truncate" style="color:var(--text-main)">Finalisasi landing page investor</strong>
+                                    <p class="text-[11px] text-slate-400 truncate">High impact • 45 menit • selesai lebih cepat 8 menit</p>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-500/15 text-blue-500 dark:text-blue-400 shrink-0">Done</span>
+                        </div>
+
+                        <!-- Task 2: Next -->
+                        <div onclick="openFocusModeFromTask()" class="p-3.5 sm:p-4 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] hover:border-emerald-500/40 flex items-center justify-between gap-3 cursor-pointer transition">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div class="w-6 h-6 rounded-lg border-2 border-slate-400 flex items-center justify-center shrink-0"></div>
+                                <div class="min-w-0">
+                                    <strong class="text-xs sm:text-sm font-bold block truncate" style="color:var(--text-main)">Susun sprint goals untuk minggu depan</strong>
+                                    <p class="text-[11px] text-slate-400 truncate">Strategic • 30 menit • cocok untuk deep work</p>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-500 dark:text-emerald-400 shrink-0">Next</span>
+                        </div>
+
+                        <!-- Task 3: Review -->
+                        <div onclick="FinanceTracker.openModal()" class="p-3.5 sm:p-4 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] hover:border-amber-500/40 flex items-center justify-between gap-3 cursor-pointer transition">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div class="w-6 h-6 rounded-lg border-2 border-slate-400 flex items-center justify-center shrink-0"></div>
+                                <div class="min-w-0">
+                                    <strong class="text-xs sm:text-sm font-bold block truncate" style="color:var(--text-main)">Review cashflow & subscription burn</strong>
+                                    <p class="text-[11px] text-slate-400 truncate">Finance • 20 menit • rekomendasi AI tersedia</p>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-500 dark:text-amber-400 shrink-0">Review</span>
+                        </div>
+
+                        <!-- Task 4: Habit -->
+                        <div onclick="BipolarTracker.openHub()" class="p-3.5 sm:p-4 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] hover:border-purple-500/40 flex items-center justify-between gap-3 cursor-pointer transition">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div class="w-6 h-6 rounded-lg border-2 border-slate-400 flex items-center justify-center shrink-0"></div>
+                                <div class="min-w-0">
+                                    <strong class="text-xs sm:text-sm font-bold block truncate" style="color:var(--text-main)">Check-in mood dan catatan energi sore</strong>
+                                    <p class="text-[11px] text-slate-400 truncate">Wellbeing • 5 menit • menjaga konsistensi ritme</p>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-purple-500/15 text-purple-500 dark:text-purple-400 shrink-0">Habit</span>
+                        </div>
                     </div>
                 </div>
-                <div class="flex items-center gap-1 shrink-0 font-bold text-xs bg-white text-slate-900 px-3 py-1.5 rounded-xl shadow-xs">
-                    <span>Buka</span>
-                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+
+                <!-- Right Column: "AI Executive Assistant" (Image 3) -->
+                <div class="theme-card lg:col-span-5 p-6 sm:p-7 rounded-[32px] border border-[var(--border-card)] space-y-4">
+                    <div>
+                        <h3 class="text-xl sm:text-2xl font-black tracking-tight" style="color:var(--text-main)">AI Executive Assistant</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">Insight yang ringkas, actionable, dan tidak berisik.</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <!-- Summary Message Card (Image 3) -->
+                        <div class="p-4 sm:p-5 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] leading-relaxed text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium">
+                            Anda paling produktif saat task strategis diletakkan sebelum jam 11.00. Saya merekomendasikan memindahkan review cashflow ke setelah makan siang, lalu blok 90 menit untuk menyusun sprint goals agar leverage-nya maksimal.
+                        </div>
+
+                        <!-- Card: Recommendation (Image 3) -->
+                        <div class="p-4 sm:p-5 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] space-y-1">
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block font-mono">Recommendation</span>
+                            <h4 class="text-sm sm:text-base font-black tracking-tight" style="color:var(--text-main)">Kurangi 2 context switch</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Gabungkan tugas admin pada satu batch pukul 15.00.</p>
+                        </div>
+
+                        <!-- Card: Risk alert (Image 3) -->
+                        <div class="p-4 sm:p-5 rounded-2xl bg-[var(--input-bg)] border border-[var(--border-card)] space-y-1">
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-rose-400 block font-mono">Risk alert</span>
+                            <h4 class="text-sm sm:text-base font-black tracking-tight" style="color:var(--text-main)">Energi cenderung turun Kamis</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Jadwalkan pekerjaan ringan dan tambahkan recovery</p>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
-            <!-- LOWER DUAL CARDS: JADWAL & SASARAN -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <section class="theme-card p-5">
-                    <div class="section-header"><div><span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Jadwal</span><h3 class="section-title">Berikutnya hari ini</h3></div><button onclick="navigateApp('timeline','day')" class="text-link">Lihat semua</button></div>
-                    <div id="homeTodayPreview" class="mt-4 space-y-2"></div>
-                </section>
-                <section class="theme-card p-5">
-                    <div class="section-header"><div><span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Arah</span><h3 class="section-title">Goal yang sedang berjalan</h3></div><button onclick="navigateApp('goals')" class="text-link">Lihat semua</button></div>
-                    <div id="homeGoalPreview" class="mt-4 space-y-3"></div>
-                </section>
-            </div>
-        </section>
-
-        <!-- TODAY / TIMELINE -->
-        <section id="timelineView" class="app-view hidden space-y-5">
+        </section><section id="timelineView" class="app-view hidden space-y-5">
             <div class="page-heading"><div><h2 class="text-2xl sm:text-3xl font-black" style="color:var(--text-main)">Hari Ini & Timeline</h2><p class="text-xs sm:text-sm mt-0.5" style="color:var(--text-muted)">Jadwal harian dan horizon eksekusi</p></div><button onclick="prepareAgendaModal()" class="primary-btn-gradient add-cta text-sm"><span class="add-cta-icon"><i data-lucide="plus"></i></span><span>Agenda</span></button></div>
 
             <div class="theme-card rounded-2xl p-4 sm:p-5 space-y-4 overflow-hidden">
@@ -4527,7 +4736,7 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
 
         // ================= DUAL THEME SYSTEM =================
         function initTheme() {
-            applyThemePreference(localStorage.getItem('ZIEL_THEME') || 'dark', false);
+            applyThemePreference(localStorage.getItem('ZIEL_THEME') || 'light', false);
             applyWebPreferences(getWebSettings());
         }
 
@@ -9431,4 +9640,3 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
     </script>
 </body>
 </html>
-
