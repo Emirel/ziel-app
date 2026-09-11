@@ -29,31 +29,32 @@
     <!-- CSS VARIABLES & CALM TECH STYLING -->
     <style>
         :root {
-            /* MODERN 2026 OBSIDIAN DARK THEME - HIGH CONTRAST */
-            --bg-main: #080C16;
-            --bg-card: #0F1524;
-            --bg-card-hover: #151E33;
-            --border-card: rgba(255, 255, 255, 0.09);
-            --border-card-hover: rgba(99, 102, 241, 0.45);
+            /* MODERN 2026 ZIEL MIDNIGHT SAPPHIRE THEME - MATCHING ZIEL. SPLASH */
+            --bg-main: #0B1224;
+            --bg-card: #0F1B33;
+            --bg-card-hover: #152445;
+            --border-card: rgba(255, 255, 255, 0.08);
+            --border-card-hover: rgba(56, 189, 248, 0.45);
             --text-main: #F8FAFC;
             --text-sub: #CBD5E1;
             --text-muted: #64748B;
-            --card-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.06);
-            --header-bg: rgba(8, 12, 22, 0.92);
-            --modal-bg: rgba(15, 21, 36, 0.98);
-            --modal-overlay: rgba(4, 7, 14, 0.82);
-            --input-bg: #0B101D;
+            --card-shadow: 0 12px 36px -4px rgba(2, 6, 23, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.06);
+            --header-bg: rgba(11, 18, 36, 0.88);
+            --modal-bg: rgba(15, 27, 51, 0.98);
+            --modal-overlay: rgba(2, 6, 23, 0.85);
+            --input-bg: #090E1A;
 
             /* BUTTONS */
-            --btn-sec-bg: rgba(255, 255, 255, 0.07);
+            --btn-sec-bg: rgba(255, 255, 255, 0.06);
             --btn-sec-hover: rgba(255, 255, 255, 0.12);
             --btn-sec-text: #F8FAFC;
 
-            /* ACCENTS */
-            --primary-gradient: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
-            --primary-glow: 0 4px 20px -2px rgba(99, 102, 241, 0.4);
+            /* ACCENTS - ZIEL CYAN & ROYAL INDIGO */
+            --primary-gradient: linear-gradient(135deg, #38BDF8 0%, #6366F1 50%, #4F46E5 100%);
+            --primary-glow: 0 4px 20px -2px rgba(56, 189, 248, 0.4);
 
-            --accent-indigo: #6366F1;
+            --accent-indigo: #4F46E5;
+            --accent-cyan: #38BDF8;
             --accent-teal: #10B981;
             --accent-purple: #8B5CF6;
             --accent-amber: #F59E0B;
@@ -218,13 +219,17 @@
 
         body {
             font-family: 'DM Sans', sans-serif;
-            background-color: var(--bg-main);
+            background: linear-gradient(135deg, #090E1A 0%, #0F172A 45%, #172554 85%, #1E3A8A 100%);
+            background-attachment: fixed;
             color: var(--text-main);
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background 0.3s ease, color 0.3s ease;
             -webkit-tap-highlight-color: transparent;
             padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
             overflow-x: hidden;
             max-width: 100vw;
+        }
+        body.light-mode {
+            background: #F3F5FA !important;
         }
 
         @media (min-width: 768px) {
@@ -2132,7 +2137,7 @@
     <header class="glass-header sticky top-0 z-30 transition-all">
         <div class="px-4 sm:px-6 top-bar-inner">
             <div class="flex items-center gap-3 min-w-0">
-                <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center font-black text-white shadow-sm">Z</div>
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center font-black text-white shadow-md shadow-sky-500/25">Z</div>
                 <div class="min-w-0">
                     <h1 class="text-sm font-extrabold tracking-tight" style="color:var(--text-main)">ZIEL</h1>
                     <p id="appPageTitle" class="text-xs truncate" style="color:var(--text-muted)">Beranda</p>
@@ -2321,8 +2326,8 @@
                         </div>
                     </div>
 
-                    <!-- Action Recommendation Box (Sleek, Modern, Clean) -->
-                    <div class="p-3.5 sm:p-4 rounded-2xl border border-indigo-500/20 bg-gradient-to-r from-indigo-500/8 via-[var(--input-bg)] to-emerald-500/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+                    <!-- Action Recommendation Box (Sleek, Modern, Clean, Clickable) -->
+                    <div class="p-3.5 sm:p-4 rounded-3xl border border-sky-500/25 bg-gradient-to-r from-sky-500/10 via-[var(--input-bg)] to-indigo-500/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
                         <div class="min-w-0 space-y-0.5">
                             <div class="flex items-center gap-1.5">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -3717,7 +3722,7 @@
 
     <!-- FULLSCREEN ZEN FOCUS MODE -->
     <!-- 3. FULLSCREEN ZEN FOCUS MODE (MINIMALIST & CINEMATIC) -->
-    <div id="focusModeOverlay" class="fixed inset-0 z-[90] flex flex-col items-center justify-between p-4 sm:p-8 overflow-y-auto hidden" style="background: radial-gradient(circle at 50% 30%, rgba(99,102,241,0.08) 0%, transparent 60%), var(--bg-main);">
+    <div id="focusModeOverlay" class="fixed inset-0 z-[90] flex flex-col items-center justify-between p-4 sm:p-8 overflow-y-auto hidden" style="background: radial-gradient(circle at 50% 25%, rgba(56,189,248,0.12) 0%, rgba(30,58,138,0.25) 45%, transparent 75%), linear-gradient(135deg, #090E1A 0%, #0F172A 50%, #172554 100%);">
         
         <!-- Minimalist Header -->
         <div class="w-full max-w-xl flex items-center justify-between">
@@ -6435,44 +6440,61 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
         }
 
         function calculateAndShowRecommendation() {
-            const availableTasks = state.tasks.filter(t => t.status !== 'completed' && !skippedTaskIds.includes(t.id));
+            // Filter all tasks that are not completed
+            let availableTasks = state.tasks.filter(t => t.status !== 'completed' && !skippedTaskIds.includes(t.id));
             if (availableTasks.length === 0) {
                 if (skippedTaskIds.length > 0) {
                     skippedTaskIds = [];
-                    return calculateAndShowRecommendation();
+                    availableTasks = state.tasks.filter(t => t.status !== 'completed');
                 }
-                showToast({ type: 'success', title: 'Luar Biasa! 🎉', message: 'Semua antrean tugas Anda telah selesai dikerjakan.' });
+            }
+            if (availableTasks.length === 0) {
+                showToast({ type: 'info', title: 'Tidak Ada Tugas Tertunda', message: 'Semua antrean tugas Anda telah selesai dikerjakan.' });
                 return;
             }
 
+            const pWeights = { urgent: 50, high: 35, medium: 20, low: 10 };
             const scored = availableTasks.map(task => {
                 let score = 0;
-                const pWeights = { urgent: 50, high: 35, medium: 20, low: 10 };
-                score += pWeights[task.priority] || 15;
-                const distance = Math.abs(task.energyRequired - state.currentEnergy);
+                score += pWeights[task.priority] || 20;
+                const taskEnergy = Number(task.energyRequired) || 3;
+                const currentEnergy = Number(state.currentEnergy) || 3;
+                const distance = Math.abs(taskEnergy - currentEnergy);
                 score += (5 - distance) * 20;
-                if (state.currentEnergy <= 2 && task.estimatedMinutes <= 20) score += 30;
-                if (state.currentEnergy >= 4 && task.energyRequired >= 4) score += 35;
+                const dur = Number(task.estimatedMinutes) || 25;
+                if (currentEnergy <= 2 && dur <= 20) score += 30;
+                if (currentEnergy >= 4 && taskEnergy >= 4) score += 35;
+                if (task.deadline && task.deadline <= todayKey()) score += 40;
                 return { task, score };
             });
 
             scored.sort((a, b) => b.score - a.score);
             currentRecTask = scored[0].task;
 
-            document.getElementById('recTaskTitle').textContent = currentRecTask.title;
-            document.getElementById('recDuration').textContent = currentRecTask.estimatedMinutes + " menit";
-            document.getElementById('recPriority').textContent = ({ urgent:'Mendesak', high:'Tinggi', medium:'Sedang', low:'Rendah' })[currentRecTask.priority] || 'Normal';
-            const energyDistance = Math.abs((currentRecTask.energyRequired || 3) - state.currentEnergy);
-            document.getElementById('recEnergyMatch').textContent = energyDistance === 0 ? 'Sangat cocok' : (energyDistance === 1 ? 'Cocok' : 'Cukup cocok');
+            const titleEl = document.getElementById('recTaskTitle');
+            if (titleEl) titleEl.textContent = currentRecTask.title || 'Tugas Tanpa Judul';
 
-            const parentGoal = state.goals.find(g => g.id === currentRecTask.goalId);
+            const durEl = document.getElementById('recDuration');
+            if (durEl) durEl.textContent = (currentRecTask.estimatedMinutes || 25) + " menit";
+
+            const prioEl = document.getElementById('recPriority');
+            if (prioEl) prioEl.textContent = ({ urgent:'Mendesak', high:'Tinggi', medium:'Sedang', low:'Rendah' })[currentRecTask.priority] || 'Normal';
+
+            const energyDistance = Math.abs((Number(currentRecTask.energyRequired) || 3) - (Number(state.currentEnergy) || 3));
+            const matchEl = document.getElementById('recEnergyMatch');
+            if (matchEl) matchEl.textContent = energyDistance === 0 ? 'Sangat cocok' : (energyDistance === 1 ? 'Cocok' : 'Cukup cocok');
+
+            const parentGoal = state.goals ? state.goals.find(g => g.id === currentRecTask.goalId) : null;
             const cats = getCategories();
             const matchedCat = cats.find(c => c.id === currentRecTask.category);
-            const catName = matchedCat ? `${matchedCat.icon} ${matchedCat.name}` : currentRecTask.category.toUpperCase();
+            const catName = matchedCat ? `${matchedCat.icon} ${matchedCat.name}` : (currentRecTask.category ? String(currentRecTask.category).toUpperCase() : 'FOKUS');
 
-            document.getElementById('recContext').textContent = parentGoal ? `Goal · ${parentGoal.title}` : `Area · ${catName}`;
-            const pendingAction = currentRecTask.atomicActions ? currentRecTask.atomicActions.find(a => !a.isCompleted) : null;
-            document.getElementById('recMicroAction').textContent = pendingAction ? pendingAction.title : "Buka workspace dan mulai 5 menit pertama.";
+            const contextEl = document.getElementById('recContext');
+            if (contextEl) contextEl.textContent = parentGoal ? `Goal · ${parentGoal.title}` : `Area · ${catName}`;
+
+            const pendingAction = (currentRecTask.atomicActions && currentRecTask.atomicActions.length) ? currentRecTask.atomicActions.find(a => !a.isCompleted) : null;
+            const microEl = document.getElementById('recMicroAction');
+            if (microEl) microEl.textContent = pendingAction ? pendingAction.title : "Buka workspace dan mulai 5 menit pertama.";
 
             openModal('recommendationModal');
             playChime('success');
@@ -8789,14 +8811,19 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
         }
 
         function recommendedHomeTask() {
+            const activeTasks = state.tasks.filter(t => t.status !== 'completed');
+            if (!activeTasks.length) return null;
+
             const priorityScore = { urgent: 4, high: 3, medium: 2, low: 1 };
-            return state.tasks.filter(function (task) {
-                return task.status !== 'completed' && Number(task.energyRequired || 3) <= Number(state.currentEnergy || 3) + 1;
-            }).sort(function (a, b) {
-                const overdueA = a.deadline <= todayKey() ? 4 : 0;
-                const overdueB = b.deadline <= todayKey() ? 4 : 0;
+            // First check tasks matching energy
+            const energyMatch = activeTasks.filter(t => Number(t.energyRequired || 3) <= Number(state.currentEnergy || 3) + 1);
+            const pool = energyMatch.length ? energyMatch : activeTasks;
+
+            return pool.slice().sort((a, b) => {
+                const overdueA = (a.deadline && a.deadline <= todayKey()) ? 4 : 0;
+                const overdueB = (b.deadline && b.deadline <= todayKey()) ? 4 : 0;
                 return (overdueB + (priorityScore[b.priority] || 0)) - (overdueA + (priorityScore[a.priority] || 0));
-            })[0] || state.tasks.find(function (task) { return task.status !== 'completed'; });
+            })[0] || activeTasks[0];
         }
 
         function renderHomeOverview() {
@@ -8827,19 +8854,28 @@ Jawablah dengan bahasa Indonesia yang luwes, alami, terstruktur rapi, dan hindar
             if (task) {
                 if (taskTitle) taskTitle.textContent = task.title;
                 const path = taskPath(task);
-                // Hilangkan 25 menit dan Energi L3 sesuai instruksi
                 if (taskMeta) taskMeta.textContent = path ? `Jalur: ${path}` : 'Langkah prioritas berikutnya untuk momentum fokusmu';
                 if (ctaBtn) {
                     ctaBtn.onclick = function() { openFocusModeFromTask(task.id); };
                 }
                 if (ctaText) ctaText.textContent = 'Mulai Fokus';
             } else {
-                if (taskTitle) taskTitle.textContent = 'Semua tindakan sudah selesai';
-                if (taskMeta) taskMeta.textContent = 'Nikmati ruang yang lapang atau buat langkah baru.';
-                if (ctaBtn) {
-                    ctaBtn.onclick = function() { openModal('newTaskModal'); };
+                const anyPending = state.tasks.find(t => t.status !== 'completed');
+                if (anyPending) {
+                    if (taskTitle) taskTitle.textContent = anyPending.title;
+                    if (taskMeta) taskMeta.textContent = 'Langkah aktif yang siap kamu eksekusi';
+                    if (ctaBtn) {
+                        ctaBtn.onclick = function() { openFocusModeFromTask(anyPending.id); };
+                    }
+                    if (ctaText) ctaText.textContent = 'Mulai Fokus';
+                } else {
+                    if (taskTitle) taskTitle.textContent = 'Semua tindakan sudah selesai';
+                    if (taskMeta) taskMeta.textContent = 'Nikmati ruang yang lapang atau buat langkah baru.';
+                    if (ctaBtn) {
+                        ctaBtn.onclick = function() { openModal('newTaskModal'); };
+                    }
+                    if (ctaText) ctaText.textContent = '+ Buat Task';
                 }
-                if (ctaText) ctaText.textContent = '+ Buat Task';
             }
 
             const todayContainer = document.getElementById('homeTodayPreview');
